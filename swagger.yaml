@@ -1,0 +1,711 @@
+---
+swagger: "2.0"
+info:
+  description: |
+    This is a swagger defenition for [Telegram bot API](https://core.telegram.org/bots/api).
+  version: "1.0.0"
+  title: Telegram bot API
+externalDocs:
+  description: Find out more about Telegram bot API
+  url: https://core.telegram.org/bots/api
+host: api.telegram.org
+schemes:
+ - https
+consumes:
+- application/json
+produces:
+- application/json
+basePath: /
+parameters:
+  token:
+    in: path
+    name: token
+    required: false
+    type: string
+    description: bot's token to authorize the request
+paths:
+  /bot{token}/getUpdates:
+    get:
+      tags:
+      - updates
+      description: ""
+      operationId: getUpdates
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: offset
+        description: ""
+        required: false
+        type: integer
+        format: int64
+      - in: query
+        name: limit
+        description: ""
+        required: false
+        type: integer
+        format: int64
+      - in: query
+        name: timeout
+        description: "timeout"
+        required: false
+        type: integer
+        format: int64
+      - in: query
+        name: allowed_updates
+        description: ""
+        required: false
+        type: string
+        enum:
+        - message
+        - edited_message
+        - channel_post
+        - edited_channel_post
+        - inline_query
+        - chosen_inline_result
+        - callback_query
+      responses:
+        200:
+          description: An array of Updates
+          schema:
+            type: object
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "#/definitions/Update"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+  /bot{token}/getMe:
+    get:
+      tags:
+      - users
+      description: ""
+      operationId: getMe
+      parameters:
+      - $ref: '#/parameters/token'
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/User"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+  /bot{token}/sendMessage:
+    post:
+      tags:
+      - messages
+      description: ""
+      operationId: sendMessage
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: request
+        required: false
+        schema:
+          type: object
+          required:
+          - chat_id
+          - text
+          properties:
+            chat_id:
+              type: object
+            text:
+              type: string
+            parse_mode:
+              type: string
+              enum:
+              - Markdown
+              - Html
+            disable_web_page_preview:
+              type: boolean
+            disable_notification:
+              type: boolean
+            reply_to_message_id:
+              type: integer
+              format: int64
+            reply_markup:
+              schema:
+                type: object
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+  /bot{token}/forwardMessage:
+    post:
+      tags:
+      - messages
+      description: ""
+      operationId: forwardMessage
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: from_chat_id
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: disable_notification
+        type: boolean
+        required: false
+        description: ""
+      - in: formData
+        name: message_id
+        type: integer
+        format: int64
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+  /bot{token}/sendPhoto:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendPhoto
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: photo
+        type: file
+        required: true
+        description: ""
+      - in: formData
+        name: caption
+        type: string
+        required: false
+        description: "" 
+      - in: formData
+        name: disable_notification
+        type: boolean
+        required: false
+        description: ""
+      - in: formData
+        name: reply_to_message_id
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: formData
+        name: reply_markup
+        type: string
+        required: false
+        description: "json string of reply_markup object"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+  /bot{token}/sendPhoto#link:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendPhotoLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        required: false
+        name: request
+        description: ""
+        schema:
+          type: object
+          required:
+          - chat_id
+          - photo
+          properties:
+            chat_id:
+              type: string
+            photo:
+              type: string
+            caption:
+              type: string
+            disable_notification:
+              type: boolean
+            reply_to_message_id:
+              type: integer
+              format: int64
+            reply_markup:
+              schema:
+                type: object
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        foramt: int64
+      username:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+  Chat:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      type:
+        type: string
+        enum:
+        - private
+        - group
+        - supergroup
+        - channel
+      title:
+        type: string
+      username:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      all_members_are_administrators:
+        type: boolean
+  Message:
+    type: object
+    properties:
+      message_id:
+        type: integer
+        format: int64
+      from:
+        $ref: '#/definitions/User'
+      date:
+        type: integer
+        format: int64
+      chat:
+        $ref: '#/definitions/Chat'
+      forward_from:
+        $ref: '#/definitions/User'
+      forward_from_chat:
+        $ref: '#/definitions/Chat'
+      forward_from_message_id:
+        type: integer
+        format: int64
+      forward_date:
+        type: integer
+        format: int64
+      reply_to_message:
+        $ref: '#/definitions/Message'
+      edit_date:
+        type: integer
+        format: int64
+      text:
+        type: string
+      entities:
+        type: array
+        items:
+          $ref: '#/definitions/MessageEntity'
+      audio:
+        $ref: '#/definitions/Audio'
+      document:
+        $ref: '#/definitions/Document'
+      # game:
+      #   $ref: '#/definitions/Game'
+      photo:
+        type: array
+        items:
+          $ref: '#/definitions/PhotoSize'
+      sticker:
+        $ref: '#/definitions/Sticker'
+      video:
+        $ref: '#/definitions/Video'
+      voice:
+        $ref: '#/definitions/Voice'
+      caption:
+        type: string
+      contact:
+        $ref: '#/definitions/Contact'
+      location:
+        $ref: '#/definitions/Location'
+      venue:
+        $ref: '#/definitions/Venue'
+      new_chat_member:
+        $ref: '#/definitions/User'
+      left_chat_member:
+        $ref: '#/definitions/User'
+      new_chat_title:
+        type: string
+      new_chat_photo:
+        type: array
+        items:
+          $ref: '#/definitions/PhotoSize'
+      delete_chat_photo:
+        type: boolean
+      group_chat_created:
+        type: boolean
+      supergroup_chat_created:
+        type: boolean
+      channel_chat_created:
+        type: boolean
+      migrate_to_chat_id:
+        type: integer
+        format: int64
+      migrate_from_chat_id:
+        type: integer
+        format: int64
+      pinned_message:
+        $ref: '#/definitions/Message'
+  MessageEntity:
+    type: object
+    properties:
+      type:
+        type: string
+        enum:
+        - mention
+        - hashtag
+        - bot_command
+        - url
+        - email
+        - bold
+        - italic
+        - code
+        - pre
+        - text_link
+        - text_mention
+      offset:
+        type: integer
+        format: int64
+      length:
+        type: integer
+        format: int64
+      url:
+        type: string
+      user:
+        $ref: '#/definitions/User'
+  PhotoSize:
+    type: object
+    properties:
+      file_id:
+        type: string
+      width:
+        type: integer
+        format: int64
+      height:
+        type: integer
+        format: int64
+      file_size:
+        type: integer
+        format: int64
+  Audio:
+    type: object
+    properties:
+      file_id:
+        type: string
+      duration:
+        type: integer
+        format: int64
+      performer:
+        type: string
+      title:
+        type: string
+      mime_type:
+        type: string
+      file_size:
+        type: integer
+        format: int64
+  Document:
+    type: object
+    properties:
+      file_id:
+        type: string
+      thumb:
+        $ref: '#/definitions/PhotoSize'
+      file_name:
+        type: string
+      mime_type:
+        type: string
+      file_size:
+        type: integer
+        format: int64
+  Sticker:
+    type: object
+    properties:
+      file_id:
+        type: string
+      width:
+        type: integer
+        format: int64
+      height:
+        type: integer
+        format: int64
+      thumb:
+        $ref: '#/definitions/PhotoSize'
+      emoji:
+        type: string
+      file_size:
+        type: integer
+        format: int64
+  Video:
+    type: object
+    properties:
+      file_id:
+        type: string
+      width:
+        type: integer
+        format: int64
+      height:
+        type: integer
+        format: int64
+      duration:
+        type: integer
+        format: int64
+      thumb:
+        $ref: '#/definitions/PhotoSize'
+      mime_type:
+        type: string
+      file_size:
+        type: integer
+        format: int64
+  Voice:
+    type: object
+    properties:
+      file_id:
+        type: string
+      duration:
+        type: integer
+        format: int64
+      mime_type:
+        type: string
+      file_size:
+        type: integer
+        format: int64
+  Contact:
+    type: object
+    properties:
+      phone_number:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      user_id:
+        type: integer
+        format: int64
+  Location:
+    type: object
+    properties:
+      longitude:
+        type: number
+        format: float64
+      latitude:
+        type: number
+        format: float64
+  Venue:
+    type: object
+    properties:
+      location:
+        $ref: '#/definitions/Location'
+      title:
+        type: string
+      address:
+        type: string
+      foursquare_id:
+        type: string
+  File:
+    type: object
+    properties:
+      file_id:
+        type: string
+      file_id:
+        type: integer
+        format: int64
+      file_path:
+        type: string
+  ReplyKeyboardMarkup:
+    type: object
+    properties:
+      keyboard:
+        type: array
+        items:
+          $ref: '#/definitions/KeyboardButton'
+      resize_keyboard:
+        type: boolean
+      one_time_keyboard:
+        type: boolean
+      selective:
+        type: boolean
+  KeyboardButton:
+    type: object
+    properties:
+      text:
+        type: string
+      request_contact:
+        type: boolean
+      request_location:
+        type: boolean
+  ReplyKeyboardRemove:
+    type: object
+    properties:
+      remove_keyboard:
+        type: boolean
+      selective:
+        type: boolean
+  InlineKeyboardMarkup:
+    type: object
+    properties:
+      inline_keyboard:
+        type: array
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/InlineKeyboardButton'
+  InlineKeyboardButton:
+    type: object
+    properties:
+      text:
+        type: string
+      url:
+        type: string
+      callback_data:
+        type: string
+      switch_inline_query:
+        type: string
+      switch_inline_query_current_chat:
+        type: string
+      # callback_game:
+      #   $ref: '#/definitions/CallbackGame'
+  CallbackQuery:
+    type: object
+    properties:
+      id:
+        type: string
+      from:
+        $ref: '#/definitions/User'
+      message:
+        $ref: '#/definitions/Message'
+      inline_message_id:
+        type: string
+      chat_instance:
+        type: string
+      data:
+        type: string
+      game_short_name:
+        type: string
+  ForceReply:
+    type: object
+    properties:
+      force_reply:
+        type: boolean
+      selective:
+        type: boolean
+  ChatMember:
+    type: object
+    properties:
+      user:
+        $ref: '#/definitions/User'
+      status:
+        type: string
+        enum:
+        - administrator
+        - member
+        - left
+        - kicked
+  ResponseParameters:
+    type: object
+    properties:
+      migrate_to_chat_id:
+        type: integer
+        format: int64
+      retry_after:
+        type: integer
+        format: int64
+  Update:
+    type: object
+    properties:
+      update_id:
+        type: integer
+        format: int64
+      message:
+        $ref: '#/definitions/Message'
+      edited_message:
+        $ref: '#/definitions/Message'
+      channel_post:
+        $ref: '#/definitions/Message'
+      edited_channel_post:
+        $ref: '#/definitions/Message'
+      # TODO
+      # inline_query:
+      #   $ref: '#/definitions/InlineQuery'
+      # chosen_inline_result:
+      #   $ref: '#/definitions/ChosenInlineResult'
+      callback_query:
+        $ref: '#/definitions/CallbackQuery'
