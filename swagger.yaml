@@ -197,6 +197,7 @@ paths:
                 type: boolean
               description:
                 type: string
+
   /bot{token}/sendPhoto:
     post:
       tags:
@@ -272,7 +273,7 @@ paths:
           - photo
           properties:
             chat_id:
-              type: string
+              type: object
             photo:
               type: string
             caption:
@@ -293,6 +294,1462 @@ paths:
             properties:
               result:
                 $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/sendAudio:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendAudio
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: audio
+        type: file
+        required: true
+        description: ""
+      - in: formData
+        name: caption
+        type: string
+        required: false
+        description: "" 
+      - in: formData
+        name: duration
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: formData
+        name: performer
+        type: string
+        required: false
+        description: "" 
+      - in: formData
+        name: title
+        type: string
+        required: false
+        description: "" 
+      - in: formData
+        name: disable_notification
+        type: boolean
+        required: false
+        description: ""
+      - in: formData
+        name: reply_to_message_id
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: formData
+        name: reply_markup
+        type: string
+        required: false
+        description: "json string of reply_markup object"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+  /bot{token}/sendAudio#link:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendAudioLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        required: false
+        name: body
+        description: ""
+        schema:
+          type: object
+          required:
+          - chat_id
+          - audio
+          properties:
+            chat_id:
+              type: object
+            audio:
+              type: string
+            caption:
+              type: string
+            duration:
+              type: integer
+              format: int64
+            performer:
+              type: string
+            title:
+              type: string
+            disable_notification:
+              type: boolean
+            reply_to_message_id:
+              type: integer
+              format: int64
+            reply_markup:
+              schema:
+                type: object
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/sendDocument:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendDocument
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: document
+        type: file
+        required: true
+        description: ""
+      - in: formData
+        name: caption
+        type: string
+        required: false
+        description: "" 
+      - in: formData
+        name: disable_notification
+        type: boolean
+        required: false
+        description: ""
+      - in: formData
+        name: reply_to_message_id
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: formData
+        name: reply_markup
+        type: string
+        required: false
+        description: "json string of reply_markup object"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+  /bot{token}/sendDocument#link:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendDocumentLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        required: false
+        name: body
+        description: ""
+        schema:
+          type: object
+          required:
+          - chat_id
+          - document
+          properties:
+            chat_id:
+              type: object
+            document:
+              type: string
+            caption:
+              type: string
+            disable_notification:
+              type: boolean
+            reply_to_message_id:
+              type: integer
+              format: int64
+            reply_markup:
+              schema:
+                type: object
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/sendSticker:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendSticker
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: sticker
+        type: file
+        required: true
+        description: ""
+      - in: formData
+        name: disable_notification
+        type: boolean
+        required: false
+        description: ""
+      - in: formData
+        name: reply_to_message_id
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: formData
+        name: reply_markup
+        type: string
+        required: false
+        description: "json string of reply_markup object"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+  /bot{token}/sendSticker#link:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendStickerLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        required: false
+        name: body
+        description: ""
+        schema:
+          type: object
+          required:
+          - chat_id
+          - sticker
+          properties:
+            chat_id:
+              type: object
+            sticker:
+              type: string
+            disable_notification:
+              type: boolean
+            reply_to_message_id:
+              type: integer
+              format: int64
+            reply_markup:
+              schema:
+                type: object
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/sendVideo:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendVideo
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: video
+        type: file
+        required: true
+        description: ""
+      - in: formData
+        name: duration
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: formData
+        name: width
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: formData
+        name: height
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: formData
+        name: caption
+        type: string
+        required: false
+        description: "" 
+      - in: formData
+        name: disable_notification
+        type: boolean
+        required: false
+        description: ""
+      - in: formData
+        name: reply_to_message_id
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: formData
+        name: reply_markup
+        type: string
+        required: false
+        description: "json string of reply_markup object"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+  /bot{token}/sendVideo#link:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendVideoLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        required: false
+        name: body
+        description: ""
+        schema:
+          type: object
+          required:
+          - chat_id
+          - audio
+          properties:
+            chat_id:
+              type: object
+            audio:
+              type: string
+            duration:
+              type: integer
+              format: int64
+            width:
+              type: integer
+              format: int64
+            height:
+              type: integer
+              format: int64
+            caption:
+              type: string
+            disable_notification:
+              type: boolean
+            reply_to_message_id:
+              type: integer
+              format: int64
+            reply_markup:
+              schema:
+                type: object
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/sendVoice:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendVoice
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: voice
+        type: file
+        required: true
+        description: ""
+      - in: formData
+        name: caption
+        type: string
+        required: false
+        description: "" 
+      - in: formData
+        name: duration
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: formData
+        name: disable_notification
+        type: boolean
+        required: false
+        description: ""
+      - in: formData
+        name: reply_to_message_id
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: formData
+        name: reply_markup
+        type: string
+        required: false
+        description: "json string of reply_markup object"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+  /bot{token}/sendVoice#link:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendVoiceLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        required: false
+        name: body
+        description: ""
+        schema:
+          type: object
+          required:
+          - chat_id
+          - voice
+          properties:
+            chat_id:
+              type: object
+            voice:
+              type: string
+            caption:
+              type: string
+            duration:
+              type: integer
+              format: int64
+            disable_notification:
+              type: boolean
+            reply_to_message_id:
+              type: integer
+              format: int64
+            reply_markup:
+              schema:
+                type: object
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/sendLocation:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendLocation
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        description: ""
+        schema:
+          type: object
+          required:
+          - chat_id
+          - latitude
+          - longitude
+          properties:
+            chat_id:
+              type: object
+            latitude:
+              type: number
+            longitude:
+              type: number
+            disable_notification:
+              type: boolean
+            reply_to_message_id:
+              type: integer
+              format: int64
+            reply_markup:
+              schema:
+                type: object
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/sendVenue:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendVenue
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        description: ""
+        schema:
+          type: object
+          required:
+          - chat_id
+          - latitude
+          - longitude
+          - title
+          - address
+          properties:
+            chat_id:
+              type: object
+            latitude:
+              type: number
+            longitude:
+              type: number
+            title:
+              type: string
+            address:
+              type: string
+            foursquare_id:
+              type: string
+            disable_notification:
+              type: boolean
+            reply_to_message_id:
+              type: integer
+              format: int64
+            reply_markup:
+              schema:
+                type: object
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/sendContact:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendContact
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        description: ""
+        schema:
+          type: object
+          required:
+          - chat_id
+          - phone_number
+          - first_name
+          properties:
+            chat_id:
+              type: object
+            phone_number:
+              type: string
+            first_name:
+              type: string
+            last_name:
+              type: string
+            disable_notification:
+              type: boolean
+            reply_to_message_id:
+              type: integer
+              format: int64
+            reply_markup:
+              schema:
+                type: object
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Message"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/sendChatAction:
+    get:
+      tags:
+      - chats
+      description: ""
+      operationId: sendChatAction
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: query
+        name: action
+        type: string
+        required: true
+        description: ""
+        enum:
+          - typing
+          - upload_photo
+          - record_video
+          - upload_video
+          - record_audio
+          - upload_audio
+          - upload_document
+          - find_location
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: boolean
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/getUserProfilePhotos:
+    get:
+      tags:
+      - users
+      description: ""
+      operationId: getUserProfilePhotos
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: user_id
+        type: integer
+        format: int64
+        required: true
+        description: ""
+      - in: query
+        name: offset
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      - in: query
+        name: limit
+        type: integer
+        format: int64
+        required: false
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/UserProfilePhotos"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/getFile:
+    get:
+      tags:
+      - attachments
+      description: ""
+      operationId: getFile
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: file_id
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/File"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/kickChatMember:
+    get:
+      tags:
+      - chats
+      description: ""
+      operationId: kickChatMember
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: query
+        name: user_id
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: boolean
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/leaveChat:
+    get:
+      tags:
+      - chats
+      description: ""
+      operationId: leaveChat
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: boolean
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/unbanChatMember:
+    get:
+      tags:
+      - chats
+      description: ""
+      operationId: unbanChatMember
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: query
+        name: user_id
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: boolean
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/getChat:
+    get:
+      tags:
+      - chats
+      description: ""
+      operationId: getChat
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/Chat"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/getChatAdministrators:
+    get:
+      tags:
+      - chats
+      description: ""
+      operationId: getChatAdministrators
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: array
+                items: 
+                  $ref: "#/definitions/ChatMember"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/getChatMembersCount:
+    get:
+      tags:
+      - chats
+      description: ""
+      operationId: getChatMembersCount
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: integer
+                format: int64
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/getChatMember:
+    get:
+      tags:
+      - chats
+      description: ""
+      operationId: getChatMember
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: query
+        name: user_id
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/ChatMember"
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/answerCallbackQuery:
+    post:
+      tags:
+      - callbacks
+      description: ""
+      operationId: answerCallbackQuery
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: callback_query_id
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: text
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: show_alert
+        type: boolean
+        required: true
+        description: ""
+      - in: formData
+        name: url
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: cache_time
+        type: integer
+        format: int64
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: boolean
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string      
+
+  /bot{token}/editMessageText:
+    post:
+      tags:
+      - messages
+      description: ""
+      operationId: editMessageText
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        description: ""
+        schema:
+          type: object
+          required:
+          - text
+          properties:
+            chat_id:
+              type: object
+            message_id:
+              type: integer
+              format: int64
+            inline_message_id:
+              type: string
+            text:
+              type: string
+            parse_mode:
+              type: string
+              enum:
+              - Markdown
+              - HTML
+            disable_web_page_preview:
+              type: boolean
+            reply_markup:
+              $ref: '#/definitions/InlineKeyboardMarkup'
+      
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: object
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string    
+
+  /bot{token}/editMessageCaption:
+    post:
+      tags:
+      - messages
+      description: ""
+      operationId: editMessageCaption
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        description: ""
+        schema:
+          type: object
+          properties:
+            chat_id:
+              type: object
+            message_id:
+              type: integer
+              format: int64
+            inline_message_id:
+              type: string
+            caption:
+              type: string
+            reply_markup:
+              $ref: '#/definitions/InlineKeyboardMarkup'
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: object
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string 
+
+  /bot{token}/editMessageReplyMarkup:
+    post:
+      tags:
+      - messages
+      description: ""
+      operationId: editMessageReplyMarkup
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        description: ""
+        schema:
+          type: object
+          properties:
+            chat_id:
+              type: object
+            message_id:
+              type: integer
+              format: int64
+            inline_message_id:
+              type: string
+            reply_markup:
+              $ref: '#/definitions/InlineKeyboardMarkup'
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: object
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/answerInlineQuery:
+    post:
+      tags:
+      - inline
+      description: ""
+      operationId: answerInlineQuery
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        description: ""
+        schema:
+          type: object
+          required:
+          - inline_query_id
+          - results
+          properties:
+            inline_query_id:
+              type: string
+            results:
+              type: array
+              items:
+                type: object
+            cache_time:
+              type: integer
+              format: int64
+            is_personal:
+              type: boolean
+            next_offset:
+              type: string
+            switch_pm_text:
+              type: string
+            switch_pm_parameter:
+              type: string
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: boolean
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/sendGame:
+    post:
+      tags:
+      - games
+      description: ""
+      operationId: sendGame
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        description: ""
+        schema:
+          type: object
+          required:
+          - chat_id
+          - game_short_name
+          properties:
+            chat_id:
+              type: integer
+              format: int64
+            game_short_name:
+              type: string
+            disable_notification:
+              type: boolean
+            reply_to_message_id:
+              type: integer
+              format: int64
+            reply_markup:
+              $ref: '#/definitions/InlineKeyboardMarkup'
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/Message'
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/setGameScore:
+    get:
+      tags:
+      - games
+      description: ""
+      operationId: setGameScore
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: user_id
+        type: integer
+        format: int64
+        description: ""
+        required: true
+      - in: query
+        name: score
+        type: integer
+        format: int64
+        description: ""
+        required: true
+      - in: query
+        name: force
+        type: boolean
+        description: ""
+        required: false
+      - in: query
+        name: disable_edit_message
+        type: boolean
+        description: ""
+        required: false
+      - in: query
+        name: chat_id
+        type: integer
+        format: int64
+        description: ""
+        required: false
+      - in: query
+        name: message_id
+        type: integer
+        format: int64
+        description: ""
+        required: false
+      - in: query
+        name: inline_message_id
+        type: string
+        description: ""
+        required: false
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                type: object # boolean or Message
+              error_code:
+                type: integer
+                format: int64
+              ok:
+                type: boolean
+              description:
+                type: string
+
+  /bot{token}/getGameHighScores:
+    get:
+      tags:
+      - games
+      description: ""
+      operationId: getGameHighScores
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: user_id
+        type: integer
+        format: int64
+        description: ""
+        required: true
+      - in: query
+        name: chat_id
+        type: integer
+        format: int64
+        description: ""
+        required: false
+      - in: query
+        name: message_id
+        type: integer
+        format: int64
+        description: ""
+        required: false
+      - in: query
+        name: inline_message_id
+        type: string
+        description: ""
+        required: false
+
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: '#/definitions/GameHighScore'
               error_code:
                 type: integer
                 format: int64
@@ -375,8 +1832,8 @@ definitions:
         $ref: '#/definitions/Audio'
       document:
         $ref: '#/definitions/Document'
-      # game:
-      #   $ref: '#/definitions/Game'
+      game:
+        $ref: '#/definitions/Game'
       photo:
         type: array
         items:
@@ -638,8 +2095,8 @@ definitions:
         type: string
       switch_inline_query_current_chat:
         type: string
-      # callback_game:
-      #   $ref: '#/definitions/CallbackGame'
+      callback_game:
+        $ref: '#/definitions/CallbackGame'
   CallbackQuery:
     type: object
     properties:
@@ -699,10 +2156,268 @@ definitions:
         $ref: '#/definitions/Message'
       edited_channel_post:
         $ref: '#/definitions/Message'
-      # TODO
-      # inline_query:
-      #   $ref: '#/definitions/InlineQuery'
-      # chosen_inline_result:
-      #   $ref: '#/definitions/ChosenInlineResult'
+      inline_query:
+        $ref: '#/definitions/InlineQuery'
+      chosen_inline_result:
+        $ref: '#/definitions/ChosenInlineResult'
       callback_query:
         $ref: '#/definitions/CallbackQuery'
+  UserProfilePhotos:
+    type: object
+    properties:
+      total_count:
+        type: integer
+        format: int64
+      photos:
+        type: array
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/PhotoSize'
+  InputTextMessageContent:
+    type: object
+    required:
+    - message_text
+    properties:
+      message_text:
+        type: string
+      parse_mode:
+        type: string
+        enum:
+          - Markdown
+          - HTML
+      disable_web_page_preview:
+        type: boolean
+  InputLocationMessageContent:
+    type: object
+    required:
+    - latitude
+    - longitude
+    properties:
+      latitude:
+        type: number
+      longitude:
+        type: number
+  InputVenueMessageContent:
+    type: object
+    required:
+    - latitude
+    - longitude
+    - title
+    - address
+    properties:
+      latitude:
+        type: number
+      longitude:
+        type: number
+      title:
+        type: string
+      address:
+        type: string
+      foursquare_id:
+        type: string
+  InputContactMessageContent:
+    type: object
+    required:
+    - phone_number
+    - first_name
+    properties:
+      phone_number:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+  ChosenInlineResult:
+    type: object
+    required:
+    - result_id
+    - from
+    - query
+    properties:
+      result_id:
+        type: string
+      from:
+        $ref: '#/definitions/User'
+      location:
+        $ref: '#/definitions/Location'
+      inline_message_id:
+        type: string
+      query:
+        type: string
+
+  Game:
+    type: object
+    required:
+    - title
+    - description
+    - photo
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      photo:
+        type: array
+        items:
+          $ref: '#/definitions/PhotoSize'
+      text:
+        type: string
+      text_entities:
+        type: array
+        items:
+          $ref: '#/definitions/MessageEntity'
+      animation:
+        $ref: '#/definitions/Animation'
+  Animation:
+    type: object
+    required:
+    - file_id
+    properties:
+      file_id:
+        type: string
+      thumb:
+        $ref: '#/definitions/PhotoSize'
+      file_name:
+        type: string
+      mime_type:
+        type: string
+      file_size:
+        type: integer
+        format: int64
+  GameHighScore:
+    type: object
+    properties:
+      position:
+        type: integer
+        format: int64
+      user:
+        $ref: '#/definitions/User'
+      score:
+        type: integer
+        format: int64
+  CallbackGame:
+    type: object
+
+  InlineQuery:
+    type: object
+    properties:
+      id:
+        type: string
+      from:
+        $ref: '#/definitions/User'
+      location:
+        $ref: '#/definitions/Location'
+      query:
+        type: string
+      offset:
+        type: string
+
+  # InlineQueryResultCachedAudio:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultCachedDocument:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultCachedGif:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultCachedMpeg4Gif:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultCachedPhoto:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultCachedSticker:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultCachedVideo:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultCachedVoice:
+  #   type: object
+  #   properties:
+  #   required:
+  InlineQueryResultArticle:
+    type: object
+    properties:
+      type:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+      input_message_content:
+        type: object # one of InputMessageContent
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+      url: 
+        type: string
+      hide_url:
+        type: boolean
+      description:
+        type: string
+      thumb_url:
+        type: string
+      thumb_width:
+        type: integer
+        format: int64
+      thumb_height:
+        type: integer
+        format: int64
+    required:
+    - type
+    - id
+    - title
+    - input_message_content
+  # InlineQueryResultAudio:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultContact:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultGame:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultDocument:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultGif:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultLocation:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultMpeg4Gif:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultPhoto:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultVenue:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultVideo:
+  #   type: object
+  #   properties:
+  #   required:
+  # InlineQueryResultVoice:
+  #   type: object
+  #   properties:
+  #   required:

@@ -23,6 +23,202 @@ type Client struct {
 }
 
 /*
+GetFile get file API
+*/
+func (a *Client) GetFile(params *GetFileParams) (*GetFileOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetFileParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getFile",
+		Method:             "GET",
+		PathPattern:        "/bot{token}/getFile",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetFileReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetFileOK), nil
+
+}
+
+/*
+SendAudio send audio API
+*/
+func (a *Client) SendAudio(params *SendAudioParams) (*SendAudioOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendAudioParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendAudio",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendAudio",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"multipart/form-data"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendAudioReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendAudioOK), nil
+
+}
+
+/*
+SendAudioLink send audio link API
+*/
+func (a *Client) SendAudioLink(params *SendAudioLinkParams) (*SendAudioLinkOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendAudioLinkParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendAudioLink",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendAudio#link",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendAudioLinkReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendAudioLinkOK), nil
+
+}
+
+/*
+SendContact send contact API
+*/
+func (a *Client) SendContact(params *SendContactParams) (*SendContactOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendContactParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendContact",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendContact",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendContactReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendContactOK), nil
+
+}
+
+/*
+SendDocument send document API
+*/
+func (a *Client) SendDocument(params *SendDocumentParams) (*SendDocumentOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendDocumentParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendDocument",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendDocument",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"multipart/form-data"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendDocumentReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendDocumentOK), nil
+
+}
+
+/*
+SendDocumentLink send document link API
+*/
+func (a *Client) SendDocumentLink(params *SendDocumentLinkParams) (*SendDocumentLinkOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendDocumentLinkParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendDocumentLink",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendDocument#link",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendDocumentLinkReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendDocumentLinkOK), nil
+
+}
+
+/*
+SendLocation send location API
+*/
+func (a *Client) SendLocation(params *SendLocationParams) (*SendLocationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendLocationParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendLocation",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendLocation",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendLocationReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendLocationOK), nil
+
+}
+
+/*
 SendPhoto send photo API
 */
 func (a *Client) SendPhoto(params *SendPhotoParams) (*SendPhotoOK, error) {
@@ -75,6 +271,202 @@ func (a *Client) SendPhotoLink(params *SendPhotoLinkParams) (*SendPhotoLinkOK, e
 		return nil, err
 	}
 	return result.(*SendPhotoLinkOK), nil
+
+}
+
+/*
+SendSticker send sticker API
+*/
+func (a *Client) SendSticker(params *SendStickerParams) (*SendStickerOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendStickerParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendSticker",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendSticker",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"multipart/form-data"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendStickerReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendStickerOK), nil
+
+}
+
+/*
+SendStickerLink send sticker link API
+*/
+func (a *Client) SendStickerLink(params *SendStickerLinkParams) (*SendStickerLinkOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendStickerLinkParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendStickerLink",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendSticker#link",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendStickerLinkReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendStickerLinkOK), nil
+
+}
+
+/*
+SendVenue send venue API
+*/
+func (a *Client) SendVenue(params *SendVenueParams) (*SendVenueOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendVenueParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendVenue",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendVenue",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendVenueReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendVenueOK), nil
+
+}
+
+/*
+SendVideo send video API
+*/
+func (a *Client) SendVideo(params *SendVideoParams) (*SendVideoOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendVideoParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendVideo",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendVideo",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"multipart/form-data"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendVideoReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendVideoOK), nil
+
+}
+
+/*
+SendVideoLink send video link API
+*/
+func (a *Client) SendVideoLink(params *SendVideoLinkParams) (*SendVideoLinkOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendVideoLinkParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendVideoLink",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendVideo#link",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendVideoLinkReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendVideoLinkOK), nil
+
+}
+
+/*
+SendVoice send voice API
+*/
+func (a *Client) SendVoice(params *SendVoiceParams) (*SendVoiceOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendVoiceParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendVoice",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendVoice",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"multipart/form-data"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendVoiceReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendVoiceOK), nil
+
+}
+
+/*
+SendVoiceLink send voice link API
+*/
+func (a *Client) SendVoiceLink(params *SendVoiceLinkParams) (*SendVoiceLinkOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendVoiceLinkParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendVoiceLink",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendVoice#link",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendVoiceLinkReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendVoiceLinkOK), nil
 
 }
 

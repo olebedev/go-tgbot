@@ -50,6 +50,34 @@ func (a *Client) GetMe(params *GetMeParams) (*GetMeOK, error) {
 
 }
 
+/*
+GetUserProfilePhotos get user profile photos API
+*/
+func (a *Client) GetUserProfilePhotos(params *GetUserProfilePhotosParams) (*GetUserProfilePhotosOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetUserProfilePhotosParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getUserProfilePhotos",
+		Method:             "GET",
+		PathPattern:        "/bot{token}/getUserProfilePhotos",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetUserProfilePhotosReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetUserProfilePhotosOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

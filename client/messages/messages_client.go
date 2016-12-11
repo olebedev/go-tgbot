@@ -23,6 +23,90 @@ type Client struct {
 }
 
 /*
+EditMessageCaption edit message caption API
+*/
+func (a *Client) EditMessageCaption(params *EditMessageCaptionParams) (*EditMessageCaptionOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewEditMessageCaptionParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "editMessageCaption",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/editMessageCaption",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &EditMessageCaptionReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*EditMessageCaptionOK), nil
+
+}
+
+/*
+EditMessageReplyMarkup edit message reply markup API
+*/
+func (a *Client) EditMessageReplyMarkup(params *EditMessageReplyMarkupParams) (*EditMessageReplyMarkupOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewEditMessageReplyMarkupParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "editMessageReplyMarkup",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/editMessageReplyMarkup",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &EditMessageReplyMarkupReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*EditMessageReplyMarkupOK), nil
+
+}
+
+/*
+EditMessageText edit message text API
+*/
+func (a *Client) EditMessageText(params *EditMessageTextParams) (*EditMessageTextOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewEditMessageTextParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "editMessageText",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/editMessageText",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &EditMessageTextReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*EditMessageTextOK), nil
+
+}
+
+/*
 ForwardMessage forward message API
 */
 func (a *Client) ForwardMessage(params *ForwardMessageParams) (*ForwardMessageOK, error) {

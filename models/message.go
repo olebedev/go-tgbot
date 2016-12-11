@@ -59,6 +59,9 @@ type Message struct {
 	// from
 	From *User `json:"from,omitempty"`
 
+	// game
+	Game *Game `json:"game,omitempty"`
+
 	// group chat created
 	GroupChatCreated bool `json:"group_chat_created,omitempty"`
 
@@ -154,6 +157,11 @@ func (m *Message) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateFrom(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateGame(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -348,6 +356,22 @@ func (m *Message) validateFrom(formats strfmt.Registry) error {
 	if m.From != nil {
 
 		if err := m.From.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Message) validateGame(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Game) { // not required
+		return nil
+	}
+
+	if m.Game != nil {
+
+		if err := m.Game.Validate(formats); err != nil {
 			return err
 		}
 	}

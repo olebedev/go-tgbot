@@ -16,6 +16,9 @@ type InlineKeyboardButton struct {
 	// callback data
 	CallbackData string `json:"callback_data,omitempty"`
 
+	// callback game
+	CallbackGame CallbackGame `json:"callback_game,omitempty"`
+
 	// switch inline query
 	SwitchInlineQuery string `json:"switch_inline_query,omitempty"`
 

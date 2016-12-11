@@ -11,6 +11,9 @@ import (
 
 func NewClient(ctx context.Context, token string) *client.TelegramBot {
 	transport := httptransport.New("api.telegram.org", "/", []string{"https"})
+	if ctx == nil {
+		ctx = context.Background()
+	}
 	transport.Context = ctx
 	transport.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(r runtime.ClientRequest, _ strfmt.Registry) error {
 		r.SetPathParam("token", token)

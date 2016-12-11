@@ -10,6 +10,10 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/olebedev/go-tgbot/client/attachments"
+	"github.com/olebedev/go-tgbot/client/callbacks"
+	"github.com/olebedev/go-tgbot/client/chats"
+	"github.com/olebedev/go-tgbot/client/games"
+	"github.com/olebedev/go-tgbot/client/inline"
 	"github.com/olebedev/go-tgbot/client/messages"
 	"github.com/olebedev/go-tgbot/client/updates"
 	"github.com/olebedev/go-tgbot/client/users"
@@ -34,6 +38,14 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *TelegramBo
 
 	cli.Attachments = attachments.New(transport, formats)
 
+	cli.Callbacks = callbacks.New(transport, formats)
+
+	cli.Chats = chats.New(transport, formats)
+
+	cli.Games = games.New(transport, formats)
+
+	cli.Inline = inline.New(transport, formats)
+
 	cli.Messages = messages.New(transport, formats)
 
 	cli.Updates = updates.New(transport, formats)
@@ -46,6 +58,14 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *TelegramBo
 // TelegramBot is a client for telegram bot
 type TelegramBot struct {
 	Attachments *attachments.Client
+
+	Callbacks *callbacks.Client
+
+	Chats *chats.Client
+
+	Games *games.Client
+
+	Inline *inline.Client
 
 	Messages *messages.Client
 
@@ -61,6 +81,14 @@ func (c *TelegramBot) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 
 	c.Attachments.SetTransport(transport)
+
+	c.Callbacks.SetTransport(transport)
+
+	c.Chats.SetTransport(transport)
+
+	c.Games.SetTransport(transport)
+
+	c.Inline.SetTransport(transport)
 
 	c.Messages.SetTransport(transport)
 

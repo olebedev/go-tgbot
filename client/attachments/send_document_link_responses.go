@@ -14,17 +14,17 @@ import (
 	"github.com/olebedev/go-tgbot/models"
 )
 
-// SendPhotoLinkReader is a Reader for the SendPhotoLink structure.
-type SendPhotoLinkReader struct {
+// SendDocumentLinkReader is a Reader for the SendDocumentLink structure.
+type SendDocumentLinkReader struct {
 	formats strfmt.Registry
 }
 
 // ReadResponse reads a server response into the received o.
-func (o *SendPhotoLinkReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
+func (o *SendDocumentLinkReader) ReadResponse(response runtime.ClientResponse, consumer runtime.Consumer) (interface{}, error) {
 	switch response.Code() {
 
 	case 200:
-		result := NewSendPhotoLinkOK()
+		result := NewSendDocumentLinkOK()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
 			return nil, err
 		}
@@ -35,24 +35,24 @@ func (o *SendPhotoLinkReader) ReadResponse(response runtime.ClientResponse, cons
 	}
 }
 
-// NewSendPhotoLinkOK creates a SendPhotoLinkOK with default headers values
-func NewSendPhotoLinkOK() *SendPhotoLinkOK {
-	return &SendPhotoLinkOK{}
+// NewSendDocumentLinkOK creates a SendDocumentLinkOK with default headers values
+func NewSendDocumentLinkOK() *SendDocumentLinkOK {
+	return &SendDocumentLinkOK{}
 }
 
-/*SendPhotoLinkOK handles this case with default header values.
+/*SendDocumentLinkOK handles this case with default header values.
 
-SendPhotoLinkOK send photo link o k
+SendDocumentLinkOK send document link o k
 */
-type SendPhotoLinkOK struct {
-	Payload SendPhotoLinkOKBody
+type SendDocumentLinkOK struct {
+	Payload SendDocumentLinkOKBody
 }
 
-func (o *SendPhotoLinkOK) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/sendPhoto#link][%d] sendPhotoLinkOK  %+v", 200, o.Payload)
+func (o *SendDocumentLinkOK) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendDocument#link][%d] sendDocumentLinkOK  %+v", 200, o.Payload)
 }
 
-func (o *SendPhotoLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+func (o *SendDocumentLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
@@ -62,10 +62,10 @@ func (o *SendPhotoLinkOK) readResponse(response runtime.ClientResponse, consumer
 	return nil
 }
 
-/*SendPhotoLinkBody send photo link body
-swagger:model SendPhotoLinkBody
+/*SendDocumentLinkBody send document link body
+swagger:model SendDocumentLinkBody
 */
-type SendPhotoLinkBody struct {
+type SendDocumentLinkBody struct {
 
 	// caption
 	Caption string `json:"caption,omitempty"`
@@ -77,9 +77,9 @@ type SendPhotoLinkBody struct {
 	// disable notification
 	DisableNotification bool `json:"disable_notification,omitempty"`
 
-	// photo
+	// document
 	// Required: true
-	Photo *string `json:"photo"`
+	Document *string `json:"document"`
 
 	// reply markup
 	ReplyMarkup interface{} `json:"reply_markup,omitempty"`
@@ -88,10 +88,10 @@ type SendPhotoLinkBody struct {
 	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
 }
 
-/*SendPhotoLinkOKBody send photo link o k body
-swagger:model SendPhotoLinkOKBody
+/*SendDocumentLinkOKBody send document link o k body
+swagger:model SendDocumentLinkOKBody
 */
-type SendPhotoLinkOKBody struct {
+type SendDocumentLinkOKBody struct {
 
 	// description
 	// Required: true

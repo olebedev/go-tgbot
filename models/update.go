@@ -20,11 +20,17 @@ type Update struct {
 	// channel post
 	ChannelPost *Message `json:"channel_post,omitempty"`
 
+	// chosen inline result
+	ChosenInlineResult *ChosenInlineResult `json:"chosen_inline_result,omitempty"`
+
 	// edited channel post
 	EditedChannelPost *Message `json:"edited_channel_post,omitempty"`
 
 	// edited message
 	EditedMessage *Message `json:"edited_message,omitempty"`
+
+	// inline query
+	InlineQuery *InlineQuery `json:"inline_query,omitempty"`
 
 	// message
 	Message *Message `json:"message,omitempty"`
@@ -47,12 +53,22 @@ func (m *Update) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateChosenInlineResult(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateEditedChannelPost(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateEditedMessage(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateInlineQuery(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -100,6 +116,22 @@ func (m *Update) validateChannelPost(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Update) validateChosenInlineResult(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ChosenInlineResult) { // not required
+		return nil
+	}
+
+	if m.ChosenInlineResult != nil {
+
+		if err := m.ChosenInlineResult.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Update) validateEditedChannelPost(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.EditedChannelPost) { // not required
@@ -125,6 +157,22 @@ func (m *Update) validateEditedMessage(formats strfmt.Registry) error {
 	if m.EditedMessage != nil {
 
 		if err := m.EditedMessage.Validate(formats); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Update) validateInlineQuery(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.InlineQuery) { // not required
+		return nil
+	}
+
+	if m.InlineQuery != nil {
+
+		if err := m.InlineQuery.Validate(formats); err != nil {
 			return err
 		}
 	}
