@@ -49,7 +49,7 @@ type GetUpdatesOK struct {
 }
 
 func (o *GetUpdatesOK) Error() string {
-	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/getUpdates][%d] getUpdatesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetUpdatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -60,6 +60,24 @@ func (o *GetUpdatesOK) readResponse(response runtime.ClientResponse, consumer ru
 	}
 
 	return nil
+}
+
+/*GetUpdatesBody get updates body
+swagger:model GetUpdatesBody
+*/
+type GetUpdatesBody struct {
+
+	// allowed updates
+	AllowedUpdates []string `json:"allowed_updates"`
+
+	// limit
+	Limit int64 `json:"limit,omitempty"`
+
+	// offset
+	Offset int64 `json:"offset,omitempty"`
+
+	// timeout
+	Timeout int64 `json:"timeout,omitempty"`
 }
 
 /*GetUpdatesOKBody get updates o k body

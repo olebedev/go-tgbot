@@ -12,7 +12,6 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -23,7 +22,7 @@ func NewGetUpdatesParams() *GetUpdatesParams {
 	var ()
 	return &GetUpdatesParams{
 
-		requestTimeout: cr.DefaultTimeout,
+		timeout: cr.DefaultTimeout,
 	}
 }
 
@@ -33,7 +32,7 @@ func NewGetUpdatesParamsWithTimeout(timeout time.Duration) *GetUpdatesParams {
 	var ()
 	return &GetUpdatesParams{
 
-		requestTimeout: timeout,
+		timeout: timeout,
 	}
 }
 
@@ -52,37 +51,28 @@ for the get updates operation typically these are written to a http.Request
 */
 type GetUpdatesParams struct {
 
-	/*AllowedUpdates*/
-	AllowedUpdates *string
-	/*Limit*/
-	Limit *int64
-	/*Offset*/
-	Offset *int64
-	/*Timeout
-	  timeout
-
-	*/
-	Timeout *int64
+	/*Body*/
+	Body GetUpdatesBody
 	/*Token
 	  bot's token to authorize the request
 
 	*/
 	Token *string
 
-	requestTimeout time.Duration
-	Context        context.Context
-	HTTPClient     *http.Client
+	timeout    time.Duration
+	Context    context.Context
+	HTTPClient *http.Client
 }
 
-// WithRequestTimeout adds the timeout to the get updates params
-func (o *GetUpdatesParams) WithRequestTimeout(timeout time.Duration) *GetUpdatesParams {
-	o.SetRequestTimeout(timeout)
+// WithTimeout adds the timeout to the get updates params
+func (o *GetUpdatesParams) WithTimeout(timeout time.Duration) *GetUpdatesParams {
+	o.SetTimeout(timeout)
 	return o
 }
 
-// SetRequestTimeout adds the timeout to the get updates params
-func (o *GetUpdatesParams) SetRequestTimeout(timeout time.Duration) {
-	o.requestTimeout = timeout
+// SetTimeout adds the timeout to the get updates params
+func (o *GetUpdatesParams) SetTimeout(timeout time.Duration) {
+	o.timeout = timeout
 }
 
 // WithContext adds the context to the get updates params
@@ -96,48 +86,15 @@ func (o *GetUpdatesParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
-// WithAllowedUpdates adds the allowedUpdates to the get updates params
-func (o *GetUpdatesParams) WithAllowedUpdates(allowedUpdates *string) *GetUpdatesParams {
-	o.SetAllowedUpdates(allowedUpdates)
+// WithBody adds the body to the get updates params
+func (o *GetUpdatesParams) WithBody(body GetUpdatesBody) *GetUpdatesParams {
+	o.SetBody(body)
 	return o
 }
 
-// SetAllowedUpdates adds the allowedUpdates to the get updates params
-func (o *GetUpdatesParams) SetAllowedUpdates(allowedUpdates *string) {
-	o.AllowedUpdates = allowedUpdates
-}
-
-// WithLimit adds the limit to the get updates params
-func (o *GetUpdatesParams) WithLimit(limit *int64) *GetUpdatesParams {
-	o.SetLimit(limit)
-	return o
-}
-
-// SetLimit adds the limit to the get updates params
-func (o *GetUpdatesParams) SetLimit(limit *int64) {
-	o.Limit = limit
-}
-
-// WithOffset adds the offset to the get updates params
-func (o *GetUpdatesParams) WithOffset(offset *int64) *GetUpdatesParams {
-	o.SetOffset(offset)
-	return o
-}
-
-// SetOffset adds the offset to the get updates params
-func (o *GetUpdatesParams) SetOffset(offset *int64) {
-	o.Offset = offset
-}
-
-// WithTimeout adds the timeout to the get updates params
-func (o *GetUpdatesParams) WithTimeout(timeout *int64) *GetUpdatesParams {
-	o.SetTimeout(timeout)
-	return o
-}
-
-// SetTimeout adds the timeout to the get updates params
-func (o *GetUpdatesParams) SetTimeout(timeout *int64) {
-	o.Timeout = timeout
+// SetBody adds the body to the get updates params
+func (o *GetUpdatesParams) SetBody(body GetUpdatesBody) {
+	o.Body = body
 }
 
 // WithToken adds the token to the get updates params
@@ -154,71 +111,11 @@ func (o *GetUpdatesParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *GetUpdatesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.requestTimeout)
+	r.SetTimeout(o.timeout)
 	var res []error
 
-	if o.AllowedUpdates != nil {
-
-		// query param allowed_updates
-		var qrAllowedUpdates string
-		if o.AllowedUpdates != nil {
-			qrAllowedUpdates = *o.AllowedUpdates
-		}
-		qAllowedUpdates := qrAllowedUpdates
-		if qAllowedUpdates != "" {
-			if err := r.SetQueryParam("allowed_updates", qAllowedUpdates); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	if o.Limit != nil {
-
-		// query param limit
-		var qrLimit int64
-		if o.Limit != nil {
-			qrLimit = *o.Limit
-		}
-		qLimit := swag.FormatInt64(qrLimit)
-		if qLimit != "" {
-			if err := r.SetQueryParam("limit", qLimit); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	if o.Offset != nil {
-
-		// query param offset
-		var qrOffset int64
-		if o.Offset != nil {
-			qrOffset = *o.Offset
-		}
-		qOffset := swag.FormatInt64(qrOffset)
-		if qOffset != "" {
-			if err := r.SetQueryParam("offset", qOffset); err != nil {
-				return err
-			}
-		}
-
-	}
-
-	if o.Timeout != nil {
-
-		// query param timeout
-		var qrTimeout int64
-		if o.Timeout != nil {
-			qrTimeout = *o.Timeout
-		}
-		qTimeout := swag.FormatInt64(qrTimeout)
-		if qTimeout != "" {
-			if err := r.SetQueryParam("timeout", qTimeout); err != nil {
-				return err
-			}
-		}
-
+	if err := r.SetBodyParam(o.Body); err != nil {
+		return err
 	}
 
 	if o.Token != nil {

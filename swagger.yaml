@@ -25,44 +25,41 @@ parameters:
     description: bot's token to authorize the request
 paths:
   /bot{token}/getUpdates:
-    get:
+    post:
       tags:
       - updates
       description: ""
       operationId: getUpdates
       parameters:
       - $ref: '#/parameters/token'
-      - in: query
-        name: offset
+      - in: body
+        name: body
         description: ""
         required: false
-        type: integer
-        format: int64
-      - in: query
-        name: limit
-        description: ""
-        required: false
-        type: integer
-        format: int64
-      - in: query
-        name: timeout
-        description: "timeout"
-        required: false
-        type: integer
-        format: int64
-      - in: query
-        name: allowed_updates
-        description: ""
-        required: false
-        type: string
-        enum:
-        - message
-        - edited_message
-        - channel_post
-        - edited_channel_post
-        - inline_query
-        - chosen_inline_result
-        - callback_query
+        schema:
+          type: object
+          properties:
+            offset:
+              type: integer
+              format: int64
+            limit:
+              type: integer
+              format: int64
+            timeout:
+              type: integer
+              format: int64
+            allowed_updates:
+              type: array
+              items:
+                type: string
+                enum:
+                - message
+                - edited_message
+                - channel_post
+                - edited_channel_post
+                - inline_query
+                - chosen_inline_result
+                - callback_query
       responses:
         200:
           description: An array of Updates
@@ -266,7 +263,7 @@ paths:
       - $ref: '#/parameters/token'
       - in: body
         required: false
-        name: request
+        name: body
         description: ""
         schema:
           type: object

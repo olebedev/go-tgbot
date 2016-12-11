@@ -29,7 +29,7 @@ func TestSendMessage(t *testing.T) {
 	cli := NewClient(context.Background(), token)
 	r, err := cli.Messages.SendMessage(
 		messages.NewSendMessageParams().
-			WithRequest(messages.SendMessageBody{
+			WithBody(messages.SendMessageBody{
 				ChatID: uid,
 				Text:   pointer.ToString("test message"),
 			}),

@@ -26,9 +26,6 @@ type Update struct {
 	// edited message
 	EditedMessage *Message `json:"edited_message,omitempty"`
 
-	// inline query
-	InlineQuery interface{} `json:"inline_query,omitempty"`
-
 	// message
 	Message *Message `json:"message,omitempty"`
 

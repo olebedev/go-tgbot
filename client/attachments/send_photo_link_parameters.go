@@ -51,8 +51,8 @@ for the send photo link operation typically these are written to a http.Request
 */
 type SendPhotoLinkParams struct {
 
-	/*Request*/
-	Request SendPhotoLinkBody
+	/*Body*/
+	Body SendPhotoLinkBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -86,15 +86,15 @@ func (o *SendPhotoLinkParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
-// WithRequest adds the request to the send photo link params
-func (o *SendPhotoLinkParams) WithRequest(request SendPhotoLinkBody) *SendPhotoLinkParams {
-	o.SetRequest(request)
+// WithBody adds the body to the send photo link params
+func (o *SendPhotoLinkParams) WithBody(body SendPhotoLinkBody) *SendPhotoLinkParams {
+	o.SetBody(body)
 	return o
 }
 
-// SetRequest adds the request to the send photo link params
-func (o *SendPhotoLinkParams) SetRequest(request SendPhotoLinkBody) {
-	o.Request = request
+// SetBody adds the body to the send photo link params
+func (o *SendPhotoLinkParams) SetBody(body SendPhotoLinkBody) {
+	o.Body = body
 }
 
 // WithToken adds the token to the send photo link params
@@ -114,7 +114,7 @@ func (o *SendPhotoLinkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 	r.SetTimeout(o.timeout)
 	var res []error
 
-	if err := r.SetBodyParam(o.Request); err != nil {
+	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}
 
