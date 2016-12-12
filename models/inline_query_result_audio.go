@@ -11,35 +11,32 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// InlineQueryResultArticle inline query result article
-// swagger:model InlineQueryResultArticle
-type InlineQueryResultArticle struct {
+// InlineQueryResultAudio inline query result audio
+// swagger:model InlineQueryResultAudio
+type InlineQueryResultAudio struct {
 
-	// description
-	Description string `json:"description,omitempty"`
+	// audio duration
+	AudioDuration int64 `json:"audio_duration,omitempty"`
 
-	// hide url
-	HideURL bool `json:"hide_url,omitempty"`
+	// audio url
+	// Required: true
+	AudioURL *string `json:"audio_url"`
+
+	// caption
+	Caption string `json:"caption,omitempty"`
 
 	// id
 	// Required: true
 	ID *string `json:"id"`
 
 	// input message content
-	// Required: true
-	InputMessageContent interface{} `json:"input_message_content"`
+	InputMessageContent interface{} `json:"input_message_content,omitempty"`
+
+	// performer
+	Performer string `json:"performer,omitempty"`
 
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
-
-	// thumb height
-	ThumbHeight int64 `json:"thumb_height,omitempty"`
-
-	// thumb url
-	ThumbURL string `json:"thumb_url,omitempty"`
-
-	// thumb width
-	ThumbWidth int64 `json:"thumb_width,omitempty"`
 
 	// title
 	// Required: true
@@ -48,21 +45,18 @@ type InlineQueryResultArticle struct {
 	// type
 	// Required: true
 	Type InlineType `json:"type"`
-
-	// url
-	URL string `json:"url,omitempty"`
 }
 
-// Validate validates this inline query result article
-func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
+// Validate validates this inline query result audio
+func (m *InlineQueryResultAudio) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateID(formats); err != nil {
+	if err := m.validateAudioURL(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
-	if err := m.validateInputMessageContent(formats); err != nil {
+	if err := m.validateID(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -88,7 +82,16 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
+func (m *InlineQueryResultAudio) validateAudioURL(formats strfmt.Registry) error {
+
+	if err := validate.Required("audio_url", "body", m.AudioURL); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *InlineQueryResultAudio) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -97,12 +100,7 @@ func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateInputMessageContent(formats strfmt.Registry) error {
-
-	return nil
-}
-
-func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) error {
+func (m *InlineQueryResultAudio) validateReplyMarkup(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ReplyMarkup) { // not required
 		return nil
@@ -118,7 +116,7 @@ func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateTitle(formats strfmt.Registry) error {
+func (m *InlineQueryResultAudio) validateTitle(formats strfmt.Registry) error {
 
 	if err := validate.Required("title", "body", m.Title); err != nil {
 		return err
@@ -127,7 +125,7 @@ func (m *InlineQueryResultArticle) validateTitle(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateType(formats strfmt.Registry) error {
+func (m *InlineQueryResultAudio) validateType(formats strfmt.Registry) error {
 
 	if err := m.Type.Validate(formats); err != nil {
 		return err

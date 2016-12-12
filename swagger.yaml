@@ -2311,43 +2311,11 @@ definitions:
       offset:
         type: string
 
-  # InlineQueryResultCachedAudio:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultCachedDocument:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultCachedGif:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultCachedMpeg4Gif:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultCachedPhoto:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultCachedSticker:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultCachedVideo:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultCachedVoice:
-  #   type: object
-  #   properties:
-  #   required:
   InlineQueryResultArticle:
     type: object
     properties:
       type:
-        type: string
+        $ref: '#/definitions/InlineType'
       id:
         type: string
       title:
@@ -2375,47 +2343,532 @@ definitions:
     - id
     - title
     - input_message_content
-  # InlineQueryResultAudio:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultContact:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultGame:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultDocument:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultGif:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultLocation:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultMpeg4Gif:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultPhoto:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultVenue:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultVideo:
-  #   type: object
-  #   properties:
-  #   required:
-  # InlineQueryResultVoice:
-  #   type: object
-  #   properties:
-  #   required:
+  InlineQueryResultAudio:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      audio_url: 
+        type: string
+      title:
+        type: string
+      caption:
+        type: string
+      performer:
+        type: string
+      audio_duration:
+        type: integer
+        format: int64
+      input_message_content:
+        type: object
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+    required:
+    - type
+    - id
+    - audio_url
+    - title
+  InlineQueryResultContact:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      phone_number:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+      input_message_content:
+        type: object # one of InputMessageContent
+      thumb_url:
+        type: string
+      thumb_width:
+        type: integer
+        format: int64
+      thumb_height:
+        type: integer
+        format: int64
+    required:
+    - type
+    - id
+    - phone_number
+    - first_name
+
+  InlineQueryResultGame:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      game_short_name:
+        type: string
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+    required:
+    - type
+    - id
+    - game_short_name
+
+  InlineQueryResultDocument:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      title:
+        type: string
+      caption:
+        type: string
+      document_url:
+        type: string
+      mime_type:
+        type: string
+      description:
+        type: string
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+      input_message_content:
+        type: object 
+      thumb_url:
+        type: string
+      thumb_width:
+        type: integer
+        format: int64
+      thumb_height:
+        type: integer
+        format: int64
+    required:
+    - type
+    - id
+    - title
+    - document_url
+    - mime_type
+
+  InlineQueryResultGif:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      gif_url:
+        type: string
+      gif_width:
+        type: integer
+        format: int64
+      gif_height:
+        type: integer
+        format: int64
+      thumb_url:
+        type: string
+      title:
+        type: string
+      caption:
+        type: string
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+      input_message_content:
+        type: object 
+    required:
+    - type
+    - id
+    - gif_url
+    - thumb_url
+
+  InlineQueryResultLocation:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      latitude:
+        type: number
+      longitude:
+        type: number
+      title:
+        type: string
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+      input_message_content:
+        type: object 
+      thumb_url:
+        type: string
+      thumb_width:
+        type: integer
+        format: int64
+      thumb_height:
+        type: integer
+        format: int64
+    required:
+    - type
+    - id
+    - title
+    - latitude
+    - longitude
+
+  InlineQueryResultMpeg4Gif:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      mpeg4_url:
+        type: string
+      mpeg4_width:
+        type: integer
+        format: int64
+      mpeg4_height:
+        type: integer
+        format: int64
+      thumb_url:
+        type: string
+      title:
+        type: string
+      caption:
+        type: string
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+      input_message_content:
+        type: object 
+    required:
+    - type
+    - id
+    - mpeg4_url
+    - thumb_url
+
+  InlineQueryResultPhoto:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      photo_url:
+        type: string
+      thumb_url:
+        type: string
+      photo_width:
+        type: integer
+        format: int64
+      photo_height:
+        type: integer
+        format: int64
+      title:
+        type: string
+      caption:
+        type: string
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+      input_message_content:
+        type: object 
+    required:
+    - type
+    - id
+    - photo_url
+    - thumb_url
+
+  InlineQueryResultVenue:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      latitude:
+        type: number
+      longitude:
+        type: number
+      title:
+        type: string
+      address:
+        type: string
+      foursquare_id:
+        type: string
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+      input_message_content:
+        type: object 
+      thumb_url:
+        type: string
+      thumb_width:
+        type: integer
+        format: int64
+      thumb_height:
+        type: integer
+        format: int64
+    required:
+    - type
+    - id
+    - title
+    - latitude
+    - longitude
+    - address
+
+  InlineQueryResultVideo:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      video_url:
+        type: string
+      mime_type:
+        type: string
+      thumb_url:
+        type: string
+      title:
+        type: string
+      caption:
+        type: string
+      video_width:
+        type: integer
+        format: int64
+      video_height:
+        type: integer
+        format: int64
+      video_duration:
+        type: integer
+        format: int64
+      description:
+        type: string
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+      input_message_content:
+        type: object 
+    required:
+    - type
+    - id
+    - video_url
+    - mime_type
+    - thumb_url
+    - title
+
+  InlineQueryResultVoice:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      voice_url: 
+        type: string
+      title:
+        type: string
+      caption:
+        type: string
+      voice_duration:
+        type: integer
+        format: int64
+      input_message_content:
+        type: object
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+    required:
+    - type
+    - id
+    - voice_url
+    - title
+
+  InlineQueryResultCachedAudio:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      audio_file_id: 
+        type: string
+      caption:
+        type: string
+      input_message_content:
+        type: object
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+    required:
+    - type
+    - id
+    - audio_file_id
+
+  InlineQueryResultCachedDocument:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      document_file_id: 
+        type: string
+      description:
+        type: string
+      caption:
+        type: string
+      input_message_content:
+        type: object
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+    required:
+    - type
+    - id
+    - document_file_id
+
+  InlineQueryResultCachedGif:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      gif_file_id: 
+        type: string
+      title:
+        type: string
+      input_message_content:
+      caption:
+        type: string
+      input_message_content:
+        type: object
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+    required:
+    - type
+    - id
+    - gif_file_id
+
+  InlineQueryResultCachedMpeg4Gif:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      mpeg4_file_id: 
+        type: string
+      title:
+        type: string
+      caption:
+        type: string
+      input_message_content:
+        type: object
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+    required:
+    - type
+    - id
+    - mpeg4_file_id
+
+  InlineQueryResultCachedPhoto:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      photo_file_id: 
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      caption:
+        type: string
+      input_message_content:
+        type: object
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+    required:
+    - type
+    - id
+    - photo_file_id
+
+  InlineQueryResultCachedSticker:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      sticker_file_id: 
+        type: string
+      input_message_content:
+        type: object
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+    required:
+    - type
+    - id
+    - sticker_file_id
+
+  InlineQueryResultCachedVideo:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      video_file_id: 
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      caption:
+        type: string
+      input_message_content:
+        type: object
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+    required:
+    - type
+    - id
+    - video_file_id
+
+  InlineQueryResultCachedVoice:
+    type: object
+    properties:
+      type:
+        $ref: '#/definitions/InlineType'
+      id:
+        type: string
+      voice_file_id: 
+        type: string
+      title:
+        type: string
+      caption:
+        type: string
+      input_message_content:
+        type: object
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+    required:
+    - type
+    - id
+    - voice_file_id
+
+  InlineType:
+    type: string
+    enum:
+    - article
+    - audio
+    - contact
+    - game
+    - document
+    - gif
+    - location
+    - mpeg4_gif
+    - photo
+    - venue
+    - video
+    - voice
+    - sticker

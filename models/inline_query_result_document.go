@@ -11,23 +11,30 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// InlineQueryResultArticle inline query result article
-// swagger:model InlineQueryResultArticle
-type InlineQueryResultArticle struct {
+// InlineQueryResultDocument inline query result document
+// swagger:model InlineQueryResultDocument
+type InlineQueryResultDocument struct {
+
+	// caption
+	Caption string `json:"caption,omitempty"`
 
 	// description
 	Description string `json:"description,omitempty"`
 
-	// hide url
-	HideURL bool `json:"hide_url,omitempty"`
+	// document url
+	// Required: true
+	DocumentURL *string `json:"document_url"`
 
 	// id
 	// Required: true
 	ID *string `json:"id"`
 
 	// input message content
+	InputMessageContent interface{} `json:"input_message_content,omitempty"`
+
+	// mime type
 	// Required: true
-	InputMessageContent interface{} `json:"input_message_content"`
+	MimeType *string `json:"mime_type"`
 
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
@@ -48,21 +55,23 @@ type InlineQueryResultArticle struct {
 	// type
 	// Required: true
 	Type InlineType `json:"type"`
-
-	// url
-	URL string `json:"url,omitempty"`
 }
 
-// Validate validates this inline query result article
-func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
+// Validate validates this inline query result document
+func (m *InlineQueryResultDocument) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateDocumentURL(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
 
 	if err := m.validateID(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
-	if err := m.validateInputMessageContent(formats); err != nil {
+	if err := m.validateMimeType(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -88,7 +97,16 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
+func (m *InlineQueryResultDocument) validateDocumentURL(formats strfmt.Registry) error {
+
+	if err := validate.Required("document_url", "body", m.DocumentURL); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *InlineQueryResultDocument) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -97,12 +115,16 @@ func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateInputMessageContent(formats strfmt.Registry) error {
+func (m *InlineQueryResultDocument) validateMimeType(formats strfmt.Registry) error {
+
+	if err := validate.Required("mime_type", "body", m.MimeType); err != nil {
+		return err
+	}
 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) error {
+func (m *InlineQueryResultDocument) validateReplyMarkup(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ReplyMarkup) { // not required
 		return nil
@@ -118,7 +140,7 @@ func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateTitle(formats strfmt.Registry) error {
+func (m *InlineQueryResultDocument) validateTitle(formats strfmt.Registry) error {
 
 	if err := validate.Required("title", "body", m.Title); err != nil {
 		return err
@@ -127,7 +149,7 @@ func (m *InlineQueryResultArticle) validateTitle(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateType(formats strfmt.Registry) error {
+func (m *InlineQueryResultDocument) validateType(formats strfmt.Registry) error {
 
 	if err := m.Type.Validate(formats); err != nil {
 		return err

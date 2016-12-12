@@ -11,23 +11,24 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// InlineQueryResultArticle inline query result article
-// swagger:model InlineQueryResultArticle
-type InlineQueryResultArticle struct {
-
-	// description
-	Description string `json:"description,omitempty"`
-
-	// hide url
-	HideURL bool `json:"hide_url,omitempty"`
+// InlineQueryResultLocation inline query result location
+// swagger:model InlineQueryResultLocation
+type InlineQueryResultLocation struct {
 
 	// id
 	// Required: true
 	ID *string `json:"id"`
 
 	// input message content
+	InputMessageContent interface{} `json:"input_message_content,omitempty"`
+
+	// latitude
 	// Required: true
-	InputMessageContent interface{} `json:"input_message_content"`
+	Latitude *float64 `json:"latitude"`
+
+	// longitude
+	// Required: true
+	Longitude *float64 `json:"longitude"`
 
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
@@ -48,13 +49,10 @@ type InlineQueryResultArticle struct {
 	// type
 	// Required: true
 	Type InlineType `json:"type"`
-
-	// url
-	URL string `json:"url,omitempty"`
 }
 
-// Validate validates this inline query result article
-func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
+// Validate validates this inline query result location
+func (m *InlineQueryResultLocation) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateID(formats); err != nil {
@@ -62,7 +60,12 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateInputMessageContent(formats); err != nil {
+	if err := m.validateLatitude(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateLongitude(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -88,7 +91,7 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
+func (m *InlineQueryResultLocation) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -97,12 +100,25 @@ func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateInputMessageContent(formats strfmt.Registry) error {
+func (m *InlineQueryResultLocation) validateLatitude(formats strfmt.Registry) error {
+
+	if err := validate.Required("latitude", "body", m.Latitude); err != nil {
+		return err
+	}
 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) error {
+func (m *InlineQueryResultLocation) validateLongitude(formats strfmt.Registry) error {
+
+	if err := validate.Required("longitude", "body", m.Longitude); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *InlineQueryResultLocation) validateReplyMarkup(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ReplyMarkup) { // not required
 		return nil
@@ -118,7 +134,7 @@ func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateTitle(formats strfmt.Registry) error {
+func (m *InlineQueryResultLocation) validateTitle(formats strfmt.Registry) error {
 
 	if err := validate.Required("title", "body", m.Title); err != nil {
 		return err
@@ -127,7 +143,7 @@ func (m *InlineQueryResultArticle) validateTitle(formats strfmt.Registry) error 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateType(formats strfmt.Registry) error {
+func (m *InlineQueryResultLocation) validateType(formats strfmt.Registry) error {
 
 	if err := m.Type.Validate(formats); err != nil {
 		return err

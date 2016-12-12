@@ -11,50 +11,47 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// InlineQueryResultArticle inline query result article
-// swagger:model InlineQueryResultArticle
-type InlineQueryResultArticle struct {
+// InlineQueryResultPhoto inline query result photo
+// swagger:model InlineQueryResultPhoto
+type InlineQueryResultPhoto struct {
 
-	// description
-	Description string `json:"description,omitempty"`
-
-	// hide url
-	HideURL bool `json:"hide_url,omitempty"`
+	// caption
+	Caption string `json:"caption,omitempty"`
 
 	// id
 	// Required: true
 	ID *string `json:"id"`
 
 	// input message content
+	InputMessageContent interface{} `json:"input_message_content,omitempty"`
+
+	// photo height
+	PhotoHeight int64 `json:"photo_height,omitempty"`
+
+	// photo url
 	// Required: true
-	InputMessageContent interface{} `json:"input_message_content"`
+	PhotoURL *string `json:"photo_url"`
+
+	// photo width
+	PhotoWidth int64 `json:"photo_width,omitempty"`
 
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
 
-	// thumb height
-	ThumbHeight int64 `json:"thumb_height,omitempty"`
-
 	// thumb url
-	ThumbURL string `json:"thumb_url,omitempty"`
-
-	// thumb width
-	ThumbWidth int64 `json:"thumb_width,omitempty"`
+	// Required: true
+	ThumbURL *string `json:"thumb_url"`
 
 	// title
-	// Required: true
-	Title *string `json:"title"`
+	Title string `json:"title,omitempty"`
 
 	// type
 	// Required: true
 	Type InlineType `json:"type"`
-
-	// url
-	URL string `json:"url,omitempty"`
 }
 
-// Validate validates this inline query result article
-func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
+// Validate validates this inline query result photo
+func (m *InlineQueryResultPhoto) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateID(formats); err != nil {
@@ -62,7 +59,7 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateInputMessageContent(formats); err != nil {
+	if err := m.validatePhotoURL(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -72,7 +69,7 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateTitle(formats); err != nil {
+	if err := m.validateThumbURL(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -88,7 +85,7 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
+func (m *InlineQueryResultPhoto) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -97,12 +94,16 @@ func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateInputMessageContent(formats strfmt.Registry) error {
+func (m *InlineQueryResultPhoto) validatePhotoURL(formats strfmt.Registry) error {
+
+	if err := validate.Required("photo_url", "body", m.PhotoURL); err != nil {
+		return err
+	}
 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) error {
+func (m *InlineQueryResultPhoto) validateReplyMarkup(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ReplyMarkup) { // not required
 		return nil
@@ -118,16 +119,16 @@ func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateTitle(formats strfmt.Registry) error {
+func (m *InlineQueryResultPhoto) validateThumbURL(formats strfmt.Registry) error {
 
-	if err := validate.Required("title", "body", m.Title); err != nil {
+	if err := validate.Required("thumb_url", "body", m.ThumbURL); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateType(formats strfmt.Registry) error {
+func (m *InlineQueryResultPhoto) validateType(formats strfmt.Registry) error {
 
 	if err := m.Type.Validate(formats); err != nil {
 		return err

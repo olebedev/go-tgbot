@@ -11,23 +11,27 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// InlineQueryResultArticle inline query result article
-// swagger:model InlineQueryResultArticle
-type InlineQueryResultArticle struct {
+// InlineQueryResultContact inline query result contact
+// swagger:model InlineQueryResultContact
+type InlineQueryResultContact struct {
 
-	// description
-	Description string `json:"description,omitempty"`
-
-	// hide url
-	HideURL bool `json:"hide_url,omitempty"`
+	// first name
+	// Required: true
+	FirstName *string `json:"first_name"`
 
 	// id
 	// Required: true
 	ID *string `json:"id"`
 
 	// input message content
+	InputMessageContent interface{} `json:"input_message_content,omitempty"`
+
+	// last name
+	LastName string `json:"last_name,omitempty"`
+
+	// phone number
 	// Required: true
-	InputMessageContent interface{} `json:"input_message_content"`
+	PhoneNumber *string `json:"phone_number"`
 
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
@@ -41,38 +45,31 @@ type InlineQueryResultArticle struct {
 	// thumb width
 	ThumbWidth int64 `json:"thumb_width,omitempty"`
 
-	// title
-	// Required: true
-	Title *string `json:"title"`
-
 	// type
 	// Required: true
 	Type InlineType `json:"type"`
-
-	// url
-	URL string `json:"url,omitempty"`
 }
 
-// Validate validates this inline query result article
-func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
+// Validate validates this inline query result contact
+func (m *InlineQueryResultContact) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateFirstName(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
 
 	if err := m.validateID(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
-	if err := m.validateInputMessageContent(formats); err != nil {
+	if err := m.validatePhoneNumber(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateReplyMarkup(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateTitle(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -88,7 +85,16 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
+func (m *InlineQueryResultContact) validateFirstName(formats strfmt.Registry) error {
+
+	if err := validate.Required("first_name", "body", m.FirstName); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *InlineQueryResultContact) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -97,12 +103,16 @@ func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateInputMessageContent(formats strfmt.Registry) error {
+func (m *InlineQueryResultContact) validatePhoneNumber(formats strfmt.Registry) error {
+
+	if err := validate.Required("phone_number", "body", m.PhoneNumber); err != nil {
+		return err
+	}
 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) error {
+func (m *InlineQueryResultContact) validateReplyMarkup(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ReplyMarkup) { // not required
 		return nil
@@ -118,16 +128,7 @@ func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateTitle(formats strfmt.Registry) error {
-
-	if err := validate.Required("title", "body", m.Title); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *InlineQueryResultArticle) validateType(formats strfmt.Registry) error {
+func (m *InlineQueryResultContact) validateType(formats strfmt.Registry) error {
 
 	if err := m.Type.Validate(formats); err != nil {
 		return err

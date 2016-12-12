@@ -11,50 +11,47 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// InlineQueryResultArticle inline query result article
-// swagger:model InlineQueryResultArticle
-type InlineQueryResultArticle struct {
+// InlineQueryResultMpeg4Gif inline query result mpeg4 gif
+// swagger:model InlineQueryResultMpeg4Gif
+type InlineQueryResultMpeg4Gif struct {
 
-	// description
-	Description string `json:"description,omitempty"`
-
-	// hide url
-	HideURL bool `json:"hide_url,omitempty"`
+	// caption
+	Caption string `json:"caption,omitempty"`
 
 	// id
 	// Required: true
 	ID *string `json:"id"`
 
 	// input message content
+	InputMessageContent interface{} `json:"input_message_content,omitempty"`
+
+	// mpeg4 height
+	Mpeg4Height int64 `json:"mpeg4_height,omitempty"`
+
+	// mpeg4 url
 	// Required: true
-	InputMessageContent interface{} `json:"input_message_content"`
+	Mpeg4URL *string `json:"mpeg4_url"`
+
+	// mpeg4 width
+	Mpeg4Width int64 `json:"mpeg4_width,omitempty"`
 
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
 
-	// thumb height
-	ThumbHeight int64 `json:"thumb_height,omitempty"`
-
 	// thumb url
-	ThumbURL string `json:"thumb_url,omitempty"`
-
-	// thumb width
-	ThumbWidth int64 `json:"thumb_width,omitempty"`
+	// Required: true
+	ThumbURL *string `json:"thumb_url"`
 
 	// title
-	// Required: true
-	Title *string `json:"title"`
+	Title string `json:"title,omitempty"`
 
 	// type
 	// Required: true
 	Type InlineType `json:"type"`
-
-	// url
-	URL string `json:"url,omitempty"`
 }
 
-// Validate validates this inline query result article
-func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
+// Validate validates this inline query result mpeg4 gif
+func (m *InlineQueryResultMpeg4Gif) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateID(formats); err != nil {
@@ -62,7 +59,7 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateInputMessageContent(formats); err != nil {
+	if err := m.validateMpeg4URL(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -72,7 +69,7 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateTitle(formats); err != nil {
+	if err := m.validateThumbURL(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -88,7 +85,7 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
+func (m *InlineQueryResultMpeg4Gif) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -97,12 +94,16 @@ func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateInputMessageContent(formats strfmt.Registry) error {
+func (m *InlineQueryResultMpeg4Gif) validateMpeg4URL(formats strfmt.Registry) error {
+
+	if err := validate.Required("mpeg4_url", "body", m.Mpeg4URL); err != nil {
+		return err
+	}
 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) error {
+func (m *InlineQueryResultMpeg4Gif) validateReplyMarkup(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ReplyMarkup) { // not required
 		return nil
@@ -118,16 +119,16 @@ func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateTitle(formats strfmt.Registry) error {
+func (m *InlineQueryResultMpeg4Gif) validateThumbURL(formats strfmt.Registry) error {
 
-	if err := validate.Required("title", "body", m.Title); err != nil {
+	if err := validate.Required("thumb_url", "body", m.ThumbURL); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateType(formats strfmt.Registry) error {
+func (m *InlineQueryResultMpeg4Gif) validateType(formats strfmt.Registry) error {
 
 	if err := m.Type.Validate(formats); err != nil {
 		return err

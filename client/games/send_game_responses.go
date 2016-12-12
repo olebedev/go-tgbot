@@ -62,28 +62,6 @@ func (o *SendGameOK) readResponse(response runtime.ClientResponse, consumer runt
 	return nil
 }
 
-/*SendGameOKBody send game o k body
-swagger:model SendGameOKBody
-*/
-type SendGameOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *models.Message `json:"result"`
-}
-
 /*SendGameBody send game body
 swagger:model SendGameBody
 */
@@ -105,4 +83,26 @@ type SendGameBody struct {
 
 	// reply to message id
 	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
+}
+
+/*SendGameOKBody send game o k body
+swagger:model SendGameOKBody
+*/
+type SendGameOKBody struct {
+
+	// description
+	// Required: true
+	Description *string `json:"description"`
+
+	// error code
+	// Required: true
+	ErrorCode *int64 `json:"error_code"`
+
+	// ok
+	// Required: true
+	Ok *bool `json:"ok"`
+
+	// result
+	// Required: true
+	Result *models.Message `json:"result"`
 }

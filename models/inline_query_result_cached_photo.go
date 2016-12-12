@@ -11,50 +11,40 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// InlineQueryResultArticle inline query result article
-// swagger:model InlineQueryResultArticle
-type InlineQueryResultArticle struct {
+// InlineQueryResultCachedPhoto inline query result cached photo
+// swagger:model InlineQueryResultCachedPhoto
+type InlineQueryResultCachedPhoto struct {
+
+	// caption
+	Caption string `json:"caption,omitempty"`
 
 	// description
 	Description string `json:"description,omitempty"`
-
-	// hide url
-	HideURL bool `json:"hide_url,omitempty"`
 
 	// id
 	// Required: true
 	ID *string `json:"id"`
 
 	// input message content
+	InputMessageContent interface{} `json:"input_message_content,omitempty"`
+
+	// photo file id
 	// Required: true
-	InputMessageContent interface{} `json:"input_message_content"`
+	PhotoFileID *string `json:"photo_file_id"`
 
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
 
-	// thumb height
-	ThumbHeight int64 `json:"thumb_height,omitempty"`
-
-	// thumb url
-	ThumbURL string `json:"thumb_url,omitempty"`
-
-	// thumb width
-	ThumbWidth int64 `json:"thumb_width,omitempty"`
-
 	// title
-	// Required: true
-	Title *string `json:"title"`
+	Title string `json:"title,omitempty"`
 
 	// type
 	// Required: true
 	Type InlineType `json:"type"`
-
-	// url
-	URL string `json:"url,omitempty"`
 }
 
-// Validate validates this inline query result article
-func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
+// Validate validates this inline query result cached photo
+func (m *InlineQueryResultCachedPhoto) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateID(formats); err != nil {
@@ -62,17 +52,12 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateInputMessageContent(formats); err != nil {
+	if err := m.validatePhotoFileID(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
 	if err := m.validateReplyMarkup(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateTitle(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -88,7 +73,7 @@ func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
+func (m *InlineQueryResultCachedPhoto) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -97,12 +82,16 @@ func (m *InlineQueryResultArticle) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateInputMessageContent(formats strfmt.Registry) error {
+func (m *InlineQueryResultCachedPhoto) validatePhotoFileID(formats strfmt.Registry) error {
+
+	if err := validate.Required("photo_file_id", "body", m.PhotoFileID); err != nil {
+		return err
+	}
 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) error {
+func (m *InlineQueryResultCachedPhoto) validateReplyMarkup(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ReplyMarkup) { // not required
 		return nil
@@ -118,16 +107,7 @@ func (m *InlineQueryResultArticle) validateReplyMarkup(formats strfmt.Registry) 
 	return nil
 }
 
-func (m *InlineQueryResultArticle) validateTitle(formats strfmt.Registry) error {
-
-	if err := validate.Required("title", "body", m.Title); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *InlineQueryResultArticle) validateType(formats strfmt.Registry) error {
+func (m *InlineQueryResultCachedPhoto) validateType(formats strfmt.Registry) error {
 
 	if err := m.Type.Validate(formats); err != nil {
 		return err
