@@ -45,7 +45,7 @@ func NewGetUpdatesOK() *GetUpdatesOK {
 An array of Updates
 */
 type GetUpdatesOK struct {
-	Payload GetUpdatesOKBody
+	Payload *models.ResponseUpdate
 }
 
 func (o *GetUpdatesOK) Error() string {
@@ -54,8 +54,10 @@ func (o *GetUpdatesOK) Error() string {
 
 func (o *GetUpdatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseUpdate)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -78,26 +80,4 @@ type GetUpdatesBody struct {
 
 	// timeout
 	Timeout int64 `json:"timeout,omitempty"`
-}
-
-/*GetUpdatesOKBody get updates o k body
-swagger:model GetUpdatesOKBody
-*/
-type GetUpdatesOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result []*models.Update `json:"result"`
 }

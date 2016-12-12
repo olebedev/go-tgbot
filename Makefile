@@ -1,6 +1,6 @@
-SOURCE    = ./swagger.yaml
-LIB       = ./.lib
-MODELS  = $(patsubst %.go, %_ffjson.go, $(shell find models -name "*.go" -type f -not -name "*ffjson.go" -not -name "*_expose.go" -not -name "ffjson-*.go"))
+SOURCE = ./swagger.yaml
+LIB    = ./.lib
+MODELS = $(patsubst %.go, %_ffjson.go, $(shell find models -name "*.go" -type f -not -name "*ffjson.go" -not -name "*_expose.go" -not -name "ffjson-*.go"))
 
 build: $(LIB)
 

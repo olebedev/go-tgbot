@@ -62,28 +62,6 @@ func (o *EditMessageTextOK) readResponse(response runtime.ClientResponse, consum
 	return nil
 }
 
-/*EditMessageTextOKBody edit message text o k body
-swagger:model EditMessageTextOKBody
-*/
-type EditMessageTextOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result interface{} `json:"result"`
-}
-
 /*EditMessageTextBody edit message text body
 swagger:model EditMessageTextBody
 */
@@ -110,4 +88,26 @@ type EditMessageTextBody struct {
 	// text
 	// Required: true
 	Text *string `json:"text"`
+}
+
+/*EditMessageTextOKBody edit message text o k body
+swagger:model EditMessageTextOKBody
+*/
+type EditMessageTextOKBody struct {
+
+	// description
+	// Required: true
+	Description *string `json:"description"`
+
+	// error code
+	// Required: true
+	ErrorCode *int64 `json:"error_code"`
+
+	// ok
+	// Required: true
+	Ok *bool `json:"ok"`
+
+	// result
+	// Required: true
+	Result interface{} `json:"result"`
 }

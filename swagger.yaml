@@ -64,19 +64,7 @@ paths:
         200:
           description: An array of Updates
           schema:
-            type: object
-            properties:
-              result:
-                type: array
-                items:
-                  $ref: "#/definitions/Update"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseUpdate"
   /bot{token}/getMe:
     get:
       tags:
@@ -2650,6 +2638,20 @@ definitions:
     properties:
       result:
         $ref: "#/definitions/Message"
+      error_code:
+        type: integer
+        format: int64
+      ok:
+        type: boolean
+      description:
+        type: string
+  ResponseUpdate:
+    type: object
+    properties:
+      result:
+        type: array
+        items:
+          $ref: "#/definitions/Update"
       error_code:
         type: integer
         format: int64
