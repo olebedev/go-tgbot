@@ -2245,7 +2245,6 @@ definitions:
         type: string
       query:
         type: string
-
   Game:
     type: object
     required:
@@ -2298,7 +2297,6 @@ definitions:
         format: int64
   CallbackGame:
     type: object
-
   InlineQuery:
     type: object
     properties:
