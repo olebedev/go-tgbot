@@ -45,7 +45,7 @@ func NewSendMessageOK() *SendMessageOK {
 SendMessageOK send message o k
 */
 type SendMessageOK struct {
-	Payload SendMessageOKBody
+	Payload *models.ResponseMessage
 }
 
 func (o *SendMessageOK) Error() string {
@@ -54,8 +54,10 @@ func (o *SendMessageOK) Error() string {
 
 func (o *SendMessageOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseMessage)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -89,26 +91,4 @@ type SendMessageBody struct {
 	// text
 	// Required: true
 	Text *string `json:"text"`
-}
-
-/*SendMessageOKBody send message o k body
-swagger:model SendMessageOKBody
-*/
-type SendMessageOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *models.Message `json:"result"`
 }

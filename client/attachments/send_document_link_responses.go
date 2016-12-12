@@ -45,7 +45,7 @@ func NewSendDocumentLinkOK() *SendDocumentLinkOK {
 SendDocumentLinkOK send document link o k
 */
 type SendDocumentLinkOK struct {
-	Payload SendDocumentLinkOKBody
+	Payload *models.ResponseMessage
 }
 
 func (o *SendDocumentLinkOK) Error() string {
@@ -54,8 +54,10 @@ func (o *SendDocumentLinkOK) Error() string {
 
 func (o *SendDocumentLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseMessage)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -86,26 +88,4 @@ type SendDocumentLinkBody struct {
 
 	// reply to message id
 	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
-}
-
-/*SendDocumentLinkOKBody send document link o k body
-swagger:model SendDocumentLinkOKBody
-*/
-type SendDocumentLinkOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *models.Message `json:"result"`
 }

@@ -62,27 +62,6 @@ func (o *EditMessageCaptionOK) readResponse(response runtime.ClientResponse, con
 	return nil
 }
 
-/*EditMessageCaptionBody edit message caption body
-swagger:model EditMessageCaptionBody
-*/
-type EditMessageCaptionBody struct {
-
-	// caption
-	Caption string `json:"caption,omitempty"`
-
-	// chat id
-	ChatID interface{} `json:"chat_id,omitempty"`
-
-	// inline message id
-	InlineMessageID string `json:"inline_message_id,omitempty"`
-
-	// message id
-	MessageID int64 `json:"message_id,omitempty"`
-
-	// reply markup
-	ReplyMarkup *models.InlineKeyboardMarkup `json:"reply_markup,omitempty"`
-}
-
 /*EditMessageCaptionOKBody edit message caption o k body
 swagger:model EditMessageCaptionOKBody
 */
@@ -103,4 +82,25 @@ type EditMessageCaptionOKBody struct {
 	// result
 	// Required: true
 	Result interface{} `json:"result"`
+}
+
+/*EditMessageCaptionBody edit message caption body
+swagger:model EditMessageCaptionBody
+*/
+type EditMessageCaptionBody struct {
+
+	// caption
+	Caption string `json:"caption,omitempty"`
+
+	// chat id
+	ChatID interface{} `json:"chat_id,omitempty"`
+
+	// inline message id
+	InlineMessageID string `json:"inline_message_id,omitempty"`
+
+	// message id
+	MessageID int64 `json:"message_id,omitempty"`
+
+	// reply markup
+	ReplyMarkup *models.InlineKeyboardMarkup `json:"reply_markup,omitempty"`
 }

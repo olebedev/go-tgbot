@@ -45,7 +45,7 @@ func NewSendContactOK() *SendContactOK {
 SendContactOK send contact o k
 */
 type SendContactOK struct {
-	Payload SendContactOKBody
+	Payload *models.ResponseMessage
 }
 
 func (o *SendContactOK) Error() string {
@@ -54,8 +54,10 @@ func (o *SendContactOK) Error() string {
 
 func (o *SendContactOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseMessage)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -90,26 +92,4 @@ type SendContactBody struct {
 
 	// reply to message id
 	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
-}
-
-/*SendContactOKBody send contact o k body
-swagger:model SendContactOKBody
-*/
-type SendContactOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *models.Message `json:"result"`
 }

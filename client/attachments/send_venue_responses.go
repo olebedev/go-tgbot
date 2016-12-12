@@ -45,7 +45,7 @@ func NewSendVenueOK() *SendVenueOK {
 SendVenueOK send venue o k
 */
 type SendVenueOK struct {
-	Payload SendVenueOKBody
+	Payload *models.ResponseMessage
 }
 
 func (o *SendVenueOK) Error() string {
@@ -54,8 +54,10 @@ func (o *SendVenueOK) Error() string {
 
 func (o *SendVenueOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseMessage)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -98,26 +100,4 @@ type SendVenueBody struct {
 	// title
 	// Required: true
 	Title *string `json:"title"`
-}
-
-/*SendVenueOKBody send venue o k body
-swagger:model SendVenueOKBody
-*/
-type SendVenueOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *models.Message `json:"result"`
 }

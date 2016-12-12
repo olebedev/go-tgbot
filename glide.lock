@@ -1,5 +1,5 @@
-hash: 428aff1784b2d303a3f019aefe9e0464a788a847c027267bf1fd668add3d01a9
-updated: 2016-12-12T08:10:04.36498061+05:00
+hash: 7837e66d9c0137cc6e230910b6432218683fe8c640d3e64803e0289e8e7f2a2a
+updated: 2016-12-12T09:10:07.013784993+05:00
 imports:
 - name: github.com/asaskevich/govalidator
   version: 7b3beb6df3c42abd3509abfc3bcacc0fbfb7c877
@@ -37,6 +37,12 @@ imports:
   - jwriter
 - name: github.com/mitchellh/mapstructure
   version: f3009df150dadf309fdee4a54ed65c124afad715
+- name: github.com/pquerna/ffjson
+  version: a29c662791e4de7fc53a6cf209c9af657bba96f3
+  subpackages:
+  - '...'
+  - fflib/v1
+  - fflib/v1/internal
 - name: github.com/PuerkitoBio/purell
   version: 0bcb03f4b4d0a9428594752bd2a3b9aa0a9d4bd4
 - name: github.com/PuerkitoBio/urlesc

@@ -45,7 +45,7 @@ func NewSendVideoLinkOK() *SendVideoLinkOK {
 SendVideoLinkOK send video link o k
 */
 type SendVideoLinkOK struct {
-	Payload SendVideoLinkOKBody
+	Payload *models.ResponseMessage
 }
 
 func (o *SendVideoLinkOK) Error() string {
@@ -54,8 +54,10 @@ func (o *SendVideoLinkOK) Error() string {
 
 func (o *SendVideoLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseMessage)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -95,26 +97,4 @@ type SendVideoLinkBody struct {
 
 	// width
 	Width int64 `json:"width,omitempty"`
-}
-
-/*SendVideoLinkOKBody send video link o k body
-swagger:model SendVideoLinkOKBody
-*/
-type SendVideoLinkOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *models.Message `json:"result"`
 }

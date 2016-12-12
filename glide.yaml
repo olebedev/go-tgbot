@@ -13,3 +13,6 @@ import:
 - package: github.com/go-swagger/go-swagger
   subpackages:
   - '...'
+- package: github.com/pquerna/ffjson
+  subpackages:
+  - '...'

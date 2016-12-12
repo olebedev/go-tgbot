@@ -45,7 +45,7 @@ func NewSendAudioOK() *SendAudioOK {
 SendAudioOK send audio o k
 */
 type SendAudioOK struct {
-	Payload SendAudioOKBody
+	Payload *models.ResponseMessage
 }
 
 func (o *SendAudioOK) Error() string {
@@ -54,32 +54,12 @@ func (o *SendAudioOK) Error() string {
 
 func (o *SendAudioOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseMessage)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
 	return nil
-}
-
-/*SendAudioOKBody send audio o k body
-swagger:model SendAudioOKBody
-*/
-type SendAudioOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *models.Message `json:"result"`
 }

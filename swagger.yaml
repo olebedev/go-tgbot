@@ -140,17 +140,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/forwardMessage:
     post:
       tags:
@@ -186,18 +176,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
-
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendPhoto:
     post:
       tags:
@@ -243,17 +222,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendPhoto#link:
     post:
       tags:
@@ -290,18 +259,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
-
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendAudio:
     post:
       tags:
@@ -363,17 +321,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendAudio#link:
     post:
       tags:
@@ -417,18 +365,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
-
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendDocument:
     post:
       tags:
@@ -474,17 +411,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendDocument#link:
     post:
       tags:
@@ -521,18 +448,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
-
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendSticker:
     post:
       tags:
@@ -573,17 +489,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendSticker#link:
     post:
       tags:
@@ -618,18 +524,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
-
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendVideo:
     post:
       tags:
@@ -693,17 +588,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendVideo#link:
     post:
       tags:
@@ -749,18 +634,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
-
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendVoice:
     post:
       tags:
@@ -812,17 +686,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendVoice#link:
     post:
       tags:
@@ -862,18 +726,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
-
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendLocation:
     post:
       tags:
@@ -911,18 +764,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
-
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendVenue:
     post:
       tags:
@@ -968,18 +810,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
-
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendContact:
     post:
       tags:
@@ -1019,18 +850,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: "#/definitions/Message"
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
-
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/sendChatAction:
     get:
       tags:
@@ -1073,7 +893,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/getUserProfilePhotos:
     get:
       tags:
@@ -1115,7 +934,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/getFile:
     get:
       tags:
@@ -1144,7 +962,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/kickChatMember:
     get:
       tags:
@@ -1178,7 +995,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/leaveChat:
     get:
       tags:
@@ -1207,7 +1023,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/unbanChatMember:
     get:
       tags:
@@ -1241,7 +1056,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/getChat:
     get:
       tags:
@@ -1270,7 +1084,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/getChatAdministrators:
     get:
       tags:
@@ -1301,7 +1114,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/getChatMembersCount:
     get:
       tags:
@@ -1331,7 +1143,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/getChatMember:
     get:
       tags:
@@ -1365,7 +1176,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/answerCallbackQuery:
     post:
       tags:
@@ -1415,7 +1225,6 @@ paths:
                 type: boolean
               description:
                 type: string      
-
   /bot{token}/editMessageText:
     post:
       tags:
@@ -1467,7 +1276,6 @@ paths:
                 type: boolean
               description:
                 type: string    
-
   /bot{token}/editMessageCaption:
     post:
       tags:
@@ -1509,7 +1317,6 @@ paths:
                 type: boolean
               description:
                 type: string 
-
   /bot{token}/editMessageReplyMarkup:
     post:
       tags:
@@ -1549,7 +1356,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/answerInlineQuery:
     post:
       tags:
@@ -1600,7 +1406,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/sendGame:
     post:
       tags:
@@ -1635,18 +1440,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                $ref: '#/definitions/Message'
-              error_code:
-                type: integer
-                format: int64
-              ok:
-                type: boolean
-              description:
-                type: string
-
+            $ref: "#/definitions/ResponseMessage"
   /bot{token}/setGameScore:
     get:
       tags:
@@ -1709,7 +1503,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
   /bot{token}/getGameHighScores:
     get:
       tags:
@@ -1757,7 +1550,6 @@ paths:
                 type: boolean
               description:
                 type: string
-
 definitions:
   User:
     type: object
@@ -2310,7 +2102,6 @@ definitions:
         type: string
       offset:
         type: string
-
   InlineQueryResultArticle:
     type: object
     properties:
@@ -2400,7 +2191,6 @@ definitions:
     - id
     - phone_number
     - first_name
-
   InlineQueryResultGame:
     type: object
     properties:
@@ -2416,7 +2206,6 @@ definitions:
     - type
     - id
     - game_short_name
-
   InlineQueryResultDocument:
     type: object
     properties:
@@ -2452,7 +2241,6 @@ definitions:
     - title
     - document_url
     - mime_type
-
   InlineQueryResultGif:
     type: object
     properties:
@@ -2483,7 +2271,6 @@ definitions:
     - id
     - gif_url
     - thumb_url
-
   InlineQueryResultLocation:
     type: object
     properties:
@@ -2515,7 +2302,6 @@ definitions:
     - title
     - latitude
     - longitude
-
   InlineQueryResultMpeg4Gif:
     type: object
     properties:
@@ -2546,7 +2332,6 @@ definitions:
     - id
     - mpeg4_url
     - thumb_url
-
   InlineQueryResultPhoto:
     type: object
     properties:
@@ -2577,7 +2362,6 @@ definitions:
     - id
     - photo_url
     - thumb_url
-
   InlineQueryResultVenue:
     type: object
     properties:
@@ -2614,7 +2398,6 @@ definitions:
     - latitude
     - longitude
     - address
-
   InlineQueryResultVideo:
     type: object
     properties:
@@ -2654,7 +2437,6 @@ definitions:
     - mime_type
     - thumb_url
     - title
-
   InlineQueryResultVoice:
     type: object
     properties:
@@ -2680,7 +2462,6 @@ definitions:
     - id
     - voice_url
     - title
-
   InlineQueryResultCachedAudio:
     type: object
     properties:
@@ -2700,7 +2481,6 @@ definitions:
     - type
     - id
     - audio_file_id
-
   InlineQueryResultCachedDocument:
     type: object
     properties:
@@ -2722,7 +2502,6 @@ definitions:
     - type
     - id
     - document_file_id
-
   InlineQueryResultCachedGif:
     type: object
     properties:
@@ -2745,7 +2524,6 @@ definitions:
     - type
     - id
     - gif_file_id
-
   InlineQueryResultCachedMpeg4Gif:
     type: object
     properties:
@@ -2767,7 +2545,6 @@ definitions:
     - type
     - id
     - mpeg4_file_id
-
   InlineQueryResultCachedPhoto:
     type: object
     properties:
@@ -2791,7 +2568,6 @@ definitions:
     - type
     - id
     - photo_file_id
-
   InlineQueryResultCachedSticker:
     type: object
     properties:
@@ -2809,7 +2585,6 @@ definitions:
     - type
     - id
     - sticker_file_id
-
   InlineQueryResultCachedVideo:
     type: object
     properties:
@@ -2833,7 +2608,6 @@ definitions:
     - type
     - id
     - video_file_id
-
   InlineQueryResultCachedVoice:
     type: object
     properties:
@@ -2855,7 +2629,6 @@ definitions:
     - type
     - id
     - voice_file_id
-
   InlineType:
     type: string
     enum:
@@ -2872,3 +2645,15 @@ definitions:
     - video
     - voice
     - sticker
+  ResponseMessage:
+    type: object
+    properties:
+      result:
+        $ref: "#/definitions/Message"
+      error_code:
+        type: integer
+        format: int64
+      ok:
+        type: boolean
+      description:
+        type: string
