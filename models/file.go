@@ -14,10 +14,13 @@ import (
 type File struct {
 
 	// file id
-	FileID int64 `json:"file_id,omitempty"`
+	FileID string `json:"file_id,omitempty"`
 
 	// file path
 	FilePath string `json:"file_path,omitempty"`
+
+	// file size
+	FileSize int64 `json:"file_size,omitempty"`
 }
 
 // Validate validates this file
