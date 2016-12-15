@@ -17,10 +17,10 @@ type Context struct {
 	isSkipped bool
 }
 
-// Skip shows that at least next matched handlers should be applied.
-func (c *Context) FallThrough() {
+// FallThrough shows that the next matched handlers should be applied.
+func (c *Context) FallThrough() nil {
 	c.isSkipped = true
-				
+	return nil
 }
 
 // Next executes the pending handlers in the chain inside the calling handler.
