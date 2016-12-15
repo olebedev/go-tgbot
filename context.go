@@ -20,6 +20,7 @@ type Context struct {
 // Skip shows that at least next matched handlers should be applied.
 func (c *Context) FallThrough() {
 	c.isSkipped = true
+				
 }
 
 // Next executes the pending handlers in the chain inside the calling handler.

@@ -2,12 +2,20 @@ package tgbot
 
 import (
 	"fmt"
-	"net/url"
 
 	"github.com/olebedev/go-tgbot/models"
 	"github.com/pkg/errors"
 )
 
+type session string
+
+func (s session) String() string {
+	return string(s)
+}
+
+// GetSession is a default session repository. it's just
+// extract a text from an update. Returns Stringer interface
+// to be able to match the update.
 func GetSession(u *models.Update) (fmt.Stringer, error) {
 	var text string
 	switch true {
@@ -31,5 +39,5 @@ func GetSession(u *models.Update) (fmt.Stringer, error) {
 		return nil, errors.New("unknown update")
 	}
 
-	return url.Parse(text)
+	return session(text), nil
 }

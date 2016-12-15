@@ -13,6 +13,7 @@ import (
 type rkind int
 
 const (
+	// Kind is const to route different updates
 	KindMessage rkind = 1 << iota
 	KindEditedMessage
 	KindChannelPost
@@ -23,6 +24,14 @@ const (
 	KindAll rkind = (1 << iota) - 1
 )
 
+// Options ... All field are optional.
+type Options struct {
+	Context context.Context
+	Token   string
+	Repo    func(*models.Update) (fmt.Stringer, error)
+}
+
+// Router ...
 type Router struct {
 	*client.TelegramBot
 	middlewares []func(*Context) error
@@ -35,9 +44,13 @@ type Router struct {
 	getSession func(*models.Update) (fmt.Stringer, error)
 }
 
-func New(ctx context.Context, token string, repo func(*models.Update) (fmt.Stringer, error)) *Router {
+// New returns a router.
+func New(o *Options) *Router {
+	if o == nil {
+		o = &Options{}
+	}
 	r := &Router{
-		TelegramBot: NewClient(ctx, token),
+		TelegramBot: NewClient(o.Context, o.Token),
 		middlewares: make([]func(*Context) error, 0),
 		routes: make([]struct {
 			kind  rkind
@@ -47,8 +60,8 @@ func New(ctx context.Context, token string, repo func(*models.Update) (fmt.Strin
 		}, 0),
 	}
 
-	if repo != nil {
-		r.getSession = repo
+	if o.Repo != nil {
+		r.getSession = o.Repo
 	} else {
 		r.getSession = GetSession
 	}
