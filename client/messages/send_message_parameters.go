@@ -51,8 +51,8 @@ for the send message operation typically these are written to a http.Request
 */
 type SendMessageParams struct {
 
-	/*Request*/
-	Request SendMessageBody
+	/*Body*/
+	Body SendMessageBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -86,15 +86,15 @@ func (o *SendMessageParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
-// WithRequest adds the request to the send message params
-func (o *SendMessageParams) WithRequest(request SendMessageBody) *SendMessageParams {
-	o.SetRequest(request)
+// WithBody adds the body to the send message params
+func (o *SendMessageParams) WithBody(body SendMessageBody) *SendMessageParams {
+	o.SetBody(body)
 	return o
 }
 
-// SetRequest adds the request to the send message params
-func (o *SendMessageParams) SetRequest(request SendMessageBody) {
-	o.Request = request
+// SetBody adds the body to the send message params
+func (o *SendMessageParams) SetBody(body SendMessageBody) {
+	o.Body = body
 }
 
 // WithToken adds the token to the send message params
@@ -114,7 +114,7 @@ func (o *SendMessageParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	r.SetTimeout(o.timeout)
 	var res []error
 
-	if err := r.SetBodyParam(o.Request); err != nil {
+	if err := r.SetBodyParam(o.Body); err != nil {
 		return err
 	}
 

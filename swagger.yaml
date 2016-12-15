@@ -97,7 +97,7 @@ paths:
       parameters:
       - $ref: '#/parameters/token'
       - in: body
-        name: request
+        name: body
         required: false
         schema:
           type: object
