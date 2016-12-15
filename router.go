@@ -20,15 +20,7 @@ const (
 	KindInlineQuery
 	KindCallbackQuery
 	KindChosenInlineResult
-	KindAll
-
-	allKind = KindMessage |
-		KindEditedMessage |
-		KindChannelPost |
-		KindEditedChannelPost |
-		KindInlineQuery |
-		KindCallbackQuery |
-		KindChosenInlineResult
+	KindAll rkind = (1 << iota) - 1
 )
 
 type Router struct {
