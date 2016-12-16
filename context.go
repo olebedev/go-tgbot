@@ -18,7 +18,7 @@ type Context struct {
 }
 
 // FallThrough shows that the next matched handlers should be applied.
-func (c *Context) FallThrough() nil {
+func (c *Context) FallThrough() error {
 	c.isSkipped = true
 	return nil
 }

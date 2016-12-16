@@ -33,14 +33,19 @@ func (mj *File) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 	_ = obj
 	_ = err
 	buf.WriteString(`{ `)
-	if mj.FileID != 0 {
+	if len(mj.FileID) != 0 {
 		buf.WriteString(`"file_id":`)
-		fflib.FormatBits2(buf, uint64(mj.FileID), 10, mj.FileID < 0)
+		fflib.WriteJsonString(buf, string(mj.FileID))
 		buf.WriteByte(',')
 	}
 	if len(mj.FilePath) != 0 {
 		buf.WriteString(`"file_path":`)
 		fflib.WriteJsonString(buf, string(mj.FilePath))
+		buf.WriteByte(',')
+	}
+	if mj.FileSize != 0 {
+		buf.WriteString(`"file_size":`)
+		fflib.FormatBits2(buf, uint64(mj.FileSize), 10, mj.FileSize < 0)
 		buf.WriteByte(',')
 	}
 	buf.Rewind(1)
@@ -55,11 +60,15 @@ const (
 	ffj_t_File_FileID
 
 	ffj_t_File_FilePath
+
+	ffj_t_File_FileSize
 )
 
 var ffj_key_File_FileID = []byte("file_id")
 
 var ffj_key_File_FilePath = []byte("file_path")
+
+var ffj_key_File_FileSize = []byte("file_size")
 
 func (uj *File) UnmarshalJSON(input []byte) error {
 	fs := fflib.NewFFLexer(input)
@@ -131,8 +140,19 @@ mainparse:
 						currentKey = ffj_t_File_FilePath
 						state = fflib.FFParse_want_colon
 						goto mainparse
+
+					} else if bytes.Equal(ffj_key_File_FileSize, kn) {
+						currentKey = ffj_t_File_FileSize
+						state = fflib.FFParse_want_colon
+						goto mainparse
 					}
 
+				}
+
+				if fflib.EqualFoldRight(ffj_key_File_FileSize, kn) {
+					currentKey = ffj_t_File_FileSize
+					state = fflib.FFParse_want_colon
+					goto mainparse
 				}
 
 				if fflib.AsciiEqualFold(ffj_key_File_FilePath, kn) {
@@ -170,6 +190,9 @@ mainparse:
 				case ffj_t_File_FilePath:
 					goto handle_FilePath
 
+				case ffj_t_File_FileSize:
+					goto handle_FileSize
+
 				case ffj_t_Fileno_such_key:
 					err = fs.SkipField(tok)
 					if err != nil {
@@ -186,27 +209,23 @@ mainparse:
 
 handle_FileID:
 
-	/* handler: uj.FileID type=int64 kind=int64 quoted=false*/
+	/* handler: uj.FileID type=string kind=string quoted=false*/
 
 	{
-		if tok != fflib.FFTok_integer && tok != fflib.FFTok_null {
-			return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for int64", tok))
+
+		{
+			if tok != fflib.FFTok_string && tok != fflib.FFTok_null {
+				return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for string", tok))
+			}
 		}
-	}
-
-	{
 
 		if tok == fflib.FFTok_null {
 
 		} else {
 
-			tval, err := fflib.ParseInt(fs.Output.Bytes(), 10, 64)
+			outBuf := fs.Output.Bytes()
 
-			if err != nil {
-				return fs.WrapErr(err)
-			}
-
-			uj.FileID = int64(tval)
+			uj.FileID = string(string(outBuf))
 
 		}
 	}
@@ -233,6 +252,36 @@ handle_FilePath:
 			outBuf := fs.Output.Bytes()
 
 			uj.FilePath = string(string(outBuf))
+
+		}
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
+handle_FileSize:
+
+	/* handler: uj.FileSize type=int64 kind=int64 quoted=false*/
+
+	{
+		if tok != fflib.FFTok_integer && tok != fflib.FFTok_null {
+			return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for int64", tok))
+		}
+	}
+
+	{
+
+		if tok == fflib.FFTok_null {
+
+		} else {
+
+			tval, err := fflib.ParseInt(fs.Output.Bytes(), 10, 64)
+
+			if err != nil {
+				return fs.WrapErr(err)
+			}
+
+			uj.FileSize = int64(tval)
 
 		}
 	}

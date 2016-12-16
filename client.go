@@ -16,8 +16,7 @@ func NewClient(ctx context.Context, token string) *client.TelegramBot {
 	}
 	transport.Context = ctx
 	transport.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(r runtime.ClientRequest, _ strfmt.Registry) error {
-		r.SetPathParam("token", token)
-		return nil
+		return r.SetPathParam("token", token)
 	})
 	return client.New(transport, nil)
 }
