@@ -152,17 +152,17 @@ func GetSessionFunc(u *models.Update) (fmt.Stringer, error) {
 	}
 	
 	s := &Session{
-		Route: "~" + strss.String(),
+		Route: "~" + sess.String(),
 	}
 	
 	switch true {
 	case u.Message != nil:
 		s.User, err := app.GetUserByTgID(u.Message.From.ID)
-		if err 1= nil {
+		if err != nil {
 			return err
 		}
 		s.Billing, err := app.GetBillingByID(s.User.ID)
-		if err 1= nil {
+		if err != nil {
 			return err
 		}
 		
