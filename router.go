@@ -32,9 +32,9 @@ const (
 
 // Options ... All field are optional.
 type Options struct {
-	Context context.Context
-	Token   string
-	Repo    func(*models.Update) (fmt.Stringer, error)
+	Context    context.Context
+	Token      string
+	GetSession func(*models.Update) (fmt.Stringer, error)
 }
 
 // Router ...
@@ -66,8 +66,8 @@ func New(o *Options) *Router {
 		}, 0),
 	}
 
-	if o.Repo != nil {
-		r.getSession = o.Repo
+	if o.GetSession != nil {
+		r.getSession = o.GetSession
 	} else {
 		r.getSession = GetSession
 	}
