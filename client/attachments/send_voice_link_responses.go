@@ -99,32 +99,3 @@ func (o *SendVoiceLinkBadRequest) readResponse(response runtime.ClientResponse, 
 
 	return nil
 }
-
-/*SendVoiceLinkBody send voice link body
-swagger:model SendVoiceLinkBody
-*/
-type SendVoiceLinkBody struct {
-
-	// caption
-	Caption string `json:"caption,omitempty"`
-
-	// chat id
-	// Required: true
-	ChatID interface{} `json:"chat_id"`
-
-	// disable notification
-	DisableNotification bool `json:"disable_notification,omitempty"`
-
-	// duration
-	Duration int64 `json:"duration,omitempty"`
-
-	// reply markup
-	ReplyMarkup interface{} `json:"reply_markup,omitempty"`
-
-	// reply to message id
-	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
-
-	// voice
-	// Required: true
-	Voice *string `json:"voice"`
-}

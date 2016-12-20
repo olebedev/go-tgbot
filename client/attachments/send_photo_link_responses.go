@@ -99,29 +99,3 @@ func (o *SendPhotoLinkBadRequest) readResponse(response runtime.ClientResponse, 
 
 	return nil
 }
-
-/*SendPhotoLinkBody send photo link body
-swagger:model SendPhotoLinkBody
-*/
-type SendPhotoLinkBody struct {
-
-	// caption
-	Caption string `json:"caption,omitempty"`
-
-	// chat id
-	// Required: true
-	ChatID interface{} `json:"chat_id"`
-
-	// disable notification
-	DisableNotification bool `json:"disable_notification,omitempty"`
-
-	// photo
-	// Required: true
-	Photo *string `json:"photo"`
-
-	// reply markup
-	ReplyMarkup interface{} `json:"reply_markup,omitempty"`
-
-	// reply to message id
-	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
-}

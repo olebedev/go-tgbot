@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewEditMessageReplyMarkupParams creates a new EditMessageReplyMarkupParams object
@@ -52,7 +54,7 @@ for the edit message reply markup operation typically these are written to a htt
 type EditMessageReplyMarkupParams struct {
 
 	/*Body*/
-	Body EditMessageReplyMarkupBody
+	Body *models.EditMessageReplyMarkupBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *EditMessageReplyMarkupParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the edit message reply markup params
-func (o *EditMessageReplyMarkupParams) WithBody(body EditMessageReplyMarkupBody) *EditMessageReplyMarkupParams {
+func (o *EditMessageReplyMarkupParams) WithBody(body *models.EditMessageReplyMarkupBody) *EditMessageReplyMarkupParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the edit message reply markup params
-func (o *EditMessageReplyMarkupParams) SetBody(body EditMessageReplyMarkupBody) {
+func (o *EditMessageReplyMarkupParams) SetBody(body *models.EditMessageReplyMarkupBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *EditMessageReplyMarkupParams) WriteToRequest(r runtime.ClientRequest, r
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.EditMessageReplyMarkupBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

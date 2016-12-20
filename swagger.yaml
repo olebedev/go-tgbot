@@ -108,30 +108,7 @@ paths:
         name: body
         required: false
         schema:
-          type: object
-          required:
-          - chat_id
-          - text
-          properties:
-            chat_id:
-              type: object
-            text:
-              type: string
-            parse_mode:
-              type: string
-              enum:
-              - Markdown
-              - Html
-            disable_web_page_preview:
-              type: boolean
-            disable_notification:
-              type: boolean
-            reply_to_message_id:
-              type: integer
-              format: int64
-            reply_markup:
-              schema:
-                type: object
+          $ref: "#/definitions/SendMessageBody"
       responses:
         200:
           description: ""
@@ -244,25 +221,7 @@ paths:
         name: body
         description: ""
         schema:
-          type: object
-          required:
-          - chat_id
-          - photo
-          properties:
-            chat_id:
-              type: object
-            photo:
-              type: string
-            caption:
-              type: string
-            disable_notification:
-              type: boolean
-            reply_to_message_id:
-              type: integer
-              format: int64
-            reply_markup:
-              schema:
-                type: object
+          $ref: "#/definitions/SendPhotoLinkBody"
       responses:
         200:
           description: ""
@@ -351,32 +310,7 @@ paths:
         name: body
         description: ""
         schema:
-          type: object
-          required:
-          - chat_id
-          - audio
-          properties:
-            chat_id:
-              type: object
-            audio:
-              type: string
-            caption:
-              type: string
-            duration:
-              type: integer
-              format: int64
-            performer:
-              type: string
-            title:
-              type: string
-            disable_notification:
-              type: boolean
-            reply_to_message_id:
-              type: integer
-              format: int64
-            reply_markup:
-              schema:
-                type: object
+          $ref: "#/definitions/SendAudioLinkBody"
       responses:
         200:
           description: ""
@@ -449,25 +383,7 @@ paths:
         name: body
         description: ""
         schema:
-          type: object
-          required:
-          - chat_id
-          - document
-          properties:
-            chat_id:
-              type: object
-            document:
-              type: string
-            caption:
-              type: string
-            disable_notification:
-              type: boolean
-            reply_to_message_id:
-              type: integer
-              format: int64
-            reply_markup:
-              schema:
-                type: object
+          $ref: "#/definitions/SendDocumentLinkBody"
       responses:
         200:
           description: ""
@@ -535,23 +451,7 @@ paths:
         name: body
         description: ""
         schema:
-          type: object
-          required:
-          - chat_id
-          - sticker
-          properties:
-            chat_id:
-              type: object
-            sticker:
-              type: string
-            disable_notification:
-              type: boolean
-            reply_to_message_id:
-              type: integer
-              format: int64
-            reply_markup:
-              schema:
-                type: object
+          $ref: "#/definitions/SendStickerLinkBody"
       responses:
         200:
           description: ""
@@ -642,34 +542,7 @@ paths:
         name: body
         description: ""
         schema:
-          type: object
-          required:
-          - chat_id
-          - audio
-          properties:
-            chat_id:
-              type: object
-            audio:
-              type: string
-            duration:
-              type: integer
-              format: int64
-            width:
-              type: integer
-              format: int64
-            height:
-              type: integer
-              format: int64
-            caption:
-              type: string
-            disable_notification:
-              type: boolean
-            reply_to_message_id:
-              type: integer
-              format: int64
-            reply_markup:
-              schema:
-                type: object
+          $ref: "#/definitions/SendVideoLinkBody"
       responses:
         200:
           description: ""
@@ -748,28 +621,7 @@ paths:
         name: body
         description: ""
         schema:
-          type: object
-          required:
-          - chat_id
-          - voice
-          properties:
-            chat_id:
-              type: object
-            voice:
-              type: string
-            caption:
-              type: string
-            duration:
-              type: integer
-              format: int64
-            disable_notification:
-              type: boolean
-            reply_to_message_id:
-              type: integer
-              format: int64
-            reply_markup:
-              schema:
-                type: object
+          $ref: "#/definitions/SendVoiceLinkBody"
       responses:
         200:
           description: ""
@@ -792,26 +644,7 @@ paths:
         required: false
         description: ""
         schema:
-          type: object
-          required:
-          - chat_id
-          - latitude
-          - longitude
-          properties:
-            chat_id:
-              type: object
-            latitude:
-              type: number
-            longitude:
-              type: number
-            disable_notification:
-              type: boolean
-            reply_to_message_id:
-              type: integer
-              format: int64
-            reply_markup:
-              schema:
-                type: object
+          $ref: "#/definitions/SendLocationBody"
       responses:
         200:
           description: ""
@@ -834,34 +667,7 @@ paths:
         required: false
         description: ""
         schema:
-          type: object
-          required:
-          - chat_id
-          - latitude
-          - longitude
-          - title
-          - address
-          properties:
-            chat_id:
-              type: object
-            latitude:
-              type: number
-            longitude:
-              type: number
-            title:
-              type: string
-            address:
-              type: string
-            foursquare_id:
-              type: string
-            disable_notification:
-              type: boolean
-            reply_to_message_id:
-              type: integer
-              format: int64
-            reply_markup:
-              schema:
-                type: object
+          $ref: "#/definitions/SendVenueBody"
       responses:
         200:
           description: ""
@@ -884,28 +690,7 @@ paths:
         required: false
         description: ""
         schema:
-          type: object
-          required:
-          - chat_id
-          - phone_number
-          - first_name
-          properties:
-            chat_id:
-              type: object
-            phone_number:
-              type: string
-            first_name:
-              type: string
-            last_name:
-              type: string
-            disable_notification:
-              type: boolean
-            reply_to_message_id:
-              type: integer
-              format: int64
-            reply_markup:
-              schema:
-                type: object
+          $ref: "#/definitions/SendContactBody"
       responses:
         200:
           description: ""
@@ -1346,28 +1131,7 @@ paths:
         required: false
         description: ""
         schema:
-          type: object
-          required:
-          - text
-          properties:
-            chat_id:
-              type: object
-            message_id:
-              type: integer
-              format: int64
-            inline_message_id:
-              type: string
-            text:
-              type: string
-            parse_mode:
-              type: string
-              enum:
-              - Markdown
-              - HTML
-            disable_web_page_preview:
-              type: boolean
-            reply_markup:
-              $ref: '#/definitions/InlineKeyboardMarkup'
+          $ref: "#/definitions/EditMessageTextBody"
       responses:
         200:
           description: ""
@@ -1400,19 +1164,7 @@ paths:
         required: false
         description: ""
         schema:
-          type: object
-          properties:
-            chat_id:
-              type: object
-            message_id:
-              type: integer
-              format: int64
-            inline_message_id:
-              type: string
-            caption:
-              type: string
-            reply_markup:
-              $ref: '#/definitions/InlineKeyboardMarkup'
+          $ref: "#/definitions/EditMessageCaptionBody"
       responses:
         200:
           description: ""
@@ -1445,17 +1197,7 @@ paths:
         required: false
         description: ""
         schema:
-          type: object
-          properties:
-            chat_id:
-              type: object
-            message_id:
-              type: integer
-              format: int64
-            inline_message_id:
-              type: string
-            reply_markup:
-              $ref: '#/definitions/InlineKeyboardMarkup'
+          $ref: "#/definitions/EditMessageReplyMarkupBody"
       responses:
         200:
           description: ""
@@ -1488,28 +1230,7 @@ paths:
         required: false
         description: ""
         schema:
-          type: object
-          required:
-          - inline_query_id
-          - results
-          properties:
-            inline_query_id:
-              type: string
-            results:
-              type: array
-              items:
-                type: object
-            cache_time:
-              type: integer
-              format: int64
-            is_personal:
-              type: boolean
-            next_offset:
-              type: string
-            switch_pm_text:
-              type: string
-            switch_pm_parameter:
-              type: string
+          $ref: "#/definitions/AnswerInlineQueryBody"
       responses:
         200:
           description: ""
@@ -1542,23 +1263,7 @@ paths:
         required: false
         description: ""
         schema:
-          type: object
-          required:
-          - chat_id
-          - game_short_name
-          properties:
-            chat_id:
-              type: integer
-              format: int64
-            game_short_name:
-              type: string
-            disable_notification:
-              type: boolean
-            reply_to_message_id:
-              type: integer
-              format: int64
-            reply_markup:
-              $ref: '#/definitions/InlineKeyboardMarkup'
+          $ref: "#/definitions/SendGameBody"
       responses:
         200:
           description: ""
@@ -2109,10 +1814,7 @@ definitions:
       message_text:
         type: string
       parse_mode:
-        type: string
-        enum:
-          - Markdown
-          - HTML
+        $ref: "#/definitions/ParseMode"
       disable_web_page_preview:
         type: boolean
   InputLocationMessageContent:
@@ -2815,3 +2517,327 @@ definitions:
         type: boolean
       description:
         type: string
+  ParseMode:
+    type: string
+    enum:
+    - Markdown
+    - Html
+  SendMessageBody:
+    type: object
+    required:
+    - chat_id
+    - text
+    properties:
+      chat_id:
+        type: object
+      text:
+        type: string
+      parse_mode:
+        $ref: "#/definitions/ParseMode"
+      disable_web_page_preview:
+        type: boolean
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+        format: int64
+      reply_markup:
+        schema:
+          type: object
+  SendPhotoLinkBody:
+    type: object
+    required:
+    - chat_id
+    - photo
+    properties:
+      chat_id:
+        type: object
+      photo:
+        type: string
+      caption:
+        type: string
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+        format: int64
+      reply_markup:
+        schema:
+          type: object
+  SendAudioLinkBody:
+    type: object
+    required:
+    - chat_id
+    - audio
+    properties:
+      chat_id:
+        type: object
+      audio:
+        type: string
+      caption:
+        type: string
+      duration:
+        type: integer
+        format: int64
+      performer:
+        type: string
+      title:
+        type: string
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+        format: int64
+      reply_markup:
+        schema:
+          type: object
+  SendDocumentLinkBody:
+    type: object
+    required:
+    - chat_id
+    - document
+    properties:
+      chat_id:
+        type: object
+      document:
+        type: string
+      caption:
+        type: string
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+        format: int64
+      reply_markup:
+        schema:
+          type: object  
+  SendStickerLinkBody:
+    type: object
+    required:
+    - chat_id
+    - sticker
+    properties:
+      chat_id:
+        type: object
+      sticker:
+        type: string
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+        format: int64
+      reply_markup:
+        schema:
+          type: object
+  SendVideoLinkBody:
+    type: object
+    required:
+    - chat_id
+    - audio
+    properties:
+      chat_id:
+        type: object
+      audio:
+        type: string
+      duration:
+        type: integer
+        format: int64
+      width:
+        type: integer
+        format: int64
+      height:
+        type: integer
+        format: int64
+      caption:
+        type: string
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+        format: int64
+      reply_markup:
+        schema:
+          type: object
+  SendVoiceLinkBody:
+    type: object
+    required:
+    - chat_id
+    - voice
+    properties:
+      chat_id:
+        type: object
+      voice:
+        type: string
+      caption:
+        type: string
+      duration:
+        type: integer
+        format: int64
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+        format: int64
+      reply_markup:
+        schema:
+          type: object
+  SendLocationBody:
+    type: object
+    required:
+    - chat_id
+    - latitude
+    - longitude
+    properties:
+      chat_id:
+        type: object
+      latitude:
+        type: number
+      longitude:
+        type: number
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+        format: int64
+      reply_markup:
+        schema:
+          type: object
+  SendVenueBody:
+    type: object
+    required:
+    - chat_id
+    - latitude
+    - longitude
+    - title
+    - address
+    properties:
+      chat_id:
+        type: object
+      latitude:
+        type: number
+      longitude:
+        type: number
+      title:
+        type: string
+      address:
+        type: string
+      foursquare_id:
+        type: string
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+        format: int64
+      reply_markup:
+        schema:
+          type: object
+  SendContactBody:
+    type: object
+    required:
+    - chat_id
+    - phone_number
+    - first_name
+    properties:
+      chat_id:
+        type: object
+      phone_number:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+        format: int64
+      reply_markup:
+        schema:
+          type: object
+  EditMessageTextBody:
+    type: object
+    required:
+    - text
+    properties:
+      chat_id:
+        type: object
+      message_id:
+        type: integer
+        format: int64
+      inline_message_id:
+        type: string
+      text:
+        type: string
+      parse_mode:
+        $ref: "#/definitions/ParseMode"
+      disable_web_page_preview:
+        type: boolean
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+  EditMessageCaptionBody:
+    type: object
+    properties:
+      chat_id:
+        type: object
+      message_id:
+        type: integer
+        format: int64
+      inline_message_id:
+        type: string
+      caption:
+        type: string
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+  EditMessageReplyMarkupBody:
+    type: object
+    properties:
+      chat_id:
+        type: object
+      message_id:
+        type: integer
+        format: int64
+      inline_message_id:
+        type: string
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'
+  AnswerInlineQueryBody:
+    type: object
+    required:
+    - inline_query_id
+    - results
+    properties:
+      inline_query_id:
+        type: string
+      results:
+        type: array
+        items:
+          type: object
+      cache_time:
+        type: integer
+        format: int64
+      is_personal:
+        type: boolean
+      next_offset:
+        type: string
+      switch_pm_text:
+        type: string
+      switch_pm_parameter:
+        type: string
+  SendGameBody:
+    type: object
+    required:
+    - chat_id
+    - game_short_name
+    properties:
+      chat_id:
+        type: integer
+        format: int64
+      game_short_name:
+        type: string
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+        format: int64
+      reply_markup:
+        $ref: '#/definitions/InlineKeyboardMarkup'

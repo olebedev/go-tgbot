@@ -99,26 +99,3 @@ func (o *SendGameBadRequest) readResponse(response runtime.ClientResponse, consu
 
 	return nil
 }
-
-/*SendGameBody send game body
-swagger:model SendGameBody
-*/
-type SendGameBody struct {
-
-	// chat id
-	// Required: true
-	ChatID *int64 `json:"chat_id"`
-
-	// disable notification
-	DisableNotification bool `json:"disable_notification,omitempty"`
-
-	// game short name
-	// Required: true
-	GameShortName *string `json:"game_short_name"`
-
-	// reply markup
-	ReplyMarkup *models.InlineKeyboardMarkup `json:"reply_markup,omitempty"`
-
-	// reply to message id
-	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
-}

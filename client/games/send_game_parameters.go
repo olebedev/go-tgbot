@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewSendGameParams creates a new SendGameParams object
@@ -52,7 +54,7 @@ for the send game operation typically these are written to a http.Request
 type SendGameParams struct {
 
 	/*Body*/
-	Body SendGameBody
+	Body *models.SendGameBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *SendGameParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the send game params
-func (o *SendGameParams) WithBody(body SendGameBody) *SendGameParams {
+func (o *SendGameParams) WithBody(body *models.SendGameBody) *SendGameParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the send game params
-func (o *SendGameParams) SetBody(body SendGameBody) {
+func (o *SendGameParams) SetBody(body *models.SendGameBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *SendGameParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.SendGameBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

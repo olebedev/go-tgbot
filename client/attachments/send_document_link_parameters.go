@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewSendDocumentLinkParams creates a new SendDocumentLinkParams object
@@ -52,7 +54,7 @@ for the send document link operation typically these are written to a http.Reque
 type SendDocumentLinkParams struct {
 
 	/*Body*/
-	Body SendDocumentLinkBody
+	Body *models.SendDocumentLinkBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *SendDocumentLinkParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the send document link params
-func (o *SendDocumentLinkParams) WithBody(body SendDocumentLinkBody) *SendDocumentLinkParams {
+func (o *SendDocumentLinkParams) WithBody(body *models.SendDocumentLinkBody) *SendDocumentLinkParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the send document link params
-func (o *SendDocumentLinkParams) SetBody(body SendDocumentLinkBody) {
+func (o *SendDocumentLinkParams) SetBody(body *models.SendDocumentLinkBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *SendDocumentLinkParams) WriteToRequest(r runtime.ClientRequest, reg str
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.SendDocumentLinkBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

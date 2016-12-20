@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewSendVenueParams creates a new SendVenueParams object
@@ -52,7 +54,7 @@ for the send venue operation typically these are written to a http.Request
 type SendVenueParams struct {
 
 	/*Body*/
-	Body SendVenueBody
+	Body *models.SendVenueBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *SendVenueParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the send venue params
-func (o *SendVenueParams) WithBody(body SendVenueBody) *SendVenueParams {
+func (o *SendVenueParams) WithBody(body *models.SendVenueBody) *SendVenueParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the send venue params
-func (o *SendVenueParams) SetBody(body SendVenueBody) {
+func (o *SendVenueParams) SetBody(body *models.SendVenueBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *SendVenueParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.SendVenueBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

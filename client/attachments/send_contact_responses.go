@@ -99,33 +99,3 @@ func (o *SendContactBadRequest) readResponse(response runtime.ClientResponse, co
 
 	return nil
 }
-
-/*SendContactBody send contact body
-swagger:model SendContactBody
-*/
-type SendContactBody struct {
-
-	// chat id
-	// Required: true
-	ChatID interface{} `json:"chat_id"`
-
-	// disable notification
-	DisableNotification bool `json:"disable_notification,omitempty"`
-
-	// first name
-	// Required: true
-	FirstName *string `json:"first_name"`
-
-	// last name
-	LastName string `json:"last_name,omitempty"`
-
-	// phone number
-	// Required: true
-	PhoneNumber *string `json:"phone_number"`
-
-	// reply markup
-	ReplyMarkup interface{} `json:"reply_markup,omitempty"`
-
-	// reply to message id
-	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
-}

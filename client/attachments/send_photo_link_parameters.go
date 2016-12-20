@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewSendPhotoLinkParams creates a new SendPhotoLinkParams object
@@ -52,7 +54,7 @@ for the send photo link operation typically these are written to a http.Request
 type SendPhotoLinkParams struct {
 
 	/*Body*/
-	Body SendPhotoLinkBody
+	Body *models.SendPhotoLinkBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *SendPhotoLinkParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the send photo link params
-func (o *SendPhotoLinkParams) WithBody(body SendPhotoLinkBody) *SendPhotoLinkParams {
+func (o *SendPhotoLinkParams) WithBody(body *models.SendPhotoLinkBody) *SendPhotoLinkParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the send photo link params
-func (o *SendPhotoLinkParams) SetBody(body SendPhotoLinkBody) {
+func (o *SendPhotoLinkParams) SetBody(body *models.SendPhotoLinkBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *SendPhotoLinkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.SendPhotoLinkBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewSendLocationParams creates a new SendLocationParams object
@@ -52,7 +54,7 @@ for the send location operation typically these are written to a http.Request
 type SendLocationParams struct {
 
 	/*Body*/
-	Body SendLocationBody
+	Body *models.SendLocationBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *SendLocationParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the send location params
-func (o *SendLocationParams) WithBody(body SendLocationBody) *SendLocationParams {
+func (o *SendLocationParams) WithBody(body *models.SendLocationBody) *SendLocationParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the send location params
-func (o *SendLocationParams) SetBody(body SendLocationBody) {
+func (o *SendLocationParams) SetBody(body *models.SendLocationBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *SendLocationParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.SendLocationBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

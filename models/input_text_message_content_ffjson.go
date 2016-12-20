@@ -286,13 +286,13 @@ handle_MessageText:
 
 handle_ParseMode:
 
-	/* handler: uj.ParseMode type=string kind=string quoted=false*/
+	/* handler: uj.ParseMode type=models.ParseMode kind=string quoted=false*/
 
 	{
 
 		{
 			if tok != fflib.FFTok_string && tok != fflib.FFTok_null {
-				return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for string", tok))
+				return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for ParseMode", tok))
 			}
 		}
 
@@ -302,7 +302,7 @@ handle_ParseMode:
 
 			outBuf := fs.Output.Bytes()
 
-			uj.ParseMode = string(string(outBuf))
+			uj.ParseMode = ParseMode(string(outBuf))
 
 		}
 	}

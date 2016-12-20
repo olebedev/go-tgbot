@@ -98,27 +98,6 @@ func (o *EditMessageCaptionBadRequest) readResponse(response runtime.ClientRespo
 	return nil
 }
 
-/*EditMessageCaptionBody edit message caption body
-swagger:model EditMessageCaptionBody
-*/
-type EditMessageCaptionBody struct {
-
-	// caption
-	Caption string `json:"caption,omitempty"`
-
-	// chat id
-	ChatID interface{} `json:"chat_id,omitempty"`
-
-	// inline message id
-	InlineMessageID string `json:"inline_message_id,omitempty"`
-
-	// message id
-	MessageID int64 `json:"message_id,omitempty"`
-
-	// reply markup
-	ReplyMarkup *models.InlineKeyboardMarkup `json:"reply_markup,omitempty"`
-}
-
 /*EditMessageCaptionOKBody edit message caption o k body
 swagger:model EditMessageCaptionOKBody
 */

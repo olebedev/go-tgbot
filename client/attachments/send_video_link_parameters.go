@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewSendVideoLinkParams creates a new SendVideoLinkParams object
@@ -52,7 +54,7 @@ for the send video link operation typically these are written to a http.Request
 type SendVideoLinkParams struct {
 
 	/*Body*/
-	Body SendVideoLinkBody
+	Body *models.SendVideoLinkBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *SendVideoLinkParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the send video link params
-func (o *SendVideoLinkParams) WithBody(body SendVideoLinkBody) *SendVideoLinkParams {
+func (o *SendVideoLinkParams) WithBody(body *models.SendVideoLinkBody) *SendVideoLinkParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the send video link params
-func (o *SendVideoLinkParams) SetBody(body SendVideoLinkBody) {
+func (o *SendVideoLinkParams) SetBody(body *models.SendVideoLinkBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *SendVideoLinkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.SendVideoLinkBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

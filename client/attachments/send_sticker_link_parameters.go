@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewSendStickerLinkParams creates a new SendStickerLinkParams object
@@ -52,7 +54,7 @@ for the send sticker link operation typically these are written to a http.Reques
 type SendStickerLinkParams struct {
 
 	/*Body*/
-	Body SendStickerLinkBody
+	Body *models.SendStickerLinkBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *SendStickerLinkParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the send sticker link params
-func (o *SendStickerLinkParams) WithBody(body SendStickerLinkBody) *SendStickerLinkParams {
+func (o *SendStickerLinkParams) WithBody(body *models.SendStickerLinkBody) *SendStickerLinkParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the send sticker link params
-func (o *SendStickerLinkParams) SetBody(body SendStickerLinkBody) {
+func (o *SendStickerLinkParams) SetBody(body *models.SendStickerLinkBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *SendStickerLinkParams) WriteToRequest(r runtime.ClientRequest, reg strf
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.SendStickerLinkBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

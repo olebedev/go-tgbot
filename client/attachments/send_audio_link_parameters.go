@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewSendAudioLinkParams creates a new SendAudioLinkParams object
@@ -52,7 +54,7 @@ for the send audio link operation typically these are written to a http.Request
 type SendAudioLinkParams struct {
 
 	/*Body*/
-	Body SendAudioLinkBody
+	Body *models.SendAudioLinkBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *SendAudioLinkParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the send audio link params
-func (o *SendAudioLinkParams) WithBody(body SendAudioLinkBody) *SendAudioLinkParams {
+func (o *SendAudioLinkParams) WithBody(body *models.SendAudioLinkBody) *SendAudioLinkParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the send audio link params
-func (o *SendAudioLinkParams) SetBody(body SendAudioLinkBody) {
+func (o *SendAudioLinkParams) SetBody(body *models.SendAudioLinkBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *SendAudioLinkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.SendAudioLinkBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

@@ -4,8 +4,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
-
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
@@ -25,7 +23,7 @@ type InputTextMessageContent struct {
 	MessageText *string `json:"message_text"`
 
 	// parse mode
-	ParseMode string `json:"parse_mode,omitempty"`
+	ParseMode ParseMode `json:"parse_mode,omitempty"`
 }
 
 // Validate validates this input text message content
@@ -57,41 +55,13 @@ func (m *InputTextMessageContent) validateMessageText(formats strfmt.Registry) e
 	return nil
 }
 
-var inputTextMessageContentTypeParseModePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["Markdown","HTML"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		inputTextMessageContentTypeParseModePropEnum = append(inputTextMessageContentTypeParseModePropEnum, v)
-	}
-}
-
-const (
-	// InputTextMessageContentParseModeMarkdown captures enum value "Markdown"
-	InputTextMessageContentParseModeMarkdown string = "Markdown"
-	// InputTextMessageContentParseModeHTML captures enum value "HTML"
-	InputTextMessageContentParseModeHTML string = "HTML"
-)
-
-// prop value enum
-func (m *InputTextMessageContent) validateParseModeEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, inputTextMessageContentTypeParseModePropEnum); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *InputTextMessageContent) validateParseMode(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.ParseMode) { // not required
 		return nil
 	}
 
-	// value enum
-	if err := m.validateParseModeEnum("parse_mode", "body", m.ParseMode); err != nil {
+	if err := m.ParseMode.Validate(formats); err != nil {
 		return err
 	}
 

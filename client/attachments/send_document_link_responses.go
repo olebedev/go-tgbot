@@ -99,29 +99,3 @@ func (o *SendDocumentLinkBadRequest) readResponse(response runtime.ClientRespons
 
 	return nil
 }
-
-/*SendDocumentLinkBody send document link body
-swagger:model SendDocumentLinkBody
-*/
-type SendDocumentLinkBody struct {
-
-	// caption
-	Caption string `json:"caption,omitempty"`
-
-	// chat id
-	// Required: true
-	ChatID interface{} `json:"chat_id"`
-
-	// disable notification
-	DisableNotification bool `json:"disable_notification,omitempty"`
-
-	// document
-	// Required: true
-	Document *string `json:"document"`
-
-	// reply markup
-	ReplyMarkup interface{} `json:"reply_markup,omitempty"`
-
-	// reply to message id
-	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
-}

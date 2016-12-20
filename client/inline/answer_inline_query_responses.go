@@ -98,35 +98,6 @@ func (o *AnswerInlineQueryBadRequest) readResponse(response runtime.ClientRespon
 	return nil
 }
 
-/*AnswerInlineQueryBody answer inline query body
-swagger:model AnswerInlineQueryBody
-*/
-type AnswerInlineQueryBody struct {
-
-	// cache time
-	CacheTime int64 `json:"cache_time,omitempty"`
-
-	// inline query id
-	// Required: true
-	InlineQueryID *string `json:"inline_query_id"`
-
-	// is personal
-	IsPersonal bool `json:"is_personal,omitempty"`
-
-	// next offset
-	NextOffset string `json:"next_offset,omitempty"`
-
-	// results
-	// Required: true
-	Results []interface{} `json:"results"`
-
-	// switch pm parameter
-	SwitchPmParameter string `json:"switch_pm_parameter,omitempty"`
-
-	// switch pm text
-	SwitchPmText string `json:"switch_pm_text,omitempty"`
-}
-
 /*AnswerInlineQueryOKBody answer inline query o k body
 swagger:model AnswerInlineQueryOKBody
 */

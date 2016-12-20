@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewSendMessageParams creates a new SendMessageParams object
@@ -52,7 +54,7 @@ for the send message operation typically these are written to a http.Request
 type SendMessageParams struct {
 
 	/*Body*/
-	Body SendMessageBody
+	Body *models.SendMessageBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *SendMessageParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the send message params
-func (o *SendMessageParams) WithBody(body SendMessageBody) *SendMessageParams {
+func (o *SendMessageParams) WithBody(body *models.SendMessageBody) *SendMessageParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the send message params
-func (o *SendMessageParams) SetBody(body SendMessageBody) {
+func (o *SendMessageParams) SetBody(body *models.SendMessageBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *SendMessageParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.SendMessageBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

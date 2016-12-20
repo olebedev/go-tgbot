@@ -99,38 +99,3 @@ func (o *SendAudioLinkBadRequest) readResponse(response runtime.ClientResponse, 
 
 	return nil
 }
-
-/*SendAudioLinkBody send audio link body
-swagger:model SendAudioLinkBody
-*/
-type SendAudioLinkBody struct {
-
-	// audio
-	// Required: true
-	Audio *string `json:"audio"`
-
-	// caption
-	Caption string `json:"caption,omitempty"`
-
-	// chat id
-	// Required: true
-	ChatID interface{} `json:"chat_id"`
-
-	// disable notification
-	DisableNotification bool `json:"disable_notification,omitempty"`
-
-	// duration
-	Duration int64 `json:"duration,omitempty"`
-
-	// performer
-	Performer string `json:"performer,omitempty"`
-
-	// reply markup
-	ReplyMarkup interface{} `json:"reply_markup,omitempty"`
-
-	// reply to message id
-	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
-
-	// title
-	Title string `json:"title,omitempty"`
-}

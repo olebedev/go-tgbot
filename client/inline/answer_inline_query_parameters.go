@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewAnswerInlineQueryParams creates a new AnswerInlineQueryParams object
@@ -52,7 +54,7 @@ for the answer inline query operation typically these are written to a http.Requ
 type AnswerInlineQueryParams struct {
 
 	/*Body*/
-	Body AnswerInlineQueryBody
+	Body *models.AnswerInlineQueryBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *AnswerInlineQueryParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the answer inline query params
-func (o *AnswerInlineQueryParams) WithBody(body AnswerInlineQueryBody) *AnswerInlineQueryParams {
+func (o *AnswerInlineQueryParams) WithBody(body *models.AnswerInlineQueryBody) *AnswerInlineQueryParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the answer inline query params
-func (o *AnswerInlineQueryParams) SetBody(body AnswerInlineQueryBody) {
+func (o *AnswerInlineQueryParams) SetBody(body *models.AnswerInlineQueryBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *AnswerInlineQueryParams) WriteToRequest(r runtime.ClientRequest, reg st
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.AnswerInlineQueryBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

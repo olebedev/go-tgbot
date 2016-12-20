@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewEditMessageTextParams creates a new EditMessageTextParams object
@@ -52,7 +54,7 @@ for the edit message text operation typically these are written to a http.Reques
 type EditMessageTextParams struct {
 
 	/*Body*/
-	Body EditMessageTextBody
+	Body *models.EditMessageTextBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *EditMessageTextParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the edit message text params
-func (o *EditMessageTextParams) WithBody(body EditMessageTextBody) *EditMessageTextParams {
+func (o *EditMessageTextParams) WithBody(body *models.EditMessageTextBody) *EditMessageTextParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the edit message text params
-func (o *EditMessageTextParams) SetBody(body EditMessageTextBody) {
+func (o *EditMessageTextParams) SetBody(body *models.EditMessageTextBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *EditMessageTextParams) WriteToRequest(r runtime.ClientRequest, reg strf
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.EditMessageTextBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

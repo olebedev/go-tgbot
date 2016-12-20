@@ -98,34 +98,6 @@ func (o *EditMessageTextBadRequest) readResponse(response runtime.ClientResponse
 	return nil
 }
 
-/*EditMessageTextBody edit message text body
-swagger:model EditMessageTextBody
-*/
-type EditMessageTextBody struct {
-
-	// chat id
-	ChatID interface{} `json:"chat_id,omitempty"`
-
-	// disable web page preview
-	DisableWebPagePreview bool `json:"disable_web_page_preview,omitempty"`
-
-	// inline message id
-	InlineMessageID string `json:"inline_message_id,omitempty"`
-
-	// message id
-	MessageID int64 `json:"message_id,omitempty"`
-
-	// parse mode
-	ParseMode string `json:"parse_mode,omitempty"`
-
-	// reply markup
-	ReplyMarkup *models.InlineKeyboardMarkup `json:"reply_markup,omitempty"`
-
-	// text
-	// Required: true
-	Text *string `json:"text"`
-}
-
 /*EditMessageTextOKBody edit message text o k body
 swagger:model EditMessageTextOKBody
 */

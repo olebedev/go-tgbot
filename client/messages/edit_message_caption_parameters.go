@@ -14,6 +14,8 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewEditMessageCaptionParams creates a new EditMessageCaptionParams object
@@ -52,7 +54,7 @@ for the edit message caption operation typically these are written to a http.Req
 type EditMessageCaptionParams struct {
 
 	/*Body*/
-	Body EditMessageCaptionBody
+	Body *models.EditMessageCaptionBody
 	/*Token
 	  bot's token to authorize the request
 
@@ -87,13 +89,13 @@ func (o *EditMessageCaptionParams) SetContext(ctx context.Context) {
 }
 
 // WithBody adds the body to the edit message caption params
-func (o *EditMessageCaptionParams) WithBody(body EditMessageCaptionBody) *EditMessageCaptionParams {
+func (o *EditMessageCaptionParams) WithBody(body *models.EditMessageCaptionBody) *EditMessageCaptionParams {
 	o.SetBody(body)
 	return o
 }
 
 // SetBody adds the body to the edit message caption params
-func (o *EditMessageCaptionParams) SetBody(body EditMessageCaptionBody) {
+func (o *EditMessageCaptionParams) SetBody(body *models.EditMessageCaptionBody) {
 	o.Body = body
 }
 
@@ -113,6 +115,10 @@ func (o *EditMessageCaptionParams) WriteToRequest(r runtime.ClientRequest, reg s
 
 	r.SetTimeout(o.timeout)
 	var res []error
+
+	if o.Body == nil {
+		o.Body = new(models.EditMessageCaptionBody)
+	}
 
 	if err := r.SetBodyParam(o.Body); err != nil {
 		return err

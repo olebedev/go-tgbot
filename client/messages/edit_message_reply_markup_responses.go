@@ -98,24 +98,6 @@ func (o *EditMessageReplyMarkupBadRequest) readResponse(response runtime.ClientR
 	return nil
 }
 
-/*EditMessageReplyMarkupBody edit message reply markup body
-swagger:model EditMessageReplyMarkupBody
-*/
-type EditMessageReplyMarkupBody struct {
-
-	// chat id
-	ChatID interface{} `json:"chat_id,omitempty"`
-
-	// inline message id
-	InlineMessageID string `json:"inline_message_id,omitempty"`
-
-	// message id
-	MessageID int64 `json:"message_id,omitempty"`
-
-	// reply markup
-	ReplyMarkup *models.InlineKeyboardMarkup `json:"reply_markup,omitempty"`
-}
-
 /*EditMessageReplyMarkupOKBody edit message reply markup o k body
 swagger:model EditMessageReplyMarkupOKBody
 */

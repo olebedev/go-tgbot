@@ -99,32 +99,3 @@ func (o *SendMessageBadRequest) readResponse(response runtime.ClientResponse, co
 
 	return nil
 }
-
-/*SendMessageBody send message body
-swagger:model SendMessageBody
-*/
-type SendMessageBody struct {
-
-	// chat id
-	// Required: true
-	ChatID interface{} `json:"chat_id"`
-
-	// disable notification
-	DisableNotification bool `json:"disable_notification,omitempty"`
-
-	// disable web page preview
-	DisableWebPagePreview bool `json:"disable_web_page_preview,omitempty"`
-
-	// parse mode
-	ParseMode string `json:"parse_mode,omitempty"`
-
-	// reply markup
-	ReplyMarkup interface{} `json:"reply_markup,omitempty"`
-
-	// reply to message id
-	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
-
-	// text
-	// Required: true
-	Text *string `json:"text"`
-}

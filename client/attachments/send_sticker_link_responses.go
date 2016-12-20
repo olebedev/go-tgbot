@@ -99,26 +99,3 @@ func (o *SendStickerLinkBadRequest) readResponse(response runtime.ClientResponse
 
 	return nil
 }
-
-/*SendStickerLinkBody send sticker link body
-swagger:model SendStickerLinkBody
-*/
-type SendStickerLinkBody struct {
-
-	// chat id
-	// Required: true
-	ChatID interface{} `json:"chat_id"`
-
-	// disable notification
-	DisableNotification bool `json:"disable_notification,omitempty"`
-
-	// reply markup
-	ReplyMarkup interface{} `json:"reply_markup,omitempty"`
-
-	// reply to message id
-	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
-
-	// sticker
-	// Required: true
-	Sticker *string `json:"sticker"`
-}
