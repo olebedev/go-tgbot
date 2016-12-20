@@ -10,6 +10,8 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // GetChatMembersCountReader is a Reader for the GetChatMembersCount structure.
@@ -27,6 +29,13 @@ func (o *GetChatMembersCountReader) ReadResponse(response runtime.ClientResponse
 			return nil, err
 		}
 		return result, nil
+
+	case 400:
+		result := NewGetChatMembersCountBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,6 +63,35 @@ func (o *GetChatMembersCountOK) readResponse(response runtime.ClientResponse, co
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetChatMembersCountBadRequest creates a GetChatMembersCountBadRequest with default headers values
+func NewGetChatMembersCountBadRequest() *GetChatMembersCountBadRequest {
+	return &GetChatMembersCountBadRequest{}
+}
+
+/*GetChatMembersCountBadRequest handles this case with default header values.
+
+Error
+*/
+type GetChatMembersCountBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *GetChatMembersCountBadRequest) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getChatMembersCount][%d] getChatMembersCountBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetChatMembersCountBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

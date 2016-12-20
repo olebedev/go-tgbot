@@ -10,6 +10,8 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // KickChatMemberReader is a Reader for the KickChatMember structure.
@@ -27,6 +29,13 @@ func (o *KickChatMemberReader) ReadResponse(response runtime.ClientResponse, con
 			return nil, err
 		}
 		return result, nil
+
+	case 400:
+		result := NewKickChatMemberBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,6 +63,35 @@ func (o *KickChatMemberOK) readResponse(response runtime.ClientResponse, consume
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewKickChatMemberBadRequest creates a KickChatMemberBadRequest with default headers values
+func NewKickChatMemberBadRequest() *KickChatMemberBadRequest {
+	return &KickChatMemberBadRequest{}
+}
+
+/*KickChatMemberBadRequest handles this case with default header values.
+
+Error
+*/
+type KickChatMemberBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *KickChatMemberBadRequest) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/kickChatMember][%d] kickChatMemberBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *KickChatMemberBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -30,6 +30,13 @@ func (o *SendPhotoLinkReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return result, nil
 
+	case 400:
+		result := NewSendPhotoLinkBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -55,6 +62,35 @@ func (o *SendPhotoLinkOK) Error() string {
 func (o *SendPhotoLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ResponseMessage)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendPhotoLinkBadRequest creates a SendPhotoLinkBadRequest with default headers values
+func NewSendPhotoLinkBadRequest() *SendPhotoLinkBadRequest {
+	return &SendPhotoLinkBadRequest{}
+}
+
+/*SendPhotoLinkBadRequest handles this case with default header values.
+
+Error
+*/
+type SendPhotoLinkBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *SendPhotoLinkBadRequest) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendPhoto#link][%d] sendPhotoLinkBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SendPhotoLinkBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

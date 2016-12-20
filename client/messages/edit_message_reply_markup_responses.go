@@ -30,6 +30,13 @@ func (o *EditMessageReplyMarkupReader) ReadResponse(response runtime.ClientRespo
 		}
 		return result, nil
 
+	case 400:
+		result := NewEditMessageReplyMarkupBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -56,6 +63,35 @@ func (o *EditMessageReplyMarkupOK) readResponse(response runtime.ClientResponse,
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewEditMessageReplyMarkupBadRequest creates a EditMessageReplyMarkupBadRequest with default headers values
+func NewEditMessageReplyMarkupBadRequest() *EditMessageReplyMarkupBadRequest {
+	return &EditMessageReplyMarkupBadRequest{}
+}
+
+/*EditMessageReplyMarkupBadRequest handles this case with default header values.
+
+Error
+*/
+type EditMessageReplyMarkupBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *EditMessageReplyMarkupBadRequest) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/editMessageReplyMarkup][%d] editMessageReplyMarkupBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *EditMessageReplyMarkupBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

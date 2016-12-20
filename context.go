@@ -11,6 +11,7 @@ type Context struct {
 	Keys    map[string]interface{}
 	Params  []string
 	Session fmt.Stringer
+	Kind    rkind
 
 	handlers  []func(*Context) error
 	index     uint8

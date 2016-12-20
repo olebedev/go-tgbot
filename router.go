@@ -2,14 +2,18 @@ package tgbot
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"net/http"
 	"regexp"
 
 	"github.com/olebedev/go-tgbot/client"
+	"github.com/olebedev/go-tgbot/client/updates"
 	"github.com/olebedev/go-tgbot/models"
 	"github.com/pkg/errors"
 )
 
+//go:generate stringer -type=rkind
 type rkind int
 
 const (
@@ -22,6 +26,8 @@ const (
 	KindCallbackQuery
 	KindChosenInlineResult
 	KindAll rkind = (1 << iota) - 1
+
+	DefaultPollTimeout int64 = 29
 )
 
 // Options ... All field are optional.
@@ -172,6 +178,7 @@ func (r *Router) Route(u *models.Update) error {
 				Session:  sess,
 				Update:   u,
 				Params:   ro.re.FindStringSubmatch(text)[1:],
+				Kind:     kind,
 				handlers: make([]func(*Context) error, len(r.middlewares)+len(ro.value)),
 			}
 
@@ -192,4 +199,44 @@ func (r *Router) Route(u *models.Update) error {
 		}
 	}
 	return nil
+}
+
+func (r *Router) Poll(ctx context.Context, allowed []string) error {
+	p := updates.NewGetUpdatesParams().WithContext(ctx).
+		WithBody(updates.GetUpdatesBody{
+			AllowedUpdates: allowed,
+			Timeout:        DefaultPollTimeout,
+		})
+
+	for {
+		u, err := r.Updates.GetUpdates(p)
+		if err != nil {
+			return errors.Wrap(err, "polling updates")
+		}
+		for _, update := range u.Payload.Result {
+			p.Body.Offset = update.UpdateID + 1
+			err = r.Route(update)
+			if err != nil {
+				return errors.Wrap(err, "route update")
+			}
+		}
+	}
+
+	return nil
+}
+
+func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	var u *models.Update
+	if err := json.NewDecoder(req.Body).Decode(u); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
+	}
+	defer req.Body.Close()
+
+	if err := r.Route(u); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(err.Error()))
+	} else {
+		w.WriteHeader(http.StatusNoContent)
+	}
 }

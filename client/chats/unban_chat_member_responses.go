@@ -10,6 +10,8 @@ import (
 	"github.com/go-openapi/runtime"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // UnbanChatMemberReader is a Reader for the UnbanChatMember structure.
@@ -27,6 +29,13 @@ func (o *UnbanChatMemberReader) ReadResponse(response runtime.ClientResponse, co
 			return nil, err
 		}
 		return result, nil
+
+	case 400:
+		result := NewUnbanChatMemberBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
 
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
@@ -54,6 +63,35 @@ func (o *UnbanChatMemberOK) readResponse(response runtime.ClientResponse, consum
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUnbanChatMemberBadRequest creates a UnbanChatMemberBadRequest with default headers values
+func NewUnbanChatMemberBadRequest() *UnbanChatMemberBadRequest {
+	return &UnbanChatMemberBadRequest{}
+}
+
+/*UnbanChatMemberBadRequest handles this case with default header values.
+
+Error
+*/
+type UnbanChatMemberBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *UnbanChatMemberBadRequest) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/unbanChatMember][%d] unbanChatMemberBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *UnbanChatMemberBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

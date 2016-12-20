@@ -30,6 +30,13 @@ func (o *GetChatReader) ReadResponse(response runtime.ClientResponse, consumer r
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetChatBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -56,6 +63,35 @@ func (o *GetChatOK) readResponse(response runtime.ClientResponse, consumer runti
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetChatBadRequest creates a GetChatBadRequest with default headers values
+func NewGetChatBadRequest() *GetChatBadRequest {
+	return &GetChatBadRequest{}
+}
+
+/*GetChatBadRequest handles this case with default header values.
+
+Error
+*/
+type GetChatBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *GetChatBadRequest) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getChat][%d] getChatBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetChatBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -32,8 +32,8 @@ func GetSession(u *models.Update) (fmt.Stringer, error) {
 	case u.CallbackQuery != nil:
 		text = u.CallbackQuery.Data
 	case u.ChosenInlineResult != nil:
-		if u.ChosenInlineResult.Query != nil {
-			text = *u.ChosenInlineResult.Query
+		if u.ChosenInlineResult.ResultID != nil {
+			text = *u.ChosenInlineResult.ResultID
 		}
 	default:
 		return nil, errors.New("unknown update")

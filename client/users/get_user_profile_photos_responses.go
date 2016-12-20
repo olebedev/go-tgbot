@@ -30,6 +30,13 @@ func (o *GetUserProfilePhotosReader) ReadResponse(response runtime.ClientRespons
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetUserProfilePhotosBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -56,6 +63,35 @@ func (o *GetUserProfilePhotosOK) readResponse(response runtime.ClientResponse, c
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUserProfilePhotosBadRequest creates a GetUserProfilePhotosBadRequest with default headers values
+func NewGetUserProfilePhotosBadRequest() *GetUserProfilePhotosBadRequest {
+	return &GetUserProfilePhotosBadRequest{}
+}
+
+/*GetUserProfilePhotosBadRequest handles this case with default header values.
+
+Error
+*/
+type GetUserProfilePhotosBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *GetUserProfilePhotosBadRequest) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getUserProfilePhotos][%d] getUserProfilePhotosBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetUserProfilePhotosBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

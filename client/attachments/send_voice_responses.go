@@ -30,6 +30,13 @@ func (o *SendVoiceReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return result, nil
 
+	case 400:
+		result := NewSendVoiceBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -55,6 +62,35 @@ func (o *SendVoiceOK) Error() string {
 func (o *SendVoiceOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ResponseMessage)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendVoiceBadRequest creates a SendVoiceBadRequest with default headers values
+func NewSendVoiceBadRequest() *SendVoiceBadRequest {
+	return &SendVoiceBadRequest{}
+}
+
+/*SendVoiceBadRequest handles this case with default header values.
+
+Error
+*/
+type SendVoiceBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *SendVoiceBadRequest) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendVoice][%d] sendVoiceBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SendVoiceBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

@@ -30,6 +30,13 @@ func (o *GetGameHighScoresReader) ReadResponse(response runtime.ClientResponse, 
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetGameHighScoresBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -56,6 +63,35 @@ func (o *GetGameHighScoresOK) readResponse(response runtime.ClientResponse, cons
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGameHighScoresBadRequest creates a GetGameHighScoresBadRequest with default headers values
+func NewGetGameHighScoresBadRequest() *GetGameHighScoresBadRequest {
+	return &GetGameHighScoresBadRequest{}
+}
+
+/*GetGameHighScoresBadRequest handles this case with default header values.
+
+Error
+*/
+type GetGameHighScoresBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *GetGameHighScoresBadRequest) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getGameHighScores][%d] getGameHighScoresBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetGameHighScoresBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -30,6 +30,13 @@ func (o *EditMessageCaptionReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return result, nil
 
+	case 400:
+		result := NewEditMessageCaptionBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -56,6 +63,35 @@ func (o *EditMessageCaptionOK) readResponse(response runtime.ClientResponse, con
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewEditMessageCaptionBadRequest creates a EditMessageCaptionBadRequest with default headers values
+func NewEditMessageCaptionBadRequest() *EditMessageCaptionBadRequest {
+	return &EditMessageCaptionBadRequest{}
+}
+
+/*EditMessageCaptionBadRequest handles this case with default header values.
+
+Error
+*/
+type EditMessageCaptionBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *EditMessageCaptionBadRequest) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/editMessageCaption][%d] editMessageCaptionBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *EditMessageCaptionBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -30,6 +30,13 @@ func (o *GetMeReader) ReadResponse(response runtime.ClientResponse, consumer run
 		}
 		return result, nil
 
+	case 400:
+		result := NewGetMeBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -56,6 +63,35 @@ func (o *GetMeOK) readResponse(response runtime.ClientResponse, consumer runtime
 
 	// response payload
 	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetMeBadRequest creates a GetMeBadRequest with default headers values
+func NewGetMeBadRequest() *GetMeBadRequest {
+	return &GetMeBadRequest{}
+}
+
+/*GetMeBadRequest handles this case with default header values.
+
+Error
+*/
+type GetMeBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *GetMeBadRequest) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getMe][%d] getMeBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *GetMeBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

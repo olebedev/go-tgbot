@@ -30,6 +30,13 @@ func (o *SendStickerLinkReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return result, nil
 
+	case 400:
+		result := NewSendStickerLinkBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -55,6 +62,35 @@ func (o *SendStickerLinkOK) Error() string {
 func (o *SendStickerLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ResponseMessage)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendStickerLinkBadRequest creates a SendStickerLinkBadRequest with default headers values
+func NewSendStickerLinkBadRequest() *SendStickerLinkBadRequest {
+	return &SendStickerLinkBadRequest{}
+}
+
+/*SendStickerLinkBadRequest handles this case with default header values.
+
+Error
+*/
+type SendStickerLinkBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *SendStickerLinkBadRequest) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendSticker#link][%d] sendStickerLinkBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SendStickerLinkBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

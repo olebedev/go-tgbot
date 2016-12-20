@@ -65,6 +65,10 @@ paths:
           description: An array of Updates
           schema:
             $ref: "#/definitions/ResponseUpdate"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/getMe:
     get:
       tags:
@@ -88,6 +92,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendMessage:
     post:
       tags:
@@ -129,6 +137,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/forwardMessage:
     post:
       tags:
@@ -165,6 +177,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendPhoto:
     post:
       tags:
@@ -211,6 +227,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendPhoto#link:
     post:
       tags:
@@ -248,6 +268,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendAudio:
     post:
       tags:
@@ -310,6 +334,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendAudio#link:
     post:
       tags:
@@ -354,6 +382,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendDocument:
     post:
       tags:
@@ -400,6 +432,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendDocument#link:
     post:
       tags:
@@ -437,6 +473,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendSticker:
     post:
       tags:
@@ -478,6 +518,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendSticker#link:
     post:
       tags:
@@ -513,6 +557,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendVideo:
     post:
       tags:
@@ -577,6 +625,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendVideo#link:
     post:
       tags:
@@ -623,6 +675,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendVoice:
     post:
       tags:
@@ -675,6 +731,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendVoice#link:
     post:
       tags:
@@ -715,6 +775,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendLocation:
     post:
       tags:
@@ -753,6 +817,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendVenue:
     post:
       tags:
@@ -799,6 +867,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendContact:
     post:
       tags:
@@ -839,6 +911,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendChatAction:
     get:
       tags:
@@ -881,6 +957,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/getUserProfilePhotos:
     get:
       tags:
@@ -922,6 +1002,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/getFile:
     get:
       tags:
@@ -950,6 +1034,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/kickChatMember:
     get:
       tags:
@@ -983,6 +1071,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/leaveChat:
     get:
       tags:
@@ -1011,6 +1103,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/unbanChatMember:
     get:
       tags:
@@ -1044,6 +1140,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/getChat:
     get:
       tags:
@@ -1072,6 +1172,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/getChatAdministrators:
     get:
       tags:
@@ -1102,6 +1206,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/getChatMembersCount:
     get:
       tags:
@@ -1131,6 +1239,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/getChatMember:
     get:
       tags:
@@ -1164,6 +1276,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/answerCallbackQuery:
     post:
       tags:
@@ -1213,6 +1329,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/editMessageText:
     post:
       tags:
@@ -1248,7 +1368,6 @@ paths:
               type: boolean
             reply_markup:
               $ref: '#/definitions/InlineKeyboardMarkup'
-
       responses:
         200:
           description: ""
@@ -1264,6 +1383,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/editMessageCaption:
     post:
       tags:
@@ -1305,6 +1428,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/editMessageReplyMarkup:
     post:
       tags:
@@ -1344,6 +1471,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/answerInlineQuery:
     post:
       tags:
@@ -1394,6 +1525,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendGame:
     post:
       tags:
@@ -1429,6 +1564,10 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/setGameScore:
     get:
       tags:
@@ -1491,6 +1630,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/getGameHighScores:
     get:
       tags:
@@ -1538,6 +1681,10 @@ paths:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Error
+          schema:
+            $ref: "#/definitions/Error"
 definitions:
   User:
     type: object
@@ -2651,6 +2798,16 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Update"
+      error_code:
+        type: integer
+        format: int64
+      ok:
+        type: boolean
+      description:
+        type: string
+  Error:
+    type: object
+    properties:
       error_code:
         type: integer
         format: int64

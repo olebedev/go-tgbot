@@ -30,6 +30,13 @@ func (o *SendVideoReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return result, nil
 
+	case 400:
+		result := NewSendVideoBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -55,6 +62,35 @@ func (o *SendVideoOK) Error() string {
 func (o *SendVideoOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ResponseMessage)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendVideoBadRequest creates a SendVideoBadRequest with default headers values
+func NewSendVideoBadRequest() *SendVideoBadRequest {
+	return &SendVideoBadRequest{}
+}
+
+/*SendVideoBadRequest handles this case with default header values.
+
+Error
+*/
+type SendVideoBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *SendVideoBadRequest) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendVideo][%d] sendVideoBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SendVideoBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

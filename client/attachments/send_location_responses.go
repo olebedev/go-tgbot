@@ -30,6 +30,13 @@ func (o *SendLocationReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return result, nil
 
+	case 400:
+		result := NewSendLocationBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -55,6 +62,35 @@ func (o *SendLocationOK) Error() string {
 func (o *SendLocationOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ResponseMessage)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendLocationBadRequest creates a SendLocationBadRequest with default headers values
+func NewSendLocationBadRequest() *SendLocationBadRequest {
+	return &SendLocationBadRequest{}
+}
+
+/*SendLocationBadRequest handles this case with default header values.
+
+Error
+*/
+type SendLocationBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *SendLocationBadRequest) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendLocation][%d] sendLocationBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SendLocationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

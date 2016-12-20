@@ -30,6 +30,13 @@ func (o *SendVoiceLinkReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return result, nil
 
+	case 400:
+		result := NewSendVoiceLinkBadRequest()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -55,6 +62,35 @@ func (o *SendVoiceLinkOK) Error() string {
 func (o *SendVoiceLinkOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.ResponseMessage)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendVoiceLinkBadRequest creates a SendVoiceLinkBadRequest with default headers values
+func NewSendVoiceLinkBadRequest() *SendVoiceLinkBadRequest {
+	return &SendVoiceLinkBadRequest{}
+}
+
+/*SendVoiceLinkBadRequest handles this case with default header values.
+
+Error
+*/
+type SendVoiceLinkBadRequest struct {
+	Payload *models.Error
+}
+
+func (o *SendVoiceLinkBadRequest) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendVoice#link][%d] sendVoiceLinkBadRequest  %+v", 400, o.Payload)
+}
+
+func (o *SendVoiceLinkBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
