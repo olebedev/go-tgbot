@@ -25,41 +25,45 @@ parameters:
     description: bot's token to authorize the request
 paths:
   /bot{token}/getUpdates:
-    post:
+    get:
       tags:
       - updates
       description: ""
       operationId: getUpdates
       parameters:
       - $ref: '#/parameters/token'
-      - in: body
-        name: body
-        description: ""
+      - in: query
+        name: offset
+        type: integer
+        format: int64
         required: false
-        schema:
-          type: object
-          properties:
-            offset:
-              type: integer
-              format: int64
-            limit:
-              type: integer
-              format: int64
-            timeout:
-              type: integer
-              format: int64
-            allowed_updates:
-              type: array
-              items:
-                type: string
-                enum:
-                - message
-                - edited_message
-                - channel_post
-                - edited_channel_post
-                - inline_query
-                - chosen_inline_result
-                - callback_query
+      - in: query
+        name: limit
+        type: integer
+        format: int64
+        required: false
+      - in: query
+        name: timeout
+        type: integer
+        format: int64
+        required: false
+      - in: query
+        name: allowed_updates
+        required: false
+        type: array
+        collectionFormat: multi
+        items:
+          # go-swagger bug here
+          # cannot use $ref: "#/definitions/AllowedUpdate"
+          type: string
+          enum:
+          - message
+          - edited_message
+          - channel_post
+          - edited_channel_post
+          - inline_query
+          - chosen_inline_result
+          - callback_query
       responses:
         200:
           description: An array of Updates
@@ -2841,3 +2845,13 @@ definitions:
         format: int64
       reply_markup:
         $ref: '#/definitions/InlineKeyboardMarkup'
+  AllowedUpdate:
+    type: string
+    enum:
+    - message
+    - edited_message
+    - channel_post
+    - edited_channel_post
+    - inline_query
+    - chosen_inline_result
+    - callback_query

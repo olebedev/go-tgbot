@@ -1,6 +1,8 @@
-hash: 7837e66d9c0137cc6e230910b6432218683fe8c640d3e64803e0289e8e7f2a2a
-updated: 2016-12-12T09:10:07.013784993+05:00
+hash: 994d9a66ca30ea7d3635f10007fae5e0b1eb50ac676cc03775fff5415b7bae0e
+updated: 2016-12-21T10:46:08.523978155+05:00
 imports:
+- name: github.com/AlekSi/pointer
+  version: ac0d2939e319d61a730c1a0361d26d7485b3c3b2
 - name: github.com/asaskevich/govalidator
   version: 7b3beb6df3c42abd3509abfc3bcacc0fbfb7c877
 - name: github.com/go-openapi/analysis
@@ -12,13 +14,13 @@ imports:
 - name: github.com/go-openapi/jsonreference
   version: 36d33bfe519efae5632669801b180bf1a245da3b
 - name: github.com/go-openapi/loads
-  version: 5861a4879a2866943dce3c644c879af9e59c22a3
+  version: 315567415dfd74b651f7a62cabfc82a57ed7b9ad
 - name: github.com/go-openapi/runtime
-  version: 12c07accf0687ab20b1e7b6293d8012ce282499c
+  version: bd35b8bf037697c91d266fa0b66e2e73508d5a01
   subpackages:
   - client
 - name: github.com/go-openapi/spec
-  version: d1c18b339aece4b16ead6d253b85b6ad7180ea54
+  version: f7ae86df5bc115a2744343016c789a89f065a4bd
 - name: github.com/go-openapi/strfmt
   version: 34fc3ba7c0f5fb615fda47a2b4fbd4c641b215f2
 - name: github.com/go-openapi/swag
@@ -26,19 +28,21 @@ imports:
 - name: github.com/go-openapi/validate
   version: 027696d4b54399770f1cdcc6c6daa56975f9e14e
 - name: github.com/go-swagger/go-swagger
-  version: 87c4e226ed310624fbec906108e333e28e573e89
+  version: 3344cfe55643074f2277164a687ae062912d4126
   subpackages:
   - '...'
 - name: github.com/mailru/easyjson
-  version: 159cdb893c982e3d1bc6450322fedd514f9c9de3
+  version: 9d6630dc8c577b56cb9687a9cf9e8578aca7298a
   subpackages:
   - buffer
   - jlexer
   - jwriter
 - name: github.com/mitchellh/mapstructure
-  version: f3009df150dadf309fdee4a54ed65c124afad715
+  version: bfdb1a85537d60bc7e954e600c250219ea497417
+- name: github.com/pkg/errors
+  version: 248dadf4e9068a0b3e79f02ed0a610d935de5302
 - name: github.com/pquerna/ffjson
-  version: a29c662791e4de7fc53a6cf209c9af657bba96f3
+  version: c24ab9baf274473906fbdba5fccb594aec4b9ff1
   subpackages:
   - '...'
   - fflib/v1
@@ -48,13 +52,13 @@ imports:
 - name: github.com/PuerkitoBio/urlesc
   version: 5bd2802263f21d8788851d5305584c82a5c75d7e
 - name: golang.org/x/net
-  version: 4971afdc2f162e82d185353533d3cf16188a9f4e
+  version: 45e771701b814666a7eb299e6c7a57d0b1799e91
   subpackages:
   - context
   - context/ctxhttp
   - idna
 - name: golang.org/x/text
-  version: a263ba8db058568bb9beba166777d9c9dbe75d68
+  version: a49bea13b776691cb1b49873e5d8df96ec74831a
   subpackages:
   - transform
   - unicode/norm

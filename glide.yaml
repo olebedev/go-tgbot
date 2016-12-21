@@ -16,3 +16,4 @@ import:
 - package: github.com/pquerna/ffjson
   subpackages:
   - '...'
+- package: github.com/AlekSi/pointer

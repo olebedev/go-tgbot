@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"regexp"
 
+	"github.com/AlekSi/pointer"
 	"github.com/olebedev/go-tgbot/client"
 	"github.com/olebedev/go-tgbot/client/updates"
 	"github.com/olebedev/go-tgbot/models"
@@ -79,47 +80,48 @@ func (r *Router) Use(middlewares ...func(*Context) error) {
 	r.middlewares = append(r.middlewares, middlewares...)
 }
 
-// All bind all kind of updates and the route through handler/handlers.
+// All binds all kind of updates and the route through handler/handlers.
 func (r *Router) All(route string, handlers ...func(*Context) error) error {
 	return r.Handle(KindAll, route, handlers...)
 }
 
-// Message bind message updates and the route through handler/handlers.
+// Message binds message updates and the route through handler/handlers.
 func (r *Router) Message(route string, handlers ...func(*Context) error) error {
 	return r.Handle(KindMessage, route, handlers...)
 }
 
-// EditedMessage bind message updates and the route through handler/handlers.
+// EditedMessage binss message updates and the route through handler/handlers.
 func (r *Router) EditedMessage(route string, handlers ...func(*Context) error) error {
 	return r.Handle(KindEditedMessage, route, handlers...)
 }
 
-// ChannelPost bind message updates and the route through handler/handlers.
+// ChannelPost binds message updates and the route through handler/handlers.
 func (r *Router) ChannelPost(route string, handlers ...func(*Context) error) error {
 	return r.Handle(KindChannelPost, route, handlers...)
 }
 
-// EditedChannelPost bind message updates and the route through handler/handlers.
+// EditedChannelPost binds message updates and the route through handler/handlers.
 func (r *Router) EditedChannelPost(route string, handlers ...func(*Context) error) error {
 	return r.Handle(KindEditedChannelPost, route, handlers...)
 }
 
-// InlineQuery bind inline queries and the route through handler/handlers.
+// InlineQuery binds inline queries and the route through handler/handlers.
 func (r *Router) InlineQuery(route string, handlers ...func(*Context) error) error {
 	return r.Handle(KindInlineQuery, route, handlers...)
 }
 
-// CallbackQuery bind callback updates and the route through handler/handlers.
+// CallbackQuery binds callback updates and the route through handler/handlers.
 func (r *Router) CallbackQuery(route string, handlers ...func(*Context) error) error {
 	return r.Handle(KindCallbackQuery, route, handlers...)
 }
 
-// ChosenInlineResult bind chosen inline result updates and the route through
+// ChosenInlineResult binds chosen inline result updates and the route through
 // handler/handlers.
 func (r *Router) ChosenInlineResult(route string, handlers ...func(*Context) error) error {
 	return r.Handle(KindChosenInlineResult, route, handlers...)
 }
 
+// Handle binds specific kinds of an update to the handler/handlers.
 func (r *Router) Handle(kind rkind, routeRegExp string, handlers ...func(*Context) error) error {
 	re, err := regexp.Compile(routeRegExp)
 	if err != nil {
@@ -201,12 +203,21 @@ func (r *Router) Route(u *models.Update) error {
 	return nil
 }
 
-func (r *Router) Poll(ctx context.Context, allowed []string) error {
-	p := updates.NewGetUpdatesParams().WithContext(ctx).
-		WithBody(updates.GetUpdatesBody{
-			AllowedUpdates: allowed,
-			Timeout:        DefaultPollTimeout,
-		})
+// Poll does a polling of API endpoints and routes consumed updates. It returns an error
+// if any of handlers return the error.
+func (r *Router) Poll(ctx context.Context, allowed []models.AllowedUpdate) error {
+	var a []string
+	for _, item := range allowed {
+		a = append(a, string(item))
+	}
+
+	p := updates.NewGetUpdatesParams().
+		WithContext(ctx).
+		WithTimeout(pointer.ToInt64(DefaultPollTimeout))
+
+	if len(a) > 0 {
+		p.SetAllowedUpdates(a)
+	}
 
 	for {
 		u, err := r.Updates.GetUpdates(p)
@@ -214,7 +225,7 @@ func (r *Router) Poll(ctx context.Context, allowed []string) error {
 			return errors.Wrap(err, "polling updates")
 		}
 		for _, update := range u.Payload.Result {
-			p.Body.Offset = update.UpdateID + 1
+			p.SetOffset(pointer.ToInt64(update.UpdateID + 1))
 			err = r.Route(update)
 			if err != nil {
 				return errors.Wrap(err, "route update")
@@ -225,6 +236,7 @@ func (r *Router) Poll(ctx context.Context, allowed []string) error {
 	return nil
 }
 
+// ServeHTTP implements http.ServeHTTP interface.
 func (r *Router) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	var u *models.Update
 	if err := json.NewDecoder(req.Body).Decode(u); err != nil {

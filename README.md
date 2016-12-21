@@ -18,37 +18,43 @@ Client package could be used as regular `go-swagger` client library without usin
 package main
 
 import (
-	"log"
 	"context"
+	"flag"
+	"log"
+	"time"
+
 	tgbot "github.com/olebedev/go-tgbot"
-	"github.com/olebedev/go-tgbot/models"
 	"github.com/olebedev/go-tgbot/client/users"
 )
 
+var token *string
+
 func main() {
-	token := flag.String("token", "", "telegram bot token")
+	token = flag.String("token", "", "telegram bot token")
 	flag.Parse()
-	
+
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	
+
 	api := tgbot.NewClient(ctx, *token)
-	
+
 	log.Println(api.Users.GetMe(nil))
-	
+
 	// Also, every calls could be done with given token and/or context
-	ctx, cancel = context.WithTimeout(ctx, 10 * time.Second)
+	ctx, cancel = context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
-	
-	r, err := api.Users.GetMe(
+
+	t := "<overwrite default token>"
+	_, err := api.Users.GetMe(
 		users.NewGetMeParams().
 			WithContext(ctx).
-			WithToken("<overwrite default token>"),
+			WithToken(&t),
 	)
-	
-	if err != nil && {
-		if e, ok := err.(*models.Error); ok {
-			log.Println(e.Payload. ErrorCode, e.Payload.Description)
+
+	if err != nil {
+		// users.NewGetMeBadRequest()
+		if e, ok := err.(*users.GetMeBadRequest); ok {
+			log.Println(e.Payload.ErrorCode, e.Payload.Description)
 		}
 	}
 }
@@ -64,49 +70,53 @@ The Router allows binding between kinds of updates and handlers, which are being
 package main
 
 import (
-	"log"
 	"context"
+	"flag"
+	"log"
+
 	tgbot "github.com/olebedev/go-tgbot"
-	"github.com/olebedev/go-tgbot/models"
 	"github.com/olebedev/go-tgbot/client/messages"
+	"github.com/olebedev/go-tgbot/models"
 )
 
+var token *string
+
 func main() {
-	token := flag.String("token", "", "telegram bot token")
+	token = flag.String("token", "", "telegram bot token")
 	flag.Parse()
-	
+
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	
+
 	r := tgbot.New(&tgbot.Options{
 		Context: ctx,
-		Token: *token,
+		Token:   *token,
 	})
-	
+
 	// setup global middleware
 	r.Use(tgbot.Recover)
-	
+
 	// Bind handler
 	r.Message("^/start\\sstart$", func(c *tgbot.Context) error {
 		log.Println(c.Update.Message.Text)
 		// send greeting message back
 		message := "hi there what's up"
 		resp, err := r.Messages.SendMessage(
-			messages.NewSendMessageParams().WithBody(messages.SendMessageBody{
+			messages.NewSendMessageParams().WithBody(&models.SendMessageBody{
 				Text:   &message,
 				ChatID: c.Update.Message.Chat.ID,
 			}),
 		)
 		if err != nil {
-			retuirn err
+			return err
 		}
 		if resp != nil {
-			log.Println(resp.Payload.MessageID)
+			log.Println(resp.Payload.Result.MessageID)
 		}
 		return nil
 	})
-	
-	if err := r.Poll(ctx, []string{"message"}); err != nil {
+
+	if err := r.Poll(ctx, []models.AllowedUpdate{models.AllowedUpdateMessage}); err != nil {
 		log.Fatal(err)
 	}
 }
@@ -124,14 +134,15 @@ After many bots were developed, the one principal thing could be marked - routin
 package main
 
 import (
-	"log"
-	"fmt"
 	"context"
+	"flag"
+	"fmt"
+	"log"
+
 	tgbot "github.com/olebedev/go-tgbot"
 	"github.com/olebedev/go-tgbot/models"
-	"github.com/olebedev/go-tgbot/client/messages"
-	
-	"app"
+
+	"app" // you application
 )
 
 type Session struct {
@@ -150,73 +161,70 @@ func GetSessionFunc(u *models.Update) (fmt.Stringer, error) {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	s := &Session{
 		Route: "~" + sess.String(),
 	}
-	
-	switch true {
-	case u.Message != nil:
-		s.User, err := app.GetUserByTgID(u.Message.From.ID)
-		if err != nil {
-			return err
-		}
-		s.Billing, err := app.GetBillingByID(s.User.ID)
-		if err != nil {
-			return err
-		}
-		
-		if !s.Billing.Active {
-			s.Route = "/pay" + s.Route
-		}
+
+	s.User, err = app.GetUserByTgID(u.Message.From.ID)
+	if err != nil {
+		return err
 	}
-	
+	s.Billing, err = app.GetBillingByID(s.User.ID)
+	if err != nil {
+		return err
+	}
+
+	if !s.Billing.Active {
+		s.Route = "/pay" + s.Route
+	}
+
 	return s, nil
 }
 
 func main() {
 	token := flag.String("token", "", "telegram bot token")
 	flag.Parse()
-	
+
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	
+
 	r := tgbot.New(&tgbot.Options{
-		Context: ctx,
-		Token: *token,
+		Context:    ctx,
+		Token:      *token,
 		GetSession: GetSessionFunc,
 	})
-	
+
 	// setup global middleware
 	r.Use(tgbot.Recover)
-	
+
 	// Bind handlers
 	r.Message("^/pay~.*", func(c *tgbot.Context) error {
 		s := c.Session.(*Session)
 		// TODO handle payment here before say hello
 		return r.Route(c.Update)
 	})
-	
+
 	r.Message("^~/start\\sstart$", func(c *tgbot.Context) error {
 		log.Println(c.Update.Message.Text)
 		// send greeting message back
 		message := "hi there what's up"
 		resp, err := r.Messages.SendMessage(
-			messages.NewSendMessageParams().WithBody(messages.SendMessageBody{
+			messages.NewSendMessageParams().WithBody(&models.SendMessageBody{
 				Text:   &message,
 				ChatID: c.Update.Message.Chat.ID,
 			}),
 		)
 		if err != nil {
-			retuirn err
+			return err
 		}
 		if resp != nil {
 			log.Println(resp.Payload.MessageID)
 		}
 		return nil
 	})
-	
-	if err := r.Poll(ctx, []string{"message"}); err != nil {
+
+	if err := r.Poll(ctx, []models.AllowedUpdate{models.AllowedUpdateMessage}); err != nil {
 		log.Fatal(err)
 	}
 }
