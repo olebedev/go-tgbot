@@ -37,6 +37,41 @@ func (o *SendStickerLinkReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 
+	case 401:
+		result := NewSendStickerLinkUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewSendStickerLinkForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewSendStickerLinkNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewSendStickerLinkEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewSendStickerLinkInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -78,7 +113,7 @@ func NewSendStickerLinkBadRequest() *SendStickerLinkBadRequest {
 
 /*SendStickerLinkBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type SendStickerLinkBadRequest struct {
 	Payload *models.Error
@@ -89,6 +124,151 @@ func (o *SendStickerLinkBadRequest) Error() string {
 }
 
 func (o *SendStickerLinkBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendStickerLinkUnauthorized creates a SendStickerLinkUnauthorized with default headers values
+func NewSendStickerLinkUnauthorized() *SendStickerLinkUnauthorized {
+	return &SendStickerLinkUnauthorized{}
+}
+
+/*SendStickerLinkUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SendStickerLinkUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *SendStickerLinkUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendSticker#link][%d] sendStickerLinkUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SendStickerLinkUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendStickerLinkForbidden creates a SendStickerLinkForbidden with default headers values
+func NewSendStickerLinkForbidden() *SendStickerLinkForbidden {
+	return &SendStickerLinkForbidden{}
+}
+
+/*SendStickerLinkForbidden handles this case with default header values.
+
+Forbidden
+*/
+type SendStickerLinkForbidden struct {
+	Payload *models.Error
+}
+
+func (o *SendStickerLinkForbidden) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendSticker#link][%d] sendStickerLinkForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SendStickerLinkForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendStickerLinkNotFound creates a SendStickerLinkNotFound with default headers values
+func NewSendStickerLinkNotFound() *SendStickerLinkNotFound {
+	return &SendStickerLinkNotFound{}
+}
+
+/*SendStickerLinkNotFound handles this case with default header values.
+
+Not Found
+*/
+type SendStickerLinkNotFound struct {
+	Payload *models.Error
+}
+
+func (o *SendStickerLinkNotFound) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendSticker#link][%d] sendStickerLinkNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SendStickerLinkNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendStickerLinkEnhanceYourCalm creates a SendStickerLinkEnhanceYourCalm with default headers values
+func NewSendStickerLinkEnhanceYourCalm() *SendStickerLinkEnhanceYourCalm {
+	return &SendStickerLinkEnhanceYourCalm{}
+}
+
+/*SendStickerLinkEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type SendStickerLinkEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *SendStickerLinkEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendSticker#link][%d] sendStickerLinkEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *SendStickerLinkEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendStickerLinkInternalServerError creates a SendStickerLinkInternalServerError with default headers values
+func NewSendStickerLinkInternalServerError() *SendStickerLinkInternalServerError {
+	return &SendStickerLinkInternalServerError{}
+}
+
+/*SendStickerLinkInternalServerError handles this case with default header values.
+
+Internal
+*/
+type SendStickerLinkInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *SendStickerLinkInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendSticker#link][%d] sendStickerLinkInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SendStickerLinkInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

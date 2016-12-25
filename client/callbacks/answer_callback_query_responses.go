@@ -37,6 +37,41 @@ func (o *AnswerCallbackQueryReader) ReadResponse(response runtime.ClientResponse
 		}
 		return nil, result
 
+	case 401:
+		result := NewAnswerCallbackQueryUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewAnswerCallbackQueryForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewAnswerCallbackQueryNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewAnswerCallbackQueryEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewAnswerCallbackQueryInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -76,7 +111,7 @@ func NewAnswerCallbackQueryBadRequest() *AnswerCallbackQueryBadRequest {
 
 /*AnswerCallbackQueryBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type AnswerCallbackQueryBadRequest struct {
 	Payload *models.Error
@@ -87,6 +122,151 @@ func (o *AnswerCallbackQueryBadRequest) Error() string {
 }
 
 func (o *AnswerCallbackQueryBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAnswerCallbackQueryUnauthorized creates a AnswerCallbackQueryUnauthorized with default headers values
+func NewAnswerCallbackQueryUnauthorized() *AnswerCallbackQueryUnauthorized {
+	return &AnswerCallbackQueryUnauthorized{}
+}
+
+/*AnswerCallbackQueryUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type AnswerCallbackQueryUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *AnswerCallbackQueryUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/answerCallbackQuery][%d] answerCallbackQueryUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *AnswerCallbackQueryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAnswerCallbackQueryForbidden creates a AnswerCallbackQueryForbidden with default headers values
+func NewAnswerCallbackQueryForbidden() *AnswerCallbackQueryForbidden {
+	return &AnswerCallbackQueryForbidden{}
+}
+
+/*AnswerCallbackQueryForbidden handles this case with default header values.
+
+Forbidden
+*/
+type AnswerCallbackQueryForbidden struct {
+	Payload *models.Error
+}
+
+func (o *AnswerCallbackQueryForbidden) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/answerCallbackQuery][%d] answerCallbackQueryForbidden  %+v", 403, o.Payload)
+}
+
+func (o *AnswerCallbackQueryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAnswerCallbackQueryNotFound creates a AnswerCallbackQueryNotFound with default headers values
+func NewAnswerCallbackQueryNotFound() *AnswerCallbackQueryNotFound {
+	return &AnswerCallbackQueryNotFound{}
+}
+
+/*AnswerCallbackQueryNotFound handles this case with default header values.
+
+Not Found
+*/
+type AnswerCallbackQueryNotFound struct {
+	Payload *models.Error
+}
+
+func (o *AnswerCallbackQueryNotFound) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/answerCallbackQuery][%d] answerCallbackQueryNotFound  %+v", 404, o.Payload)
+}
+
+func (o *AnswerCallbackQueryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAnswerCallbackQueryEnhanceYourCalm creates a AnswerCallbackQueryEnhanceYourCalm with default headers values
+func NewAnswerCallbackQueryEnhanceYourCalm() *AnswerCallbackQueryEnhanceYourCalm {
+	return &AnswerCallbackQueryEnhanceYourCalm{}
+}
+
+/*AnswerCallbackQueryEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type AnswerCallbackQueryEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *AnswerCallbackQueryEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/answerCallbackQuery][%d] answerCallbackQueryEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *AnswerCallbackQueryEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewAnswerCallbackQueryInternalServerError creates a AnswerCallbackQueryInternalServerError with default headers values
+func NewAnswerCallbackQueryInternalServerError() *AnswerCallbackQueryInternalServerError {
+	return &AnswerCallbackQueryInternalServerError{}
+}
+
+/*AnswerCallbackQueryInternalServerError handles this case with default header values.
+
+Internal
+*/
+type AnswerCallbackQueryInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *AnswerCallbackQueryInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/answerCallbackQuery][%d] answerCallbackQueryInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *AnswerCallbackQueryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

@@ -37,6 +37,41 @@ func (o *SetGameScoreReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 
+	case 401:
+		result := NewSetGameScoreUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewSetGameScoreForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewSetGameScoreNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewSetGameScoreEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewSetGameScoreInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -76,7 +111,7 @@ func NewSetGameScoreBadRequest() *SetGameScoreBadRequest {
 
 /*SetGameScoreBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type SetGameScoreBadRequest struct {
 	Payload *models.Error
@@ -87,6 +122,151 @@ func (o *SetGameScoreBadRequest) Error() string {
 }
 
 func (o *SetGameScoreBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSetGameScoreUnauthorized creates a SetGameScoreUnauthorized with default headers values
+func NewSetGameScoreUnauthorized() *SetGameScoreUnauthorized {
+	return &SetGameScoreUnauthorized{}
+}
+
+/*SetGameScoreUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SetGameScoreUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *SetGameScoreUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/setGameScore][%d] setGameScoreUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SetGameScoreUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSetGameScoreForbidden creates a SetGameScoreForbidden with default headers values
+func NewSetGameScoreForbidden() *SetGameScoreForbidden {
+	return &SetGameScoreForbidden{}
+}
+
+/*SetGameScoreForbidden handles this case with default header values.
+
+Forbidden
+*/
+type SetGameScoreForbidden struct {
+	Payload *models.Error
+}
+
+func (o *SetGameScoreForbidden) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/setGameScore][%d] setGameScoreForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SetGameScoreForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSetGameScoreNotFound creates a SetGameScoreNotFound with default headers values
+func NewSetGameScoreNotFound() *SetGameScoreNotFound {
+	return &SetGameScoreNotFound{}
+}
+
+/*SetGameScoreNotFound handles this case with default header values.
+
+Not Found
+*/
+type SetGameScoreNotFound struct {
+	Payload *models.Error
+}
+
+func (o *SetGameScoreNotFound) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/setGameScore][%d] setGameScoreNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SetGameScoreNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSetGameScoreEnhanceYourCalm creates a SetGameScoreEnhanceYourCalm with default headers values
+func NewSetGameScoreEnhanceYourCalm() *SetGameScoreEnhanceYourCalm {
+	return &SetGameScoreEnhanceYourCalm{}
+}
+
+/*SetGameScoreEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type SetGameScoreEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *SetGameScoreEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/setGameScore][%d] setGameScoreEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *SetGameScoreEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSetGameScoreInternalServerError creates a SetGameScoreInternalServerError with default headers values
+func NewSetGameScoreInternalServerError() *SetGameScoreInternalServerError {
+	return &SetGameScoreInternalServerError{}
+}
+
+/*SetGameScoreInternalServerError handles this case with default header values.
+
+Internal
+*/
+type SetGameScoreInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *SetGameScoreInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/setGameScore][%d] setGameScoreInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SetGameScoreInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

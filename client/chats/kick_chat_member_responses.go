@@ -37,6 +37,41 @@ func (o *KickChatMemberReader) ReadResponse(response runtime.ClientResponse, con
 		}
 		return nil, result
 
+	case 401:
+		result := NewKickChatMemberUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewKickChatMemberForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewKickChatMemberNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewKickChatMemberEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewKickChatMemberInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -76,7 +111,7 @@ func NewKickChatMemberBadRequest() *KickChatMemberBadRequest {
 
 /*KickChatMemberBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type KickChatMemberBadRequest struct {
 	Payload *models.Error
@@ -87,6 +122,151 @@ func (o *KickChatMemberBadRequest) Error() string {
 }
 
 func (o *KickChatMemberBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewKickChatMemberUnauthorized creates a KickChatMemberUnauthorized with default headers values
+func NewKickChatMemberUnauthorized() *KickChatMemberUnauthorized {
+	return &KickChatMemberUnauthorized{}
+}
+
+/*KickChatMemberUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type KickChatMemberUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *KickChatMemberUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/kickChatMember][%d] kickChatMemberUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *KickChatMemberUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewKickChatMemberForbidden creates a KickChatMemberForbidden with default headers values
+func NewKickChatMemberForbidden() *KickChatMemberForbidden {
+	return &KickChatMemberForbidden{}
+}
+
+/*KickChatMemberForbidden handles this case with default header values.
+
+Forbidden
+*/
+type KickChatMemberForbidden struct {
+	Payload *models.Error
+}
+
+func (o *KickChatMemberForbidden) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/kickChatMember][%d] kickChatMemberForbidden  %+v", 403, o.Payload)
+}
+
+func (o *KickChatMemberForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewKickChatMemberNotFound creates a KickChatMemberNotFound with default headers values
+func NewKickChatMemberNotFound() *KickChatMemberNotFound {
+	return &KickChatMemberNotFound{}
+}
+
+/*KickChatMemberNotFound handles this case with default header values.
+
+Not Found
+*/
+type KickChatMemberNotFound struct {
+	Payload *models.Error
+}
+
+func (o *KickChatMemberNotFound) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/kickChatMember][%d] kickChatMemberNotFound  %+v", 404, o.Payload)
+}
+
+func (o *KickChatMemberNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewKickChatMemberEnhanceYourCalm creates a KickChatMemberEnhanceYourCalm with default headers values
+func NewKickChatMemberEnhanceYourCalm() *KickChatMemberEnhanceYourCalm {
+	return &KickChatMemberEnhanceYourCalm{}
+}
+
+/*KickChatMemberEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type KickChatMemberEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *KickChatMemberEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/kickChatMember][%d] kickChatMemberEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *KickChatMemberEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewKickChatMemberInternalServerError creates a KickChatMemberInternalServerError with default headers values
+func NewKickChatMemberInternalServerError() *KickChatMemberInternalServerError {
+	return &KickChatMemberInternalServerError{}
+}
+
+/*KickChatMemberInternalServerError handles this case with default header values.
+
+Internal
+*/
+type KickChatMemberInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *KickChatMemberInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/kickChatMember][%d] kickChatMemberInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *KickChatMemberInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

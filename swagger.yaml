@@ -70,7 +70,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseUpdate"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/getMe:
@@ -97,7 +117,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendMessage:
@@ -119,7 +159,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/forwardMessage:
@@ -159,7 +219,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendPhoto:
@@ -209,7 +289,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendPhoto#link:
@@ -232,7 +332,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendAudio:
@@ -298,7 +418,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendAudio#link:
@@ -321,7 +461,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendDocument:
@@ -371,7 +531,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendDocument#link:
@@ -394,7 +574,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendSticker:
@@ -439,7 +639,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendSticker#link:
@@ -462,7 +682,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendVideo:
@@ -530,7 +770,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendVideo#link:
@@ -553,7 +813,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendVoice:
@@ -609,7 +889,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendVoice#link:
@@ -632,7 +932,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendLocation:
@@ -655,7 +975,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendVenue:
@@ -678,7 +1018,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendContact:
@@ -701,7 +1061,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendChatAction:
@@ -747,7 +1127,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/getUserProfilePhotos:
@@ -792,7 +1192,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/getFile:
@@ -824,7 +1244,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/kickChatMember:
@@ -861,7 +1301,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/leaveChat:
@@ -893,7 +1353,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/unbanChatMember:
@@ -930,7 +1410,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/getChat:
@@ -962,7 +1462,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/getChatAdministrators:
@@ -996,7 +1516,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/getChatMembersCount:
@@ -1029,7 +1569,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/getChatMember:
@@ -1066,7 +1626,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/answerCallbackQuery:
@@ -1119,7 +1699,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/editMessageText:
@@ -1152,7 +1752,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/editMessageCaption:
@@ -1185,7 +1805,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/editMessageReplyMarkup:
@@ -1218,7 +1858,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/answerInlineQuery:
@@ -1251,7 +1911,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/sendGame:
@@ -1274,7 +1954,27 @@ paths:
           schema:
             $ref: "#/definitions/ResponseMessage"
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/setGameScore:
@@ -1340,7 +2040,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/getGameHighScores:
@@ -1391,7 +2111,27 @@ paths:
               description:
                 type: string
         400:
-          description: Error
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
           schema:
             $ref: "#/definitions/Error"
 definitions:

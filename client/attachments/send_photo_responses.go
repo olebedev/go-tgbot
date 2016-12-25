@@ -37,6 +37,41 @@ func (o *SendPhotoReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 
+	case 401:
+		result := NewSendPhotoUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewSendPhotoForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewSendPhotoNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewSendPhotoEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewSendPhotoInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -78,7 +113,7 @@ func NewSendPhotoBadRequest() *SendPhotoBadRequest {
 
 /*SendPhotoBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type SendPhotoBadRequest struct {
 	Payload *models.Error
@@ -89,6 +124,151 @@ func (o *SendPhotoBadRequest) Error() string {
 }
 
 func (o *SendPhotoBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendPhotoUnauthorized creates a SendPhotoUnauthorized with default headers values
+func NewSendPhotoUnauthorized() *SendPhotoUnauthorized {
+	return &SendPhotoUnauthorized{}
+}
+
+/*SendPhotoUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SendPhotoUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *SendPhotoUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendPhoto][%d] sendPhotoUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SendPhotoUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendPhotoForbidden creates a SendPhotoForbidden with default headers values
+func NewSendPhotoForbidden() *SendPhotoForbidden {
+	return &SendPhotoForbidden{}
+}
+
+/*SendPhotoForbidden handles this case with default header values.
+
+Forbidden
+*/
+type SendPhotoForbidden struct {
+	Payload *models.Error
+}
+
+func (o *SendPhotoForbidden) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendPhoto][%d] sendPhotoForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SendPhotoForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendPhotoNotFound creates a SendPhotoNotFound with default headers values
+func NewSendPhotoNotFound() *SendPhotoNotFound {
+	return &SendPhotoNotFound{}
+}
+
+/*SendPhotoNotFound handles this case with default header values.
+
+Not Found
+*/
+type SendPhotoNotFound struct {
+	Payload *models.Error
+}
+
+func (o *SendPhotoNotFound) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendPhoto][%d] sendPhotoNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SendPhotoNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendPhotoEnhanceYourCalm creates a SendPhotoEnhanceYourCalm with default headers values
+func NewSendPhotoEnhanceYourCalm() *SendPhotoEnhanceYourCalm {
+	return &SendPhotoEnhanceYourCalm{}
+}
+
+/*SendPhotoEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type SendPhotoEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *SendPhotoEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendPhoto][%d] sendPhotoEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *SendPhotoEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendPhotoInternalServerError creates a SendPhotoInternalServerError with default headers values
+func NewSendPhotoInternalServerError() *SendPhotoInternalServerError {
+	return &SendPhotoInternalServerError{}
+}
+
+/*SendPhotoInternalServerError handles this case with default header values.
+
+Internal
+*/
+type SendPhotoInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *SendPhotoInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendPhoto][%d] sendPhotoInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SendPhotoInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

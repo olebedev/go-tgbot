@@ -37,6 +37,41 @@ func (o *GetUserProfilePhotosReader) ReadResponse(response runtime.ClientRespons
 		}
 		return nil, result
 
+	case 401:
+		result := NewGetUserProfilePhotosUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetUserProfilePhotosForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetUserProfilePhotosNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewGetUserProfilePhotosEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetUserProfilePhotosInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -76,7 +111,7 @@ func NewGetUserProfilePhotosBadRequest() *GetUserProfilePhotosBadRequest {
 
 /*GetUserProfilePhotosBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type GetUserProfilePhotosBadRequest struct {
 	Payload *models.Error
@@ -87,6 +122,151 @@ func (o *GetUserProfilePhotosBadRequest) Error() string {
 }
 
 func (o *GetUserProfilePhotosBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUserProfilePhotosUnauthorized creates a GetUserProfilePhotosUnauthorized with default headers values
+func NewGetUserProfilePhotosUnauthorized() *GetUserProfilePhotosUnauthorized {
+	return &GetUserProfilePhotosUnauthorized{}
+}
+
+/*GetUserProfilePhotosUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetUserProfilePhotosUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *GetUserProfilePhotosUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getUserProfilePhotos][%d] getUserProfilePhotosUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetUserProfilePhotosUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUserProfilePhotosForbidden creates a GetUserProfilePhotosForbidden with default headers values
+func NewGetUserProfilePhotosForbidden() *GetUserProfilePhotosForbidden {
+	return &GetUserProfilePhotosForbidden{}
+}
+
+/*GetUserProfilePhotosForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetUserProfilePhotosForbidden struct {
+	Payload *models.Error
+}
+
+func (o *GetUserProfilePhotosForbidden) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getUserProfilePhotos][%d] getUserProfilePhotosForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetUserProfilePhotosForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUserProfilePhotosNotFound creates a GetUserProfilePhotosNotFound with default headers values
+func NewGetUserProfilePhotosNotFound() *GetUserProfilePhotosNotFound {
+	return &GetUserProfilePhotosNotFound{}
+}
+
+/*GetUserProfilePhotosNotFound handles this case with default header values.
+
+Not Found
+*/
+type GetUserProfilePhotosNotFound struct {
+	Payload *models.Error
+}
+
+func (o *GetUserProfilePhotosNotFound) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getUserProfilePhotos][%d] getUserProfilePhotosNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUserProfilePhotosNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUserProfilePhotosEnhanceYourCalm creates a GetUserProfilePhotosEnhanceYourCalm with default headers values
+func NewGetUserProfilePhotosEnhanceYourCalm() *GetUserProfilePhotosEnhanceYourCalm {
+	return &GetUserProfilePhotosEnhanceYourCalm{}
+}
+
+/*GetUserProfilePhotosEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type GetUserProfilePhotosEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *GetUserProfilePhotosEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getUserProfilePhotos][%d] getUserProfilePhotosEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *GetUserProfilePhotosEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUserProfilePhotosInternalServerError creates a GetUserProfilePhotosInternalServerError with default headers values
+func NewGetUserProfilePhotosInternalServerError() *GetUserProfilePhotosInternalServerError {
+	return &GetUserProfilePhotosInternalServerError{}
+}
+
+/*GetUserProfilePhotosInternalServerError handles this case with default header values.
+
+Internal
+*/
+type GetUserProfilePhotosInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *GetUserProfilePhotosInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getUserProfilePhotos][%d] getUserProfilePhotosInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetUserProfilePhotosInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

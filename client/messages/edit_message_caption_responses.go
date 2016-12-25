@@ -37,6 +37,41 @@ func (o *EditMessageCaptionReader) ReadResponse(response runtime.ClientResponse,
 		}
 		return nil, result
 
+	case 401:
+		result := NewEditMessageCaptionUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewEditMessageCaptionForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewEditMessageCaptionNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewEditMessageCaptionEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewEditMessageCaptionInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -76,7 +111,7 @@ func NewEditMessageCaptionBadRequest() *EditMessageCaptionBadRequest {
 
 /*EditMessageCaptionBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type EditMessageCaptionBadRequest struct {
 	Payload *models.Error
@@ -87,6 +122,151 @@ func (o *EditMessageCaptionBadRequest) Error() string {
 }
 
 func (o *EditMessageCaptionBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewEditMessageCaptionUnauthorized creates a EditMessageCaptionUnauthorized with default headers values
+func NewEditMessageCaptionUnauthorized() *EditMessageCaptionUnauthorized {
+	return &EditMessageCaptionUnauthorized{}
+}
+
+/*EditMessageCaptionUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type EditMessageCaptionUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *EditMessageCaptionUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/editMessageCaption][%d] editMessageCaptionUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *EditMessageCaptionUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewEditMessageCaptionForbidden creates a EditMessageCaptionForbidden with default headers values
+func NewEditMessageCaptionForbidden() *EditMessageCaptionForbidden {
+	return &EditMessageCaptionForbidden{}
+}
+
+/*EditMessageCaptionForbidden handles this case with default header values.
+
+Forbidden
+*/
+type EditMessageCaptionForbidden struct {
+	Payload *models.Error
+}
+
+func (o *EditMessageCaptionForbidden) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/editMessageCaption][%d] editMessageCaptionForbidden  %+v", 403, o.Payload)
+}
+
+func (o *EditMessageCaptionForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewEditMessageCaptionNotFound creates a EditMessageCaptionNotFound with default headers values
+func NewEditMessageCaptionNotFound() *EditMessageCaptionNotFound {
+	return &EditMessageCaptionNotFound{}
+}
+
+/*EditMessageCaptionNotFound handles this case with default header values.
+
+Not Found
+*/
+type EditMessageCaptionNotFound struct {
+	Payload *models.Error
+}
+
+func (o *EditMessageCaptionNotFound) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/editMessageCaption][%d] editMessageCaptionNotFound  %+v", 404, o.Payload)
+}
+
+func (o *EditMessageCaptionNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewEditMessageCaptionEnhanceYourCalm creates a EditMessageCaptionEnhanceYourCalm with default headers values
+func NewEditMessageCaptionEnhanceYourCalm() *EditMessageCaptionEnhanceYourCalm {
+	return &EditMessageCaptionEnhanceYourCalm{}
+}
+
+/*EditMessageCaptionEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type EditMessageCaptionEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *EditMessageCaptionEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/editMessageCaption][%d] editMessageCaptionEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *EditMessageCaptionEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewEditMessageCaptionInternalServerError creates a EditMessageCaptionInternalServerError with default headers values
+func NewEditMessageCaptionInternalServerError() *EditMessageCaptionInternalServerError {
+	return &EditMessageCaptionInternalServerError{}
+}
+
+/*EditMessageCaptionInternalServerError handles this case with default header values.
+
+Internal
+*/
+type EditMessageCaptionInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *EditMessageCaptionInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/editMessageCaption][%d] editMessageCaptionInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *EditMessageCaptionInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

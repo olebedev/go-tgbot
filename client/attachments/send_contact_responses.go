@@ -37,6 +37,41 @@ func (o *SendContactReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return nil, result
 
+	case 401:
+		result := NewSendContactUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewSendContactForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewSendContactNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewSendContactEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewSendContactInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -78,7 +113,7 @@ func NewSendContactBadRequest() *SendContactBadRequest {
 
 /*SendContactBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type SendContactBadRequest struct {
 	Payload *models.Error
@@ -89,6 +124,151 @@ func (o *SendContactBadRequest) Error() string {
 }
 
 func (o *SendContactBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendContactUnauthorized creates a SendContactUnauthorized with default headers values
+func NewSendContactUnauthorized() *SendContactUnauthorized {
+	return &SendContactUnauthorized{}
+}
+
+/*SendContactUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SendContactUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *SendContactUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendContact][%d] sendContactUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SendContactUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendContactForbidden creates a SendContactForbidden with default headers values
+func NewSendContactForbidden() *SendContactForbidden {
+	return &SendContactForbidden{}
+}
+
+/*SendContactForbidden handles this case with default header values.
+
+Forbidden
+*/
+type SendContactForbidden struct {
+	Payload *models.Error
+}
+
+func (o *SendContactForbidden) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendContact][%d] sendContactForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SendContactForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendContactNotFound creates a SendContactNotFound with default headers values
+func NewSendContactNotFound() *SendContactNotFound {
+	return &SendContactNotFound{}
+}
+
+/*SendContactNotFound handles this case with default header values.
+
+Not Found
+*/
+type SendContactNotFound struct {
+	Payload *models.Error
+}
+
+func (o *SendContactNotFound) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendContact][%d] sendContactNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SendContactNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendContactEnhanceYourCalm creates a SendContactEnhanceYourCalm with default headers values
+func NewSendContactEnhanceYourCalm() *SendContactEnhanceYourCalm {
+	return &SendContactEnhanceYourCalm{}
+}
+
+/*SendContactEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type SendContactEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *SendContactEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendContact][%d] sendContactEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *SendContactEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendContactInternalServerError creates a SendContactInternalServerError with default headers values
+func NewSendContactInternalServerError() *SendContactInternalServerError {
+	return &SendContactInternalServerError{}
+}
+
+/*SendContactInternalServerError handles this case with default header values.
+
+Internal
+*/
+type SendContactInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *SendContactInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendContact][%d] sendContactInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SendContactInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

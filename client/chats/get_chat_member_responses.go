@@ -37,6 +37,41 @@ func (o *GetChatMemberReader) ReadResponse(response runtime.ClientResponse, cons
 		}
 		return nil, result
 
+	case 401:
+		result := NewGetChatMemberUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetChatMemberForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetChatMemberNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewGetChatMemberEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetChatMemberInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -76,7 +111,7 @@ func NewGetChatMemberBadRequest() *GetChatMemberBadRequest {
 
 /*GetChatMemberBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type GetChatMemberBadRequest struct {
 	Payload *models.Error
@@ -87,6 +122,151 @@ func (o *GetChatMemberBadRequest) Error() string {
 }
 
 func (o *GetChatMemberBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetChatMemberUnauthorized creates a GetChatMemberUnauthorized with default headers values
+func NewGetChatMemberUnauthorized() *GetChatMemberUnauthorized {
+	return &GetChatMemberUnauthorized{}
+}
+
+/*GetChatMemberUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetChatMemberUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *GetChatMemberUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getChatMember][%d] getChatMemberUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetChatMemberUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetChatMemberForbidden creates a GetChatMemberForbidden with default headers values
+func NewGetChatMemberForbidden() *GetChatMemberForbidden {
+	return &GetChatMemberForbidden{}
+}
+
+/*GetChatMemberForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetChatMemberForbidden struct {
+	Payload *models.Error
+}
+
+func (o *GetChatMemberForbidden) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getChatMember][%d] getChatMemberForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetChatMemberForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetChatMemberNotFound creates a GetChatMemberNotFound with default headers values
+func NewGetChatMemberNotFound() *GetChatMemberNotFound {
+	return &GetChatMemberNotFound{}
+}
+
+/*GetChatMemberNotFound handles this case with default header values.
+
+Not Found
+*/
+type GetChatMemberNotFound struct {
+	Payload *models.Error
+}
+
+func (o *GetChatMemberNotFound) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getChatMember][%d] getChatMemberNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetChatMemberNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetChatMemberEnhanceYourCalm creates a GetChatMemberEnhanceYourCalm with default headers values
+func NewGetChatMemberEnhanceYourCalm() *GetChatMemberEnhanceYourCalm {
+	return &GetChatMemberEnhanceYourCalm{}
+}
+
+/*GetChatMemberEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type GetChatMemberEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *GetChatMemberEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getChatMember][%d] getChatMemberEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *GetChatMemberEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetChatMemberInternalServerError creates a GetChatMemberInternalServerError with default headers values
+func NewGetChatMemberInternalServerError() *GetChatMemberInternalServerError {
+	return &GetChatMemberInternalServerError{}
+}
+
+/*GetChatMemberInternalServerError handles this case with default header values.
+
+Internal
+*/
+type GetChatMemberInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *GetChatMemberInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getChatMember][%d] getChatMemberInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetChatMemberInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

@@ -37,6 +37,41 @@ func (o *GetGameHighScoresReader) ReadResponse(response runtime.ClientResponse, 
 		}
 		return nil, result
 
+	case 401:
+		result := NewGetGameHighScoresUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetGameHighScoresForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetGameHighScoresNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewGetGameHighScoresEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetGameHighScoresInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -76,7 +111,7 @@ func NewGetGameHighScoresBadRequest() *GetGameHighScoresBadRequest {
 
 /*GetGameHighScoresBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type GetGameHighScoresBadRequest struct {
 	Payload *models.Error
@@ -87,6 +122,151 @@ func (o *GetGameHighScoresBadRequest) Error() string {
 }
 
 func (o *GetGameHighScoresBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGameHighScoresUnauthorized creates a GetGameHighScoresUnauthorized with default headers values
+func NewGetGameHighScoresUnauthorized() *GetGameHighScoresUnauthorized {
+	return &GetGameHighScoresUnauthorized{}
+}
+
+/*GetGameHighScoresUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetGameHighScoresUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *GetGameHighScoresUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getGameHighScores][%d] getGameHighScoresUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetGameHighScoresUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGameHighScoresForbidden creates a GetGameHighScoresForbidden with default headers values
+func NewGetGameHighScoresForbidden() *GetGameHighScoresForbidden {
+	return &GetGameHighScoresForbidden{}
+}
+
+/*GetGameHighScoresForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetGameHighScoresForbidden struct {
+	Payload *models.Error
+}
+
+func (o *GetGameHighScoresForbidden) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getGameHighScores][%d] getGameHighScoresForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetGameHighScoresForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGameHighScoresNotFound creates a GetGameHighScoresNotFound with default headers values
+func NewGetGameHighScoresNotFound() *GetGameHighScoresNotFound {
+	return &GetGameHighScoresNotFound{}
+}
+
+/*GetGameHighScoresNotFound handles this case with default header values.
+
+Not Found
+*/
+type GetGameHighScoresNotFound struct {
+	Payload *models.Error
+}
+
+func (o *GetGameHighScoresNotFound) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getGameHighScores][%d] getGameHighScoresNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetGameHighScoresNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGameHighScoresEnhanceYourCalm creates a GetGameHighScoresEnhanceYourCalm with default headers values
+func NewGetGameHighScoresEnhanceYourCalm() *GetGameHighScoresEnhanceYourCalm {
+	return &GetGameHighScoresEnhanceYourCalm{}
+}
+
+/*GetGameHighScoresEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type GetGameHighScoresEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *GetGameHighScoresEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getGameHighScores][%d] getGameHighScoresEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *GetGameHighScoresEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetGameHighScoresInternalServerError creates a GetGameHighScoresInternalServerError with default headers values
+func NewGetGameHighScoresInternalServerError() *GetGameHighScoresInternalServerError {
+	return &GetGameHighScoresInternalServerError{}
+}
+
+/*GetGameHighScoresInternalServerError handles this case with default header values.
+
+Internal
+*/
+type GetGameHighScoresInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *GetGameHighScoresInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getGameHighScores][%d] getGameHighScoresInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetGameHighScoresInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

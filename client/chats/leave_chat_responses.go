@@ -37,6 +37,41 @@ func (o *LeaveChatReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 
+	case 401:
+		result := NewLeaveChatUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewLeaveChatForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewLeaveChatNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewLeaveChatEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewLeaveChatInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -76,7 +111,7 @@ func NewLeaveChatBadRequest() *LeaveChatBadRequest {
 
 /*LeaveChatBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type LeaveChatBadRequest struct {
 	Payload *models.Error
@@ -87,6 +122,151 @@ func (o *LeaveChatBadRequest) Error() string {
 }
 
 func (o *LeaveChatBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewLeaveChatUnauthorized creates a LeaveChatUnauthorized with default headers values
+func NewLeaveChatUnauthorized() *LeaveChatUnauthorized {
+	return &LeaveChatUnauthorized{}
+}
+
+/*LeaveChatUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type LeaveChatUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *LeaveChatUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/leaveChat][%d] leaveChatUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *LeaveChatUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewLeaveChatForbidden creates a LeaveChatForbidden with default headers values
+func NewLeaveChatForbidden() *LeaveChatForbidden {
+	return &LeaveChatForbidden{}
+}
+
+/*LeaveChatForbidden handles this case with default header values.
+
+Forbidden
+*/
+type LeaveChatForbidden struct {
+	Payload *models.Error
+}
+
+func (o *LeaveChatForbidden) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/leaveChat][%d] leaveChatForbidden  %+v", 403, o.Payload)
+}
+
+func (o *LeaveChatForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewLeaveChatNotFound creates a LeaveChatNotFound with default headers values
+func NewLeaveChatNotFound() *LeaveChatNotFound {
+	return &LeaveChatNotFound{}
+}
+
+/*LeaveChatNotFound handles this case with default header values.
+
+Not Found
+*/
+type LeaveChatNotFound struct {
+	Payload *models.Error
+}
+
+func (o *LeaveChatNotFound) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/leaveChat][%d] leaveChatNotFound  %+v", 404, o.Payload)
+}
+
+func (o *LeaveChatNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewLeaveChatEnhanceYourCalm creates a LeaveChatEnhanceYourCalm with default headers values
+func NewLeaveChatEnhanceYourCalm() *LeaveChatEnhanceYourCalm {
+	return &LeaveChatEnhanceYourCalm{}
+}
+
+/*LeaveChatEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type LeaveChatEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *LeaveChatEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/leaveChat][%d] leaveChatEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *LeaveChatEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewLeaveChatInternalServerError creates a LeaveChatInternalServerError with default headers values
+func NewLeaveChatInternalServerError() *LeaveChatInternalServerError {
+	return &LeaveChatInternalServerError{}
+}
+
+/*LeaveChatInternalServerError handles this case with default header values.
+
+Internal
+*/
+type LeaveChatInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *LeaveChatInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/leaveChat][%d] leaveChatInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *LeaveChatInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

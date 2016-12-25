@@ -37,6 +37,41 @@ func (o *UnbanChatMemberReader) ReadResponse(response runtime.ClientResponse, co
 		}
 		return nil, result
 
+	case 401:
+		result := NewUnbanChatMemberUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewUnbanChatMemberForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewUnbanChatMemberNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewUnbanChatMemberEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewUnbanChatMemberInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -76,7 +111,7 @@ func NewUnbanChatMemberBadRequest() *UnbanChatMemberBadRequest {
 
 /*UnbanChatMemberBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type UnbanChatMemberBadRequest struct {
 	Payload *models.Error
@@ -87,6 +122,151 @@ func (o *UnbanChatMemberBadRequest) Error() string {
 }
 
 func (o *UnbanChatMemberBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUnbanChatMemberUnauthorized creates a UnbanChatMemberUnauthorized with default headers values
+func NewUnbanChatMemberUnauthorized() *UnbanChatMemberUnauthorized {
+	return &UnbanChatMemberUnauthorized{}
+}
+
+/*UnbanChatMemberUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type UnbanChatMemberUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *UnbanChatMemberUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/unbanChatMember][%d] unbanChatMemberUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *UnbanChatMemberUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUnbanChatMemberForbidden creates a UnbanChatMemberForbidden with default headers values
+func NewUnbanChatMemberForbidden() *UnbanChatMemberForbidden {
+	return &UnbanChatMemberForbidden{}
+}
+
+/*UnbanChatMemberForbidden handles this case with default header values.
+
+Forbidden
+*/
+type UnbanChatMemberForbidden struct {
+	Payload *models.Error
+}
+
+func (o *UnbanChatMemberForbidden) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/unbanChatMember][%d] unbanChatMemberForbidden  %+v", 403, o.Payload)
+}
+
+func (o *UnbanChatMemberForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUnbanChatMemberNotFound creates a UnbanChatMemberNotFound with default headers values
+func NewUnbanChatMemberNotFound() *UnbanChatMemberNotFound {
+	return &UnbanChatMemberNotFound{}
+}
+
+/*UnbanChatMemberNotFound handles this case with default header values.
+
+Not Found
+*/
+type UnbanChatMemberNotFound struct {
+	Payload *models.Error
+}
+
+func (o *UnbanChatMemberNotFound) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/unbanChatMember][%d] unbanChatMemberNotFound  %+v", 404, o.Payload)
+}
+
+func (o *UnbanChatMemberNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUnbanChatMemberEnhanceYourCalm creates a UnbanChatMemberEnhanceYourCalm with default headers values
+func NewUnbanChatMemberEnhanceYourCalm() *UnbanChatMemberEnhanceYourCalm {
+	return &UnbanChatMemberEnhanceYourCalm{}
+}
+
+/*UnbanChatMemberEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type UnbanChatMemberEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *UnbanChatMemberEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/unbanChatMember][%d] unbanChatMemberEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *UnbanChatMemberEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewUnbanChatMemberInternalServerError creates a UnbanChatMemberInternalServerError with default headers values
+func NewUnbanChatMemberInternalServerError() *UnbanChatMemberInternalServerError {
+	return &UnbanChatMemberInternalServerError{}
+}
+
+/*UnbanChatMemberInternalServerError handles this case with default header values.
+
+Internal
+*/
+type UnbanChatMemberInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *UnbanChatMemberInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/unbanChatMember][%d] unbanChatMemberInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *UnbanChatMemberInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

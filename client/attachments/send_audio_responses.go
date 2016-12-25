@@ -37,6 +37,41 @@ func (o *SendAudioReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 
+	case 401:
+		result := NewSendAudioUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewSendAudioForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewSendAudioNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewSendAudioEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewSendAudioInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -78,7 +113,7 @@ func NewSendAudioBadRequest() *SendAudioBadRequest {
 
 /*SendAudioBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type SendAudioBadRequest struct {
 	Payload *models.Error
@@ -89,6 +124,151 @@ func (o *SendAudioBadRequest) Error() string {
 }
 
 func (o *SendAudioBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendAudioUnauthorized creates a SendAudioUnauthorized with default headers values
+func NewSendAudioUnauthorized() *SendAudioUnauthorized {
+	return &SendAudioUnauthorized{}
+}
+
+/*SendAudioUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SendAudioUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *SendAudioUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendAudio][%d] sendAudioUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SendAudioUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendAudioForbidden creates a SendAudioForbidden with default headers values
+func NewSendAudioForbidden() *SendAudioForbidden {
+	return &SendAudioForbidden{}
+}
+
+/*SendAudioForbidden handles this case with default header values.
+
+Forbidden
+*/
+type SendAudioForbidden struct {
+	Payload *models.Error
+}
+
+func (o *SendAudioForbidden) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendAudio][%d] sendAudioForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SendAudioForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendAudioNotFound creates a SendAudioNotFound with default headers values
+func NewSendAudioNotFound() *SendAudioNotFound {
+	return &SendAudioNotFound{}
+}
+
+/*SendAudioNotFound handles this case with default header values.
+
+Not Found
+*/
+type SendAudioNotFound struct {
+	Payload *models.Error
+}
+
+func (o *SendAudioNotFound) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendAudio][%d] sendAudioNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SendAudioNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendAudioEnhanceYourCalm creates a SendAudioEnhanceYourCalm with default headers values
+func NewSendAudioEnhanceYourCalm() *SendAudioEnhanceYourCalm {
+	return &SendAudioEnhanceYourCalm{}
+}
+
+/*SendAudioEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type SendAudioEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *SendAudioEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendAudio][%d] sendAudioEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *SendAudioEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendAudioInternalServerError creates a SendAudioInternalServerError with default headers values
+func NewSendAudioInternalServerError() *SendAudioInternalServerError {
+	return &SendAudioInternalServerError{}
+}
+
+/*SendAudioInternalServerError handles this case with default header values.
+
+Internal
+*/
+type SendAudioInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *SendAudioInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendAudio][%d] sendAudioInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SendAudioInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

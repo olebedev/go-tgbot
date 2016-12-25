@@ -37,6 +37,41 @@ func (o *SendGameReader) ReadResponse(response runtime.ClientResponse, consumer 
 		}
 		return nil, result
 
+	case 401:
+		result := NewSendGameUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewSendGameForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewSendGameNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewSendGameEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewSendGameInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -78,7 +113,7 @@ func NewSendGameBadRequest() *SendGameBadRequest {
 
 /*SendGameBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type SendGameBadRequest struct {
 	Payload *models.Error
@@ -89,6 +124,151 @@ func (o *SendGameBadRequest) Error() string {
 }
 
 func (o *SendGameBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendGameUnauthorized creates a SendGameUnauthorized with default headers values
+func NewSendGameUnauthorized() *SendGameUnauthorized {
+	return &SendGameUnauthorized{}
+}
+
+/*SendGameUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SendGameUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *SendGameUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendGame][%d] sendGameUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SendGameUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendGameForbidden creates a SendGameForbidden with default headers values
+func NewSendGameForbidden() *SendGameForbidden {
+	return &SendGameForbidden{}
+}
+
+/*SendGameForbidden handles this case with default header values.
+
+Forbidden
+*/
+type SendGameForbidden struct {
+	Payload *models.Error
+}
+
+func (o *SendGameForbidden) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendGame][%d] sendGameForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SendGameForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendGameNotFound creates a SendGameNotFound with default headers values
+func NewSendGameNotFound() *SendGameNotFound {
+	return &SendGameNotFound{}
+}
+
+/*SendGameNotFound handles this case with default header values.
+
+Not Found
+*/
+type SendGameNotFound struct {
+	Payload *models.Error
+}
+
+func (o *SendGameNotFound) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendGame][%d] sendGameNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SendGameNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendGameEnhanceYourCalm creates a SendGameEnhanceYourCalm with default headers values
+func NewSendGameEnhanceYourCalm() *SendGameEnhanceYourCalm {
+	return &SendGameEnhanceYourCalm{}
+}
+
+/*SendGameEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type SendGameEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *SendGameEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendGame][%d] sendGameEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *SendGameEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendGameInternalServerError creates a SendGameInternalServerError with default headers values
+func NewSendGameInternalServerError() *SendGameInternalServerError {
+	return &SendGameInternalServerError{}
+}
+
+/*SendGameInternalServerError handles this case with default header values.
+
+Internal
+*/
+type SendGameInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *SendGameInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendGame][%d] sendGameInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SendGameInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

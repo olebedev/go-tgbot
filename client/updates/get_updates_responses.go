@@ -37,6 +37,41 @@ func (o *GetUpdatesReader) ReadResponse(response runtime.ClientResponse, consume
 		}
 		return nil, result
 
+	case 401:
+		result := NewGetUpdatesUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewGetUpdatesForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewGetUpdatesNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewGetUpdatesEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewGetUpdatesInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -78,7 +113,7 @@ func NewGetUpdatesBadRequest() *GetUpdatesBadRequest {
 
 /*GetUpdatesBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type GetUpdatesBadRequest struct {
 	Payload *models.Error
@@ -89,6 +124,151 @@ func (o *GetUpdatesBadRequest) Error() string {
 }
 
 func (o *GetUpdatesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUpdatesUnauthorized creates a GetUpdatesUnauthorized with default headers values
+func NewGetUpdatesUnauthorized() *GetUpdatesUnauthorized {
+	return &GetUpdatesUnauthorized{}
+}
+
+/*GetUpdatesUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type GetUpdatesUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *GetUpdatesUnauthorized) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *GetUpdatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUpdatesForbidden creates a GetUpdatesForbidden with default headers values
+func NewGetUpdatesForbidden() *GetUpdatesForbidden {
+	return &GetUpdatesForbidden{}
+}
+
+/*GetUpdatesForbidden handles this case with default header values.
+
+Forbidden
+*/
+type GetUpdatesForbidden struct {
+	Payload *models.Error
+}
+
+func (o *GetUpdatesForbidden) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesForbidden  %+v", 403, o.Payload)
+}
+
+func (o *GetUpdatesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUpdatesNotFound creates a GetUpdatesNotFound with default headers values
+func NewGetUpdatesNotFound() *GetUpdatesNotFound {
+	return &GetUpdatesNotFound{}
+}
+
+/*GetUpdatesNotFound handles this case with default header values.
+
+Not Found
+*/
+type GetUpdatesNotFound struct {
+	Payload *models.Error
+}
+
+func (o *GetUpdatesNotFound) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesNotFound  %+v", 404, o.Payload)
+}
+
+func (o *GetUpdatesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUpdatesEnhanceYourCalm creates a GetUpdatesEnhanceYourCalm with default headers values
+func NewGetUpdatesEnhanceYourCalm() *GetUpdatesEnhanceYourCalm {
+	return &GetUpdatesEnhanceYourCalm{}
+}
+
+/*GetUpdatesEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type GetUpdatesEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *GetUpdatesEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *GetUpdatesEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewGetUpdatesInternalServerError creates a GetUpdatesInternalServerError with default headers values
+func NewGetUpdatesInternalServerError() *GetUpdatesInternalServerError {
+	return &GetUpdatesInternalServerError{}
+}
+
+/*GetUpdatesInternalServerError handles this case with default header values.
+
+Internal
+*/
+type GetUpdatesInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *GetUpdatesInternalServerError) Error() string {
+	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *GetUpdatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

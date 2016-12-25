@@ -37,6 +37,41 @@ func (o *SendLocationReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 
+	case 401:
+		result := NewSendLocationUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewSendLocationForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewSendLocationNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewSendLocationEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewSendLocationInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -78,7 +113,7 @@ func NewSendLocationBadRequest() *SendLocationBadRequest {
 
 /*SendLocationBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type SendLocationBadRequest struct {
 	Payload *models.Error
@@ -89,6 +124,151 @@ func (o *SendLocationBadRequest) Error() string {
 }
 
 func (o *SendLocationBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendLocationUnauthorized creates a SendLocationUnauthorized with default headers values
+func NewSendLocationUnauthorized() *SendLocationUnauthorized {
+	return &SendLocationUnauthorized{}
+}
+
+/*SendLocationUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SendLocationUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *SendLocationUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendLocation][%d] sendLocationUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SendLocationUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendLocationForbidden creates a SendLocationForbidden with default headers values
+func NewSendLocationForbidden() *SendLocationForbidden {
+	return &SendLocationForbidden{}
+}
+
+/*SendLocationForbidden handles this case with default header values.
+
+Forbidden
+*/
+type SendLocationForbidden struct {
+	Payload *models.Error
+}
+
+func (o *SendLocationForbidden) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendLocation][%d] sendLocationForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SendLocationForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendLocationNotFound creates a SendLocationNotFound with default headers values
+func NewSendLocationNotFound() *SendLocationNotFound {
+	return &SendLocationNotFound{}
+}
+
+/*SendLocationNotFound handles this case with default header values.
+
+Not Found
+*/
+type SendLocationNotFound struct {
+	Payload *models.Error
+}
+
+func (o *SendLocationNotFound) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendLocation][%d] sendLocationNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SendLocationNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendLocationEnhanceYourCalm creates a SendLocationEnhanceYourCalm with default headers values
+func NewSendLocationEnhanceYourCalm() *SendLocationEnhanceYourCalm {
+	return &SendLocationEnhanceYourCalm{}
+}
+
+/*SendLocationEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type SendLocationEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *SendLocationEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendLocation][%d] sendLocationEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *SendLocationEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendLocationInternalServerError creates a SendLocationInternalServerError with default headers values
+func NewSendLocationInternalServerError() *SendLocationInternalServerError {
+	return &SendLocationInternalServerError{}
+}
+
+/*SendLocationInternalServerError handles this case with default header values.
+
+Internal
+*/
+type SendLocationInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *SendLocationInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendLocation][%d] sendLocationInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SendLocationInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

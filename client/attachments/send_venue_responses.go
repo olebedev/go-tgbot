@@ -37,6 +37,41 @@ func (o *SendVenueReader) ReadResponse(response runtime.ClientResponse, consumer
 		}
 		return nil, result
 
+	case 401:
+		result := NewSendVenueUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewSendVenueForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewSendVenueNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewSendVenueEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewSendVenueInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -78,7 +113,7 @@ func NewSendVenueBadRequest() *SendVenueBadRequest {
 
 /*SendVenueBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type SendVenueBadRequest struct {
 	Payload *models.Error
@@ -89,6 +124,151 @@ func (o *SendVenueBadRequest) Error() string {
 }
 
 func (o *SendVenueBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendVenueUnauthorized creates a SendVenueUnauthorized with default headers values
+func NewSendVenueUnauthorized() *SendVenueUnauthorized {
+	return &SendVenueUnauthorized{}
+}
+
+/*SendVenueUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SendVenueUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *SendVenueUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendVenue][%d] sendVenueUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SendVenueUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendVenueForbidden creates a SendVenueForbidden with default headers values
+func NewSendVenueForbidden() *SendVenueForbidden {
+	return &SendVenueForbidden{}
+}
+
+/*SendVenueForbidden handles this case with default header values.
+
+Forbidden
+*/
+type SendVenueForbidden struct {
+	Payload *models.Error
+}
+
+func (o *SendVenueForbidden) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendVenue][%d] sendVenueForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SendVenueForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendVenueNotFound creates a SendVenueNotFound with default headers values
+func NewSendVenueNotFound() *SendVenueNotFound {
+	return &SendVenueNotFound{}
+}
+
+/*SendVenueNotFound handles this case with default header values.
+
+Not Found
+*/
+type SendVenueNotFound struct {
+	Payload *models.Error
+}
+
+func (o *SendVenueNotFound) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendVenue][%d] sendVenueNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SendVenueNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendVenueEnhanceYourCalm creates a SendVenueEnhanceYourCalm with default headers values
+func NewSendVenueEnhanceYourCalm() *SendVenueEnhanceYourCalm {
+	return &SendVenueEnhanceYourCalm{}
+}
+
+/*SendVenueEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type SendVenueEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *SendVenueEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendVenue][%d] sendVenueEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *SendVenueEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendVenueInternalServerError creates a SendVenueInternalServerError with default headers values
+func NewSendVenueInternalServerError() *SendVenueInternalServerError {
+	return &SendVenueInternalServerError{}
+}
+
+/*SendVenueInternalServerError handles this case with default header values.
+
+Internal
+*/
+type SendVenueInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *SendVenueInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendVenue][%d] sendVenueInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SendVenueInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

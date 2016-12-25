@@ -37,6 +37,41 @@ func (o *SendMessageReader) ReadResponse(response runtime.ClientResponse, consum
 		}
 		return nil, result
 
+	case 401:
+		result := NewSendMessageUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewSendMessageForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewSendMessageNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewSendMessageEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewSendMessageInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -78,7 +113,7 @@ func NewSendMessageBadRequest() *SendMessageBadRequest {
 
 /*SendMessageBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type SendMessageBadRequest struct {
 	Payload *models.Error
@@ -89,6 +124,151 @@ func (o *SendMessageBadRequest) Error() string {
 }
 
 func (o *SendMessageBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendMessageUnauthorized creates a SendMessageUnauthorized with default headers values
+func NewSendMessageUnauthorized() *SendMessageUnauthorized {
+	return &SendMessageUnauthorized{}
+}
+
+/*SendMessageUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SendMessageUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *SendMessageUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendMessage][%d] sendMessageUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SendMessageUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendMessageForbidden creates a SendMessageForbidden with default headers values
+func NewSendMessageForbidden() *SendMessageForbidden {
+	return &SendMessageForbidden{}
+}
+
+/*SendMessageForbidden handles this case with default header values.
+
+Forbidden
+*/
+type SendMessageForbidden struct {
+	Payload *models.Error
+}
+
+func (o *SendMessageForbidden) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendMessage][%d] sendMessageForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SendMessageForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendMessageNotFound creates a SendMessageNotFound with default headers values
+func NewSendMessageNotFound() *SendMessageNotFound {
+	return &SendMessageNotFound{}
+}
+
+/*SendMessageNotFound handles this case with default header values.
+
+Not Found
+*/
+type SendMessageNotFound struct {
+	Payload *models.Error
+}
+
+func (o *SendMessageNotFound) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendMessage][%d] sendMessageNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SendMessageNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendMessageEnhanceYourCalm creates a SendMessageEnhanceYourCalm with default headers values
+func NewSendMessageEnhanceYourCalm() *SendMessageEnhanceYourCalm {
+	return &SendMessageEnhanceYourCalm{}
+}
+
+/*SendMessageEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type SendMessageEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *SendMessageEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendMessage][%d] sendMessageEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *SendMessageEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendMessageInternalServerError creates a SendMessageInternalServerError with default headers values
+func NewSendMessageInternalServerError() *SendMessageInternalServerError {
+	return &SendMessageInternalServerError{}
+}
+
+/*SendMessageInternalServerError handles this case with default header values.
+
+Internal
+*/
+type SendMessageInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *SendMessageInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendMessage][%d] sendMessageInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SendMessageInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 

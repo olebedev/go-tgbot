@@ -37,6 +37,41 @@ func (o *SendDocumentReader) ReadResponse(response runtime.ClientResponse, consu
 		}
 		return nil, result
 
+	case 401:
+		result := NewSendDocumentUnauthorized()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 403:
+		result := NewSendDocumentForbidden()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 404:
+		result := NewSendDocumentNotFound()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 420:
+		result := NewSendDocumentEnhanceYourCalm()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
+	case 500:
+		result := NewSendDocumentInternalServerError()
+		if err := result.readResponse(response, consumer, o.formats); err != nil {
+			return nil, err
+		}
+		return nil, result
+
 	default:
 		return nil, runtime.NewAPIError("unknown error", response, response.Code())
 	}
@@ -78,7 +113,7 @@ func NewSendDocumentBadRequest() *SendDocumentBadRequest {
 
 /*SendDocumentBadRequest handles this case with default header values.
 
-Error
+Bad Request
 */
 type SendDocumentBadRequest struct {
 	Payload *models.Error
@@ -89,6 +124,151 @@ func (o *SendDocumentBadRequest) Error() string {
 }
 
 func (o *SendDocumentBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendDocumentUnauthorized creates a SendDocumentUnauthorized with default headers values
+func NewSendDocumentUnauthorized() *SendDocumentUnauthorized {
+	return &SendDocumentUnauthorized{}
+}
+
+/*SendDocumentUnauthorized handles this case with default header values.
+
+Unauthorized
+*/
+type SendDocumentUnauthorized struct {
+	Payload *models.Error
+}
+
+func (o *SendDocumentUnauthorized) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendDocument][%d] sendDocumentUnauthorized  %+v", 401, o.Payload)
+}
+
+func (o *SendDocumentUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendDocumentForbidden creates a SendDocumentForbidden with default headers values
+func NewSendDocumentForbidden() *SendDocumentForbidden {
+	return &SendDocumentForbidden{}
+}
+
+/*SendDocumentForbidden handles this case with default header values.
+
+Forbidden
+*/
+type SendDocumentForbidden struct {
+	Payload *models.Error
+}
+
+func (o *SendDocumentForbidden) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendDocument][%d] sendDocumentForbidden  %+v", 403, o.Payload)
+}
+
+func (o *SendDocumentForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendDocumentNotFound creates a SendDocumentNotFound with default headers values
+func NewSendDocumentNotFound() *SendDocumentNotFound {
+	return &SendDocumentNotFound{}
+}
+
+/*SendDocumentNotFound handles this case with default header values.
+
+Not Found
+*/
+type SendDocumentNotFound struct {
+	Payload *models.Error
+}
+
+func (o *SendDocumentNotFound) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendDocument][%d] sendDocumentNotFound  %+v", 404, o.Payload)
+}
+
+func (o *SendDocumentNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendDocumentEnhanceYourCalm creates a SendDocumentEnhanceYourCalm with default headers values
+func NewSendDocumentEnhanceYourCalm() *SendDocumentEnhanceYourCalm {
+	return &SendDocumentEnhanceYourCalm{}
+}
+
+/*SendDocumentEnhanceYourCalm handles this case with default header values.
+
+Flood
+*/
+type SendDocumentEnhanceYourCalm struct {
+	Payload *models.Error
+}
+
+func (o *SendDocumentEnhanceYourCalm) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendDocument][%d] sendDocumentEnhanceYourCalm  %+v", 420, o.Payload)
+}
+
+func (o *SendDocumentEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
+
+	o.Payload = new(models.Error)
+
+	// response payload
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
+		return err
+	}
+
+	return nil
+}
+
+// NewSendDocumentInternalServerError creates a SendDocumentInternalServerError with default headers values
+func NewSendDocumentInternalServerError() *SendDocumentInternalServerError {
+	return &SendDocumentInternalServerError{}
+}
+
+/*SendDocumentInternalServerError handles this case with default header values.
+
+Internal
+*/
+type SendDocumentInternalServerError struct {
+	Payload *models.Error
+}
+
+func (o *SendDocumentInternalServerError) Error() string {
+	return fmt.Sprintf("[POST /bot{token}/sendDocument][%d] sendDocumentInternalServerError  %+v", 500, o.Payload)
+}
+
+func (o *SendDocumentInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.Error)
 
