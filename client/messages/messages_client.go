@@ -162,6 +162,34 @@ func (a *Client) SendMessage(params *SendMessageParams) (*SendMessageOK, error) 
 
 }
 
+/*
+SendMessageBytes send message bytes API
+*/
+func (a *Client) SendMessageBytes(params *SendMessageBytesParams) (*SendMessageBytesOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendMessageBytesParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendMessageBytes",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendMessageBytes",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendMessageBytesReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendMessageBytesOK), nil
+
+}
+
 // SetTransport changes the transport on the client
 func (a *Client) SetTransport(transport runtime.ClientTransport) {
 	a.transport = transport

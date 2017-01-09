@@ -182,6 +182,49 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
+  /bot{token}/sendMessageBytes:
+    post:
+      tags:
+      - messages
+      description: ""
+      operationId: sendMessageBytes
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: true
+        schema:
+          format: binary
+          type: string
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/forwardMessage:
     post:
       tags:
