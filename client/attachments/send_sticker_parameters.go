@@ -5,7 +5,6 @@ package attachments
 
 import (
 	"net/http"
-	"os"
 	"time"
 
 	"golang.org/x/net/context"
@@ -65,7 +64,7 @@ type SendStickerParams struct {
 	/*ReplyToMessageID*/
 	ReplyToMessageID *int64
 	/*Sticker*/
-	Sticker os.File
+	Sticker runtime.NamedReadCloser
 	/*Token
 	  bot's token to authorize the request
 
@@ -144,13 +143,13 @@ func (o *SendStickerParams) SetReplyToMessageID(replyToMessageID *int64) {
 }
 
 // WithSticker adds the sticker to the send sticker params
-func (o *SendStickerParams) WithSticker(sticker os.File) *SendStickerParams {
+func (o *SendStickerParams) WithSticker(sticker runtime.NamedReadCloser) *SendStickerParams {
 	o.SetSticker(sticker)
 	return o
 }
 
 // SetSticker adds the sticker to the send sticker params
-func (o *SendStickerParams) SetSticker(sticker os.File) {
+func (o *SendStickerParams) SetSticker(sticker runtime.NamedReadCloser) {
 	o.Sticker = sticker
 }
 
@@ -229,7 +228,7 @@ func (o *SendStickerParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 	}
 
 	// form file param sticker
-	if err := r.SetFileParam("sticker", &o.Sticker); err != nil {
+	if err := r.SetFileParam("sticker", o.Sticker); err != nil {
 		return err
 	}
 

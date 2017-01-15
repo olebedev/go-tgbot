@@ -7,6 +7,7 @@ package models
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	fflib "github.com/pquerna/ffjson/fflib/v1"
@@ -59,19 +60,14 @@ func (mj *ResponseUpdate) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 			if i != 0 {
 				buf.WriteString(`,`)
 			}
-
-			{
-
-				if v == nil {
-					buf.WriteString("null")
-					return nil
-				}
-
-				err = v.MarshalJSONBuf(buf)
+			if v != nil {
+				/* Struct fall back. type=models.Update kind=struct */
+				err = buf.Encode(&v)
 				if err != nil {
 					return err
 				}
-
+			} else {
+				buf.WriteString(`null`)
 			}
 		}
 		buf.WriteString(`]`)
@@ -400,23 +396,30 @@ handle_Result:
 				/* handler: tmp_uj__Result type=*models.Update kind=ptr quoted=false*/
 
 				{
+
 					if tok == fflib.FFTok_null {
-
 						tmp_uj__Result = nil
+					} else {
+						if tmp_uj__Result == nil {
+							tmp_uj__Result = new(Update)
+						}
 
-						state = fflib.FFParse_after_value
-						goto mainparse
-					}
+						/* handler: tmp_uj__Result type=models.Update kind=struct quoted=false*/
 
-					if tmp_uj__Result == nil {
-						tmp_uj__Result = new(Update)
-					}
+						{
+							/* Falling back. type=models.Update kind=struct */
+							tbuf, err := fs.CaptureField(tok)
+							if err != nil {
+								return fs.WrapErr(err)
+							}
 
-					err = tmp_uj__Result.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
-					if err != nil {
-						return err
+							err = json.Unmarshal(tbuf, &tmp_uj__Result)
+							if err != nil {
+								return fs.WrapErr(err)
+							}
+						}
+
 					}
-					state = fflib.FFParse_after_value
 				}
 
 				uj.Result = append(uj.Result, tmp_uj__Result)
@@ -443,5 +446,6 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }

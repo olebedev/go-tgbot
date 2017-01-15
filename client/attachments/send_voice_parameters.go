@@ -5,7 +5,6 @@ package attachments
 
 import (
 	"net/http"
-	"os"
 	"time"
 
 	"golang.org/x/net/context"
@@ -74,7 +73,7 @@ type SendVoiceParams struct {
 	*/
 	Token *string
 	/*Voice*/
-	Voice os.File
+	Voice runtime.NamedReadCloser
 
 	timeout    time.Duration
 	Context    context.Context
@@ -181,13 +180,13 @@ func (o *SendVoiceParams) SetToken(token *string) {
 }
 
 // WithVoice adds the voice to the send voice params
-func (o *SendVoiceParams) WithVoice(voice os.File) *SendVoiceParams {
+func (o *SendVoiceParams) WithVoice(voice runtime.NamedReadCloser) *SendVoiceParams {
 	o.SetVoice(voice)
 	return o
 }
 
 // SetVoice adds the voice to the send voice params
-func (o *SendVoiceParams) SetVoice(voice os.File) {
+func (o *SendVoiceParams) SetVoice(voice runtime.NamedReadCloser) {
 	o.Voice = voice
 }
 
@@ -296,7 +295,7 @@ func (o *SendVoiceParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	}
 
 	// form file param voice
-	if err := r.SetFileParam("voice", &o.Voice); err != nil {
+	if err := r.SetFileParam("voice", o.Voice); err != nil {
 		return err
 	}
 

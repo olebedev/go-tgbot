@@ -5,7 +5,6 @@ package attachments
 
 import (
 	"net/http"
-	"os"
 	"time"
 
 	"golang.org/x/net/context"
@@ -60,7 +59,7 @@ type SendDocumentParams struct {
 	/*DisableNotification*/
 	DisableNotification *bool
 	/*Document*/
-	Document os.File
+	Document runtime.NamedReadCloser
 	/*ReplyMarkup
 	  json string of reply_markup object
 
@@ -135,13 +134,13 @@ func (o *SendDocumentParams) SetDisableNotification(disableNotification *bool) {
 }
 
 // WithDocument adds the document to the send document params
-func (o *SendDocumentParams) WithDocument(document os.File) *SendDocumentParams {
+func (o *SendDocumentParams) WithDocument(document runtime.NamedReadCloser) *SendDocumentParams {
 	o.SetDocument(document)
 	return o
 }
 
 // SetDocument adds the document to the send document params
-func (o *SendDocumentParams) SetDocument(document os.File) {
+func (o *SendDocumentParams) SetDocument(document runtime.NamedReadCloser) {
 	o.Document = document
 }
 
@@ -226,7 +225,7 @@ func (o *SendDocumentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 	}
 
 	// form file param document
-	if err := r.SetFileParam("document", &o.Document); err != nil {
+	if err := r.SetFileParam("document", o.Document); err != nil {
 		return err
 	}
 

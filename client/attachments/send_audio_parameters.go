@@ -5,7 +5,6 @@ package attachments
 
 import (
 	"net/http"
-	"os"
 	"time"
 
 	"golang.org/x/net/context"
@@ -54,7 +53,7 @@ for the send audio operation typically these are written to a http.Request
 type SendAudioParams struct {
 
 	/*Audio*/
-	Audio os.File
+	Audio runtime.NamedReadCloser
 	/*Caption*/
 	Caption *string
 	/*ChatID*/
@@ -108,13 +107,13 @@ func (o *SendAudioParams) SetContext(ctx context.Context) {
 }
 
 // WithAudio adds the audio to the send audio params
-func (o *SendAudioParams) WithAudio(audio os.File) *SendAudioParams {
+func (o *SendAudioParams) WithAudio(audio runtime.NamedReadCloser) *SendAudioParams {
 	o.SetAudio(audio)
 	return o
 }
 
 // SetAudio adds the audio to the send audio params
-func (o *SendAudioParams) SetAudio(audio os.File) {
+func (o *SendAudioParams) SetAudio(audio runtime.NamedReadCloser) {
 	o.Audio = audio
 }
 
@@ -224,7 +223,7 @@ func (o *SendAudioParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	var res []error
 
 	// form file param audio
-	if err := r.SetFileParam("audio", &o.Audio); err != nil {
+	if err := r.SetFileParam("audio", o.Audio); err != nil {
 		return err
 	}
 

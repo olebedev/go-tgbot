@@ -5,7 +5,6 @@ package attachments
 
 import (
 	"net/http"
-	"os"
 	"time"
 
 	"golang.org/x/net/context"
@@ -76,7 +75,7 @@ type SendVideoParams struct {
 	*/
 	Token *string
 	/*Video*/
-	Video os.File
+	Video runtime.NamedReadCloser
 	/*Width*/
 	Width *int64
 
@@ -196,13 +195,13 @@ func (o *SendVideoParams) SetToken(token *string) {
 }
 
 // WithVideo adds the video to the send video params
-func (o *SendVideoParams) WithVideo(video os.File) *SendVideoParams {
+func (o *SendVideoParams) WithVideo(video runtime.NamedReadCloser) *SendVideoParams {
 	o.SetVideo(video)
 	return o
 }
 
 // SetVideo adds the video to the send video params
-func (o *SendVideoParams) SetVideo(video os.File) {
+func (o *SendVideoParams) SetVideo(video runtime.NamedReadCloser) {
 	o.Video = video
 }
 
@@ -338,7 +337,7 @@ func (o *SendVideoParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	}
 
 	// form file param video
-	if err := r.SetFileParam("video", &o.Video); err != nil {
+	if err := r.SetFileParam("video", o.Video); err != nil {
 		return err
 	}
 

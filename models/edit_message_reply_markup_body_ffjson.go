@@ -55,15 +55,11 @@ func (mj *EditMessageReplyMarkupBody) MarshalJSONBuf(buf fflib.EncodingBuffer) e
 	}
 	if mj.ReplyMarkup != nil {
 		if true {
+			/* Struct fall back. type=models.InlineKeyboardMarkup kind=struct */
 			buf.WriteString(`"reply_markup":`)
-
-			{
-
-				err = mj.ReplyMarkup.MarshalJSONBuf(buf)
-				if err != nil {
-					return err
-				}
-
+			err = buf.Encode(mj.ReplyMarkup)
+			if err != nil {
+				return err
 			}
 			buf.WriteByte(',')
 		}
@@ -335,23 +331,16 @@ handle_ReplyMarkup:
 	/* handler: uj.ReplyMarkup type=models.InlineKeyboardMarkup kind=struct quoted=false*/
 
 	{
-		if tok == fflib.FFTok_null {
-
-			uj.ReplyMarkup = nil
-
-			state = fflib.FFParse_after_value
-			goto mainparse
-		}
-
-		if uj.ReplyMarkup == nil {
-			uj.ReplyMarkup = new(InlineKeyboardMarkup)
-		}
-
-		err = uj.ReplyMarkup.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
+		/* Falling back. type=models.InlineKeyboardMarkup kind=struct */
+		tbuf, err := fs.CaptureField(tok)
 		if err != nil {
-			return err
+			return fs.WrapErr(err)
 		}
-		state = fflib.FFParse_after_value
+
+		err = json.Unmarshal(tbuf, &uj.ReplyMarkup)
+		if err != nil {
+			return fs.WrapErr(err)
+		}
 	}
 
 	state = fflib.FFParse_after_value
@@ -371,5 +360,6 @@ tokerror:
 	}
 	panic("ffjson-generated: unreachable, please report bug.")
 done:
+
 	return nil
 }

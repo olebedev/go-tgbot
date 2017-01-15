@@ -5,7 +5,6 @@ package attachments
 
 import (
 	"net/http"
-	"os"
 	"time"
 
 	"golang.org/x/net/context"
@@ -60,7 +59,7 @@ type SendPhotoParams struct {
 	/*DisableNotification*/
 	DisableNotification *bool
 	/*Photo*/
-	Photo os.File
+	Photo runtime.NamedReadCloser
 	/*ReplyMarkup
 	  json string of reply_markup object
 
@@ -135,13 +134,13 @@ func (o *SendPhotoParams) SetDisableNotification(disableNotification *bool) {
 }
 
 // WithPhoto adds the photo to the send photo params
-func (o *SendPhotoParams) WithPhoto(photo os.File) *SendPhotoParams {
+func (o *SendPhotoParams) WithPhoto(photo runtime.NamedReadCloser) *SendPhotoParams {
 	o.SetPhoto(photo)
 	return o
 }
 
 // SetPhoto adds the photo to the send photo params
-func (o *SendPhotoParams) SetPhoto(photo os.File) {
+func (o *SendPhotoParams) SetPhoto(photo runtime.NamedReadCloser) {
 	o.Photo = photo
 }
 
@@ -226,7 +225,7 @@ func (o *SendPhotoParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	}
 
 	// form file param photo
-	if err := r.SetFileParam("photo", &o.Photo); err != nil {
+	if err := r.SetFileParam("photo", o.Photo); err != nil {
 		return err
 	}
 
