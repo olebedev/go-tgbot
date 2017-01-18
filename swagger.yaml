@@ -1696,6 +1696,8 @@ paths:
     post:
       tags:
       - callbacks
+      consumes:
+      - application/x-www-form-urlencoded
       description: ""
       operationId: answerCallbackQuery
       parameters:

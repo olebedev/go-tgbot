@@ -36,7 +36,7 @@ func (a *Client) AnswerCallbackQuery(params *AnswerCallbackQueryParams) (*Answer
 		Method:             "POST",
 		PathPattern:        "/bot{token}/answerCallbackQuery",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/x-www-form-urlencoded"},
 		Schemes:            []string{"https"},
 		Params:             params,
 		Reader:             &AnswerCallbackQueryReader{formats: a.formats},
