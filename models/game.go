@@ -4,10 +4,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
@@ -81,6 +83,9 @@ func (m *Game) validateAnimation(formats strfmt.Registry) error {
 	if m.Animation != nil {
 
 		if err := m.Animation.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("animation")
+			}
 			return err
 		}
 	}
@@ -112,6 +117,9 @@ func (m *Game) validatePhoto(formats strfmt.Registry) error {
 		if m.Photo[i] != nil {
 
 			if err := m.Photo[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("photo" + "." + strconv.Itoa(i))
+				}
 				return err
 			}
 		}
@@ -136,6 +144,9 @@ func (m *Game) validateTextEntities(formats strfmt.Registry) error {
 		if m.TextEntities[i] != nil {
 
 			if err := m.TextEntities[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("text_entities" + "." + strconv.Itoa(i))
+				}
 				return err
 			}
 		}
@@ -151,5 +162,23 @@ func (m *Game) validateTitle(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *Game) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *Game) UnmarshalBinary(b []byte) error {
+	var res Game
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }

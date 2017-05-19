@@ -48,6 +48,15 @@ func NewSendGameParamsWithContext(ctx context.Context) *SendGameParams {
 	}
 }
 
+// NewSendGameParamsWithHTTPClient creates a new SendGameParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendGameParamsWithHTTPClient(client *http.Client) *SendGameParams {
+	var ()
+	return &SendGameParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendGameParams contains all the parameters to send to the API endpoint
 for the send game operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *SendGameParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the send game params
+func (o *SendGameParams) WithHTTPClient(client *http.Client) *SendGameParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send game params
+func (o *SendGameParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the send game params
 func (o *SendGameParams) WithBody(body *models.SendGameBody) *SendGameParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *SendGameParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendGameParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

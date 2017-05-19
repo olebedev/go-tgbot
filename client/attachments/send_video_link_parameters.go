@@ -48,6 +48,15 @@ func NewSendVideoLinkParamsWithContext(ctx context.Context) *SendVideoLinkParams
 	}
 }
 
+// NewSendVideoLinkParamsWithHTTPClient creates a new SendVideoLinkParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendVideoLinkParamsWithHTTPClient(client *http.Client) *SendVideoLinkParams {
+	var ()
+	return &SendVideoLinkParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendVideoLinkParams contains all the parameters to send to the API endpoint
 for the send video link operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *SendVideoLinkParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the send video link params
+func (o *SendVideoLinkParams) WithHTTPClient(client *http.Client) *SendVideoLinkParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send video link params
+func (o *SendVideoLinkParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the send video link params
 func (o *SendVideoLinkParams) WithBody(body *models.SendVideoLinkBody) *SendVideoLinkParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *SendVideoLinkParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendVideoLinkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

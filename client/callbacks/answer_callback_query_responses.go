@@ -7,7 +7,10 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -298,4 +301,88 @@ type AnswerCallbackQueryOKBody struct {
 	// result
 	// Required: true
 	Result *bool `json:"result"`
+}
+
+// Validate validates this answer callback query o k body
+func (o *AnswerCallbackQueryOKBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateDescription(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateErrorCode(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateOk(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateResult(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *AnswerCallbackQueryOKBody) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.Required("answerCallbackQueryOK"+"."+"description", "body", o.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *AnswerCallbackQueryOKBody) validateErrorCode(formats strfmt.Registry) error {
+
+	if err := validate.Required("answerCallbackQueryOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *AnswerCallbackQueryOKBody) validateOk(formats strfmt.Registry) error {
+
+	if err := validate.Required("answerCallbackQueryOK"+"."+"ok", "body", o.Ok); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *AnswerCallbackQueryOKBody) validateResult(formats strfmt.Registry) error {
+
+	if err := validate.Required("answerCallbackQueryOK"+"."+"result", "body", o.Result); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *AnswerCallbackQueryOKBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *AnswerCallbackQueryOKBody) UnmarshalBinary(b []byte) error {
+	var res AnswerCallbackQueryOKBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
 }

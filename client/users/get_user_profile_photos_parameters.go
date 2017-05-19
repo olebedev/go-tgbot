@@ -47,6 +47,15 @@ func NewGetUserProfilePhotosParamsWithContext(ctx context.Context) *GetUserProfi
 	}
 }
 
+// NewGetUserProfilePhotosParamsWithHTTPClient creates a new GetUserProfilePhotosParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewGetUserProfilePhotosParamsWithHTTPClient(client *http.Client) *GetUserProfilePhotosParams {
+	var ()
+	return &GetUserProfilePhotosParams{
+		HTTPClient: client,
+	}
+}
+
 /*GetUserProfilePhotosParams contains all the parameters to send to the API endpoint
 for the get user profile photos operation typically these are written to a http.Request
 */
@@ -89,6 +98,17 @@ func (o *GetUserProfilePhotosParams) WithContext(ctx context.Context) *GetUserPr
 // SetContext adds the context to the get user profile photos params
 func (o *GetUserProfilePhotosParams) SetContext(ctx context.Context) {
 	o.Context = ctx
+}
+
+// WithHTTPClient adds the HTTPClient to the get user profile photos params
+func (o *GetUserProfilePhotosParams) WithHTTPClient(client *http.Client) *GetUserProfilePhotosParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the get user profile photos params
+func (o *GetUserProfilePhotosParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
 }
 
 // WithLimit adds the limit to the get user profile photos params
@@ -138,7 +158,9 @@ func (o *GetUserProfilePhotosParams) SetUserID(userID int64) {
 // WriteToRequest writes these params to a swagger request
 func (o *GetUserProfilePhotosParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Limit != nil {

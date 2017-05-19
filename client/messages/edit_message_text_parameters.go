@@ -48,6 +48,15 @@ func NewEditMessageTextParamsWithContext(ctx context.Context) *EditMessageTextPa
 	}
 }
 
+// NewEditMessageTextParamsWithHTTPClient creates a new EditMessageTextParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewEditMessageTextParamsWithHTTPClient(client *http.Client) *EditMessageTextParams {
+	var ()
+	return &EditMessageTextParams{
+		HTTPClient: client,
+	}
+}
+
 /*EditMessageTextParams contains all the parameters to send to the API endpoint
 for the edit message text operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *EditMessageTextParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the edit message text params
+func (o *EditMessageTextParams) WithHTTPClient(client *http.Client) *EditMessageTextParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the edit message text params
+func (o *EditMessageTextParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the edit message text params
 func (o *EditMessageTextParams) WithBody(body *models.EditMessageTextBody) *EditMessageTextParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *EditMessageTextParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *EditMessageTextParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

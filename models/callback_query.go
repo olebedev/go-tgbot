@@ -5,9 +5,9 @@ package models
 
 import (
 	strfmt "github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/swag"
 )
 
 // CallbackQuery callback query
@@ -65,6 +65,9 @@ func (m *CallbackQuery) validateFrom(formats strfmt.Registry) error {
 	if m.From != nil {
 
 		if err := m.From.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("from")
+			}
 			return err
 		}
 	}
@@ -81,9 +84,30 @@ func (m *CallbackQuery) validateMessage(formats strfmt.Registry) error {
 	if m.Message != nil {
 
 		if err := m.Message.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("message")
+			}
 			return err
 		}
 	}
 
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *CallbackQuery) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *CallbackQuery) UnmarshalBinary(b []byte) error {
+	var res CallbackQuery
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }

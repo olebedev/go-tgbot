@@ -46,6 +46,15 @@ func NewGetMeParamsWithContext(ctx context.Context) *GetMeParams {
 	}
 }
 
+// NewGetMeParamsWithHTTPClient creates a new GetMeParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewGetMeParamsWithHTTPClient(client *http.Client) *GetMeParams {
+	var ()
+	return &GetMeParams{
+		HTTPClient: client,
+	}
+}
+
 /*GetMeParams contains all the parameters to send to the API endpoint
 for the get me operation typically these are written to a http.Request
 */
@@ -84,6 +93,17 @@ func (o *GetMeParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the get me params
+func (o *GetMeParams) WithHTTPClient(client *http.Client) *GetMeParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the get me params
+func (o *GetMeParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithToken adds the token to the get me params
 func (o *GetMeParams) WithToken(token *string) *GetMeParams {
 	o.SetToken(token)
@@ -98,7 +118,9 @@ func (o *GetMeParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *GetMeParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Token != nil {

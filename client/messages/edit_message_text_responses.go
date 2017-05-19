@@ -7,7 +7,10 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -298,4 +301,84 @@ type EditMessageTextOKBody struct {
 	// result
 	// Required: true
 	Result interface{} `json:"result"`
+}
+
+// Validate validates this edit message text o k body
+func (o *EditMessageTextOKBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateDescription(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateErrorCode(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateOk(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateResult(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *EditMessageTextOKBody) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.Required("editMessageTextOK"+"."+"description", "body", o.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *EditMessageTextOKBody) validateErrorCode(formats strfmt.Registry) error {
+
+	if err := validate.Required("editMessageTextOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *EditMessageTextOKBody) validateOk(formats strfmt.Registry) error {
+
+	if err := validate.Required("editMessageTextOK"+"."+"ok", "body", o.Ok); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *EditMessageTextOKBody) validateResult(formats strfmt.Registry) error {
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *EditMessageTextOKBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *EditMessageTextOKBody) UnmarshalBinary(b []byte) error {
+	var res EditMessageTextOKBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
 }

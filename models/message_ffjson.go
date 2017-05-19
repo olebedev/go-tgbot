@@ -259,18 +259,28 @@ func (mj *Message) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 		fflib.FormatBits2(buf, uint64(mj.MigrateToChatID), 10, mj.MigrateToChatID < 0)
 		buf.WriteByte(',')
 	}
-	if mj.NewChatMember != nil {
-		if true {
-			/* Struct fall back. type=models.User kind=struct */
-			buf.WriteString(`"new_chat_member":`)
-			err = buf.Encode(mj.NewChatMember)
-			if err != nil {
-				return err
+	buf.WriteString(`"new_chat_members":`)
+	if mj.NewChatMembers != nil {
+		buf.WriteString(`[`)
+		for i, v := range mj.NewChatMembers {
+			if i != 0 {
+				buf.WriteString(`,`)
 			}
-			buf.WriteByte(',')
+			if v != nil {
+				/* Struct fall back. type=models.User kind=struct */
+				err = buf.Encode(&v)
+				if err != nil {
+					return err
+				}
+			} else {
+				buf.WriteString(`null`)
+			}
 		}
+		buf.WriteString(`]`)
+	} else {
+		buf.WriteString(`null`)
 	}
-	buf.WriteString(`"new_chat_photo":`)
+	buf.WriteString(`,"new_chat_photo":`)
 	if mj.NewChatPhoto != nil {
 		buf.WriteString(`[`)
 		for i, v := range mj.NewChatPhoto {
@@ -395,6 +405,17 @@ func (mj *Message) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 			buf.WriteByte(',')
 		}
 	}
+	if mj.VideoNote != nil {
+		if true {
+			/* Struct fall back. type=models.VideoNote kind=struct */
+			buf.WriteString(`"video_note":`)
+			err = buf.Encode(mj.VideoNote)
+			if err != nil {
+				return err
+			}
+			buf.WriteByte(',')
+		}
+	}
 	if mj.Voice != nil {
 		if true {
 			/* Struct fall back. type=models.Voice kind=struct */
@@ -459,7 +480,7 @@ const (
 
 	ffj_t_Message_MigrateToChatID
 
-	ffj_t_Message_NewChatMember
+	ffj_t_Message_NewChatMembers
 
 	ffj_t_Message_NewChatPhoto
 
@@ -480,6 +501,8 @@ const (
 	ffj_t_Message_Venue
 
 	ffj_t_Message_Video
+
+	ffj_t_Message_VideoNote
 
 	ffj_t_Message_Voice
 )
@@ -528,7 +551,7 @@ var ffj_key_Message_MigrateFromChatID = []byte("migrate_from_chat_id")
 
 var ffj_key_Message_MigrateToChatID = []byte("migrate_to_chat_id")
 
-var ffj_key_Message_NewChatMember = []byte("new_chat_member")
+var ffj_key_Message_NewChatMembers = []byte("new_chat_members")
 
 var ffj_key_Message_NewChatPhoto = []byte("new_chat_photo")
 
@@ -549,6 +572,8 @@ var ffj_key_Message_Text = []byte("text")
 var ffj_key_Message_Venue = []byte("venue")
 
 var ffj_key_Message_Video = []byte("video")
+
+var ffj_key_Message_VideoNote = []byte("video_note")
 
 var ffj_key_Message_Voice = []byte("voice")
 
@@ -747,8 +772,8 @@ mainparse:
 
 				case 'n':
 
-					if bytes.Equal(ffj_key_Message_NewChatMember, kn) {
-						currentKey = ffj_t_Message_NewChatMember
+					if bytes.Equal(ffj_key_Message_NewChatMembers, kn) {
+						currentKey = ffj_t_Message_NewChatMembers
 						state = fflib.FFParse_want_colon
 						goto mainparse
 
@@ -817,6 +842,11 @@ mainparse:
 						state = fflib.FFParse_want_colon
 						goto mainparse
 
+					} else if bytes.Equal(ffj_key_Message_VideoNote, kn) {
+						currentKey = ffj_t_Message_VideoNote
+						state = fflib.FFParse_want_colon
+						goto mainparse
+
 					} else if bytes.Equal(ffj_key_Message_Voice, kn) {
 						currentKey = ffj_t_Message_Voice
 						state = fflib.FFParse_want_colon
@@ -827,6 +857,12 @@ mainparse:
 
 				if fflib.SimpleLetterEqualFold(ffj_key_Message_Voice, kn) {
 					currentKey = ffj_t_Message_Voice
+					state = fflib.FFParse_want_colon
+					goto mainparse
+				}
+
+				if fflib.AsciiEqualFold(ffj_key_Message_VideoNote, kn) {
+					currentKey = ffj_t_Message_VideoNote
 					state = fflib.FFParse_want_colon
 					goto mainparse
 				}
@@ -891,8 +927,8 @@ mainparse:
 					goto mainparse
 				}
 
-				if fflib.AsciiEqualFold(ffj_key_Message_NewChatMember, kn) {
-					currentKey = ffj_t_Message_NewChatMember
+				if fflib.EqualFoldRight(ffj_key_Message_NewChatMembers, kn) {
+					currentKey = ffj_t_Message_NewChatMembers
 					state = fflib.FFParse_want_colon
 					goto mainparse
 				}
@@ -1112,8 +1148,8 @@ mainparse:
 				case ffj_t_Message_MigrateToChatID:
 					goto handle_MigrateToChatID
 
-				case ffj_t_Message_NewChatMember:
-					goto handle_NewChatMember
+				case ffj_t_Message_NewChatMembers:
+					goto handle_NewChatMembers
 
 				case ffj_t_Message_NewChatPhoto:
 					goto handle_NewChatPhoto
@@ -1144,6 +1180,9 @@ mainparse:
 
 				case ffj_t_Message_Video:
 					goto handle_Video
+
+				case ffj_t_Message_VideoNote:
+					goto handle_VideoNote
 
 				case ffj_t_Message_Voice:
 					goto handle_Voice
@@ -1834,20 +1873,82 @@ handle_MigrateToChatID:
 	state = fflib.FFParse_after_value
 	goto mainparse
 
-handle_NewChatMember:
+handle_NewChatMembers:
 
-	/* handler: uj.NewChatMember type=models.User kind=struct quoted=false*/
+	/* handler: uj.NewChatMembers type=[]*models.User kind=slice quoted=false*/
 
 	{
-		/* Falling back. type=models.User kind=struct */
-		tbuf, err := fs.CaptureField(tok)
-		if err != nil {
-			return fs.WrapErr(err)
+
+		{
+			if tok != fflib.FFTok_left_brace && tok != fflib.FFTok_null {
+				return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for ", tok))
+			}
 		}
 
-		err = json.Unmarshal(tbuf, &uj.NewChatMember)
-		if err != nil {
-			return fs.WrapErr(err)
+		if tok == fflib.FFTok_null {
+			uj.NewChatMembers = nil
+		} else {
+
+			uj.NewChatMembers = []*User{}
+
+			wantVal := true
+
+			for {
+
+				var tmp_uj__NewChatMembers *User
+
+				tok = fs.Scan()
+				if tok == fflib.FFTok_error {
+					goto tokerror
+				}
+				if tok == fflib.FFTok_right_brace {
+					break
+				}
+
+				if tok == fflib.FFTok_comma {
+					if wantVal == true {
+						// TODO(pquerna): this isn't an ideal error message, this handles
+						// things like [,,,] as an array value.
+						return fs.WrapErr(fmt.Errorf("wanted value token, but got token: %v", tok))
+					}
+					continue
+				} else {
+					wantVal = true
+				}
+
+				/* handler: tmp_uj__NewChatMembers type=*models.User kind=ptr quoted=false*/
+
+				{
+
+					if tok == fflib.FFTok_null {
+						tmp_uj__NewChatMembers = nil
+					} else {
+						if tmp_uj__NewChatMembers == nil {
+							tmp_uj__NewChatMembers = new(User)
+						}
+
+						/* handler: tmp_uj__NewChatMembers type=models.User kind=struct quoted=false*/
+
+						{
+							/* Falling back. type=models.User kind=struct */
+							tbuf, err := fs.CaptureField(tok)
+							if err != nil {
+								return fs.WrapErr(err)
+							}
+
+							err = json.Unmarshal(tbuf, &tmp_uj__NewChatMembers)
+							if err != nil {
+								return fs.WrapErr(err)
+							}
+						}
+
+					}
+				}
+
+				uj.NewChatMembers = append(uj.NewChatMembers, tmp_uj__NewChatMembers)
+
+				wantVal = false
+			}
 		}
 	}
 
@@ -2211,6 +2312,26 @@ handle_Video:
 		}
 
 		err = json.Unmarshal(tbuf, &uj.Video)
+		if err != nil {
+			return fs.WrapErr(err)
+		}
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
+handle_VideoNote:
+
+	/* handler: uj.VideoNote type=models.VideoNote kind=struct quoted=false*/
+
+	{
+		/* Falling back. type=models.VideoNote kind=struct */
+		tbuf, err := fs.CaptureField(tok)
+		if err != nil {
+			return fs.WrapErr(err)
+		}
+
+		err = json.Unmarshal(tbuf, &uj.VideoNote)
 		if err != nil {
 			return fs.WrapErr(err)
 		}

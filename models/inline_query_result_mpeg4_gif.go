@@ -5,9 +5,9 @@ package models
 
 import (
 	strfmt "github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
@@ -24,6 +24,9 @@ type InlineQueryResultMpeg4Gif struct {
 
 	// input message content
 	InputMessageContent interface{} `json:"input_message_content,omitempty"`
+
+	// mpeg4 duration
+	Mpeg4Duration int64 `json:"mpeg4_duration,omitempty"`
 
 	// mpeg4 height
 	Mpeg4Height int64 `json:"mpeg4_height,omitempty"`
@@ -112,6 +115,9 @@ func (m *InlineQueryResultMpeg4Gif) validateReplyMarkup(formats strfmt.Registry)
 	if m.ReplyMarkup != nil {
 
 		if err := m.ReplyMarkup.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("reply_markup")
+			}
 			return err
 		}
 	}
@@ -131,8 +137,29 @@ func (m *InlineQueryResultMpeg4Gif) validateThumbURL(formats strfmt.Registry) er
 func (m *InlineQueryResultMpeg4Gif) validateType(formats strfmt.Registry) error {
 
 	if err := m.Type.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("type")
+		}
 		return err
 	}
 
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *InlineQueryResultMpeg4Gif) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *InlineQueryResultMpeg4Gif) UnmarshalBinary(b []byte) error {
+	var res InlineQueryResultMpeg4Gif
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }

@@ -4,10 +4,12 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"strconv"
+
 	strfmt "github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/swag"
 )
 
 // Message message
@@ -80,8 +82,8 @@ type Message struct {
 	// migrate to chat id
 	MigrateToChatID int64 `json:"migrate_to_chat_id,omitempty"`
 
-	// new chat member
-	NewChatMember *User `json:"new_chat_member,omitempty"`
+	// new chat members
+	NewChatMembers []*User `json:"new_chat_members"`
 
 	// new chat photo
 	NewChatPhoto []*PhotoSize `json:"new_chat_photo"`
@@ -112,6 +114,9 @@ type Message struct {
 
 	// video
 	Video *Video `json:"video,omitempty"`
+
+	// video note
+	VideoNote *VideoNote `json:"video_note,omitempty"`
 
 	// voice
 	Voice *Voice `json:"voice,omitempty"`
@@ -176,7 +181,7 @@ func (m *Message) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateNewChatMember(formats); err != nil {
+	if err := m.validateNewChatMembers(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -216,6 +221,11 @@ func (m *Message) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateVideoNote(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateVoice(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -236,6 +246,9 @@ func (m *Message) validateAudio(formats strfmt.Registry) error {
 	if m.Audio != nil {
 
 		if err := m.Audio.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("audio")
+			}
 			return err
 		}
 	}
@@ -252,6 +265,9 @@ func (m *Message) validateChat(formats strfmt.Registry) error {
 	if m.Chat != nil {
 
 		if err := m.Chat.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("chat")
+			}
 			return err
 		}
 	}
@@ -268,6 +284,9 @@ func (m *Message) validateContact(formats strfmt.Registry) error {
 	if m.Contact != nil {
 
 		if err := m.Contact.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("contact")
+			}
 			return err
 		}
 	}
@@ -284,6 +303,9 @@ func (m *Message) validateDocument(formats strfmt.Registry) error {
 	if m.Document != nil {
 
 		if err := m.Document.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("document")
+			}
 			return err
 		}
 	}
@@ -306,6 +328,9 @@ func (m *Message) validateEntities(formats strfmt.Registry) error {
 		if m.Entities[i] != nil {
 
 			if err := m.Entities[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("entities" + "." + strconv.Itoa(i))
+				}
 				return err
 			}
 		}
@@ -324,6 +349,9 @@ func (m *Message) validateForwardFrom(formats strfmt.Registry) error {
 	if m.ForwardFrom != nil {
 
 		if err := m.ForwardFrom.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("forward_from")
+			}
 			return err
 		}
 	}
@@ -340,6 +368,9 @@ func (m *Message) validateForwardFromChat(formats strfmt.Registry) error {
 	if m.ForwardFromChat != nil {
 
 		if err := m.ForwardFromChat.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("forward_from_chat")
+			}
 			return err
 		}
 	}
@@ -356,6 +387,9 @@ func (m *Message) validateFrom(formats strfmt.Registry) error {
 	if m.From != nil {
 
 		if err := m.From.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("from")
+			}
 			return err
 		}
 	}
@@ -372,6 +406,9 @@ func (m *Message) validateGame(formats strfmt.Registry) error {
 	if m.Game != nil {
 
 		if err := m.Game.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("game")
+			}
 			return err
 		}
 	}
@@ -388,6 +425,9 @@ func (m *Message) validateLeftChatMember(formats strfmt.Registry) error {
 	if m.LeftChatMember != nil {
 
 		if err := m.LeftChatMember.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("left_chat_member")
+			}
 			return err
 		}
 	}
@@ -404,6 +444,9 @@ func (m *Message) validateLocation(formats strfmt.Registry) error {
 	if m.Location != nil {
 
 		if err := m.Location.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("location")
+			}
 			return err
 		}
 	}
@@ -411,17 +454,28 @@ func (m *Message) validateLocation(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Message) validateNewChatMember(formats strfmt.Registry) error {
+func (m *Message) validateNewChatMembers(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.NewChatMember) { // not required
+	if swag.IsZero(m.NewChatMembers) { // not required
 		return nil
 	}
 
-	if m.NewChatMember != nil {
+	for i := 0; i < len(m.NewChatMembers); i++ {
 
-		if err := m.NewChatMember.Validate(formats); err != nil {
-			return err
+		if swag.IsZero(m.NewChatMembers[i]) { // not required
+			continue
 		}
+
+		if m.NewChatMembers[i] != nil {
+
+			if err := m.NewChatMembers[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("new_chat_members" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil
@@ -442,6 +496,9 @@ func (m *Message) validateNewChatPhoto(formats strfmt.Registry) error {
 		if m.NewChatPhoto[i] != nil {
 
 			if err := m.NewChatPhoto[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("new_chat_photo" + "." + strconv.Itoa(i))
+				}
 				return err
 			}
 		}
@@ -466,6 +523,9 @@ func (m *Message) validatePhoto(formats strfmt.Registry) error {
 		if m.Photo[i] != nil {
 
 			if err := m.Photo[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("photo" + "." + strconv.Itoa(i))
+				}
 				return err
 			}
 		}
@@ -484,6 +544,9 @@ func (m *Message) validatePinnedMessage(formats strfmt.Registry) error {
 	if m.PinnedMessage != nil {
 
 		if err := m.PinnedMessage.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("pinned_message")
+			}
 			return err
 		}
 	}
@@ -500,6 +563,9 @@ func (m *Message) validateReplyToMessage(formats strfmt.Registry) error {
 	if m.ReplyToMessage != nil {
 
 		if err := m.ReplyToMessage.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("reply_to_message")
+			}
 			return err
 		}
 	}
@@ -516,6 +582,9 @@ func (m *Message) validateSticker(formats strfmt.Registry) error {
 	if m.Sticker != nil {
 
 		if err := m.Sticker.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("sticker")
+			}
 			return err
 		}
 	}
@@ -532,6 +601,9 @@ func (m *Message) validateVenue(formats strfmt.Registry) error {
 	if m.Venue != nil {
 
 		if err := m.Venue.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("venue")
+			}
 			return err
 		}
 	}
@@ -548,6 +620,28 @@ func (m *Message) validateVideo(formats strfmt.Registry) error {
 	if m.Video != nil {
 
 		if err := m.Video.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("video")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Message) validateVideoNote(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.VideoNote) { // not required
+		return nil
+	}
+
+	if m.VideoNote != nil {
+
+		if err := m.VideoNote.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("video_note")
+			}
 			return err
 		}
 	}
@@ -564,9 +658,30 @@ func (m *Message) validateVoice(formats strfmt.Registry) error {
 	if m.Voice != nil {
 
 		if err := m.Voice.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("voice")
+			}
 			return err
 		}
 	}
 
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *Message) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *Message) UnmarshalBinary(b []byte) error {
+	var res Message
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }

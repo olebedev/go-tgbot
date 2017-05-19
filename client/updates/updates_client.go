@@ -23,6 +23,34 @@ type Client struct {
 }
 
 /*
+DeleteWebhook delete webhook API
+*/
+func (a *Client) DeleteWebhook(params *DeleteWebhookParams) (*DeleteWebhookOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteWebhookParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteWebhook",
+		Method:             "GET",
+		PathPattern:        "/bot{token}/deleteWebhook",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteWebhookReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteWebhookOK), nil
+
+}
+
+/*
 GetUpdates get updates API
 */
 func (a *Client) GetUpdates(params *GetUpdatesParams) (*GetUpdatesOK, error) {
@@ -47,6 +75,62 @@ func (a *Client) GetUpdates(params *GetUpdatesParams) (*GetUpdatesOK, error) {
 		return nil, err
 	}
 	return result.(*GetUpdatesOK), nil
+
+}
+
+/*
+GetWebhookInfo get webhook info API
+*/
+func (a *Client) GetWebhookInfo(params *GetWebhookInfoParams) (*GetWebhookInfoOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewGetWebhookInfoParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "getWebhookInfo",
+		Method:             "GET",
+		PathPattern:        "/bot{token}/getWebhookInfo",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &GetWebhookInfoReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*GetWebhookInfoOK), nil
+
+}
+
+/*
+SetWebhook set webhook API
+*/
+func (a *Client) SetWebhook(params *SetWebhookParams) (*SetWebhookOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetWebhookParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "setWebhook",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/setWebhook",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"multipart/form-data"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetWebhookReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SetWebhookOK), nil
 
 }
 

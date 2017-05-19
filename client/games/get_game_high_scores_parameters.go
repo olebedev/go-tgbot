@@ -47,6 +47,15 @@ func NewGetGameHighScoresParamsWithContext(ctx context.Context) *GetGameHighScor
 	}
 }
 
+// NewGetGameHighScoresParamsWithHTTPClient creates a new GetGameHighScoresParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewGetGameHighScoresParamsWithHTTPClient(client *http.Client) *GetGameHighScoresParams {
+	var ()
+	return &GetGameHighScoresParams{
+		HTTPClient: client,
+	}
+}
+
 /*GetGameHighScoresParams contains all the parameters to send to the API endpoint
 for the get game high scores operation typically these are written to a http.Request
 */
@@ -91,6 +100,17 @@ func (o *GetGameHighScoresParams) WithContext(ctx context.Context) *GetGameHighS
 // SetContext adds the context to the get game high scores params
 func (o *GetGameHighScoresParams) SetContext(ctx context.Context) {
 	o.Context = ctx
+}
+
+// WithHTTPClient adds the HTTPClient to the get game high scores params
+func (o *GetGameHighScoresParams) WithHTTPClient(client *http.Client) *GetGameHighScoresParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the get game high scores params
+func (o *GetGameHighScoresParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
 }
 
 // WithChatID adds the chatID to the get game high scores params
@@ -151,7 +171,9 @@ func (o *GetGameHighScoresParams) SetUserID(userID int64) {
 // WriteToRequest writes these params to a swagger request
 func (o *GetGameHighScoresParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.ChatID != nil {

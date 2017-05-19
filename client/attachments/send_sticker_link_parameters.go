@@ -48,6 +48,15 @@ func NewSendStickerLinkParamsWithContext(ctx context.Context) *SendStickerLinkPa
 	}
 }
 
+// NewSendStickerLinkParamsWithHTTPClient creates a new SendStickerLinkParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendStickerLinkParamsWithHTTPClient(client *http.Client) *SendStickerLinkParams {
+	var ()
+	return &SendStickerLinkParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendStickerLinkParams contains all the parameters to send to the API endpoint
 for the send sticker link operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *SendStickerLinkParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the send sticker link params
+func (o *SendStickerLinkParams) WithHTTPClient(client *http.Client) *SendStickerLinkParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send sticker link params
+func (o *SendStickerLinkParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the send sticker link params
 func (o *SendStickerLinkParams) WithBody(body *models.SendStickerLinkBody) *SendStickerLinkParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *SendStickerLinkParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendStickerLinkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

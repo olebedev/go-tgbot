@@ -47,6 +47,15 @@ func NewSendDocumentParamsWithContext(ctx context.Context) *SendDocumentParams {
 	}
 }
 
+// NewSendDocumentParamsWithHTTPClient creates a new SendDocumentParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendDocumentParamsWithHTTPClient(client *http.Client) *SendDocumentParams {
+	var ()
+	return &SendDocumentParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendDocumentParams contains all the parameters to send to the API endpoint
 for the send document operation typically these are written to a http.Request
 */
@@ -98,6 +107,17 @@ func (o *SendDocumentParams) WithContext(ctx context.Context) *SendDocumentParam
 // SetContext adds the context to the send document params
 func (o *SendDocumentParams) SetContext(ctx context.Context) {
 	o.Context = ctx
+}
+
+// WithHTTPClient adds the HTTPClient to the send document params
+func (o *SendDocumentParams) WithHTTPClient(client *http.Client) *SendDocumentParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send document params
+func (o *SendDocumentParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
 }
 
 // WithCaption adds the caption to the send document params
@@ -180,7 +200,9 @@ func (o *SendDocumentParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendDocumentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Caption != nil {

@@ -47,6 +47,15 @@ func NewSendMessageBytesParamsWithContext(ctx context.Context) *SendMessageBytes
 	}
 }
 
+// NewSendMessageBytesParamsWithHTTPClient creates a new SendMessageBytesParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendMessageBytesParamsWithHTTPClient(client *http.Client) *SendMessageBytesParams {
+	var ()
+	return &SendMessageBytesParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendMessageBytesParams contains all the parameters to send to the API endpoint
 for the send message bytes operation typically these are written to a http.Request
 */
@@ -87,6 +96,17 @@ func (o *SendMessageBytesParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the send message bytes params
+func (o *SendMessageBytesParams) WithHTTPClient(client *http.Client) *SendMessageBytesParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send message bytes params
+func (o *SendMessageBytesParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the send message bytes params
 func (o *SendMessageBytesParams) WithBody(body io.ReadCloser) *SendMessageBytesParams {
 	o.SetBody(body)
@@ -112,7 +132,9 @@ func (o *SendMessageBytesParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendMessageBytesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if err := r.SetBodyParam(o.Body); err != nil {

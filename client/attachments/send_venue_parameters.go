@@ -48,6 +48,15 @@ func NewSendVenueParamsWithContext(ctx context.Context) *SendVenueParams {
 	}
 }
 
+// NewSendVenueParamsWithHTTPClient creates a new SendVenueParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendVenueParamsWithHTTPClient(client *http.Client) *SendVenueParams {
+	var ()
+	return &SendVenueParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendVenueParams contains all the parameters to send to the API endpoint
 for the send venue operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *SendVenueParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the send venue params
+func (o *SendVenueParams) WithHTTPClient(client *http.Client) *SendVenueParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send venue params
+func (o *SendVenueParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the send venue params
 func (o *SendVenueParams) WithBody(body *models.SendVenueBody) *SendVenueParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *SendVenueParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendVenueParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

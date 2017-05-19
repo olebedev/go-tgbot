@@ -34,13 +34,7 @@ func (mj *SendVideoLinkBody) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 	var obj []byte
 	_ = obj
 	_ = err
-	if mj.Audio != nil {
-		buf.WriteString(`{ "audio":`)
-		fflib.WriteJsonString(buf, string(*mj.Audio))
-	} else {
-		buf.WriteString(`{ "audio":null`)
-	}
-	buf.WriteByte(',')
+	buf.WriteString(`{ `)
 	if len(mj.Caption) != 0 {
 		buf.WriteString(`"caption":`)
 		fflib.WriteJsonString(buf, string(mj.Caption))
@@ -85,6 +79,13 @@ func (mj *SendVideoLinkBody) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 		fflib.FormatBits2(buf, uint64(mj.ReplyToMessageID), 10, mj.ReplyToMessageID < 0)
 		buf.WriteByte(',')
 	}
+	if mj.Video != nil {
+		buf.WriteString(`"video":`)
+		fflib.WriteJsonString(buf, string(*mj.Video))
+	} else {
+		buf.WriteString(`"video":null`)
+	}
+	buf.WriteByte(',')
 	if mj.Width != 0 {
 		buf.WriteString(`"width":`)
 		fflib.FormatBits2(buf, uint64(mj.Width), 10, mj.Width < 0)
@@ -98,8 +99,6 @@ func (mj *SendVideoLinkBody) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 const (
 	ffj_t_SendVideoLinkBodybase = iota
 	ffj_t_SendVideoLinkBodyno_such_key
-
-	ffj_t_SendVideoLinkBody_Audio
 
 	ffj_t_SendVideoLinkBody_Caption
 
@@ -115,10 +114,10 @@ const (
 
 	ffj_t_SendVideoLinkBody_ReplyToMessageID
 
+	ffj_t_SendVideoLinkBody_Video
+
 	ffj_t_SendVideoLinkBody_Width
 )
-
-var ffj_key_SendVideoLinkBody_Audio = []byte("audio")
 
 var ffj_key_SendVideoLinkBody_Caption = []byte("caption")
 
@@ -133,6 +132,8 @@ var ffj_key_SendVideoLinkBody_Height = []byte("height")
 var ffj_key_SendVideoLinkBody_ReplyMarkup = []byte("reply_markup")
 
 var ffj_key_SendVideoLinkBody_ReplyToMessageID = []byte("reply_to_message_id")
+
+var ffj_key_SendVideoLinkBody_Video = []byte("video")
 
 var ffj_key_SendVideoLinkBody_Width = []byte("width")
 
@@ -195,14 +196,6 @@ mainparse:
 			} else {
 				switch kn[0] {
 
-				case 'a':
-
-					if bytes.Equal(ffj_key_SendVideoLinkBody_Audio, kn) {
-						currentKey = ffj_t_SendVideoLinkBody_Audio
-						state = fflib.FFParse_want_colon
-						goto mainparse
-					}
-
 				case 'c':
 
 					if bytes.Equal(ffj_key_SendVideoLinkBody_Caption, kn) {
@@ -250,6 +243,14 @@ mainparse:
 						goto mainparse
 					}
 
+				case 'v':
+
+					if bytes.Equal(ffj_key_SendVideoLinkBody_Video, kn) {
+						currentKey = ffj_t_SendVideoLinkBody_Video
+						state = fflib.FFParse_want_colon
+						goto mainparse
+					}
+
 				case 'w':
 
 					if bytes.Equal(ffj_key_SendVideoLinkBody_Width, kn) {
@@ -262,6 +263,12 @@ mainparse:
 
 				if fflib.SimpleLetterEqualFold(ffj_key_SendVideoLinkBody_Width, kn) {
 					currentKey = ffj_t_SendVideoLinkBody_Width
+					state = fflib.FFParse_want_colon
+					goto mainparse
+				}
+
+				if fflib.SimpleLetterEqualFold(ffj_key_SendVideoLinkBody_Video, kn) {
+					currentKey = ffj_t_SendVideoLinkBody_Video
 					state = fflib.FFParse_want_colon
 					goto mainparse
 				}
@@ -308,12 +315,6 @@ mainparse:
 					goto mainparse
 				}
 
-				if fflib.SimpleLetterEqualFold(ffj_key_SendVideoLinkBody_Audio, kn) {
-					currentKey = ffj_t_SendVideoLinkBody_Audio
-					state = fflib.FFParse_want_colon
-					goto mainparse
-				}
-
 				currentKey = ffj_t_SendVideoLinkBodyno_such_key
 				state = fflib.FFParse_want_colon
 				goto mainparse
@@ -330,9 +331,6 @@ mainparse:
 
 			if tok == fflib.FFTok_left_brace || tok == fflib.FFTok_left_bracket || tok == fflib.FFTok_integer || tok == fflib.FFTok_double || tok == fflib.FFTok_string || tok == fflib.FFTok_bool || tok == fflib.FFTok_null {
 				switch currentKey {
-
-				case ffj_t_SendVideoLinkBody_Audio:
-					goto handle_Audio
 
 				case ffj_t_SendVideoLinkBody_Caption:
 					goto handle_Caption
@@ -355,6 +353,9 @@ mainparse:
 				case ffj_t_SendVideoLinkBody_ReplyToMessageID:
 					goto handle_ReplyToMessageID
 
+				case ffj_t_SendVideoLinkBody_Video:
+					goto handle_Video
+
 				case ffj_t_SendVideoLinkBody_Width:
 					goto handle_Width
 
@@ -371,36 +372,6 @@ mainparse:
 			}
 		}
 	}
-
-handle_Audio:
-
-	/* handler: uj.Audio type=string kind=string quoted=false*/
-
-	{
-
-		{
-			if tok != fflib.FFTok_string && tok != fflib.FFTok_null {
-				return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for string", tok))
-			}
-		}
-
-		if tok == fflib.FFTok_null {
-
-			uj.Audio = nil
-
-		} else {
-
-			var tval string
-			outBuf := fs.Output.Bytes()
-
-			tval = string(string(outBuf))
-			uj.Audio = &tval
-
-		}
-	}
-
-	state = fflib.FFParse_after_value
-	goto mainparse
 
 handle_Caption:
 
@@ -586,6 +557,36 @@ handle_ReplyToMessageID:
 			}
 
 			uj.ReplyToMessageID = int64(tval)
+
+		}
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
+handle_Video:
+
+	/* handler: uj.Video type=string kind=string quoted=false*/
+
+	{
+
+		{
+			if tok != fflib.FFTok_string && tok != fflib.FFTok_null {
+				return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for string", tok))
+			}
+		}
+
+		if tok == fflib.FFTok_null {
+
+			uj.Video = nil
+
+		} else {
+
+			var tval string
+			outBuf := fs.Output.Bytes()
+
+			tval = string(string(outBuf))
+			uj.Video = &tval
 
 		}
 	}

@@ -55,6 +55,11 @@ func (mj *InlineQueryResultMpeg4Gif) MarshalJSONBuf(buf fflib.EncodingBuffer) er
 		}
 		buf.WriteByte(',')
 	}
+	if mj.Mpeg4Duration != 0 {
+		buf.WriteString(`"mpeg4_duration":`)
+		fflib.FormatBits2(buf, uint64(mj.Mpeg4Duration), 10, mj.Mpeg4Duration < 0)
+		buf.WriteByte(',')
+	}
 	if mj.Mpeg4Height != 0 {
 		buf.WriteString(`"mpeg4_height":`)
 		fflib.FormatBits2(buf, uint64(mj.Mpeg4Height), 10, mj.Mpeg4Height < 0)
@@ -115,6 +120,8 @@ const (
 
 	ffj_t_InlineQueryResultMpeg4Gif_InputMessageContent
 
+	ffj_t_InlineQueryResultMpeg4Gif_Mpeg4Duration
+
 	ffj_t_InlineQueryResultMpeg4Gif_Mpeg4Height
 
 	ffj_t_InlineQueryResultMpeg4Gif_Mpeg4URL
@@ -135,6 +142,8 @@ var ffj_key_InlineQueryResultMpeg4Gif_Caption = []byte("caption")
 var ffj_key_InlineQueryResultMpeg4Gif_ID = []byte("id")
 
 var ffj_key_InlineQueryResultMpeg4Gif_InputMessageContent = []byte("input_message_content")
+
+var ffj_key_InlineQueryResultMpeg4Gif_Mpeg4Duration = []byte("mpeg4_duration")
 
 var ffj_key_InlineQueryResultMpeg4Gif_Mpeg4Height = []byte("mpeg4_height")
 
@@ -232,7 +241,12 @@ mainparse:
 
 				case 'm':
 
-					if bytes.Equal(ffj_key_InlineQueryResultMpeg4Gif_Mpeg4Height, kn) {
+					if bytes.Equal(ffj_key_InlineQueryResultMpeg4Gif_Mpeg4Duration, kn) {
+						currentKey = ffj_t_InlineQueryResultMpeg4Gif_Mpeg4Duration
+						state = fflib.FFParse_want_colon
+						goto mainparse
+
+					} else if bytes.Equal(ffj_key_InlineQueryResultMpeg4Gif_Mpeg4Height, kn) {
 						currentKey = ffj_t_InlineQueryResultMpeg4Gif_Mpeg4Height
 						state = fflib.FFParse_want_colon
 						goto mainparse
@@ -318,6 +332,12 @@ mainparse:
 					goto mainparse
 				}
 
+				if fflib.AsciiEqualFold(ffj_key_InlineQueryResultMpeg4Gif_Mpeg4Duration, kn) {
+					currentKey = ffj_t_InlineQueryResultMpeg4Gif_Mpeg4Duration
+					state = fflib.FFParse_want_colon
+					goto mainparse
+				}
+
 				if fflib.EqualFoldRight(ffj_key_InlineQueryResultMpeg4Gif_InputMessageContent, kn) {
 					currentKey = ffj_t_InlineQueryResultMpeg4Gif_InputMessageContent
 					state = fflib.FFParse_want_colon
@@ -361,6 +381,9 @@ mainparse:
 
 				case ffj_t_InlineQueryResultMpeg4Gif_InputMessageContent:
 					goto handle_InputMessageContent
+
+				case ffj_t_InlineQueryResultMpeg4Gif_Mpeg4Duration:
+					goto handle_Mpeg4Duration
 
 				case ffj_t_InlineQueryResultMpeg4Gif_Mpeg4Height:
 					goto handle_Mpeg4Height
@@ -467,6 +490,36 @@ handle_InputMessageContent:
 		err = json.Unmarshal(tbuf, &uj.InputMessageContent)
 		if err != nil {
 			return fs.WrapErr(err)
+		}
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
+handle_Mpeg4Duration:
+
+	/* handler: uj.Mpeg4Duration type=int64 kind=int64 quoted=false*/
+
+	{
+		if tok != fflib.FFTok_integer && tok != fflib.FFTok_null {
+			return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for int64", tok))
+		}
+	}
+
+	{
+
+		if tok == fflib.FFTok_null {
+
+		} else {
+
+			tval, err := fflib.ParseInt(fs.Output.Bytes(), 10, 64)
+
+			if err != nil {
+				return fs.WrapErr(err)
+			}
+
+			uj.Mpeg4Duration = int64(tval)
+
 		}
 	}
 

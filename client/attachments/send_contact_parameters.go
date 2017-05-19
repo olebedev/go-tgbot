@@ -48,6 +48,15 @@ func NewSendContactParamsWithContext(ctx context.Context) *SendContactParams {
 	}
 }
 
+// NewSendContactParamsWithHTTPClient creates a new SendContactParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendContactParamsWithHTTPClient(client *http.Client) *SendContactParams {
+	var ()
+	return &SendContactParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendContactParams contains all the parameters to send to the API endpoint
 for the send contact operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *SendContactParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the send contact params
+func (o *SendContactParams) WithHTTPClient(client *http.Client) *SendContactParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send contact params
+func (o *SendContactParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the send contact params
 func (o *SendContactParams) WithBody(body *models.SendContactBody) *SendContactParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *SendContactParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendContactParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

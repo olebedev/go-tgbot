@@ -47,6 +47,15 @@ func NewSendVoiceParamsWithContext(ctx context.Context) *SendVoiceParams {
 	}
 }
 
+// NewSendVoiceParamsWithHTTPClient creates a new SendVoiceParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendVoiceParamsWithHTTPClient(client *http.Client) *SendVoiceParams {
+	var ()
+	return &SendVoiceParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendVoiceParams contains all the parameters to send to the API endpoint
 for the send voice operation typically these are written to a http.Request
 */
@@ -100,6 +109,17 @@ func (o *SendVoiceParams) WithContext(ctx context.Context) *SendVoiceParams {
 // SetContext adds the context to the send voice params
 func (o *SendVoiceParams) SetContext(ctx context.Context) {
 	o.Context = ctx
+}
+
+// WithHTTPClient adds the HTTPClient to the send voice params
+func (o *SendVoiceParams) WithHTTPClient(client *http.Client) *SendVoiceParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send voice params
+func (o *SendVoiceParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
 }
 
 // WithCaption adds the caption to the send voice params
@@ -193,7 +213,9 @@ func (o *SendVoiceParams) SetVoice(voice runtime.NamedReadCloser) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendVoiceParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Caption != nil {

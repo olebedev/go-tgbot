@@ -48,6 +48,15 @@ func NewSendDocumentLinkParamsWithContext(ctx context.Context) *SendDocumentLink
 	}
 }
 
+// NewSendDocumentLinkParamsWithHTTPClient creates a new SendDocumentLinkParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendDocumentLinkParamsWithHTTPClient(client *http.Client) *SendDocumentLinkParams {
+	var ()
+	return &SendDocumentLinkParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendDocumentLinkParams contains all the parameters to send to the API endpoint
 for the send document link operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *SendDocumentLinkParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the send document link params
+func (o *SendDocumentLinkParams) WithHTTPClient(client *http.Client) *SendDocumentLinkParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send document link params
+func (o *SendDocumentLinkParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the send document link params
 func (o *SendDocumentLinkParams) WithBody(body *models.SendDocumentLinkBody) *SendDocumentLinkParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *SendDocumentLinkParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendDocumentLinkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

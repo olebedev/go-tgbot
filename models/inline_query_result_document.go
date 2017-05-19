@@ -5,9 +5,9 @@ package models
 
 import (
 	strfmt "github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
@@ -133,6 +133,9 @@ func (m *InlineQueryResultDocument) validateReplyMarkup(formats strfmt.Registry)
 	if m.ReplyMarkup != nil {
 
 		if err := m.ReplyMarkup.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("reply_markup")
+			}
 			return err
 		}
 	}
@@ -152,8 +155,29 @@ func (m *InlineQueryResultDocument) validateTitle(formats strfmt.Registry) error
 func (m *InlineQueryResultDocument) validateType(formats strfmt.Registry) error {
 
 	if err := m.Type.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("type")
+		}
 		return err
 	}
 
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *InlineQueryResultDocument) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *InlineQueryResultDocument) UnmarshalBinary(b []byte) error {
+	var res InlineQueryResultDocument
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }

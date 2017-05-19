@@ -47,6 +47,15 @@ func NewSetGameScoreParamsWithContext(ctx context.Context) *SetGameScoreParams {
 	}
 }
 
+// NewSetGameScoreParamsWithHTTPClient creates a new SetGameScoreParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSetGameScoreParamsWithHTTPClient(client *http.Client) *SetGameScoreParams {
+	var ()
+	return &SetGameScoreParams{
+		HTTPClient: client,
+	}
+}
+
 /*SetGameScoreParams contains all the parameters to send to the API endpoint
 for the set game score operation typically these are written to a http.Request
 */
@@ -97,6 +106,17 @@ func (o *SetGameScoreParams) WithContext(ctx context.Context) *SetGameScoreParam
 // SetContext adds the context to the set game score params
 func (o *SetGameScoreParams) SetContext(ctx context.Context) {
 	o.Context = ctx
+}
+
+// WithHTTPClient adds the HTTPClient to the set game score params
+func (o *SetGameScoreParams) WithHTTPClient(client *http.Client) *SetGameScoreParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the set game score params
+func (o *SetGameScoreParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
 }
 
 // WithChatID adds the chatID to the set game score params
@@ -190,7 +210,9 @@ func (o *SetGameScoreParams) SetUserID(userID int64) {
 // WriteToRequest writes these params to a swagger request
 func (o *SetGameScoreParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.ChatID != nil {

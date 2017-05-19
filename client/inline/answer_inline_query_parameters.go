@@ -48,6 +48,15 @@ func NewAnswerInlineQueryParamsWithContext(ctx context.Context) *AnswerInlineQue
 	}
 }
 
+// NewAnswerInlineQueryParamsWithHTTPClient creates a new AnswerInlineQueryParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewAnswerInlineQueryParamsWithHTTPClient(client *http.Client) *AnswerInlineQueryParams {
+	var ()
+	return &AnswerInlineQueryParams{
+		HTTPClient: client,
+	}
+}
+
 /*AnswerInlineQueryParams contains all the parameters to send to the API endpoint
 for the answer inline query operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *AnswerInlineQueryParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the answer inline query params
+func (o *AnswerInlineQueryParams) WithHTTPClient(client *http.Client) *AnswerInlineQueryParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the answer inline query params
+func (o *AnswerInlineQueryParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the answer inline query params
 func (o *AnswerInlineQueryParams) WithBody(body *models.AnswerInlineQueryBody) *AnswerInlineQueryParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *AnswerInlineQueryParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *AnswerInlineQueryParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

@@ -48,6 +48,15 @@ func NewEditMessageReplyMarkupParamsWithContext(ctx context.Context) *EditMessag
 	}
 }
 
+// NewEditMessageReplyMarkupParamsWithHTTPClient creates a new EditMessageReplyMarkupParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewEditMessageReplyMarkupParamsWithHTTPClient(client *http.Client) *EditMessageReplyMarkupParams {
+	var ()
+	return &EditMessageReplyMarkupParams{
+		HTTPClient: client,
+	}
+}
+
 /*EditMessageReplyMarkupParams contains all the parameters to send to the API endpoint
 for the edit message reply markup operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *EditMessageReplyMarkupParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the edit message reply markup params
+func (o *EditMessageReplyMarkupParams) WithHTTPClient(client *http.Client) *EditMessageReplyMarkupParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the edit message reply markup params
+func (o *EditMessageReplyMarkupParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the edit message reply markup params
 func (o *EditMessageReplyMarkupParams) WithBody(body *models.EditMessageReplyMarkupBody) *EditMessageReplyMarkupParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *EditMessageReplyMarkupParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *EditMessageReplyMarkupParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

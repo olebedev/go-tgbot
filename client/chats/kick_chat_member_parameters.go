@@ -46,6 +46,15 @@ func NewKickChatMemberParamsWithContext(ctx context.Context) *KickChatMemberPara
 	}
 }
 
+// NewKickChatMemberParamsWithHTTPClient creates a new KickChatMemberParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewKickChatMemberParamsWithHTTPClient(client *http.Client) *KickChatMemberParams {
+	var ()
+	return &KickChatMemberParams{
+		HTTPClient: client,
+	}
+}
+
 /*KickChatMemberParams contains all the parameters to send to the API endpoint
 for the kick chat member operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *KickChatMemberParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the kick chat member params
+func (o *KickChatMemberParams) WithHTTPClient(client *http.Client) *KickChatMemberParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the kick chat member params
+func (o *KickChatMemberParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithChatID adds the chatID to the kick chat member params
 func (o *KickChatMemberParams) WithChatID(chatID string) *KickChatMemberParams {
 	o.SetChatID(chatID)
@@ -124,7 +144,9 @@ func (o *KickChatMemberParams) SetUserID(userID string) {
 // WriteToRequest writes these params to a swagger request
 func (o *KickChatMemberParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	// query param chat_id

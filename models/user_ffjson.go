@@ -43,6 +43,11 @@ func (mj *User) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 		fflib.FormatBits2(buf, uint64(mj.ID), 10, mj.ID < 0)
 		buf.WriteByte(',')
 	}
+	if len(mj.LanguageCode) != 0 {
+		buf.WriteString(`"language_code":`)
+		fflib.WriteJsonString(buf, string(mj.LanguageCode))
+		buf.WriteByte(',')
+	}
 	if len(mj.LastName) != 0 {
 		buf.WriteString(`"last_name":`)
 		fflib.WriteJsonString(buf, string(mj.LastName))
@@ -66,6 +71,8 @@ const (
 
 	ffj_t_User_ID
 
+	ffj_t_User_LanguageCode
+
 	ffj_t_User_LastName
 
 	ffj_t_User_Username
@@ -74,6 +81,8 @@ const (
 var ffj_key_User_FirstName = []byte("first_name")
 
 var ffj_key_User_ID = []byte("id")
+
+var ffj_key_User_LanguageCode = []byte("language_code")
 
 var ffj_key_User_LastName = []byte("last_name")
 
@@ -156,7 +165,12 @@ mainparse:
 
 				case 'l':
 
-					if bytes.Equal(ffj_key_User_LastName, kn) {
+					if bytes.Equal(ffj_key_User_LanguageCode, kn) {
+						currentKey = ffj_t_User_LanguageCode
+						state = fflib.FFParse_want_colon
+						goto mainparse
+
+					} else if bytes.Equal(ffj_key_User_LastName, kn) {
 						currentKey = ffj_t_User_LastName
 						state = fflib.FFParse_want_colon
 						goto mainparse
@@ -180,6 +194,12 @@ mainparse:
 
 				if fflib.EqualFoldRight(ffj_key_User_LastName, kn) {
 					currentKey = ffj_t_User_LastName
+					state = fflib.FFParse_want_colon
+					goto mainparse
+				}
+
+				if fflib.AsciiEqualFold(ffj_key_User_LanguageCode, kn) {
+					currentKey = ffj_t_User_LanguageCode
 					state = fflib.FFParse_want_colon
 					goto mainparse
 				}
@@ -218,6 +238,9 @@ mainparse:
 
 				case ffj_t_User_ID:
 					goto handle_ID
+
+				case ffj_t_User_LanguageCode:
+					goto handle_LanguageCode
 
 				case ffj_t_User_LastName:
 					goto handle_LastName
@@ -288,6 +311,32 @@ handle_ID:
 			}
 
 			uj.ID = int64(tval)
+
+		}
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
+handle_LanguageCode:
+
+	/* handler: uj.LanguageCode type=string kind=string quoted=false*/
+
+	{
+
+		{
+			if tok != fflib.FFTok_string && tok != fflib.FFTok_null {
+				return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for string", tok))
+			}
+		}
+
+		if tok == fflib.FFTok_null {
+
+		} else {
+
+			outBuf := fs.Output.Bytes()
+
+			uj.LanguageCode = string(string(outBuf))
 
 		}
 	}

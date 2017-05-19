@@ -47,6 +47,15 @@ func NewSendAudioParamsWithContext(ctx context.Context) *SendAudioParams {
 	}
 }
 
+// NewSendAudioParamsWithHTTPClient creates a new SendAudioParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendAudioParamsWithHTTPClient(client *http.Client) *SendAudioParams {
+	var ()
+	return &SendAudioParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendAudioParams contains all the parameters to send to the API endpoint
 for the send audio operation typically these are written to a http.Request
 */
@@ -104,6 +113,17 @@ func (o *SendAudioParams) WithContext(ctx context.Context) *SendAudioParams {
 // SetContext adds the context to the send audio params
 func (o *SendAudioParams) SetContext(ctx context.Context) {
 	o.Context = ctx
+}
+
+// WithHTTPClient adds the HTTPClient to the send audio params
+func (o *SendAudioParams) WithHTTPClient(client *http.Client) *SendAudioParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send audio params
+func (o *SendAudioParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
 }
 
 // WithAudio adds the audio to the send audio params
@@ -219,7 +239,9 @@ func (o *SendAudioParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendAudioParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	// form file param audio

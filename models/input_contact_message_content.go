@@ -7,6 +7,7 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
@@ -61,5 +62,23 @@ func (m *InputContactMessageContent) validatePhoneNumber(formats strfmt.Registry
 		return err
 	}
 
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *InputContactMessageContent) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *InputContactMessageContent) UnmarshalBinary(b []byte) error {
+	var res InputContactMessageContent
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }

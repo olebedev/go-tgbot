@@ -23,6 +23,34 @@ type Client struct {
 }
 
 /*
+DeleteMessage delete message API
+*/
+func (a *Client) DeleteMessage(params *DeleteMessageParams) (*DeleteMessageOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteMessageParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteMessage",
+		Method:             "GET",
+		PathPattern:        "/bot{token}/deleteMessage",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteMessageReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteMessageOK), nil
+
+}
+
+/*
 EditMessageCaption edit message caption API
 */
 func (a *Client) EditMessageCaption(params *EditMessageCaptionParams) (*EditMessageCaptionOK, error) {

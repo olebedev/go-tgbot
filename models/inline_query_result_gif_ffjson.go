@@ -39,6 +39,11 @@ func (mj *InlineQueryResultGif) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 		fflib.WriteJsonString(buf, string(mj.Caption))
 		buf.WriteByte(',')
 	}
+	if mj.GifDuration != 0 {
+		buf.WriteString(`"gif_duration":`)
+		fflib.FormatBits2(buf, uint64(mj.GifDuration), 10, mj.GifDuration < 0)
+		buf.WriteByte(',')
+	}
 	if mj.GifHeight != 0 {
 		buf.WriteString(`"gif_height":`)
 		fflib.FormatBits2(buf, uint64(mj.GifHeight), 10, mj.GifHeight < 0)
@@ -111,6 +116,8 @@ const (
 
 	ffj_t_InlineQueryResultGif_Caption
 
+	ffj_t_InlineQueryResultGif_GifDuration
+
 	ffj_t_InlineQueryResultGif_GifHeight
 
 	ffj_t_InlineQueryResultGif_GifURL
@@ -131,6 +138,8 @@ const (
 )
 
 var ffj_key_InlineQueryResultGif_Caption = []byte("caption")
+
+var ffj_key_InlineQueryResultGif_GifDuration = []byte("gif_duration")
 
 var ffj_key_InlineQueryResultGif_GifHeight = []byte("gif_height")
 
@@ -219,7 +228,12 @@ mainparse:
 
 				case 'g':
 
-					if bytes.Equal(ffj_key_InlineQueryResultGif_GifHeight, kn) {
+					if bytes.Equal(ffj_key_InlineQueryResultGif_GifDuration, kn) {
+						currentKey = ffj_t_InlineQueryResultGif_GifDuration
+						state = fflib.FFParse_want_colon
+						goto mainparse
+
+					} else if bytes.Equal(ffj_key_InlineQueryResultGif_GifHeight, kn) {
 						currentKey = ffj_t_InlineQueryResultGif_GifHeight
 						state = fflib.FFParse_want_colon
 						goto mainparse
@@ -330,6 +344,12 @@ mainparse:
 					goto mainparse
 				}
 
+				if fflib.AsciiEqualFold(ffj_key_InlineQueryResultGif_GifDuration, kn) {
+					currentKey = ffj_t_InlineQueryResultGif_GifDuration
+					state = fflib.FFParse_want_colon
+					goto mainparse
+				}
+
 				if fflib.SimpleLetterEqualFold(ffj_key_InlineQueryResultGif_Caption, kn) {
 					currentKey = ffj_t_InlineQueryResultGif_Caption
 					state = fflib.FFParse_want_colon
@@ -355,6 +375,9 @@ mainparse:
 
 				case ffj_t_InlineQueryResultGif_Caption:
 					goto handle_Caption
+
+				case ffj_t_InlineQueryResultGif_GifDuration:
+					goto handle_GifDuration
 
 				case ffj_t_InlineQueryResultGif_GifHeight:
 					goto handle_GifHeight
@@ -416,6 +439,36 @@ handle_Caption:
 			outBuf := fs.Output.Bytes()
 
 			uj.Caption = string(string(outBuf))
+
+		}
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
+handle_GifDuration:
+
+	/* handler: uj.GifDuration type=int64 kind=int64 quoted=false*/
+
+	{
+		if tok != fflib.FFTok_integer && tok != fflib.FFTok_null {
+			return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for int64", tok))
+		}
+	}
+
+	{
+
+		if tok == fflib.FFTok_null {
+
+		} else {
+
+			tval, err := fflib.ParseInt(fs.Output.Bytes(), 10, 64)
+
+			if err != nil {
+				return fs.WrapErr(err)
+			}
+
+			uj.GifDuration = int64(tval)
 
 		}
 	}

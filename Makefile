@@ -5,7 +5,7 @@ MODELS = $(patsubst %.go, %_ffjson.go, $(shell find models -name "*.go" -type f 
 build: replace
 
 $(LIB): $(SOURCE)
-	swagger generate client -f $<
+	swagger generate client --skip-validation -f $<
 	touch $@
 
 models: clean-ffjson $(MODELS)
@@ -33,4 +33,7 @@ replace: $(LIB)
 	sed -i '' 's/\&o.Video/o.Video/g' ./client/attachments/send_video_parameters.go
 	sed -i '' 's/os.File/runtime.NamedReadCloser/g' ./client/attachments/send_voice_parameters.go
 	sed -i '' 's/\&o.Voice/o.Voice/g' ./client/attachments/send_voice_parameters.go
-	goimports -w ./client/attachments
+	sed -i '' 's/*os.File/runtime.NamedReadCloser/g' ./client/updates/set_webhook_parameters.go
+	sed -i '' 's/os.File/runtime.NamedReadCloser/g' ./client/attachments/send_video_note_parameters.go
+	sed -i '' 's/\&o.VideoNote/o.VideoNote/g' ./client/attachments/send_video_note_parameters.go
+	goimports -w ./client

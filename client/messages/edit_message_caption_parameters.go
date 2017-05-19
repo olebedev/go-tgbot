@@ -48,6 +48,15 @@ func NewEditMessageCaptionParamsWithContext(ctx context.Context) *EditMessageCap
 	}
 }
 
+// NewEditMessageCaptionParamsWithHTTPClient creates a new EditMessageCaptionParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewEditMessageCaptionParamsWithHTTPClient(client *http.Client) *EditMessageCaptionParams {
+	var ()
+	return &EditMessageCaptionParams{
+		HTTPClient: client,
+	}
+}
+
 /*EditMessageCaptionParams contains all the parameters to send to the API endpoint
 for the edit message caption operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *EditMessageCaptionParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the edit message caption params
+func (o *EditMessageCaptionParams) WithHTTPClient(client *http.Client) *EditMessageCaptionParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the edit message caption params
+func (o *EditMessageCaptionParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the edit message caption params
 func (o *EditMessageCaptionParams) WithBody(body *models.EditMessageCaptionBody) *EditMessageCaptionParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *EditMessageCaptionParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *EditMessageCaptionParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

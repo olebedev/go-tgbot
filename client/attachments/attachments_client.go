@@ -415,6 +415,62 @@ func (a *Client) SendVideoLink(params *SendVideoLinkParams) (*SendVideoLinkOK, e
 }
 
 /*
+SendVideoNote send video note API
+*/
+func (a *Client) SendVideoNote(params *SendVideoNoteParams) (*SendVideoNoteOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendVideoNoteParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendVideoNote",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendVideoNote",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"multipart/form-data"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendVideoNoteReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendVideoNoteOK), nil
+
+}
+
+/*
+SendVideoNoteLink send video note link API
+*/
+func (a *Client) SendVideoNoteLink(params *SendVideoNoteLinkParams) (*SendVideoNoteLinkOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendVideoNoteLinkParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendVideoNoteLink",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendVideoNote#link",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendVideoNoteLinkReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendVideoNoteLinkOK), nil
+
+}
+
+/*
 SendVoice send voice API
 */
 func (a *Client) SendVoice(params *SendVoiceParams) (*SendVoiceOK, error) {

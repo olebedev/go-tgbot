@@ -5,9 +5,9 @@ package models
 
 import (
 	strfmt "github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/swag"
 )
 
 // GameHighScore game high score
@@ -48,9 +48,30 @@ func (m *GameHighScore) validateUser(formats strfmt.Registry) error {
 	if m.User != nil {
 
 		if err := m.User.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("user")
+			}
 			return err
 		}
 	}
 
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *GameHighScore) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *GameHighScore) UnmarshalBinary(b []byte) error {
+	var res GameHighScore
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }

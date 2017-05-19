@@ -7,6 +7,7 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
@@ -73,5 +74,27 @@ func (m *AnswerInlineQueryBody) validateResults(formats strfmt.Registry) error {
 		return err
 	}
 
+	for i := 0; i < len(m.Results); i++ {
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *AnswerInlineQueryBody) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *AnswerInlineQueryBody) UnmarshalBinary(b []byte) error {
+	var res AnswerInlineQueryBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }

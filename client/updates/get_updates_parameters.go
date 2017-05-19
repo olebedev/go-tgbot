@@ -47,6 +47,15 @@ func NewGetUpdatesParamsWithContext(ctx context.Context) *GetUpdatesParams {
 	}
 }
 
+// NewGetUpdatesParamsWithHTTPClient creates a new GetUpdatesParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewGetUpdatesParamsWithHTTPClient(client *http.Client) *GetUpdatesParams {
+	var ()
+	return &GetUpdatesParams{
+		HTTPClient: client,
+	}
+}
+
 /*GetUpdatesParams contains all the parameters to send to the API endpoint
 for the get updates operation typically these are written to a http.Request
 */
@@ -91,6 +100,17 @@ func (o *GetUpdatesParams) WithContext(ctx context.Context) *GetUpdatesParams {
 // SetContext adds the context to the get updates params
 func (o *GetUpdatesParams) SetContext(ctx context.Context) {
 	o.Context = ctx
+}
+
+// WithHTTPClient adds the HTTPClient to the get updates params
+func (o *GetUpdatesParams) WithHTTPClient(client *http.Client) *GetUpdatesParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the get updates params
+func (o *GetUpdatesParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
 }
 
 // WithAllowedUpdates adds the allowedUpdates to the get updates params
@@ -151,7 +171,9 @@ func (o *GetUpdatesParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *GetUpdatesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.requestTimeout)
+	if err := r.SetTimeout(o.requestTimeout); err != nil {
+		return err
+	}
 	var res []error
 
 	valuesAllowedUpdates := o.AllowedUpdates

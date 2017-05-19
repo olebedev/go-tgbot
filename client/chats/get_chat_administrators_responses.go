@@ -6,8 +6,12 @@ package chats
 import (
 	"fmt"
 	"io"
+	"strconv"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -298,4 +302,106 @@ type GetChatAdministratorsOKBody struct {
 	// result
 	// Required: true
 	Result []*models.ChatMember `json:"result"`
+}
+
+// Validate validates this get chat administrators o k body
+func (o *GetChatAdministratorsOKBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateDescription(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateErrorCode(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateOk(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateResult(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetChatAdministratorsOKBody) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.Required("getChatAdministratorsOK"+"."+"description", "body", o.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *GetChatAdministratorsOKBody) validateErrorCode(formats strfmt.Registry) error {
+
+	if err := validate.Required("getChatAdministratorsOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *GetChatAdministratorsOKBody) validateOk(formats strfmt.Registry) error {
+
+	if err := validate.Required("getChatAdministratorsOK"+"."+"ok", "body", o.Ok); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *GetChatAdministratorsOKBody) validateResult(formats strfmt.Registry) error {
+
+	if err := validate.Required("getChatAdministratorsOK"+"."+"result", "body", o.Result); err != nil {
+		return err
+	}
+
+	for i := 0; i < len(o.Result); i++ {
+
+		if swag.IsZero(o.Result[i]) { // not required
+			continue
+		}
+
+		if o.Result[i] != nil {
+
+			if err := o.Result[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("getChatAdministratorsOK" + "." + "result" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetChatAdministratorsOKBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetChatAdministratorsOKBody) UnmarshalBinary(b []byte) error {
+	var res GetChatAdministratorsOKBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
 }

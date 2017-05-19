@@ -7,16 +7,13 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/swag"
 	"github.com/go-openapi/validate"
 )
 
 // SendVideoLinkBody send video link body
 // swagger:model SendVideoLinkBody
 type SendVideoLinkBody struct {
-
-	// audio
-	// Required: true
-	Audio *string `json:"audio"`
 
 	// caption
 	Caption string `json:"caption,omitempty"`
@@ -40,6 +37,10 @@ type SendVideoLinkBody struct {
 	// reply to message id
 	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
 
+	// video
+	// Required: true
+	Video *string `json:"video"`
+
 	// width
 	Width int64 `json:"width,omitempty"`
 }
@@ -48,12 +49,12 @@ type SendVideoLinkBody struct {
 func (m *SendVideoLinkBody) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateAudio(formats); err != nil {
+	if err := m.validateChatID(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
 
-	if err := m.validateChatID(formats); err != nil {
+	if err := m.validateVideo(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -64,16 +65,34 @@ func (m *SendVideoLinkBody) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *SendVideoLinkBody) validateAudio(formats strfmt.Registry) error {
+func (m *SendVideoLinkBody) validateChatID(formats strfmt.Registry) error {
 
-	if err := validate.Required("audio", "body", m.Audio); err != nil {
+	return nil
+}
+
+func (m *SendVideoLinkBody) validateVideo(formats strfmt.Registry) error {
+
+	if err := validate.Required("video", "body", m.Video); err != nil {
 		return err
 	}
 
 	return nil
 }
 
-func (m *SendVideoLinkBody) validateChatID(formats strfmt.Registry) error {
+// MarshalBinary interface implementation
+func (m *SendVideoLinkBody) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
 
+// UnmarshalBinary interface implementation
+func (m *SendVideoLinkBody) UnmarshalBinary(b []byte) error {
+	var res SendVideoLinkBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }

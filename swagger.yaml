@@ -35,17 +35,14 @@ paths:
       - in: query
         name: offset
         type: integer
-        format: int64
         required: false
       - in: query
         name: limit
         type: integer
-        format: int64
         required: false
       - in: query
         name: timeout
         type: integer
-        format: int64
         required: false
       - in: query
         name: allowed_updates
@@ -93,6 +90,144 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
+  /bot{token}/setWebhook:
+    post:
+      tags:
+      - updates
+      description: ""
+      operationId: setWebhook
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: url
+        type: string
+        required: true
+      - in: formData
+        name: certificate
+        type: file
+        required: false
+      - in: formData
+        name: max_connections
+        type: integer
+        required: false
+      - in: formData
+        name: allowed_updates
+        required: false
+        type: array
+        collectionFormat: multi
+        items:
+          # go-swagger bug here
+          # cannot use $ref: "#/definitions/AllowedUpdate"
+          type: string
+          enum:
+          - message
+          - edited_message
+          - channel_post
+          - edited_channel_post
+          - inline_query
+          - chosen_inline_result
+          - callback_query
+      responses:
+        200:
+          description: Is OK?
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/deleteWebhook:
+    get:
+      tags:
+      - updates
+      description: ""
+      operationId: deleteWebhook
+      responses:
+        200:
+          description: Is OK?
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/getWebhookInfo:
+    get:
+      tags:
+      - updates
+      description: ""
+      operationId: getWebhookInfo
+      responses:
+        200:
+          description: Response Body
+          schema:
+            $ref: "#/definitions/WebhookInfo"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/getMe:
     get:
       tags:
@@ -111,7 +246,6 @@ paths:
                 $ref: "#/definitions/User"
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -253,7 +387,6 @@ paths:
       - in: formData
         name: message_id
         type: integer
-        format: int64
         required: true
         description: ""
       responses:
@@ -318,7 +451,6 @@ paths:
       - in: formData
         name: reply_to_message_id
         type: integer
-        format: int64
         required: false
         description: ""
       - in: formData
@@ -426,7 +558,6 @@ paths:
       - in: formData
         name: duration
         type: integer
-        format: int64
         required: false
         description: ""
       - in: formData
@@ -447,7 +578,6 @@ paths:
       - in: formData
         name: reply_to_message_id
         type: integer
-        format: int64
         required: false
         description: ""
       - in: formData
@@ -560,7 +690,6 @@ paths:
       - in: formData
         name: reply_to_message_id
         type: integer
-        format: int64
         required: false
         description: ""
       - in: formData
@@ -668,7 +797,6 @@ paths:
       - in: formData
         name: reply_to_message_id
         type: integer
-        format: int64
         required: false
         description: ""
       - in: formData
@@ -771,19 +899,16 @@ paths:
       - in: formData
         name: duration
         type: integer
-        format: int64
         required: false
         description: ""
       - in: formData
         name: width
         type: integer
-        format: int64
         required: false
         description: ""
       - in: formData
         name: height
         type: integer
-        format: int64
         required: false
         description: ""
       - in: formData
@@ -799,7 +924,6 @@ paths:
       - in: formData
         name: reply_to_message_id
         type: integer
-        format: int64
         required: false
         description: ""
       - in: formData
@@ -879,6 +1003,123 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
+  /bot{token}/sendVideoNote:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendVideoNote
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: video_note
+        type: file
+        required: true
+        description: ""
+      - in: formData
+        name: duration
+        type: integer
+        required: false
+        description: ""
+      - in: formData
+        name: length
+        type: integer
+        required: false
+        description: ""
+      - in: formData
+        name: disable_notification
+        type: boolean
+        required: false
+        description: ""
+      - in: formData
+        name: reply_to_message_id
+        type: integer
+        required: false
+        description: ""
+      - in: formData
+        name: reply_markup
+        type: string
+        required: false
+        description: "json string of reply_markup object"
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/sendVideoNote#link:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendVideoNoteLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        required: false
+        name: body
+        description: ""
+        schema:
+          $ref: "#/definitions/SendVideoNoteLinkBody"
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendVoice:
     post:
       tags:
@@ -907,7 +1148,6 @@ paths:
       - in: formData
         name: duration
         type: integer
-        format: int64
         required: false
         description: ""
       - in: formData
@@ -918,7 +1158,6 @@ paths:
       - in: formData
         name: reply_to_message_id
         type: integer
-        format: int64
         required: false
         description: ""
       - in: formData
@@ -1154,6 +1393,8 @@ paths:
           - upload_audio
           - upload_document
           - find_location
+          - record_video_note
+          - upload_video_note
       responses:
         200:
           description: ""
@@ -1164,7 +1405,6 @@ paths:
                 type: boolean
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1204,19 +1444,16 @@ paths:
       - in: query
         name: user_id
         type: integer
-        format: int64
         required: true
         description: ""
       - in: query
         name: offset
         type: integer
-        format: int64
         required: false
         description: ""
       - in: query
         name: limit
         type: integer
-        format: int64
         required: false
         description: ""
       responses:
@@ -1229,7 +1466,6 @@ paths:
                 $ref: "#/definitions/UserProfilePhotos"
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1281,7 +1517,6 @@ paths:
                 $ref: "#/definitions/File"
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1338,7 +1573,6 @@ paths:
                 type: boolean
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1390,7 +1624,6 @@ paths:
                 type: boolean
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1447,7 +1680,6 @@ paths:
                 type: boolean
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1499,7 +1731,6 @@ paths:
                 $ref: "#/definitions/Chat"
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1553,7 +1784,6 @@ paths:
                   $ref: "#/definitions/ChatMember"
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1603,10 +1833,8 @@ paths:
             properties:
               result:
                 type: integer
-                format: int64
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1663,7 +1891,6 @@ paths:
                 $ref: "#/definitions/ChatMember"
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1725,7 +1952,6 @@ paths:
       - in: formData
         name: cache_time
         type: integer
-        format: int64
         required: true
         description: ""
       responses:
@@ -1738,7 +1964,6 @@ paths:
                 type: boolean
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1791,7 +2016,6 @@ paths:
                 type: object
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1844,7 +2068,6 @@ paths:
                 type: object
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -1897,11 +2120,57 @@ paths:
                 type: object
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
                 type: string
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/deleteMessage:
+    get:
+      tags:
+      - messages
+      description: ""
+      operationId: deleteMessage
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        required: true
+        description: ""
+        type: string
+      - in: query
+        name: message_id
+        required: true
+        description: ""
+        type: integer
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
         400:
           description: Bad Request
           schema:
@@ -1950,7 +2219,6 @@ paths:
                 type: boolean
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -2033,13 +2301,11 @@ paths:
       - in: query
         name: user_id
         type: integer
-        format: int64
         description: ""
         required: true
       - in: query
         name: score
         type: integer
-        format: int64
         description: ""
         required: true
       - in: query
@@ -2055,13 +2321,11 @@ paths:
       - in: query
         name: chat_id
         type: integer
-        format: int64
         description: ""
         required: false
       - in: query
         name: message_id
         type: integer
-        format: int64
         description: ""
         required: false
       - in: query
@@ -2079,7 +2343,6 @@ paths:
                 type: object # boolean or Message
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -2119,19 +2382,16 @@ paths:
       - in: query
         name: user_id
         type: integer
-        format: int64
         description: ""
         required: true
       - in: query
         name: chat_id
         type: integer
-        format: int64
         description: ""
         required: false
       - in: query
         name: message_id
         type: integer
-        format: int64
         description: ""
         required: false
       - in: query
@@ -2150,7 +2410,6 @@ paths:
                 $ref: '#/definitions/GameHighScore'
               error_code:
                 type: integer
-                format: int64
               ok:
                 type: boolean
               description:
@@ -2185,19 +2444,19 @@ definitions:
     properties:
       id:
         type: integer
-        format: int64
       username:
         type: string
       first_name:
         type: string
       last_name:
         type: string
+      language_code:
+        type: string
   Chat:
     type: object
     properties:
       id:
         type: integer
-        format: int64
       type:
         type: string
         enum:
@@ -2220,12 +2479,10 @@ definitions:
     properties:
       message_id:
         type: integer
-        format: int64
       from:
         $ref: '#/definitions/User'
       date:
         type: integer
-        format: int64
       chat:
         $ref: '#/definitions/Chat'
       forward_from:
@@ -2234,15 +2491,12 @@ definitions:
         $ref: '#/definitions/Chat'
       forward_from_message_id:
         type: integer
-        format: int64
       forward_date:
         type: integer
-        format: int64
       reply_to_message:
         $ref: '#/definitions/Message'
       edit_date:
         type: integer
-        format: int64
       text:
         type: string
       entities:
@@ -2265,6 +2519,8 @@ definitions:
         $ref: '#/definitions/Video'
       voice:
         $ref: '#/definitions/Voice'
+      video_note:
+        $ref: '#/definitions/VideoNote'
       caption:
         type: string
       contact:
@@ -2273,8 +2529,10 @@ definitions:
         $ref: '#/definitions/Location'
       venue:
         $ref: '#/definitions/Venue'
-      new_chat_member:
-        $ref: '#/definitions/User'
+      new_chat_members:
+        type: array
+        items:
+          $ref: '#/definitions/User'
       left_chat_member:
         $ref: '#/definitions/User'
       new_chat_title:
@@ -2293,10 +2551,8 @@ definitions:
         type: boolean
       migrate_to_chat_id:
         type: integer
-        format: int64
       migrate_from_chat_id:
         type: integer
-        format: int64
       pinned_message:
         $ref: '#/definitions/Message'
   MessageEntity:
@@ -2318,10 +2574,8 @@ definitions:
         - text_mention
       offset:
         type: integer
-        format: int64
       length:
         type: integer
-        format: int64
       url:
         type: string
       user:
@@ -2333,13 +2587,10 @@ definitions:
         type: string
       width:
         type: integer
-        format: int64
       height:
         type: integer
-        format: int64
       file_size:
         type: integer
-        format: int64
   Audio:
     type: object
     properties:
@@ -2347,7 +2598,6 @@ definitions:
         type: string
       duration:
         type: integer
-        format: int64
       performer:
         type: string
       title:
@@ -2356,7 +2606,6 @@ definitions:
         type: string
       file_size:
         type: integer
-        format: int64
   Document:
     type: object
     properties:
@@ -2370,7 +2619,6 @@ definitions:
         type: string
       file_size:
         type: integer
-        format: int64
   Sticker:
     type: object
     properties:
@@ -2378,17 +2626,14 @@ definitions:
         type: string
       width:
         type: integer
-        format: int64
       height:
         type: integer
-        format: int64
       thumb:
         $ref: '#/definitions/PhotoSize'
       emoji:
         type: string
       file_size:
         type: integer
-        format: int64
   Video:
     type: object
     properties:
@@ -2396,20 +2641,16 @@ definitions:
         type: string
       width:
         type: integer
-        format: int64
       height:
         type: integer
-        format: int64
       duration:
         type: integer
-        format: int64
       thumb:
         $ref: '#/definitions/PhotoSize'
       mime_type:
         type: string
       file_size:
         type: integer
-        format: int64
   Voice:
     type: object
     properties:
@@ -2417,12 +2658,10 @@ definitions:
         type: string
       duration:
         type: integer
-        format: int64
       mime_type:
         type: string
       file_size:
         type: integer
-        format: int64
   Contact:
     type: object
     properties:
@@ -2434,16 +2673,13 @@ definitions:
         type: string
       user_id:
         type: integer
-        format: int64
   Location:
     type: object
     properties:
       longitude:
         type: number
-        format: float64
       latitude:
         type: number
-        format: float64
   Venue:
     type: object
     properties:
@@ -2462,7 +2698,6 @@ definitions:
         type: string
       file_size:
         type: integer
-        format: int64
       file_path:
         type: string
   ReplyKeyboardMarkup:
@@ -2559,16 +2794,13 @@ definitions:
     properties:
       migrate_to_chat_id:
         type: integer
-        format: int64
       retry_after:
         type: integer
-        format: int64
   Update:
     type: object
     properties:
       update_id:
         type: integer
-        format: int64
       message:
         $ref: '#/definitions/Message'
       edited_message:
@@ -2588,7 +2820,6 @@ definitions:
     properties:
       total_count:
         type: integer
-        format: int64
       photos:
         type: array
         items:
@@ -2701,18 +2932,15 @@ definitions:
         type: string
       file_size:
         type: integer
-        format: int64
   GameHighScore:
     type: object
     properties:
       position:
         type: integer
-        format: int64
       user:
         $ref: '#/definitions/User'
       score:
         type: integer
-        format: int64
   CallbackGame:
     type: object
   InlineQuery:
@@ -2751,10 +2979,8 @@ definitions:
         type: string
       thumb_width:
         type: integer
-        format: int64
       thumb_height:
         type: integer
-        format: int64
     required:
     - type
     - id
@@ -2777,7 +3003,6 @@ definitions:
         type: string
       audio_duration:
         type: integer
-        format: int64
       input_message_content:
         type: object
       reply_markup:
@@ -2808,10 +3033,8 @@ definitions:
         type: string
       thumb_width:
         type: integer
-        format: int64
       thumb_height:
         type: integer
-        format: int64
     required:
     - type
     - id
@@ -2857,10 +3080,8 @@ definitions:
         type: string
       thumb_width:
         type: integer
-        format: int64
       thumb_height:
         type: integer
-        format: int64
     required:
     - type
     - id
@@ -2878,10 +3099,10 @@ definitions:
         type: string
       gif_width:
         type: integer
-        format: int64
       gif_height:
         type: integer
-        format: int64
+      gif_duration:
+        type: integer
       thumb_url:
         type: string
       title:
@@ -2918,10 +3139,8 @@ definitions:
         type: string
       thumb_width:
         type: integer
-        format: int64
       thumb_height:
         type: integer
-        format: int64
     required:
     - type
     - id
@@ -2939,10 +3158,10 @@ definitions:
         type: string
       mpeg4_width:
         type: integer
-        format: int64
       mpeg4_height:
         type: integer
-        format: int64
+      mpeg4_duration:
+        type: integer
       thumb_url:
         type: string
       title:
@@ -2971,10 +3190,8 @@ definitions:
         type: string
       photo_width:
         type: integer
-        format: int64
       photo_height:
         type: integer
-        format: int64
       title:
         type: string
       caption:
@@ -3013,10 +3230,8 @@ definitions:
         type: string
       thumb_width:
         type: integer
-        format: int64
       thumb_height:
         type: integer
-        format: int64
     required:
     - type
     - id
@@ -3043,13 +3258,10 @@ definitions:
         type: string
       video_width:
         type: integer
-        format: int64
       video_height:
         type: integer
-        format: int64
       video_duration:
         type: integer
-        format: int64
       description:
         type: string
       reply_markup:
@@ -3078,7 +3290,6 @@ definitions:
         type: string
       voice_duration:
         type: integer
-        format: int64
       input_message_content:
         type: object
       reply_markup:
@@ -3277,7 +3488,6 @@ definitions:
         $ref: "#/definitions/Message"
       error_code:
         type: integer
-        format: int64
       ok:
         type: boolean
       description:
@@ -3291,7 +3501,6 @@ definitions:
           $ref: "#/definitions/Update"
       error_code:
         type: integer
-        format: int64
       ok:
         type: boolean
       description:
@@ -3301,7 +3510,6 @@ definitions:
     properties:
       error_code:
         type: integer
-        format: int64
       ok:
         type: boolean
       description:
@@ -3329,10 +3537,8 @@ definitions:
         type: boolean
       reply_to_message_id:
         type: integer
-        format: int64
       reply_markup:
-        schema:
-          type: object
+        type: object
   SendPhotoLinkBody:
     type: object
     required:
@@ -3349,10 +3555,8 @@ definitions:
         type: boolean
       reply_to_message_id:
         type: integer
-        format: int64
       reply_markup:
-        schema:
-          type: object
+        type: object
   SendAudioLinkBody:
     type: object
     required:
@@ -3367,7 +3571,6 @@ definitions:
         type: string
       duration:
         type: integer
-        format: int64
       performer:
         type: string
       title:
@@ -3376,10 +3579,8 @@ definitions:
         type: boolean
       reply_to_message_id:
         type: integer
-        format: int64
       reply_markup:
-        schema:
-          type: object
+        type: object
   SendDocumentLinkBody:
     type: object
     required:
@@ -3396,10 +3597,8 @@ definitions:
         type: boolean
       reply_to_message_id:
         type: integer
-        format: int64
       reply_markup:
-        schema:
-          type: object  
+        type: object  
   SendStickerLinkBody:
     type: object
     required:
@@ -3414,39 +3613,52 @@ definitions:
         type: boolean
       reply_to_message_id:
         type: integer
-        format: int64
       reply_markup:
-        schema:
-          type: object
+        type: object
   SendVideoLinkBody:
     type: object
     required:
     - chat_id
-    - audio
+    - video
     properties:
       chat_id:
         type: object
-      audio:
+      video:
         type: string
       duration:
         type: integer
-        format: int64
       width:
         type: integer
-        format: int64
       height:
         type: integer
-        format: int64
       caption:
         type: string
       disable_notification:
         type: boolean
       reply_to_message_id:
         type: integer
-        format: int64
       reply_markup:
-        schema:
-          type: object
+        type: object
+  SendVideoNoteLinkBody:
+    type: object
+    required:
+    - chat_id
+    - video_note
+    properties:
+      chat_id:
+        type: object
+      video_note:
+        type: string
+      duration:
+        type: integer
+      length:
+        type: integer
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+      reply_markup:
+        type: object
   SendVoiceLinkBody:
     type: object
     required:
@@ -3461,15 +3673,12 @@ definitions:
         type: string
       duration:
         type: integer
-        format: int64
       disable_notification:
         type: boolean
       reply_to_message_id:
         type: integer
-        format: int64
       reply_markup:
-        schema:
-          type: object
+        type: object
   SendLocationBody:
     type: object
     required:
@@ -3487,10 +3696,8 @@ definitions:
         type: boolean
       reply_to_message_id:
         type: integer
-        format: int64
       reply_markup:
-        schema:
-          type: object
+        type: object
   SendVenueBody:
     type: object
     required:
@@ -3516,10 +3723,8 @@ definitions:
         type: boolean
       reply_to_message_id:
         type: integer
-        format: int64
       reply_markup:
-        schema:
-          type: object
+        type: object
   SendContactBody:
     type: object
     required:
@@ -3539,10 +3744,8 @@ definitions:
         type: boolean
       reply_to_message_id:
         type: integer
-        format: int64
       reply_markup:
-        schema:
-          type: object
+        type: object
   EditMessageTextBody:
     type: object
     required:
@@ -3552,7 +3755,6 @@ definitions:
         type: object
       message_id:
         type: integer
-        format: int64
       inline_message_id:
         type: string
       text:
@@ -3570,7 +3772,6 @@ definitions:
         type: object
       message_id:
         type: integer
-        format: int64
       inline_message_id:
         type: string
       caption:
@@ -3584,7 +3785,6 @@ definitions:
         type: object
       message_id:
         type: integer
-        format: int64
       inline_message_id:
         type: string
       reply_markup:
@@ -3603,7 +3803,6 @@ definitions:
           type: object
       cache_time:
         type: integer
-        format: int64
       is_personal:
         type: boolean
       next_offset:
@@ -3620,14 +3819,12 @@ definitions:
     properties:
       chat_id:
         type: integer
-        format: int64
       game_short_name:
         type: string
       disable_notification:
         type: boolean
       reply_to_message_id:
         type: integer
-        format: int64
       reply_markup:
         $ref: '#/definitions/InlineKeyboardMarkup'
   AllowedUpdate:
@@ -3640,3 +3837,39 @@ definitions:
     - inline_query
     - chosen_inline_result
     - callback_query
+  WebhookInfo:
+    type: object
+    required:
+    - url
+    - has_custom_certificate
+    - pending_update_count
+    properties:
+      url:
+        type: string
+      has_custom_certificate:
+        type: boolean
+      pending_update_count:
+        type: integer
+      last_error_date:
+        type: integer
+      last_error_message: 
+        type: string
+      max_connections:
+        type: integer
+      allowed_updates:
+        type: array
+        items:
+          $ref: '#/definitions/AllowedUpdate'
+  VideoNote:
+    type: object
+    properties:
+      file_id:
+        type: string
+      length:
+        type: integer
+      duration:
+        type: integer
+      thumb:
+        $ref: '#/definitions/PhotoSize'
+      file_size:
+        type: integer

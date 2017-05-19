@@ -47,6 +47,15 @@ func NewForwardMessageParamsWithContext(ctx context.Context) *ForwardMessagePara
 	}
 }
 
+// NewForwardMessageParamsWithHTTPClient creates a new ForwardMessageParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewForwardMessageParamsWithHTTPClient(client *http.Client) *ForwardMessageParams {
+	var ()
+	return &ForwardMessageParams{
+		HTTPClient: client,
+	}
+}
+
 /*ForwardMessageParams contains all the parameters to send to the API endpoint
 for the forward message operation typically these are written to a http.Request
 */
@@ -91,6 +100,17 @@ func (o *ForwardMessageParams) WithContext(ctx context.Context) *ForwardMessageP
 // SetContext adds the context to the forward message params
 func (o *ForwardMessageParams) SetContext(ctx context.Context) {
 	o.Context = ctx
+}
+
+// WithHTTPClient adds the HTTPClient to the forward message params
+func (o *ForwardMessageParams) WithHTTPClient(client *http.Client) *ForwardMessageParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the forward message params
+func (o *ForwardMessageParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
 }
 
 // WithChatID adds the chatID to the forward message params
@@ -151,7 +171,9 @@ func (o *ForwardMessageParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *ForwardMessageParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	// form param chat_id

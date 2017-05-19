@@ -48,6 +48,15 @@ func NewSendPhotoLinkParamsWithContext(ctx context.Context) *SendPhotoLinkParams
 	}
 }
 
+// NewSendPhotoLinkParamsWithHTTPClient creates a new SendPhotoLinkParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendPhotoLinkParamsWithHTTPClient(client *http.Client) *SendPhotoLinkParams {
+	var ()
+	return &SendPhotoLinkParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendPhotoLinkParams contains all the parameters to send to the API endpoint
 for the send photo link operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *SendPhotoLinkParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the send photo link params
+func (o *SendPhotoLinkParams) WithHTTPClient(client *http.Client) *SendPhotoLinkParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send photo link params
+func (o *SendPhotoLinkParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the send photo link params
 func (o *SendPhotoLinkParams) WithBody(body *models.SendPhotoLinkBody) *SendPhotoLinkParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *SendPhotoLinkParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendPhotoLinkParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

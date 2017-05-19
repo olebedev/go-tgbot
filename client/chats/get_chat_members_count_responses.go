@@ -7,7 +7,10 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -298,4 +301,88 @@ type GetChatMembersCountOKBody struct {
 	// result
 	// Required: true
 	Result *int64 `json:"result"`
+}
+
+// Validate validates this get chat members count o k body
+func (o *GetChatMembersCountOKBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateDescription(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateErrorCode(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateOk(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateResult(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *GetChatMembersCountOKBody) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.Required("getChatMembersCountOK"+"."+"description", "body", o.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *GetChatMembersCountOKBody) validateErrorCode(formats strfmt.Registry) error {
+
+	if err := validate.Required("getChatMembersCountOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *GetChatMembersCountOKBody) validateOk(formats strfmt.Registry) error {
+
+	if err := validate.Required("getChatMembersCountOK"+"."+"ok", "body", o.Ok); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *GetChatMembersCountOKBody) validateResult(formats strfmt.Registry) error {
+
+	if err := validate.Required("getChatMembersCountOK"+"."+"result", "body", o.Result); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *GetChatMembersCountOKBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *GetChatMembersCountOKBody) UnmarshalBinary(b []byte) error {
+	var res GetChatMembersCountOKBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
 }

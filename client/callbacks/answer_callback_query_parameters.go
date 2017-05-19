@@ -47,6 +47,15 @@ func NewAnswerCallbackQueryParamsWithContext(ctx context.Context) *AnswerCallbac
 	}
 }
 
+// NewAnswerCallbackQueryParamsWithHTTPClient creates a new AnswerCallbackQueryParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewAnswerCallbackQueryParamsWithHTTPClient(client *http.Client) *AnswerCallbackQueryParams {
+	var ()
+	return &AnswerCallbackQueryParams{
+		HTTPClient: client,
+	}
+}
+
 /*AnswerCallbackQueryParams contains all the parameters to send to the API endpoint
 for the answer callback query operation typically these are written to a http.Request
 */
@@ -93,6 +102,17 @@ func (o *AnswerCallbackQueryParams) WithContext(ctx context.Context) *AnswerCall
 // SetContext adds the context to the answer callback query params
 func (o *AnswerCallbackQueryParams) SetContext(ctx context.Context) {
 	o.Context = ctx
+}
+
+// WithHTTPClient adds the HTTPClient to the answer callback query params
+func (o *AnswerCallbackQueryParams) WithHTTPClient(client *http.Client) *AnswerCallbackQueryParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the answer callback query params
+func (o *AnswerCallbackQueryParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
 }
 
 // WithCacheTime adds the cacheTime to the answer callback query params
@@ -164,7 +184,9 @@ func (o *AnswerCallbackQueryParams) SetURL(url string) {
 // WriteToRequest writes these params to a swagger request
 func (o *AnswerCallbackQueryParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	// form param cache_time

@@ -48,6 +48,15 @@ func NewSendMessageParamsWithContext(ctx context.Context) *SendMessageParams {
 	}
 }
 
+// NewSendMessageParamsWithHTTPClient creates a new SendMessageParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewSendMessageParamsWithHTTPClient(client *http.Client) *SendMessageParams {
+	var ()
+	return &SendMessageParams{
+		HTTPClient: client,
+	}
+}
+
 /*SendMessageParams contains all the parameters to send to the API endpoint
 for the send message operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *SendMessageParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the send message params
+func (o *SendMessageParams) WithHTTPClient(client *http.Client) *SendMessageParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the send message params
+func (o *SendMessageParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithBody adds the body to the send message params
 func (o *SendMessageParams) WithBody(body *models.SendMessageBody) *SendMessageParams {
 	o.SetBody(body)
@@ -113,7 +133,9 @@ func (o *SendMessageParams) SetToken(token *string) {
 // WriteToRequest writes these params to a swagger request
 func (o *SendMessageParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	if o.Body == nil {

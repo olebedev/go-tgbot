@@ -7,7 +7,10 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -298,4 +301,84 @@ type SetGameScoreOKBody struct {
 	// result
 	// Required: true
 	Result interface{} `json:"result"`
+}
+
+// Validate validates this set game score o k body
+func (o *SetGameScoreOKBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateDescription(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateErrorCode(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateOk(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := o.validateResult(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *SetGameScoreOKBody) validateDescription(formats strfmt.Registry) error {
+
+	if err := validate.Required("setGameScoreOK"+"."+"description", "body", o.Description); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *SetGameScoreOKBody) validateErrorCode(formats strfmt.Registry) error {
+
+	if err := validate.Required("setGameScoreOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *SetGameScoreOKBody) validateOk(formats strfmt.Registry) error {
+
+	if err := validate.Required("setGameScoreOK"+"."+"ok", "body", o.Ok); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (o *SetGameScoreOKBody) validateResult(formats strfmt.Registry) error {
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *SetGameScoreOKBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *SetGameScoreOKBody) UnmarshalBinary(b []byte) error {
+	var res SetGameScoreOKBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
 }

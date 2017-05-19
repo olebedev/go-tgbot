@@ -46,6 +46,15 @@ func NewUnbanChatMemberParamsWithContext(ctx context.Context) *UnbanChatMemberPa
 	}
 }
 
+// NewUnbanChatMemberParamsWithHTTPClient creates a new UnbanChatMemberParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewUnbanChatMemberParamsWithHTTPClient(client *http.Client) *UnbanChatMemberParams {
+	var ()
+	return &UnbanChatMemberParams{
+		HTTPClient: client,
+	}
+}
+
 /*UnbanChatMemberParams contains all the parameters to send to the API endpoint
 for the unban chat member operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *UnbanChatMemberParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the unban chat member params
+func (o *UnbanChatMemberParams) WithHTTPClient(client *http.Client) *UnbanChatMemberParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the unban chat member params
+func (o *UnbanChatMemberParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithChatID adds the chatID to the unban chat member params
 func (o *UnbanChatMemberParams) WithChatID(chatID string) *UnbanChatMemberParams {
 	o.SetChatID(chatID)
@@ -124,7 +144,9 @@ func (o *UnbanChatMemberParams) SetUserID(userID string) {
 // WriteToRequest writes these params to a swagger request
 func (o *UnbanChatMemberParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	// query param chat_id

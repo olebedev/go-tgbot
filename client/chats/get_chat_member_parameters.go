@@ -46,6 +46,15 @@ func NewGetChatMemberParamsWithContext(ctx context.Context) *GetChatMemberParams
 	}
 }
 
+// NewGetChatMemberParamsWithHTTPClient creates a new GetChatMemberParams object
+// with the default values initialized, and the ability to set a custom HTTPClient for a request
+func NewGetChatMemberParamsWithHTTPClient(client *http.Client) *GetChatMemberParams {
+	var ()
+	return &GetChatMemberParams{
+		HTTPClient: client,
+	}
+}
+
 /*GetChatMemberParams contains all the parameters to send to the API endpoint
 for the get chat member operation typically these are written to a http.Request
 */
@@ -88,6 +97,17 @@ func (o *GetChatMemberParams) SetContext(ctx context.Context) {
 	o.Context = ctx
 }
 
+// WithHTTPClient adds the HTTPClient to the get chat member params
+func (o *GetChatMemberParams) WithHTTPClient(client *http.Client) *GetChatMemberParams {
+	o.SetHTTPClient(client)
+	return o
+}
+
+// SetHTTPClient adds the HTTPClient to the get chat member params
+func (o *GetChatMemberParams) SetHTTPClient(client *http.Client) {
+	o.HTTPClient = client
+}
+
 // WithChatID adds the chatID to the get chat member params
 func (o *GetChatMemberParams) WithChatID(chatID string) *GetChatMemberParams {
 	o.SetChatID(chatID)
@@ -124,7 +144,9 @@ func (o *GetChatMemberParams) SetUserID(userID string) {
 // WriteToRequest writes these params to a swagger request
 func (o *GetChatMemberParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
-	r.SetTimeout(o.timeout)
+	if err := r.SetTimeout(o.timeout); err != nil {
+		return err
+	}
 	var res []error
 
 	// query param chat_id

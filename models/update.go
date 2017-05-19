@@ -5,9 +5,9 @@ package models
 
 import (
 	strfmt "github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/swag"
 )
 
 // Update update
@@ -93,6 +93,9 @@ func (m *Update) validateCallbackQuery(formats strfmt.Registry) error {
 	if m.CallbackQuery != nil {
 
 		if err := m.CallbackQuery.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("callback_query")
+			}
 			return err
 		}
 	}
@@ -109,6 +112,9 @@ func (m *Update) validateChannelPost(formats strfmt.Registry) error {
 	if m.ChannelPost != nil {
 
 		if err := m.ChannelPost.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("channel_post")
+			}
 			return err
 		}
 	}
@@ -125,6 +131,9 @@ func (m *Update) validateChosenInlineResult(formats strfmt.Registry) error {
 	if m.ChosenInlineResult != nil {
 
 		if err := m.ChosenInlineResult.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("chosen_inline_result")
+			}
 			return err
 		}
 	}
@@ -141,6 +150,9 @@ func (m *Update) validateEditedChannelPost(formats strfmt.Registry) error {
 	if m.EditedChannelPost != nil {
 
 		if err := m.EditedChannelPost.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("edited_channel_post")
+			}
 			return err
 		}
 	}
@@ -157,6 +169,9 @@ func (m *Update) validateEditedMessage(formats strfmt.Registry) error {
 	if m.EditedMessage != nil {
 
 		if err := m.EditedMessage.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("edited_message")
+			}
 			return err
 		}
 	}
@@ -173,6 +188,9 @@ func (m *Update) validateInlineQuery(formats strfmt.Registry) error {
 	if m.InlineQuery != nil {
 
 		if err := m.InlineQuery.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("inline_query")
+			}
 			return err
 		}
 	}
@@ -189,9 +207,30 @@ func (m *Update) validateMessage(formats strfmt.Registry) error {
 	if m.Message != nil {
 
 		if err := m.Message.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("message")
+			}
 			return err
 		}
 	}
 
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *Update) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *Update) UnmarshalBinary(b []byte) error {
+	var res Update
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }

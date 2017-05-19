@@ -5,9 +5,9 @@ package models
 
 import (
 	strfmt "github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/go-openapi/errors"
+	"github.com/go-openapi/swag"
 )
 
 // EditMessageReplyMarkupBody edit message reply markup body
@@ -51,9 +51,30 @@ func (m *EditMessageReplyMarkupBody) validateReplyMarkup(formats strfmt.Registry
 	if m.ReplyMarkup != nil {
 
 		if err := m.ReplyMarkup.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("reply_markup")
+			}
 			return err
 		}
 	}
 
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (m *EditMessageReplyMarkupBody) MarshalBinary() ([]byte, error) {
+	if m == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(m)
+}
+
+// UnmarshalBinary interface implementation
+func (m *EditMessageReplyMarkupBody) UnmarshalBinary(b []byte) error {
+	var res EditMessageReplyMarkupBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*m = res
 	return nil
 }
