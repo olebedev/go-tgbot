@@ -2438,6 +2438,139 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
+  /bot{token}/sendInvoice:
+    post:
+      tags:
+      - payments
+      description: ""
+      operationId: sendInvoice
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        schema:
+          $ref: "#/definitions/SendInvoiceBody"
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/answerShippingQuery:
+    post:
+      tags:
+      - payments
+      description: ""
+      operationId: answerShippingQuery
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        schema:
+          $ref: "#/definitions/AnswerShippingQueryBody"
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/answerPreCheckoutQuery:
+    post:
+      tags:
+      - payments
+      description: ""
+      operationId: answerPreCheckoutQuery
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: pre_checkout_query_id
+        required: true
+        type: string
+      - in: formData
+        name: ok
+        required: true
+        type: boolean
+      - in: formData
+        name: error_message
+        required: false
+        type: string
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
 definitions:
   User:
     type: object
@@ -2815,6 +2948,10 @@ definitions:
         $ref: '#/definitions/ChosenInlineResult'
       callback_query:
         $ref: '#/definitions/CallbackQuery'
+      shipping_query:
+        $ref: '#/definitions/ShippingQuery'
+      pre_checkout_query:
+        $ref: '#/definitions/PreCheckoutQuery'
   UserProfilePhotos:
     type: object
     properties:
@@ -3873,3 +4010,175 @@ definitions:
         $ref: '#/definitions/PhotoSize'
       file_size:
         type: integer
+  LabeledPrice:
+    type: object
+    properties:
+      label:
+        type: string
+      amount:
+        type: integer
+  Invoice:
+    type: object
+    properties:
+      title:
+        type: string
+      description:
+        type: string
+      start_parameter:
+        type: string
+      currency:
+        type: string
+      total_amount:
+        type: integer
+  ShippingAddress:
+    type: object
+    properties:
+      country_code:
+        type: string
+      stat:
+        type: string  
+      city:
+        type: string  
+      street_line1:
+        type: string
+      street_line2:
+        type: string
+      post_code:
+        type: string 
+  OrderInfo:
+    type: object 
+    properties:
+      name:
+        type: string
+      phone_number:
+        type: string
+      email:
+        type: string
+      shipping_address:
+        $ref: '#/definitions/ShippingAddress'
+  ShippingOption:
+    type: object
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      prices:
+        type: array
+        items:
+          $ref: '#/definitions/LabeledPrice'
+  SuccessfulPayment:
+    type: object
+    properties:
+      currency:
+        type: string
+      total_amount:
+        type: integer
+      invoice_payload:
+        type: string
+      shipping_option_id:
+        type: string
+      order_info:
+        $ref: '#/definitions/OrderInfo'
+      telegram_payment_charge_id:
+        type: string
+      provider_payment_charge_id:
+        type: string
+  ShippingQuery:
+    type: object
+    properties:
+      id:
+        type: string
+      from: 
+        $ref: '#/definitions/User'
+      invoice_payload:
+        type: string
+      shipping_address:
+        $ref: '#/definitions/ShippingAddress'
+  PreCheckoutQuery:
+    type: object
+    properties:
+      id:
+        type: string
+      from: 
+        $ref: '#/definitions/User'
+      currency:
+        type: string
+      total_amount:
+        type: integer
+      invoice_payload:
+        type: string
+      shipping_option_id:
+        type: string
+      order_info:
+        $ref: '#/definitions/OrderInfo'
+  SendInvoiceBody:
+    type: object
+    required:
+    - chat_id
+    - title
+    - description
+    - payload
+    - provider_token
+    - start_parameter
+    - currency
+    - prices
+    properties:
+      chat_id:
+        type: integer
+      title:
+        type: string
+      description:
+        type: string
+      payload:
+        type: string
+      provider_token:
+        type: string
+      start_parameter:
+        type: string
+      currency:
+        type: string
+      prices:
+        type: array
+        items: 
+          $ref: "#/definitions/LabeledPrice"
+      photo_url:
+        type: string
+      photo_size:
+        type: integer
+      photo_width:
+        type: integer
+      photo_height:
+        type: integer
+      need_name:
+        type: boolean
+      need_phone_number:
+        type: boolean
+      need_email:
+        type: boolean
+      need_shipping_address:
+        type: boolean
+      is_flexible:
+        type: boolean
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer
+      reply_markup:
+        type: object
+  AnswerShippingQueryBody:
+    type: object
+    required:
+    - shipping_query_id
+    - ok
+    properties:
+      shipping_query_id:
+        type: string
+      ok:
+        type: boolean
+      shipping_options:
+        type: array
+        items: 
+          $ref: "#/definitions/ShippingOption"
+      error_message:
+        type: string

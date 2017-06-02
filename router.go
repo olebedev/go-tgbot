@@ -26,6 +26,8 @@ const (
 	KindInlineQuery
 	KindCallbackQuery
 	KindChosenInlineResult
+	KindShippingQuery
+	KindPreCheckoutQuery
 	KindAll rkind = (1 << iota) - 1
 
 	DefaultPollTimeout int64 = 29
@@ -121,6 +123,18 @@ func (r *Router) ChosenInlineResult(route string, handlers ...func(*Context) err
 	return r.Handle(KindChosenInlineResult, route, handlers...)
 }
 
+// ShippingQuery binds shipping result updates and the route through
+// handler/handlers.
+func (r *Router) ShippingQuery(route string, handlers ...func(*Context) error) error {
+	return r.Handle(KindShippingQuery, route, handlers...)
+}
+
+// PreCheckout binds pre-checkout result updates and the route through
+// handler/handlers.
+func (r *Router) PreCheckout(route string, handlers ...func(*Context) error) error {
+	return r.Handle(KindPreCheckoutQuery, route, handlers...)
+}
+
 // Handle binds specific kinds of an update to the handler/handlers.
 func (r *Router) Handle(kind rkind, routeRegExp string, handlers ...func(*Context) error) error {
 	re, err := regexp.Compile(routeRegExp)
@@ -168,6 +182,10 @@ func (r *Router) Route(u *models.Update) error {
 		kind = KindCallbackQuery
 	case u.ChosenInlineResult != nil:
 		kind = KindChosenInlineResult
+	case u.ShippingQuery != nil:
+		kind = KindShippingQuery
+	case u.PreCheckoutQuery != nil:
+		kind = KindPreCheckoutQuery
 	default:
 		return errors.New("unknown update")
 	}

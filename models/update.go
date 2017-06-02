@@ -35,6 +35,12 @@ type Update struct {
 	// message
 	Message *Message `json:"message,omitempty"`
 
+	// pre checkout query
+	PreCheckoutQuery *PreCheckoutQuery `json:"pre_checkout_query,omitempty"`
+
+	// shipping query
+	ShippingQuery *ShippingQuery `json:"shipping_query,omitempty"`
+
 	// update id
 	UpdateID int64 `json:"update_id,omitempty"`
 }
@@ -74,6 +80,16 @@ func (m *Update) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMessage(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validatePreCheckoutQuery(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateShippingQuery(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -209,6 +225,44 @@ func (m *Update) validateMessage(formats strfmt.Registry) error {
 		if err := m.Message.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("message")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Update) validatePreCheckoutQuery(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.PreCheckoutQuery) { // not required
+		return nil
+	}
+
+	if m.PreCheckoutQuery != nil {
+
+		if err := m.PreCheckoutQuery.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("pre_checkout_query")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Update) validateShippingQuery(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ShippingQuery) { // not required
+		return nil
+	}
+
+	if m.ShippingQuery != nil {
+
+		if err := m.ShippingQuery.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("shipping_query")
 			}
 			return err
 		}

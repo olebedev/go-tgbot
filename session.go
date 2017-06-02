@@ -35,6 +35,10 @@ func GetSession(u *models.Update) (fmt.Stringer, error) {
 		if u.ChosenInlineResult.ResultID != nil {
 			text = *u.ChosenInlineResult.ResultID
 		}
+	case u.ShippingQuery != nil:
+		text = u.ShippingQuery.InvoicePayload
+	case u.PreCheckoutQuery != nil:
+		text = u.PreCheckoutQuery.InvoicePayload
 	default:
 		return nil, errors.New("unknown update")
 	}

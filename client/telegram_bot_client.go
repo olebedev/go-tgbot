@@ -15,6 +15,7 @@ import (
 	"github.com/olebedev/go-tgbot/client/games"
 	"github.com/olebedev/go-tgbot/client/inline"
 	"github.com/olebedev/go-tgbot/client/messages"
+	"github.com/olebedev/go-tgbot/client/payments"
 	"github.com/olebedev/go-tgbot/client/updates"
 	"github.com/olebedev/go-tgbot/client/users"
 )
@@ -71,6 +72,8 @@ func New(transport runtime.ClientTransport, formats strfmt.Registry) *TelegramBo
 	cli.Inline = inline.New(transport, formats)
 
 	cli.Messages = messages.New(transport, formats)
+
+	cli.Payments = payments.New(transport, formats)
 
 	cli.Updates = updates.New(transport, formats)
 
@@ -132,6 +135,8 @@ type TelegramBot struct {
 
 	Messages *messages.Client
 
+	Payments *payments.Client
+
 	Updates *updates.Client
 
 	Users *users.Client
@@ -154,6 +159,8 @@ func (c *TelegramBot) SetTransport(transport runtime.ClientTransport) {
 	c.Inline.SetTransport(transport)
 
 	c.Messages.SetTransport(transport)
+
+	c.Payments.SetTransport(transport)
 
 	c.Updates.SetTransport(transport)
 

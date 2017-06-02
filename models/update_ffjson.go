@@ -138,6 +138,36 @@ func (mj *Update) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 			buf.WriteByte(',')
 		}
 	}
+	if mj.PreCheckoutQuery != nil {
+		if true {
+			buf.WriteString(`"pre_checkout_query":`)
+
+			{
+
+				err = mj.PreCheckoutQuery.MarshalJSONBuf(buf)
+				if err != nil {
+					return err
+				}
+
+			}
+			buf.WriteByte(',')
+		}
+	}
+	if mj.ShippingQuery != nil {
+		if true {
+			buf.WriteString(`"shipping_query":`)
+
+			{
+
+				err = mj.ShippingQuery.MarshalJSONBuf(buf)
+				if err != nil {
+					return err
+				}
+
+			}
+			buf.WriteByte(',')
+		}
+	}
 	if mj.UpdateID != 0 {
 		buf.WriteString(`"update_id":`)
 		fflib.FormatBits2(buf, uint64(mj.UpdateID), 10, mj.UpdateID < 0)
@@ -166,6 +196,10 @@ const (
 
 	ffj_t_Update_Message
 
+	ffj_t_Update_PreCheckoutQuery
+
+	ffj_t_Update_ShippingQuery
+
 	ffj_t_Update_UpdateID
 )
 
@@ -182,6 +216,10 @@ var ffj_key_Update_EditedMessage = []byte("edited_message")
 var ffj_key_Update_InlineQuery = []byte("inline_query")
 
 var ffj_key_Update_Message = []byte("message")
+
+var ffj_key_Update_PreCheckoutQuery = []byte("pre_checkout_query")
+
+var ffj_key_Update_ShippingQuery = []byte("shipping_query")
 
 var ffj_key_Update_UpdateID = []byte("update_id")
 
@@ -291,6 +329,22 @@ mainparse:
 						goto mainparse
 					}
 
+				case 'p':
+
+					if bytes.Equal(ffj_key_Update_PreCheckoutQuery, kn) {
+						currentKey = ffj_t_Update_PreCheckoutQuery
+						state = fflib.FFParse_want_colon
+						goto mainparse
+					}
+
+				case 's':
+
+					if bytes.Equal(ffj_key_Update_ShippingQuery, kn) {
+						currentKey = ffj_t_Update_ShippingQuery
+						state = fflib.FFParse_want_colon
+						goto mainparse
+					}
+
 				case 'u':
 
 					if bytes.Equal(ffj_key_Update_UpdateID, kn) {
@@ -303,6 +357,18 @@ mainparse:
 
 				if fflib.AsciiEqualFold(ffj_key_Update_UpdateID, kn) {
 					currentKey = ffj_t_Update_UpdateID
+					state = fflib.FFParse_want_colon
+					goto mainparse
+				}
+
+				if fflib.EqualFoldRight(ffj_key_Update_ShippingQuery, kn) {
+					currentKey = ffj_t_Update_ShippingQuery
+					state = fflib.FFParse_want_colon
+					goto mainparse
+				}
+
+				if fflib.EqualFoldRight(ffj_key_Update_PreCheckoutQuery, kn) {
+					currentKey = ffj_t_Update_PreCheckoutQuery
 					state = fflib.FFParse_want_colon
 					goto mainparse
 				}
@@ -386,6 +452,12 @@ mainparse:
 
 				case ffj_t_Update_Message:
 					goto handle_Message
+
+				case ffj_t_Update_PreCheckoutQuery:
+					goto handle_PreCheckoutQuery
+
+				case ffj_t_Update_ShippingQuery:
+					goto handle_ShippingQuery
 
 				case ffj_t_Update_UpdateID:
 					goto handle_UpdateID
@@ -584,6 +656,60 @@ handle_Message:
 		}
 
 		err = uj.Message.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
+		if err != nil {
+			return err
+		}
+		state = fflib.FFParse_after_value
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
+handle_PreCheckoutQuery:
+
+	/* handler: uj.PreCheckoutQuery type=models.PreCheckoutQuery kind=struct quoted=false*/
+
+	{
+		if tok == fflib.FFTok_null {
+
+			uj.PreCheckoutQuery = nil
+
+			state = fflib.FFParse_after_value
+			goto mainparse
+		}
+
+		if uj.PreCheckoutQuery == nil {
+			uj.PreCheckoutQuery = new(PreCheckoutQuery)
+		}
+
+		err = uj.PreCheckoutQuery.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
+		if err != nil {
+			return err
+		}
+		state = fflib.FFParse_after_value
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
+handle_ShippingQuery:
+
+	/* handler: uj.ShippingQuery type=models.ShippingQuery kind=struct quoted=false*/
+
+	{
+		if tok == fflib.FFTok_null {
+
+			uj.ShippingQuery = nil
+
+			state = fflib.FFParse_after_value
+			goto mainparse
+		}
+
+		if uj.ShippingQuery == nil {
+			uj.ShippingQuery = new(ShippingQuery)
+		}
+
+		err = uj.ShippingQuery.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
 		if err != nil {
 			return err
 		}
