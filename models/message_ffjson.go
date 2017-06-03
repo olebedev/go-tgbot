@@ -370,6 +370,17 @@ func (mj *Message) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 			buf.WriteByte(',')
 		}
 	}
+	if mj.SuccessfulPayment != nil {
+		if true {
+			/* Struct fall back. type=models.SuccessfulPayment kind=struct */
+			buf.WriteString(`"successful_payment":`)
+			err = buf.Encode(mj.SuccessfulPayment)
+			if err != nil {
+				return err
+			}
+			buf.WriteByte(',')
+		}
+	}
 	if mj.SupergroupChatCreated != false {
 		if mj.SupergroupChatCreated {
 			buf.WriteString(`"supergroup_chat_created":true`)
@@ -494,6 +505,8 @@ const (
 
 	ffj_t_Message_Sticker
 
+	ffj_t_Message_SuccessfulPayment
+
 	ffj_t_Message_SupergroupChatCreated
 
 	ffj_t_Message_Text
@@ -564,6 +577,8 @@ var ffj_key_Message_PinnedMessage = []byte("pinned_message")
 var ffj_key_Message_ReplyToMessage = []byte("reply_to_message")
 
 var ffj_key_Message_Sticker = []byte("sticker")
+
+var ffj_key_Message_SuccessfulPayment = []byte("successful_payment")
 
 var ffj_key_Message_SupergroupChatCreated = []byte("supergroup_chat_created")
 
@@ -816,6 +831,11 @@ mainparse:
 						state = fflib.FFParse_want_colon
 						goto mainparse
 
+					} else if bytes.Equal(ffj_key_Message_SuccessfulPayment, kn) {
+						currentKey = ffj_t_Message_SuccessfulPayment
+						state = fflib.FFParse_want_colon
+						goto mainparse
+
 					} else if bytes.Equal(ffj_key_Message_SupergroupChatCreated, kn) {
 						currentKey = ffj_t_Message_SupergroupChatCreated
 						state = fflib.FFParse_want_colon
@@ -887,6 +907,12 @@ mainparse:
 
 				if fflib.EqualFoldRight(ffj_key_Message_SupergroupChatCreated, kn) {
 					currentKey = ffj_t_Message_SupergroupChatCreated
+					state = fflib.FFParse_want_colon
+					goto mainparse
+				}
+
+				if fflib.EqualFoldRight(ffj_key_Message_SuccessfulPayment, kn) {
+					currentKey = ffj_t_Message_SuccessfulPayment
 					state = fflib.FFParse_want_colon
 					goto mainparse
 				}
@@ -1168,6 +1194,9 @@ mainparse:
 
 				case ffj_t_Message_Sticker:
 					goto handle_Sticker
+
+				case ffj_t_Message_SuccessfulPayment:
+					goto handle_SuccessfulPayment
 
 				case ffj_t_Message_SupergroupChatCreated:
 					goto handle_SupergroupChatCreated
@@ -2211,6 +2240,26 @@ handle_Sticker:
 		}
 
 		err = json.Unmarshal(tbuf, &uj.Sticker)
+		if err != nil {
+			return fs.WrapErr(err)
+		}
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
+handle_SuccessfulPayment:
+
+	/* handler: uj.SuccessfulPayment type=models.SuccessfulPayment kind=struct quoted=false*/
+
+	{
+		/* Falling back. type=models.SuccessfulPayment kind=struct */
+		tbuf, err := fs.CaptureField(tok)
+		if err != nil {
+			return fs.WrapErr(err)
+		}
+
+		err = json.Unmarshal(tbuf, &uj.SuccessfulPayment)
 		if err != nil {
 			return fs.WrapErr(err)
 		}

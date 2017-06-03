@@ -2688,6 +2688,8 @@ definitions:
         type: integer
       pinned_message:
         $ref: '#/definitions/Message'
+      successful_payment:
+        $ref: '#/definitions/SuccessfulPayment'
   MessageEntity:
     type: object
     properties:
@@ -2886,6 +2888,8 @@ definitions:
         type: string
       callback_game:
         $ref: '#/definitions/CallbackGame'
+      pay:
+        type: boolean
   CallbackQuery:
     type: object
     properties:

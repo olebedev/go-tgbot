@@ -7,6 +7,7 @@ package models
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	fflib "github.com/pquerna/ffjson/fflib/v1"
@@ -55,19 +56,14 @@ func (mj *AnswerShippingQueryBody) MarshalJSONBuf(buf fflib.EncodingBuffer) erro
 			if i != 0 {
 				buf.WriteString(`,`)
 			}
-
-			{
-
-				if v == nil {
-					buf.WriteString("null")
-					return nil
-				}
-
-				err = v.MarshalJSONBuf(buf)
+			if v != nil {
+				/* Struct fall back. type=models.ShippingOption kind=struct */
+				err = buf.Encode(&v)
 				if err != nil {
 					return err
 				}
-
+			} else {
+				buf.WriteString(`null`)
 			}
 		}
 		buf.WriteString(`]`)
@@ -375,23 +371,30 @@ handle_ShippingOptions:
 				/* handler: tmp_uj__ShippingOptions type=*models.ShippingOption kind=ptr quoted=false*/
 
 				{
+
 					if tok == fflib.FFTok_null {
-
 						tmp_uj__ShippingOptions = nil
+					} else {
+						if tmp_uj__ShippingOptions == nil {
+							tmp_uj__ShippingOptions = new(ShippingOption)
+						}
 
-						state = fflib.FFParse_after_value
-						goto mainparse
-					}
+						/* handler: tmp_uj__ShippingOptions type=models.ShippingOption kind=struct quoted=false*/
 
-					if tmp_uj__ShippingOptions == nil {
-						tmp_uj__ShippingOptions = new(ShippingOption)
-					}
+						{
+							/* Falling back. type=models.ShippingOption kind=struct */
+							tbuf, err := fs.CaptureField(tok)
+							if err != nil {
+								return fs.WrapErr(err)
+							}
 
-					err = tmp_uj__ShippingOptions.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
-					if err != nil {
-						return err
+							err = json.Unmarshal(tbuf, &tmp_uj__ShippingOptions)
+							if err != nil {
+								return fs.WrapErr(err)
+							}
+						}
+
 					}
-					state = fflib.FFParse_after_value
 				}
 
 				uj.ShippingOptions = append(uj.ShippingOptions, tmp_uj__ShippingOptions)

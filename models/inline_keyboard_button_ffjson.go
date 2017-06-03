@@ -8,6 +8,7 @@ package models
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	fflib "github.com/pquerna/ffjson/fflib/v1"
 )
@@ -48,6 +49,14 @@ func (mj *InlineKeyboardButton) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 		}
 		buf.WriteByte(',')
 	}
+	if mj.Pay != false {
+		if mj.Pay {
+			buf.WriteString(`"pay":true`)
+		} else {
+			buf.WriteString(`"pay":false`)
+		}
+		buf.WriteByte(',')
+	}
 	if len(mj.SwitchInlineQuery) != 0 {
 		buf.WriteString(`"switch_inline_query":`)
 		fflib.WriteJsonString(buf, string(mj.SwitchInlineQuery))
@@ -81,6 +90,8 @@ const (
 
 	ffj_t_InlineKeyboardButton_CallbackGame
 
+	ffj_t_InlineKeyboardButton_Pay
+
 	ffj_t_InlineKeyboardButton_SwitchInlineQuery
 
 	ffj_t_InlineKeyboardButton_SwitchInlineQueryCurrentChat
@@ -93,6 +104,8 @@ const (
 var ffj_key_InlineKeyboardButton_CallbackData = []byte("callback_data")
 
 var ffj_key_InlineKeyboardButton_CallbackGame = []byte("callback_game")
+
+var ffj_key_InlineKeyboardButton_Pay = []byte("pay")
 
 var ffj_key_InlineKeyboardButton_SwitchInlineQuery = []byte("switch_inline_query")
 
@@ -174,6 +187,14 @@ mainparse:
 						goto mainparse
 					}
 
+				case 'p':
+
+					if bytes.Equal(ffj_key_InlineKeyboardButton_Pay, kn) {
+						currentKey = ffj_t_InlineKeyboardButton_Pay
+						state = fflib.FFParse_want_colon
+						goto mainparse
+					}
+
 				case 's':
 
 					if bytes.Equal(ffj_key_InlineKeyboardButton_SwitchInlineQuery, kn) {
@@ -229,6 +250,12 @@ mainparse:
 					goto mainparse
 				}
 
+				if fflib.SimpleLetterEqualFold(ffj_key_InlineKeyboardButton_Pay, kn) {
+					currentKey = ffj_t_InlineKeyboardButton_Pay
+					state = fflib.FFParse_want_colon
+					goto mainparse
+				}
+
 				if fflib.EqualFoldRight(ffj_key_InlineKeyboardButton_CallbackGame, kn) {
 					currentKey = ffj_t_InlineKeyboardButton_CallbackGame
 					state = fflib.FFParse_want_colon
@@ -263,6 +290,9 @@ mainparse:
 
 				case ffj_t_InlineKeyboardButton_CallbackGame:
 					goto handle_CallbackGame
+
+				case ffj_t_InlineKeyboardButton_Pay:
+					goto handle_Pay
 
 				case ffj_t_InlineKeyboardButton_SwitchInlineQuery:
 					goto handle_SwitchInlineQuery
@@ -330,6 +360,41 @@ handle_CallbackGame:
 		err = json.Unmarshal(tbuf, &uj.CallbackGame)
 		if err != nil {
 			return fs.WrapErr(err)
+		}
+	}
+
+	state = fflib.FFParse_after_value
+	goto mainparse
+
+handle_Pay:
+
+	/* handler: uj.Pay type=bool kind=bool quoted=false*/
+
+	{
+		if tok != fflib.FFTok_bool && tok != fflib.FFTok_null {
+			return fs.WrapErr(fmt.Errorf("cannot unmarshal %s into Go value for bool", tok))
+		}
+	}
+
+	{
+		if tok == fflib.FFTok_null {
+
+		} else {
+			tmpb := fs.Output.Bytes()
+
+			if bytes.Compare([]byte{'t', 'r', 'u', 'e'}, tmpb) == 0 {
+
+				uj.Pay = true
+
+			} else if bytes.Compare([]byte{'f', 'a', 'l', 's', 'e'}, tmpb) == 0 {
+
+				uj.Pay = false
+
+			} else {
+				err = errors.New("unexpected bytes for true/false value")
+				return fs.WrapErr(err)
+			}
+
 		}
 	}
 

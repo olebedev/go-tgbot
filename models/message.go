@@ -103,6 +103,9 @@ type Message struct {
 	// sticker
 	Sticker *Sticker `json:"sticker,omitempty"`
 
+	// successful payment
+	SuccessfulPayment *SuccessfulPayment `json:"successful_payment,omitempty"`
+
 	// supergroup chat created
 	SupergroupChatCreated bool `json:"supergroup_chat_created,omitempty"`
 
@@ -207,6 +210,11 @@ func (m *Message) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateSticker(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateSuccessfulPayment(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -584,6 +592,25 @@ func (m *Message) validateSticker(formats strfmt.Registry) error {
 		if err := m.Sticker.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("sticker")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Message) validateSuccessfulPayment(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.SuccessfulPayment) { // not required
+		return nil
+	}
+
+	if m.SuccessfulPayment != nil {
+
+		if err := m.SuccessfulPayment.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("successful_payment")
 			}
 			return err
 		}

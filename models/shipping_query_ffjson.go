@@ -7,6 +7,7 @@ package models
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	fflib "github.com/pquerna/ffjson/fflib/v1"
 )
@@ -35,15 +36,11 @@ func (mj *ShippingQuery) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 	buf.WriteString(`{ `)
 	if mj.From != nil {
 		if true {
+			/* Struct fall back. type=models.User kind=struct */
 			buf.WriteString(`"from":`)
-
-			{
-
-				err = mj.From.MarshalJSONBuf(buf)
-				if err != nil {
-					return err
-				}
-
+			err = buf.Encode(mj.From)
+			if err != nil {
+				return err
 			}
 			buf.WriteByte(',')
 		}
@@ -261,23 +258,16 @@ handle_From:
 	/* handler: uj.From type=models.User kind=struct quoted=false*/
 
 	{
-		if tok == fflib.FFTok_null {
-
-			uj.From = nil
-
-			state = fflib.FFParse_after_value
-			goto mainparse
-		}
-
-		if uj.From == nil {
-			uj.From = new(User)
-		}
-
-		err = uj.From.UnmarshalJSONFFLexer(fs, fflib.FFParse_want_key)
+		/* Falling back. type=models.User kind=struct */
+		tbuf, err := fs.CaptureField(tok)
 		if err != nil {
-			return err
+			return fs.WrapErr(err)
 		}
-		state = fflib.FFParse_after_value
+
+		err = json.Unmarshal(tbuf, &uj.From)
+		if err != nil {
+			return fs.WrapErr(err)
+		}
 	}
 
 	state = fflib.FFParse_after_value

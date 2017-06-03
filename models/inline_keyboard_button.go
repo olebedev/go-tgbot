@@ -20,6 +20,9 @@ type InlineKeyboardButton struct {
 	// callback game
 	CallbackGame CallbackGame `json:"callback_game,omitempty"`
 
+	// pay
+	Pay bool `json:"pay,omitempty"`
+
 	// switch inline query
 	SwitchInlineQuery string `json:"switch_inline_query,omitempty"`
 
