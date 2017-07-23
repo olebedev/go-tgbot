@@ -17,11 +17,55 @@ import (
 // swagger:model ChatMember
 type ChatMember struct {
 
+	// can add web page previews
+	CanAddWebPagePreviews bool `json:"can_add_web_page_previews,omitempty"`
+
+	// can be edited
+	CanBeEdited bool `json:"can_be_edited,omitempty"`
+
+	// can change info
+	CanChangeInfo bool `json:"can_change_info,omitempty"`
+
+	// can delete messages
+	CanDeleteMessages bool `json:"can_delete_messages,omitempty"`
+
+	// can edit messages
+	CanEditMessages bool `json:"can_edit_messages,omitempty"`
+
+	// can invite users
+	CanInviteUsers bool `json:"can_invite_users,omitempty"`
+
+	// can pin messages
+	CanPinMessages bool `json:"can_pin_messages,omitempty"`
+
+	// can post messages
+	CanPostMessages bool `json:"can_post_messages,omitempty"`
+
+	// can promote members
+	CanPromoteMembers bool `json:"can_promote_members,omitempty"`
+
+	// can restrict members
+	CanRestrictMembers bool `json:"can_restrict_members,omitempty"`
+
+	// can send media messages
+	CanSendMediaMessages bool `json:"can_send_media_messages,omitempty"`
+
+	// can send messages
+	CanSendMessages bool `json:"can_send_messages,omitempty"`
+
+	// can send other messages
+	CanSendOtherMessages bool `json:"can_send_other_messages,omitempty"`
+
 	// status
-	Status string `json:"status,omitempty"`
+	// Required: true
+	Status *string `json:"status"`
+
+	// until date
+	UntilDate int64 `json:"until_date,omitempty"`
 
 	// user
-	User *User `json:"user,omitempty"`
+	// Required: true
+	User *User `json:"user"`
 }
 
 // Validate validates this chat member
@@ -48,7 +92,7 @@ var chatMemberTypeStatusPropEnum []interface{}
 
 func init() {
 	var res []string
-	if err := json.Unmarshal([]byte(`["administrator","member","left","kicked"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["creator","administrator","member","restricted","left","kicked"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
@@ -57,10 +101,14 @@ func init() {
 }
 
 const (
+	// ChatMemberStatusCreator captures enum value "creator"
+	ChatMemberStatusCreator string = "creator"
 	// ChatMemberStatusAdministrator captures enum value "administrator"
 	ChatMemberStatusAdministrator string = "administrator"
 	// ChatMemberStatusMember captures enum value "member"
 	ChatMemberStatusMember string = "member"
+	// ChatMemberStatusRestricted captures enum value "restricted"
+	ChatMemberStatusRestricted string = "restricted"
 	// ChatMemberStatusLeft captures enum value "left"
 	ChatMemberStatusLeft string = "left"
 	// ChatMemberStatusKicked captures enum value "kicked"
@@ -77,12 +125,12 @@ func (m *ChatMember) validateStatusEnum(path, location string, value string) err
 
 func (m *ChatMember) validateStatus(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Status) { // not required
-		return nil
+	if err := validate.Required("status", "body", m.Status); err != nil {
+		return err
 	}
 
 	// value enum
-	if err := m.validateStatusEnum("status", "body", m.Status); err != nil {
+	if err := m.validateStatusEnum("status", "body", *m.Status); err != nil {
 		return err
 	}
 
@@ -91,8 +139,8 @@ func (m *ChatMember) validateStatus(formats strfmt.Registry) error {
 
 func (m *ChatMember) validateUser(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.User) { // not required
-		return nil
+	if err := validate.Required("user", "body", m.User); err != nil {
+		return err
 	}
 
 	if m.User != nil {

@@ -20,20 +20,31 @@ type Chat struct {
 	// all members are administrators
 	AllMembersAreAdministrators bool `json:"all_members_are_administrators,omitempty"`
 
+	// description
+	Description string `json:"description,omitempty"`
+
 	// first name
 	FirstName string `json:"first_name,omitempty"`
 
 	// id
-	ID int64 `json:"id,omitempty"`
+	// Required: true
+	ID *int64 `json:"id"`
+
+	// invite link
+	InviteLink string `json:"invite_link,omitempty"`
 
 	// last name
 	LastName string `json:"last_name,omitempty"`
+
+	// photo
+	Photo *ChatPhoto `json:"photo,omitempty"`
 
 	// title
 	Title string `json:"title,omitempty"`
 
 	// type
-	Type string `json:"type,omitempty"`
+	// Required: true
+	Type *string `json:"type"`
 
 	// username
 	Username string `json:"username,omitempty"`
@@ -43,6 +54,16 @@ type Chat struct {
 func (m *Chat) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateID(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validatePhoto(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateType(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -51,6 +72,34 @@ func (m *Chat) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Chat) validateID(formats strfmt.Registry) error {
+
+	if err := validate.Required("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Chat) validatePhoto(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Photo) { // not required
+		return nil
+	}
+
+	if m.Photo != nil {
+
+		if err := m.Photo.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("photo")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -87,12 +136,12 @@ func (m *Chat) validateTypeEnum(path, location string, value string) error {
 
 func (m *Chat) validateType(formats strfmt.Registry) error {
 
-	if swag.IsZero(m.Type) { // not required
-		return nil
+	if err := validate.Required("type", "body", m.Type); err != nil {
+		return err
 	}
 
 	// value enum
-	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
+	if err := m.validateTypeEnum("type", "body", *m.Type); err != nil {
 		return err
 	}
 

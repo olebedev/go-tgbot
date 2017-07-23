@@ -36,4 +36,6 @@ replace: $(LIB)
 	sed -i '' 's/*os.File/runtime.NamedReadCloser/g' ./client/updates/set_webhook_parameters.go
 	sed -i '' 's/os.File/runtime.NamedReadCloser/g' ./client/attachments/send_video_note_parameters.go
 	sed -i '' 's/\&o.VideoNote/o.VideoNote/g' ./client/attachments/send_video_note_parameters.go
+	sed -i '' 's/os.File/runtime.NamedReadCloser/g' ./client/chats/set_chat_photo_parameters.go
+	sed -i '' 's/\&o.Photo/o.Photo/g' ./client/chats/set_chat_photo_parameters.go
 	goimports -w ./client

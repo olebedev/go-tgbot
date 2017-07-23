@@ -23,6 +23,62 @@ type Client struct {
 }
 
 /*
+DeleteChatPhoto delete chat photo API
+*/
+func (a *Client) DeleteChatPhoto(params *DeleteChatPhotoParams) (*DeleteChatPhotoOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteChatPhotoParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteChatPhoto",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/deleteChatPhoto",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteChatPhotoReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteChatPhotoOK), nil
+
+}
+
+/*
+ExportChatInviteLink export chat invite link API
+*/
+func (a *Client) ExportChatInviteLink(params *ExportChatInviteLinkParams) (*ExportChatInviteLinkOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewExportChatInviteLinkParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "exportChatInviteLink",
+		Method:             "GET",
+		PathPattern:        "/bot{token}/exportChatInviteLink",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &ExportChatInviteLinkReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*ExportChatInviteLinkOK), nil
+
+}
+
+/*
 GetChat get chat API
 */
 func (a *Client) GetChat(params *GetChatParams) (*GetChatOK, error) {
@@ -191,6 +247,90 @@ func (a *Client) LeaveChat(params *LeaveChatParams) (*LeaveChatOK, error) {
 }
 
 /*
+PinChatMessage pin chat message API
+*/
+func (a *Client) PinChatMessage(params *PinChatMessageParams) (*PinChatMessageOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPinChatMessageParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "pinChatMessage",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/pinChatMessage",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PinChatMessageReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PinChatMessageOK), nil
+
+}
+
+/*
+PromoteChatMember promote chat member API
+*/
+func (a *Client) PromoteChatMember(params *PromoteChatMemberParams) (*PromoteChatMemberOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewPromoteChatMemberParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "promoteChatMember",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/promoteChatMember",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &PromoteChatMemberReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*PromoteChatMemberOK), nil
+
+}
+
+/*
+RestrictChatMember restrict chat member API
+*/
+func (a *Client) RestrictChatMember(params *RestrictChatMemberParams) (*RestrictChatMemberOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewRestrictChatMemberParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "restrictChatMember",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/restrictChatMember",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &RestrictChatMemberReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*RestrictChatMemberOK), nil
+
+}
+
+/*
 SendChatAction send chat action API
 */
 func (a *Client) SendChatAction(params *SendChatActionParams) (*SendChatActionOK, error) {
@@ -219,6 +359,90 @@ func (a *Client) SendChatAction(params *SendChatActionParams) (*SendChatActionOK
 }
 
 /*
+SetChatDescription set chat description API
+*/
+func (a *Client) SetChatDescription(params *SetChatDescriptionParams) (*SetChatDescriptionOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetChatDescriptionParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "setChatDescription",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/setChatDescription",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetChatDescriptionReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SetChatDescriptionOK), nil
+
+}
+
+/*
+SetChatPhoto set chat photo API
+*/
+func (a *Client) SetChatPhoto(params *SetChatPhotoParams) (*SetChatPhotoOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetChatPhotoParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "setChatPhoto",
+		Method:             "GET",
+		PathPattern:        "/bot{token}/setChatPhoto",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"multipart/form-data"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetChatPhotoReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SetChatPhotoOK), nil
+
+}
+
+/*
+SetChatTitle set chat title API
+*/
+func (a *Client) SetChatTitle(params *SetChatTitleParams) (*SetChatTitleOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetChatTitleParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "setChatTitle",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/setChatTitle",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetChatTitleReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SetChatTitleOK), nil
+
+}
+
+/*
 UnbanChatMember unban chat member API
 */
 func (a *Client) UnbanChatMember(params *UnbanChatMemberParams) (*UnbanChatMemberOK, error) {
@@ -243,6 +467,34 @@ func (a *Client) UnbanChatMember(params *UnbanChatMemberParams) (*UnbanChatMembe
 		return nil, err
 	}
 	return result.(*UnbanChatMemberOK), nil
+
+}
+
+/*
+UnpinChatMessage unpin chat message API
+*/
+func (a *Client) UnpinChatMessage(params *UnpinChatMessageParams) (*UnpinChatMessageOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewUnpinChatMessageParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "unpinChatMessage",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/unpinChatMessage",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &UnpinChatMessageReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*UnpinChatMessageOK), nil
 
 }
 

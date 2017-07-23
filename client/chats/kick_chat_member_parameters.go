@@ -12,6 +12,7 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
 )
@@ -67,8 +68,10 @@ type KickChatMemberParams struct {
 
 	*/
 	Token *string
+	/*UntilDate*/
+	UntilDate *int64
 	/*UserID*/
-	UserID string
+	UserID int64
 
 	timeout    time.Duration
 	Context    context.Context
@@ -130,14 +133,25 @@ func (o *KickChatMemberParams) SetToken(token *string) {
 	o.Token = token
 }
 
+// WithUntilDate adds the untilDate to the kick chat member params
+func (o *KickChatMemberParams) WithUntilDate(untilDate *int64) *KickChatMemberParams {
+	o.SetUntilDate(untilDate)
+	return o
+}
+
+// SetUntilDate adds the untilDate to the kick chat member params
+func (o *KickChatMemberParams) SetUntilDate(untilDate *int64) {
+	o.UntilDate = untilDate
+}
+
 // WithUserID adds the userID to the kick chat member params
-func (o *KickChatMemberParams) WithUserID(userID string) *KickChatMemberParams {
+func (o *KickChatMemberParams) WithUserID(userID int64) *KickChatMemberParams {
 	o.SetUserID(userID)
 	return o
 }
 
 // SetUserID adds the userId to the kick chat member params
-func (o *KickChatMemberParams) SetUserID(userID string) {
+func (o *KickChatMemberParams) SetUserID(userID int64) {
 	o.UserID = userID
 }
 
@@ -167,9 +181,25 @@ func (o *KickChatMemberParams) WriteToRequest(r runtime.ClientRequest, reg strfm
 
 	}
 
+	if o.UntilDate != nil {
+
+		// query param until_date
+		var qrUntilDate int64
+		if o.UntilDate != nil {
+			qrUntilDate = *o.UntilDate
+		}
+		qUntilDate := swag.FormatInt64(qrUntilDate)
+		if qUntilDate != "" {
+			if err := r.SetQueryParam("until_date", qUntilDate); err != nil {
+				return err
+			}
+		}
+
+	}
+
 	// query param user_id
 	qrUserID := o.UserID
-	qUserID := qrUserID
+	qUserID := swag.FormatInt64(qrUserID)
 	if qUserID != "" {
 		if err := r.SetQueryParam("user_id", qUserID); err != nil {
 			return err

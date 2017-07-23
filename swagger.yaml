@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: |
     This is a swagger defenition for [Telegram bot API](https://core.telegram.org/bots/api).
-  version: "3.0"
+  version: "3.1"
   title: Telegram bot API
 externalDocs:
   description: Find out more about Telegram bot API
@@ -1560,8 +1560,13 @@ paths:
         description: ""
       - in: query
         name: user_id
-        type: string
+        type: integer
         required: true
+        description: ""
+      - in: query
+        name: until_date
+        type: integer
+        required: false
         description: ""
       responses:
         200:
@@ -1708,6 +1713,93 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
+  /bot{token}/restrictChatMember:
+    post:
+      tags:
+      - chats
+      description: ""
+      operationId: restrictChatMember
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        schema: 
+          $ref: "#/definitions/RestrictChatMemberBody"
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/promoteChatMember:
+    post:
+      tags:
+      - chats
+      description: ""
+      operationId: promoteChatMember
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        schema: 
+          $ref: "#/definitions/PromoteChatMemberBody"
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+
   /bot{token}/getChat:
     get:
       tags:
@@ -1919,6 +2011,327 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
+  /bot{token}/exportChatInviteLink:
+    get:
+      tags:
+      - chats
+      description: ""
+      operationId: exportChatInviteLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: string
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/setChatPhoto:
+    get:
+      tags:
+      - chats
+      description: ""
+      consumes:
+      - multipart/form-data
+      operationId: setChatPhoto
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: photo
+        type: file
+        required: true
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/deleteChatPhoto:
+    post:
+      tags:
+      - chats
+      description: ""
+      operationId: deleteChatPhoto
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/setChatTitle:
+    post:
+      tags:
+      - chats
+      description: ""
+      operationId: setChatTitle
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: query
+        name: title
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/setChatDescription:
+    post:
+      tags:
+      - chats
+      description: ""
+      operationId: setChatDescription
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: query
+        name: description
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/pinChatMessage:
+    post:
+      tags:
+      - chats
+      description: ""
+      operationId: pinChatMessage
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      - in: query
+        name: message_id
+        type: integer
+        required: true
+        description: ""
+      - in: query
+        name: disable_notification
+        type: boolean
+        required: false
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/unpinChatMessage:
+    post:
+      tags:
+      - chats
+      description: ""
+      operationId: unpinChatMessage
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+
   /bot{token}/answerCallbackQuery:
     post:
       tags:
@@ -2587,6 +3000,9 @@ definitions:
         type: string
   Chat:
     type: object
+    required:
+    - id
+    - type
     properties:
       id:
         type: integer
@@ -2607,6 +3023,12 @@ definitions:
         type: string
       all_members_are_administrators:
         type: boolean
+      photo:
+        $ref: '#/definitions/ChatPhoto'
+      description:
+        type: string
+      invite_link:
+        type: string
   Message:
     type: object
     properties:
@@ -2916,16 +3338,49 @@ definitions:
         type: boolean
   ChatMember:
     type: object
+    required:
+    - user
+    - status
     properties:
       user:
         $ref: '#/definitions/User'
       status:
         type: string
         enum:
+        - creator
         - administrator
         - member
+        - restricted
         - left
         - kicked
+      until_date:
+        type: integer
+      can_be_edited:
+        type: boolean
+      can_change_info:
+        type: boolean
+      can_post_messages:
+        type: boolean
+      can_edit_messages:
+        type: boolean
+      can_delete_messages:
+        type: boolean
+      can_invite_users:
+        type: boolean
+      can_restrict_members:
+        type: boolean
+      can_pin_messages:
+        type: boolean
+      can_promote_members:
+        type: boolean
+      can_send_messages:
+        type: boolean
+      can_send_media_messages:
+        type: boolean
+      can_send_other_messages:
+        type: boolean
+      can_add_web_page_previews:
+        type: boolean
   ResponseParameters:
     type: object
     properties:
@@ -3739,7 +4194,7 @@ definitions:
       reply_to_message_id:
         type: integer
       reply_markup:
-        type: object  
+        type: object
   SendStickerLinkBody:
     type: object
     required:
@@ -3993,7 +4448,7 @@ definitions:
         type: integer
       last_error_date:
         type: integer
-      last_error_message: 
+      last_error_message:
         type: string
       max_connections:
         type: integer
@@ -4040,17 +4495,17 @@ definitions:
       country_code:
         type: string
       stat:
-        type: string  
+        type: string
       city:
-        type: string  
+        type: string
       street_line1:
         type: string
       street_line2:
         type: string
       post_code:
-        type: string 
+        type: string
   OrderInfo:
-    type: object 
+    type: object
     properties:
       name:
         type: string
@@ -4093,7 +4548,7 @@ definitions:
     properties:
       id:
         type: string
-      from: 
+      from:
         $ref: '#/definitions/User'
       invoice_payload:
         type: string
@@ -4104,7 +4559,7 @@ definitions:
     properties:
       id:
         type: string
-      from: 
+      from:
         $ref: '#/definitions/User'
       currency:
         type: string
@@ -4144,7 +4599,7 @@ definitions:
         type: string
       prices:
         type: array
-        items: 
+        items:
           $ref: "#/definitions/LabeledPrice"
       photo_url:
         type: string
@@ -4182,7 +4637,68 @@ definitions:
         type: boolean
       shipping_options:
         type: array
-        items: 
+        items:
           $ref: "#/definitions/ShippingOption"
       error_message:
         type: string
+  ChatPhoto:
+    type: object
+    properties:
+      small_file_id:
+        type: string
+      big_file_id:
+        type: string
+  RestrictChatMemberBody:
+    type: object
+    required:
+    - chat_id
+    - user_id
+    properties:
+      chat_id:
+        type: object
+      user_id:
+        type: integer
+      until_date:
+        type: integer
+      can_send_messages:
+        type: boolean
+      can_send_media_messages:
+        type: boolean
+      can_send_other_messages:
+        type: boolean
+      can_add_web_page_previews:
+        type: boolean
+  PromoteChatMemberBody:
+    type: object
+    required:
+    - chat_id
+    - user_id
+    properties:
+      chat_id:
+        type: object
+      user_id:
+        type: integer
+      can_change_info:
+        type: boolean
+        x-nullable: true
+      can_post_messages:
+        type: boolean
+        x-nullable: true
+      can_edit_messages:
+        type: boolean
+        x-nullable: true
+      can_delete_messages:
+        type: boolean
+        x-nullable: true
+      can_invite_users:
+        type: boolean
+        x-nullable: true
+      can_restrict_members:
+        type: boolean
+        x-nullable: true
+      can_pin_messages:
+        type: boolean
+        x-nullable: true
+      can_promote_members:
+        type: boolean
+        x-nullable: true
