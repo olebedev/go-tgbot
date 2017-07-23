@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: |
     This is a swagger defenition for [Telegram bot API](https://core.telegram.org/bots/api).
-  version: "3.1"
+  version: "3.2"
   title: Telegram bot API
 externalDocs:
   description: Find out more about Telegram bot API
@@ -1799,7 +1799,6 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
-
   /bot{token}/getChat:
     get:
       tags:
@@ -2331,7 +2330,6 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
-
   /bot{token}/answerCallbackQuery:
     post:
       tags:
@@ -2984,6 +2982,466 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
+  /bot{token}/getStickerSet:
+    get:
+      tags:
+      - stickers
+      description: ""
+      operationId: getStickerSet
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: name
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/definitions/StickerSet"
+              error_code:
+                type: integer
+              ok:
+                type: boolean
+              description:
+                type: string
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/uploadStickerFile:
+    post:
+      tags:
+      - stickers
+      description: ""
+      operationId: uploadStickerFile
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: user_id
+        type: integer
+        required: true
+        description: ""
+      - in: formData
+        name: png_sticker
+        type: file
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/File"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/uploadStickerFile#link:
+    post:
+      tags:
+      - stickers
+      description: ""
+      operationId: uploadStickerFileLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: user_id
+        type: integer
+        required: true
+        description: ""
+      - in: formData
+        name: png_sticker
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/File"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/createNewStickerSet:
+    post:
+      tags:
+      - stickers
+      description: ""
+      operationId: createNewStickerSet
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: user_id
+        type: integer
+        required: true
+        description: ""
+      - in: formData
+        name: name
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: title
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: png_sticker
+        type: file
+        required: true
+        description: ""
+      - in: formData
+        name: emojis
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: is_masks
+        type: boolean
+        required: false
+        description: ""
+      - in: formData
+        name: mask_position
+        type: string
+        required: false
+        description: Serialized to JSON MaskPosition
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/File"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/createNewStickerSet#link:
+    post:
+      tags:
+      - stickers
+      description: ""
+      operationId: createNewStickerSetLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        schema:
+          $ref: "#/definitions/CreateNewStickerSetLinkBody"
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/File"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/addStickerToSet:
+    post:
+      tags:
+      - stickers
+      description: ""
+      operationId: addStickerToSet
+      consumes:
+      - multipart/form-data
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: user_id
+        type: integer
+        required: true
+        description: ""
+      - in: formData
+        name: name
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: png_sticker
+        type: file
+        required: true
+        description: ""
+      - in: formData
+        name: emojis
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: mask_position
+        type: string
+        required: false
+        description: Serialized to JSON MaskPosition
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/addStickerToSet#link:
+    post:
+      tags:
+      - stickers
+      description: ""
+      operationId: addStickerToSetLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        schema:
+          $ref: "#/definitions/AddStickerToSetLinkBody"
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/setStickerPositionInSet:
+    post:
+      tags:
+      - stickers
+      description: ""
+      operationId: setStickerPositionInSet
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: sticker
+        type: string
+        required: true
+        description: ""
+      - in: formData
+        name: position
+        type: integer
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/deleteStickerFromSet:
+    post:
+      tags:
+      - stickers
+      description: ""
+      operationId: deleteStickerFromSet
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: formData
+        name: sticker
+        type: string
+        required: true
+        description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            type: boolean
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
 definitions:
   User:
     type: object
@@ -3189,6 +3647,10 @@ definitions:
         $ref: '#/definitions/PhotoSize'
       emoji:
         type: string
+      set_name:
+        type: string
+      mask_position:
+        $ref: '#/definitions/MaskPosition'
       file_size:
         type: integer
   Video:
@@ -4702,3 +5164,73 @@ definitions:
       can_promote_members:
         type: boolean
         x-nullable: true
+  MaskPosition:
+    type: object
+    properties:
+      point:
+        type: string
+        enum:
+        - forehead
+        - eyes
+        - mouth
+        - chin
+      x_shift:
+        type: number
+      y_shift:
+        type: number
+      zoom:
+        type: number
+  StickerSet:
+    type: object
+    properties:
+      name:
+        type: string
+      title:
+        type: string
+      is_masks:
+        type: boolean
+      stickers:
+        type: array
+        items:
+          $ref: "#/definitions/Sticker"
+  CreateNewStickerSetLinkBody:
+    type: object
+    required:
+    - user_id
+    - name
+    - title
+    - png_sticker
+    - emojis
+    properties:
+      user_id:
+        type: integer
+      name:
+        type: string
+      title:
+        type: string
+      png_sticker:
+        type: string
+      emojis:
+        type: string
+      is_masks:
+        type: boolean
+      mask_position:
+        $ref: "#/definitions/MaskPosition"
+  AddStickerToSetLinkBody:
+    type: object
+    required:
+    - user_id
+    - name
+    - png_sticker
+    - emojis
+    properties:
+      user_id:
+        type: integer
+      name:
+        type: string
+      png_sticker:
+        type: string
+      emojis:
+        type: string
+      mask_position:
+        $ref: "#/definitions/MaskPosition"

@@ -26,6 +26,12 @@ type Sticker struct {
 	// height
 	Height int64 `json:"height,omitempty"`
 
+	// mask position
+	MaskPosition *MaskPosition `json:"mask_position,omitempty"`
+
+	// set name
+	SetName string `json:"set_name,omitempty"`
+
 	// thumb
 	Thumb *PhotoSize `json:"thumb,omitempty"`
 
@@ -37,6 +43,11 @@ type Sticker struct {
 func (m *Sticker) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateMaskPosition(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
 	if err := m.validateThumb(formats); err != nil {
 		// prop
 		res = append(res, err)
@@ -45,6 +56,25 @@ func (m *Sticker) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Sticker) validateMaskPosition(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.MaskPosition) { // not required
+		return nil
+	}
+
+	if m.MaskPosition != nil {
+
+		if err := m.MaskPosition.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("mask_position")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

@@ -38,4 +38,10 @@ replace: $(LIB)
 	sed -i '' 's/\&o.VideoNote/o.VideoNote/g' ./client/attachments/send_video_note_parameters.go
 	sed -i '' 's/os.File/runtime.NamedReadCloser/g' ./client/chats/set_chat_photo_parameters.go
 	sed -i '' 's/\&o.Photo/o.Photo/g' ./client/chats/set_chat_photo_parameters.go
+	sed -i '' 's/os.File/runtime.NamedReadCloser/g' ./client/stickers/upload_sticker_file_parameters.go
+	sed -i '' 's/\&o.PngSticker/o.PngSticker/g' ./client/stickers/upload_sticker_file_parameters.go
+	sed -i '' 's/os.File/runtime.NamedReadCloser/g' ./client/stickers/create_new_sticker_set_parameters.go
+	sed -i '' 's/\&o.PngSticker/o.PngSticker/g' ./client/stickers/create_new_sticker_set_parameters.go
+	sed -i '' 's/os.File/runtime.NamedReadCloser/g' ./client/stickers/add_sticker_to_set_parameters.go
+	sed -i '' 's/\&o.PngSticker/o.PngSticker/g' ./client/stickers/add_sticker_to_set_parameters.go
 	goimports -w ./client
