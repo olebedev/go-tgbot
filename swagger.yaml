@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: |
     This is a swagger defenition for [Telegram bot API](https://core.telegram.org/bots/api).
-  version: "1.0.0"
+  version: "3.0"
   title: Telegram bot API
 externalDocs:
   description: Find out more about Telegram bot API
