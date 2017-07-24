@@ -3464,6 +3464,7 @@ definitions:
     properties:
       id:
         type: integer
+        x-nullable: false
       type:
         type: string
         enum:

@@ -28,7 +28,7 @@ type Chat struct {
 
 	// id
 	// Required: true
-	ID *int64 `json:"id"`
+	ID int64 `json:"id"`
 
 	// invite link
 	InviteLink string `json:"invite_link,omitempty"`
@@ -77,7 +77,7 @@ func (m *Chat) Validate(formats strfmt.Registry) error {
 
 func (m *Chat) validateID(formats strfmt.Registry) error {
 
-	if err := validate.Required("id", "body", m.ID); err != nil {
+	if err := validate.Required("id", "body", int64(m.ID)); err != nil {
 		return err
 	}
 
