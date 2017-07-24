@@ -2934,22 +2934,22 @@ paths:
           schema:
             $ref: "#/definitions/Error"
   /bot{token}/answerPreCheckoutQuery:
-    post:
+    get:
       tags:
       - payments
       description: ""
       operationId: answerPreCheckoutQuery
       parameters:
       - $ref: '#/parameters/token'
-      - in: formData
+      - in: query
         name: pre_checkout_query_id
         required: true
         type: string
-      - in: formData
+      - in: query
         name: ok
         required: true
         type: boolean
-      - in: formData
+      - in: query
         name: error_message
         required: false
         type: string

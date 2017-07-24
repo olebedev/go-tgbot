@@ -165,34 +165,34 @@ func (o *AnswerPreCheckoutQueryParams) WriteToRequest(r runtime.ClientRequest, r
 
 	if o.ErrorMessage != nil {
 
-		// form param error_message
-		var frErrorMessage string
+		// query param error_message
+		var qrErrorMessage string
 		if o.ErrorMessage != nil {
-			frErrorMessage = *o.ErrorMessage
+			qrErrorMessage = *o.ErrorMessage
 		}
-		fErrorMessage := frErrorMessage
-		if fErrorMessage != "" {
-			if err := r.SetFormParam("error_message", fErrorMessage); err != nil {
+		qErrorMessage := qrErrorMessage
+		if qErrorMessage != "" {
+			if err := r.SetQueryParam("error_message", qErrorMessage); err != nil {
 				return err
 			}
 		}
 
 	}
 
-	// form param ok
-	frOk := o.Ok
-	fOk := swag.FormatBool(frOk)
-	if fOk != "" {
-		if err := r.SetFormParam("ok", fOk); err != nil {
+	// query param ok
+	qrOk := o.Ok
+	qOk := swag.FormatBool(qrOk)
+	if qOk != "" {
+		if err := r.SetQueryParam("ok", qOk); err != nil {
 			return err
 		}
 	}
 
-	// form param pre_checkout_query_id
-	frPreCheckoutQueryID := o.PreCheckoutQueryID
-	fPreCheckoutQueryID := frPreCheckoutQueryID
-	if fPreCheckoutQueryID != "" {
-		if err := r.SetFormParam("pre_checkout_query_id", fPreCheckoutQueryID); err != nil {
+	// query param pre_checkout_query_id
+	qrPreCheckoutQueryID := o.PreCheckoutQueryID
+	qPreCheckoutQueryID := qrPreCheckoutQueryID
+	if qPreCheckoutQueryID != "" {
+		if err := r.SetQueryParam("pre_checkout_query_id", qPreCheckoutQueryID); err != nil {
 			return err
 		}
 	}

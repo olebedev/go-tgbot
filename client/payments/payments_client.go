@@ -33,7 +33,7 @@ func (a *Client) AnswerPreCheckoutQuery(params *AnswerPreCheckoutQueryParams) (*
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "answerPreCheckoutQuery",
-		Method:             "POST",
+		Method:             "GET",
 		PathPattern:        "/bot{token}/answerPreCheckoutQuery",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},

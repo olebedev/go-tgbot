@@ -91,7 +91,7 @@ type AnswerPreCheckoutQueryOK struct {
 }
 
 func (o *AnswerPreCheckoutQueryOK) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[GET /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryOK  %+v", 200, o.Payload)
 }
 
 func (o *AnswerPreCheckoutQueryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -120,7 +120,7 @@ type AnswerPreCheckoutQueryBadRequest struct {
 }
 
 func (o *AnswerPreCheckoutQueryBadRequest) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryBadRequest  %+v", 400, o.Payload)
+	return fmt.Sprintf("[GET /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *AnswerPreCheckoutQueryBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -149,7 +149,7 @@ type AnswerPreCheckoutQueryUnauthorized struct {
 }
 
 func (o *AnswerPreCheckoutQueryUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[GET /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *AnswerPreCheckoutQueryUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -178,7 +178,7 @@ type AnswerPreCheckoutQueryForbidden struct {
 }
 
 func (o *AnswerPreCheckoutQueryForbidden) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryForbidden  %+v", 403, o.Payload)
+	return fmt.Sprintf("[GET /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryForbidden  %+v", 403, o.Payload)
 }
 
 func (o *AnswerPreCheckoutQueryForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -207,7 +207,7 @@ type AnswerPreCheckoutQueryNotFound struct {
 }
 
 func (o *AnswerPreCheckoutQueryNotFound) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[GET /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryNotFound  %+v", 404, o.Payload)
 }
 
 func (o *AnswerPreCheckoutQueryNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -236,7 +236,7 @@ type AnswerPreCheckoutQueryEnhanceYourCalm struct {
 }
 
 func (o *AnswerPreCheckoutQueryEnhanceYourCalm) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryEnhanceYourCalm  %+v", 420, o.Payload)
+	return fmt.Sprintf("[GET /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryEnhanceYourCalm  %+v", 420, o.Payload)
 }
 
 func (o *AnswerPreCheckoutQueryEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,7 +265,7 @@ type AnswerPreCheckoutQueryInternalServerError struct {
 }
 
 func (o *AnswerPreCheckoutQueryInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[GET /bot{token}/answerPreCheckoutQuery][%d] answerPreCheckoutQueryInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *AnswerPreCheckoutQueryInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
