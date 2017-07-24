@@ -87,7 +87,7 @@ func NewAnswerPreCheckoutQueryOK() *AnswerPreCheckoutQueryOK {
 AnswerPreCheckoutQueryOK answer pre checkout query o k
 */
 type AnswerPreCheckoutQueryOK struct {
-	Payload *models.ResponseMessage
+	Payload *models.ResponseBool
 }
 
 func (o *AnswerPreCheckoutQueryOK) Error() string {
@@ -96,7 +96,7 @@ func (o *AnswerPreCheckoutQueryOK) Error() string {
 
 func (o *AnswerPreCheckoutQueryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.ResponseMessage)
+	o.Payload = new(models.ResponseBool)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {

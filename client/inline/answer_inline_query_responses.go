@@ -7,10 +7,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -90,7 +87,7 @@ func NewAnswerInlineQueryOK() *AnswerInlineQueryOK {
 AnswerInlineQueryOK answer inline query o k
 */
 type AnswerInlineQueryOK struct {
-	Payload AnswerInlineQueryOKBody
+	Payload *models.ResponseBool
 }
 
 func (o *AnswerInlineQueryOK) Error() string {
@@ -99,8 +96,10 @@ func (o *AnswerInlineQueryOK) Error() string {
 
 func (o *AnswerInlineQueryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseBool)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -278,111 +277,5 @@ func (o *AnswerInlineQueryInternalServerError) readResponse(response runtime.Cli
 		return err
 	}
 
-	return nil
-}
-
-/*AnswerInlineQueryOKBody answer inline query o k body
-swagger:model AnswerInlineQueryOKBody
-*/
-type AnswerInlineQueryOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *bool `json:"result"`
-}
-
-// Validate validates this answer inline query o k body
-func (o *AnswerInlineQueryOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateDescription(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateErrorCode(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateOk(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateResult(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *AnswerInlineQueryOKBody) validateDescription(formats strfmt.Registry) error {
-
-	if err := validate.Required("answerInlineQueryOK"+"."+"description", "body", o.Description); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *AnswerInlineQueryOKBody) validateErrorCode(formats strfmt.Registry) error {
-
-	if err := validate.Required("answerInlineQueryOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *AnswerInlineQueryOKBody) validateOk(formats strfmt.Registry) error {
-
-	if err := validate.Required("answerInlineQueryOK"+"."+"ok", "body", o.Ok); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *AnswerInlineQueryOKBody) validateResult(formats strfmt.Registry) error {
-
-	if err := validate.Required("answerInlineQueryOK"+"."+"result", "body", o.Result); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *AnswerInlineQueryOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *AnswerInlineQueryOKBody) UnmarshalBinary(b []byte) error {
-	var res AnswerInlineQueryOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

@@ -1399,16 +1399,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                type: boolean
-              error_code:
-                type: integer
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -1572,16 +1563,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                type: boolean
-              error_code:
-                type: integer
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -1623,16 +1605,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                type: boolean
-              error_code:
-                type: integer
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -1679,16 +1652,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                type: boolean
-              error_code:
-                type: integer
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -2369,16 +2333,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                type: boolean
-              error_code:
-                type: integer
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -2624,16 +2579,7 @@ paths:
         200:
           description: ""
           schema:
-            type: object
-            properties:
-              result:
-                type: boolean
-              error_code:
-                type: integer
-              ok:
-                type: boolean
-              description:
-                type: string
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -2957,7 +2903,7 @@ paths:
         200:
           description: ""
           schema:
-            $ref: "#/definitions/ResponseMessage"
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:

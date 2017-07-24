@@ -7,10 +7,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -90,7 +87,7 @@ func NewAnswerCallbackQueryOK() *AnswerCallbackQueryOK {
 AnswerCallbackQueryOK answer callback query o k
 */
 type AnswerCallbackQueryOK struct {
-	Payload AnswerCallbackQueryOKBody
+	Payload *models.ResponseBool
 }
 
 func (o *AnswerCallbackQueryOK) Error() string {
@@ -99,8 +96,10 @@ func (o *AnswerCallbackQueryOK) Error() string {
 
 func (o *AnswerCallbackQueryOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseBool)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -278,111 +277,5 @@ func (o *AnswerCallbackQueryInternalServerError) readResponse(response runtime.C
 		return err
 	}
 
-	return nil
-}
-
-/*AnswerCallbackQueryOKBody answer callback query o k body
-swagger:model AnswerCallbackQueryOKBody
-*/
-type AnswerCallbackQueryOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *bool `json:"result"`
-}
-
-// Validate validates this answer callback query o k body
-func (o *AnswerCallbackQueryOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateDescription(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateErrorCode(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateOk(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateResult(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *AnswerCallbackQueryOKBody) validateDescription(formats strfmt.Registry) error {
-
-	if err := validate.Required("answerCallbackQueryOK"+"."+"description", "body", o.Description); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *AnswerCallbackQueryOKBody) validateErrorCode(formats strfmt.Registry) error {
-
-	if err := validate.Required("answerCallbackQueryOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *AnswerCallbackQueryOKBody) validateOk(formats strfmt.Registry) error {
-
-	if err := validate.Required("answerCallbackQueryOK"+"."+"ok", "body", o.Ok); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *AnswerCallbackQueryOKBody) validateResult(formats strfmt.Registry) error {
-
-	if err := validate.Required("answerCallbackQueryOK"+"."+"result", "body", o.Result); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *AnswerCallbackQueryOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *AnswerCallbackQueryOKBody) UnmarshalBinary(b []byte) error {
-	var res AnswerCallbackQueryOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }
