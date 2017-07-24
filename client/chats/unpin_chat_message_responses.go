@@ -87,7 +87,7 @@ func NewUnpinChatMessageOK() *UnpinChatMessageOK {
 UnpinChatMessageOK unpin chat message o k
 */
 type UnpinChatMessageOK struct {
-	Payload bool
+	Payload *models.ResponseBool
 }
 
 func (o *UnpinChatMessageOK) Error() string {
@@ -96,8 +96,10 @@ func (o *UnpinChatMessageOK) Error() string {
 
 func (o *UnpinChatMessageOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseBool)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

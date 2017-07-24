@@ -87,7 +87,7 @@ func NewDeleteStickerFromSetOK() *DeleteStickerFromSetOK {
 DeleteStickerFromSetOK delete sticker from set o k
 */
 type DeleteStickerFromSetOK struct {
-	Payload bool
+	Payload *models.ResponseBool
 }
 
 func (o *DeleteStickerFromSetOK) Error() string {
@@ -96,8 +96,10 @@ func (o *DeleteStickerFromSetOK) Error() string {
 
 func (o *DeleteStickerFromSetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseBool)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

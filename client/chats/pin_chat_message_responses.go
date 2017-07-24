@@ -87,7 +87,7 @@ func NewPinChatMessageOK() *PinChatMessageOK {
 PinChatMessageOK pin chat message o k
 */
 type PinChatMessageOK struct {
-	Payload bool
+	Payload *models.ResponseBool
 }
 
 func (o *PinChatMessageOK) Error() string {
@@ -96,8 +96,10 @@ func (o *PinChatMessageOK) Error() string {
 
 func (o *PinChatMessageOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseBool)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

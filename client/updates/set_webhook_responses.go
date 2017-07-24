@@ -87,7 +87,7 @@ func NewSetWebhookOK() *SetWebhookOK {
 Is OK?
 */
 type SetWebhookOK struct {
-	Payload bool
+	Payload *models.ResponseBool
 }
 
 func (o *SetWebhookOK) Error() string {
@@ -96,8 +96,10 @@ func (o *SetWebhookOK) Error() string {
 
 func (o *SetWebhookOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseBool)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

@@ -133,7 +133,7 @@ paths:
         200:
           description: Is OK?
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -168,7 +168,7 @@ paths:
         200:
           description: Is OK?
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -1731,7 +1731,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -1774,7 +1774,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -2075,7 +2075,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -2117,7 +2117,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -2164,7 +2164,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -2211,7 +2211,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -2263,7 +2263,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -2305,7 +2305,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -2581,7 +2581,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -3285,7 +3285,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -3328,7 +3328,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -3375,7 +3375,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -3417,7 +3417,7 @@ paths:
         200:
           description: ""
           schema:
-            type: boolean
+            $ref: "#/definitions/ResponseBool"
         400:
           description: Bad Request
           schema:
@@ -4545,6 +4545,17 @@ definitions:
     properties:
       result:
         $ref: "#/definitions/Message"
+      error_code:
+        type: integer
+      ok:
+        type: boolean
+      description:
+        type: string
+  ResponseBool:
+    type: object
+    properties:
+      result:
+        type: boolean
       error_code:
         type: integer
       ok:

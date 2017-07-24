@@ -87,7 +87,7 @@ func NewSetChatPhotoOK() *SetChatPhotoOK {
 SetChatPhotoOK set chat photo o k
 */
 type SetChatPhotoOK struct {
-	Payload bool
+	Payload *models.ResponseBool
 }
 
 func (o *SetChatPhotoOK) Error() string {
@@ -96,8 +96,10 @@ func (o *SetChatPhotoOK) Error() string {
 
 func (o *SetChatPhotoOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseBool)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

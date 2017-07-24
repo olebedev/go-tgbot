@@ -87,7 +87,7 @@ func NewPromoteChatMemberOK() *PromoteChatMemberOK {
 PromoteChatMemberOK promote chat member o k
 */
 type PromoteChatMemberOK struct {
-	Payload bool
+	Payload *models.ResponseBool
 }
 
 func (o *PromoteChatMemberOK) Error() string {
@@ -96,8 +96,10 @@ func (o *PromoteChatMemberOK) Error() string {
 
 func (o *PromoteChatMemberOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseBool)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

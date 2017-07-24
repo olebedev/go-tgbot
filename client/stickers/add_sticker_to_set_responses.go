@@ -87,7 +87,7 @@ func NewAddStickerToSetOK() *AddStickerToSetOK {
 AddStickerToSetOK add sticker to set o k
 */
 type AddStickerToSetOK struct {
-	Payload bool
+	Payload *models.ResponseBool
 }
 
 func (o *AddStickerToSetOK) Error() string {
@@ -96,8 +96,10 @@ func (o *AddStickerToSetOK) Error() string {
 
 func (o *AddStickerToSetOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseBool)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 

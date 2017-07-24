@@ -87,7 +87,7 @@ func NewSetChatDescriptionOK() *SetChatDescriptionOK {
 SetChatDescriptionOK set chat description o k
 */
 type SetChatDescriptionOK struct {
-	Payload bool
+	Payload *models.ResponseBool
 }
 
 func (o *SetChatDescriptionOK) Error() string {
@@ -96,8 +96,10 @@ func (o *SetChatDescriptionOK) Error() string {
 
 func (o *SetChatDescriptionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.ResponseBool)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
