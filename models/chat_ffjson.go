@@ -53,12 +53,8 @@ func (mj *Chat) MarshalJSONBuf(buf fflib.EncodingBuffer) error {
 		fflib.WriteJsonString(buf, string(mj.FirstName))
 		buf.WriteByte(',')
 	}
-	if mj.ID != nil {
-		buf.WriteString(`"id":`)
-		fflib.FormatBits2(buf, uint64(*mj.ID), 10, *mj.ID < 0)
-	} else {
-		buf.WriteString(`"id":null`)
-	}
+	buf.WriteString(`"id":`)
+	fflib.FormatBits2(buf, uint64(mj.ID), 10, mj.ID < 0)
 	buf.WriteByte(',')
 	if len(mj.InviteLink) != 0 {
 		buf.WriteString(`"invite_link":`)
@@ -505,8 +501,6 @@ handle_ID:
 
 		if tok == fflib.FFTok_null {
 
-			uj.ID = nil
-
 		} else {
 
 			tval, err := fflib.ParseInt(fs.Output.Bytes(), 10, 64)
@@ -515,8 +509,7 @@ handle_ID:
 				return fs.WrapErr(err)
 			}
 
-			ttypval := int64(tval)
-			uj.ID = &ttypval
+			uj.ID = int64(tval)
 
 		}
 	}
