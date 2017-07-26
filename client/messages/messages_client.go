@@ -202,7 +202,7 @@ func (a *Client) SendMessageBytes(params *SendMessageBytesParams) (*SendMessageB
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "sendMessageBytes",
 		Method:             "POST",
-		PathPattern:        "/bot{token}/sendMessageBytes",
+		PathPattern:        "/bot{token}/sendMessage#bytes",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
 		Schemes:            []string{"https"},

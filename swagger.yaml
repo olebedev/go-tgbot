@@ -316,7 +316,7 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
-  /bot{token}/sendMessageBytes:
+  /bot{token}/sendMessage#bytes:
     post:
       tags:
       - messages

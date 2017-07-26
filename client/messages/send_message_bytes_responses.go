@@ -91,7 +91,7 @@ type SendMessageBytesOK struct {
 }
 
 func (o *SendMessageBytesOK) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/sendMessageBytes][%d] sendMessageBytesOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/sendMessage#bytes][%d] sendMessageBytesOK  %+v", 200, o.Payload)
 }
 
 func (o *SendMessageBytesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -120,7 +120,7 @@ type SendMessageBytesBadRequest struct {
 }
 
 func (o *SendMessageBytesBadRequest) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/sendMessageBytes][%d] sendMessageBytesBadRequest  %+v", 400, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/sendMessage#bytes][%d] sendMessageBytesBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *SendMessageBytesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -149,7 +149,7 @@ type SendMessageBytesUnauthorized struct {
 }
 
 func (o *SendMessageBytesUnauthorized) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/sendMessageBytes][%d] sendMessageBytesUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/sendMessage#bytes][%d] sendMessageBytesUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *SendMessageBytesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -178,7 +178,7 @@ type SendMessageBytesForbidden struct {
 }
 
 func (o *SendMessageBytesForbidden) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/sendMessageBytes][%d] sendMessageBytesForbidden  %+v", 403, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/sendMessage#bytes][%d] sendMessageBytesForbidden  %+v", 403, o.Payload)
 }
 
 func (o *SendMessageBytesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -207,7 +207,7 @@ type SendMessageBytesNotFound struct {
 }
 
 func (o *SendMessageBytesNotFound) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/sendMessageBytes][%d] sendMessageBytesNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/sendMessage#bytes][%d] sendMessageBytesNotFound  %+v", 404, o.Payload)
 }
 
 func (o *SendMessageBytesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -236,7 +236,7 @@ type SendMessageBytesEnhanceYourCalm struct {
 }
 
 func (o *SendMessageBytesEnhanceYourCalm) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/sendMessageBytes][%d] sendMessageBytesEnhanceYourCalm  %+v", 420, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/sendMessage#bytes][%d] sendMessageBytesEnhanceYourCalm  %+v", 420, o.Payload)
 }
 
 func (o *SendMessageBytesEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -265,7 +265,7 @@ type SendMessageBytesInternalServerError struct {
 }
 
 func (o *SendMessageBytesInternalServerError) Error() string {
-	return fmt.Sprintf("[POST /bot{token}/sendMessageBytes][%d] sendMessageBytesInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/sendMessage#bytes][%d] sendMessageBytesInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *SendMessageBytesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
