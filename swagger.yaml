@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: |
     This is a swagger defenition for [Telegram bot API](https://core.telegram.org/bots/api).
-  version: "3.2"
+  version: "3.3"
   title: Telegram bot API
 externalDocs:
   description: Find out more about Telegram bot API
@@ -3402,6 +3402,8 @@ definitions:
         type: string
       language_code:
         type: string
+      is_bot:
+        type: boolean
   Chat:
     type: object
     required:
@@ -3434,6 +3436,8 @@ definitions:
         type: string
       invite_link:
         type: string
+      pinned_message:
+        $ref: '#/definitions/Message'
   Message:
     type: object
     properties:
@@ -3517,6 +3521,10 @@ definitions:
         $ref: '#/definitions/Message'
       successful_payment:
         $ref: '#/definitions/SuccessfulPayment'
+      forward_signature:
+        type: string
+      author_signature:
+        type: string
   MessageEntity:
     type: object
     properties:
