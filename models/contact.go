@@ -14,6 +14,7 @@ import (
 
 // Contact contact
 // swagger:model Contact
+
 type Contact struct {
 
 	// first name
@@ -28,6 +29,14 @@ type Contact struct {
 	// user id
 	UserID int64 `json:"user_id,omitempty"`
 }
+
+/* polymorph Contact first_name false */
+
+/* polymorph Contact last_name false */
+
+/* polymorph Contact phone_number false */
+
+/* polymorph Contact user_id false */
 
 // Validate validates this contact
 func (m *Contact) Validate(formats strfmt.Registry) error {

@@ -14,6 +14,7 @@ import (
 
 // User user
 // swagger:model User
+
 type User struct {
 
 	// first name
@@ -34,6 +35,18 @@ type User struct {
 	// username
 	Username string `json:"username,omitempty"`
 }
+
+/* polymorph User first_name false */
+
+/* polymorph User id false */
+
+/* polymorph User is_bot false */
+
+/* polymorph User language_code false */
+
+/* polymorph User last_name false */
+
+/* polymorph User username false */
 
 // Validate validates this user
 func (m *User) Validate(formats strfmt.Registry) error {

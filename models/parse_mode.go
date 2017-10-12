@@ -16,6 +16,7 @@ import (
 
 // ParseMode parse mode
 // swagger:model ParseMode
+
 type ParseMode string
 
 const (

@@ -16,6 +16,7 @@ import (
 
 // ShippingOption shipping option
 // swagger:model ShippingOption
+
 type ShippingOption struct {
 
 	// id
@@ -27,6 +28,12 @@ type ShippingOption struct {
 	// title
 	Title string `json:"title,omitempty"`
 }
+
+/* polymorph ShippingOption id false */
+
+/* polymorph ShippingOption prices false */
+
+/* polymorph ShippingOption title false */
 
 // Validate validates this shipping option
 func (m *ShippingOption) Validate(formats strfmt.Registry) error {

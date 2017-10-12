@@ -15,6 +15,7 @@ import (
 
 // EditMessageTextBody edit message text body
 // swagger:model EditMessageTextBody
+
 type EditMessageTextBody struct {
 
 	// chat id
@@ -39,6 +40,20 @@ type EditMessageTextBody struct {
 	// Required: true
 	Text *string `json:"text"`
 }
+
+/* polymorph EditMessageTextBody chat_id false */
+
+/* polymorph EditMessageTextBody disable_web_page_preview false */
+
+/* polymorph EditMessageTextBody inline_message_id false */
+
+/* polymorph EditMessageTextBody message_id false */
+
+/* polymorph EditMessageTextBody parse_mode false */
+
+/* polymorph EditMessageTextBody reply_markup false */
+
+/* polymorph EditMessageTextBody text false */
 
 // Validate validates this edit message text body
 func (m *EditMessageTextBody) Validate(formats strfmt.Registry) error {

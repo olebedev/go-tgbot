@@ -14,6 +14,7 @@ import (
 
 // EditMessageCaptionBody edit message caption body
 // swagger:model EditMessageCaptionBody
+
 type EditMessageCaptionBody struct {
 
 	// caption
@@ -31,6 +32,16 @@ type EditMessageCaptionBody struct {
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
 }
+
+/* polymorph EditMessageCaptionBody caption false */
+
+/* polymorph EditMessageCaptionBody chat_id false */
+
+/* polymorph EditMessageCaptionBody inline_message_id false */
+
+/* polymorph EditMessageCaptionBody message_id false */
+
+/* polymorph EditMessageCaptionBody reply_markup false */
 
 // Validate validates this edit message caption body
 func (m *EditMessageCaptionBody) Validate(formats strfmt.Registry) error {

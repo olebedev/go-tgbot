@@ -7,4 +7,5 @@ package models
 
 // CallbackGame callback game
 // swagger:model CallbackGame
+
 type CallbackGame interface{}

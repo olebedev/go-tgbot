@@ -14,6 +14,7 @@ import (
 
 // Venue venue
 // swagger:model Venue
+
 type Venue struct {
 
 	// address
@@ -28,6 +29,14 @@ type Venue struct {
 	// title
 	Title string `json:"title,omitempty"`
 }
+
+/* polymorph Venue address false */
+
+/* polymorph Venue foursquare_id false */
+
+/* polymorph Venue location false */
+
+/* polymorph Venue title false */
 
 // Validate validates this venue
 func (m *Venue) Validate(formats strfmt.Registry) error {

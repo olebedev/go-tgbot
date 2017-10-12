@@ -14,6 +14,7 @@ import (
 
 // ChatPhoto chat photo
 // swagger:model ChatPhoto
+
 type ChatPhoto struct {
 
 	// big file id
@@ -22,6 +23,10 @@ type ChatPhoto struct {
 	// small file id
 	SmallFileID string `json:"small_file_id,omitempty"`
 }
+
+/* polymorph ChatPhoto big_file_id false */
+
+/* polymorph ChatPhoto small_file_id false */
 
 // Validate validates this chat photo
 func (m *ChatPhoto) Validate(formats strfmt.Registry) error {

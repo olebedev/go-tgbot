@@ -14,6 +14,7 @@ import (
 
 // Audio audio
 // swagger:model Audio
+
 type Audio struct {
 
 	// duration
@@ -34,6 +35,18 @@ type Audio struct {
 	// title
 	Title string `json:"title,omitempty"`
 }
+
+/* polymorph Audio duration false */
+
+/* polymorph Audio file_id false */
+
+/* polymorph Audio file_size false */
+
+/* polymorph Audio mime_type false */
+
+/* polymorph Audio performer false */
+
+/* polymorph Audio title false */
 
 // Validate validates this audio
 func (m *Audio) Validate(formats strfmt.Registry) error {

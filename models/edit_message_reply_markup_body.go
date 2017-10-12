@@ -14,6 +14,7 @@ import (
 
 // EditMessageReplyMarkupBody edit message reply markup body
 // swagger:model EditMessageReplyMarkupBody
+
 type EditMessageReplyMarkupBody struct {
 
 	// chat id
@@ -28,6 +29,14 @@ type EditMessageReplyMarkupBody struct {
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
 }
+
+/* polymorph EditMessageReplyMarkupBody chat_id false */
+
+/* polymorph EditMessageReplyMarkupBody inline_message_id false */
+
+/* polymorph EditMessageReplyMarkupBody message_id false */
+
+/* polymorph EditMessageReplyMarkupBody reply_markup false */
 
 // Validate validates this edit message reply markup body
 func (m *EditMessageReplyMarkupBody) Validate(formats strfmt.Registry) error {

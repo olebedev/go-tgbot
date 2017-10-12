@@ -286,6 +286,7 @@ func (o *GetGameHighScoresInternalServerError) readResponse(response runtime.Cli
 /*GetGameHighScoresOKBody get game high scores o k body
 swagger:model GetGameHighScoresOKBody
 */
+
 type GetGameHighScoresOKBody struct {
 
 	// description
@@ -304,6 +305,14 @@ type GetGameHighScoresOKBody struct {
 	// Required: true
 	Result *models.GameHighScore `json:"result"`
 }
+
+/* polymorph GetGameHighScoresOKBody description false */
+
+/* polymorph GetGameHighScoresOKBody error_code false */
+
+/* polymorph GetGameHighScoresOKBody ok false */
+
+/* polymorph GetGameHighScoresOKBody result false */
 
 // Validate validates this get game high scores o k body
 func (o *GetGameHighScoresOKBody) Validate(formats strfmt.Registry) error {

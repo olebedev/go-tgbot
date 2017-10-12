@@ -15,6 +15,7 @@ import (
 
 // InputContactMessageContent input contact message content
 // swagger:model InputContactMessageContent
+
 type InputContactMessageContent struct {
 
 	// first name
@@ -28,6 +29,12 @@ type InputContactMessageContent struct {
 	// Required: true
 	PhoneNumber *string `json:"phone_number"`
 }
+
+/* polymorph InputContactMessageContent first_name false */
+
+/* polymorph InputContactMessageContent last_name false */
+
+/* polymorph InputContactMessageContent phone_number false */
 
 // Validate validates this input contact message content
 func (m *InputContactMessageContent) Validate(formats strfmt.Registry) error {

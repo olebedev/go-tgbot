@@ -286,6 +286,7 @@ func (o *EditMessageTextInternalServerError) readResponse(response runtime.Clien
 /*EditMessageTextOKBody edit message text o k body
 swagger:model EditMessageTextOKBody
 */
+
 type EditMessageTextOKBody struct {
 
 	// description
@@ -304,6 +305,14 @@ type EditMessageTextOKBody struct {
 	// Required: true
 	Result interface{} `json:"result"`
 }
+
+/* polymorph EditMessageTextOKBody description false */
+
+/* polymorph EditMessageTextOKBody error_code false */
+
+/* polymorph EditMessageTextOKBody ok false */
+
+/* polymorph EditMessageTextOKBody result false */
 
 // Validate validates this edit message text o k body
 func (o *EditMessageTextOKBody) Validate(formats strfmt.Registry) error {

@@ -15,6 +15,7 @@ import (
 
 // InlineQueryResultCachedMpeg4Gif inline query result cached mpeg4 gif
 // swagger:model InlineQueryResultCachedMpeg4Gif
+
 type InlineQueryResultCachedMpeg4Gif struct {
 
 	// caption
@@ -41,6 +42,20 @@ type InlineQueryResultCachedMpeg4Gif struct {
 	// Required: true
 	Type InlineType `json:"type"`
 }
+
+/* polymorph InlineQueryResultCachedMpeg4Gif caption false */
+
+/* polymorph InlineQueryResultCachedMpeg4Gif id false */
+
+/* polymorph InlineQueryResultCachedMpeg4Gif input_message_content false */
+
+/* polymorph InlineQueryResultCachedMpeg4Gif mpeg4_file_id false */
+
+/* polymorph InlineQueryResultCachedMpeg4Gif reply_markup false */
+
+/* polymorph InlineQueryResultCachedMpeg4Gif title false */
+
+/* polymorph InlineQueryResultCachedMpeg4Gif type false */
 
 // Validate validates this inline query result cached mpeg4 gif
 func (m *InlineQueryResultCachedMpeg4Gif) Validate(formats strfmt.Registry) error {

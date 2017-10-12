@@ -14,6 +14,7 @@ import (
 
 // UserProfilePhotos user profile photos
 // swagger:model UserProfilePhotos
+
 type UserProfilePhotos struct {
 
 	// photos
@@ -22,6 +23,10 @@ type UserProfilePhotos struct {
 	// total count
 	TotalCount int64 `json:"total_count,omitempty"`
 }
+
+/* polymorph UserProfilePhotos photos false */
+
+/* polymorph UserProfilePhotos total_count false */
 
 // Validate validates this user profile photos
 func (m *UserProfilePhotos) Validate(formats strfmt.Registry) error {

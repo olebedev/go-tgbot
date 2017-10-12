@@ -15,6 +15,7 @@ import (
 
 // InlineQueryResultContact inline query result contact
 // swagger:model InlineQueryResultContact
+
 type InlineQueryResultContact struct {
 
 	// first name
@@ -51,6 +52,26 @@ type InlineQueryResultContact struct {
 	// Required: true
 	Type InlineType `json:"type"`
 }
+
+/* polymorph InlineQueryResultContact first_name false */
+
+/* polymorph InlineQueryResultContact id false */
+
+/* polymorph InlineQueryResultContact input_message_content false */
+
+/* polymorph InlineQueryResultContact last_name false */
+
+/* polymorph InlineQueryResultContact phone_number false */
+
+/* polymorph InlineQueryResultContact reply_markup false */
+
+/* polymorph InlineQueryResultContact thumb_height false */
+
+/* polymorph InlineQueryResultContact thumb_url false */
+
+/* polymorph InlineQueryResultContact thumb_width false */
+
+/* polymorph InlineQueryResultContact type false */
 
 // Validate validates this inline query result contact
 func (m *InlineQueryResultContact) Validate(formats strfmt.Registry) error {

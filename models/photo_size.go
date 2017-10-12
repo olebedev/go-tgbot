@@ -14,6 +14,7 @@ import (
 
 // PhotoSize photo size
 // swagger:model PhotoSize
+
 type PhotoSize struct {
 
 	// file id
@@ -28,6 +29,14 @@ type PhotoSize struct {
 	// width
 	Width int64 `json:"width,omitempty"`
 }
+
+/* polymorph PhotoSize file_id false */
+
+/* polymorph PhotoSize file_size false */
+
+/* polymorph PhotoSize height false */
+
+/* polymorph PhotoSize width false */
 
 // Validate validates this photo size
 func (m *PhotoSize) Validate(formats strfmt.Registry) error {

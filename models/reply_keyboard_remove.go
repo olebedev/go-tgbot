@@ -14,6 +14,7 @@ import (
 
 // ReplyKeyboardRemove reply keyboard remove
 // swagger:model ReplyKeyboardRemove
+
 type ReplyKeyboardRemove struct {
 
 	// remove keyboard
@@ -22,6 +23,10 @@ type ReplyKeyboardRemove struct {
 	// selective
 	Selective bool `json:"selective,omitempty"`
 }
+
+/* polymorph ReplyKeyboardRemove remove_keyboard false */
+
+/* polymorph ReplyKeyboardRemove selective false */
 
 // Validate validates this reply keyboard remove
 func (m *ReplyKeyboardRemove) Validate(formats strfmt.Registry) error {

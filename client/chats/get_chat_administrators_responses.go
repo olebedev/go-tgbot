@@ -287,6 +287,7 @@ func (o *GetChatAdministratorsInternalServerError) readResponse(response runtime
 /*GetChatAdministratorsOKBody get chat administrators o k body
 swagger:model GetChatAdministratorsOKBody
 */
+
 type GetChatAdministratorsOKBody struct {
 
 	// description
@@ -305,6 +306,14 @@ type GetChatAdministratorsOKBody struct {
 	// Required: true
 	Result []*models.ChatMember `json:"result"`
 }
+
+/* polymorph GetChatAdministratorsOKBody description false */
+
+/* polymorph GetChatAdministratorsOKBody error_code false */
+
+/* polymorph GetChatAdministratorsOKBody ok false */
+
+/* polymorph GetChatAdministratorsOKBody result false */
 
 // Validate validates this get chat administrators o k body
 func (o *GetChatAdministratorsOKBody) Validate(formats strfmt.Registry) error {

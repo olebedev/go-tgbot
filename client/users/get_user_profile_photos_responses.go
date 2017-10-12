@@ -286,6 +286,7 @@ func (o *GetUserProfilePhotosInternalServerError) readResponse(response runtime.
 /*GetUserProfilePhotosOKBody get user profile photos o k body
 swagger:model GetUserProfilePhotosOKBody
 */
+
 type GetUserProfilePhotosOKBody struct {
 
 	// description
@@ -304,6 +305,14 @@ type GetUserProfilePhotosOKBody struct {
 	// Required: true
 	Result *models.UserProfilePhotos `json:"result"`
 }
+
+/* polymorph GetUserProfilePhotosOKBody description false */
+
+/* polymorph GetUserProfilePhotosOKBody error_code false */
+
+/* polymorph GetUserProfilePhotosOKBody ok false */
+
+/* polymorph GetUserProfilePhotosOKBody result false */
 
 // Validate validates this get user profile photos o k body
 func (o *GetUserProfilePhotosOKBody) Validate(formats strfmt.Registry) error {

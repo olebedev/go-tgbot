@@ -15,6 +15,7 @@ import (
 
 // InputTextMessageContent input text message content
 // swagger:model InputTextMessageContent
+
 type InputTextMessageContent struct {
 
 	// disable web page preview
@@ -27,6 +28,12 @@ type InputTextMessageContent struct {
 	// parse mode
 	ParseMode ParseMode `json:"parse_mode,omitempty"`
 }
+
+/* polymorph InputTextMessageContent disable_web_page_preview false */
+
+/* polymorph InputTextMessageContent message_text false */
+
+/* polymorph InputTextMessageContent parse_mode false */
 
 // Validate validates this input text message content
 func (m *InputTextMessageContent) Validate(formats strfmt.Registry) error {

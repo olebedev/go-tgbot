@@ -15,6 +15,7 @@ import (
 
 // InlineQueryResultLocation inline query result location
 // swagger:model InlineQueryResultLocation
+
 type InlineQueryResultLocation struct {
 
 	// id
@@ -52,6 +53,26 @@ type InlineQueryResultLocation struct {
 	// Required: true
 	Type InlineType `json:"type"`
 }
+
+/* polymorph InlineQueryResultLocation id false */
+
+/* polymorph InlineQueryResultLocation input_message_content false */
+
+/* polymorph InlineQueryResultLocation latitude false */
+
+/* polymorph InlineQueryResultLocation longitude false */
+
+/* polymorph InlineQueryResultLocation reply_markup false */
+
+/* polymorph InlineQueryResultLocation thumb_height false */
+
+/* polymorph InlineQueryResultLocation thumb_url false */
+
+/* polymorph InlineQueryResultLocation thumb_width false */
+
+/* polymorph InlineQueryResultLocation title false */
+
+/* polymorph InlineQueryResultLocation type false */
 
 // Validate validates this inline query result location
 func (m *InlineQueryResultLocation) Validate(formats strfmt.Registry) error {

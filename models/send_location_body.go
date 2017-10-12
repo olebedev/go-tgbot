@@ -15,6 +15,7 @@ import (
 
 // SendLocationBody send location body
 // swagger:model SendLocationBody
+
 type SendLocationBody struct {
 
 	// chat id
@@ -38,6 +39,18 @@ type SendLocationBody struct {
 	// reply to message id
 	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
 }
+
+/* polymorph SendLocationBody chat_id false */
+
+/* polymorph SendLocationBody disable_notification false */
+
+/* polymorph SendLocationBody latitude false */
+
+/* polymorph SendLocationBody longitude false */
+
+/* polymorph SendLocationBody reply_markup false */
+
+/* polymorph SendLocationBody reply_to_message_id false */
 
 // Validate validates this send location body
 func (m *SendLocationBody) Validate(formats strfmt.Registry) error {

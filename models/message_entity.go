@@ -17,6 +17,7 @@ import (
 
 // MessageEntity message entity
 // swagger:model MessageEntity
+
 type MessageEntity struct {
 
 	// length
@@ -34,6 +35,16 @@ type MessageEntity struct {
 	// user
 	User *User `json:"user,omitempty"`
 }
+
+/* polymorph MessageEntity length false */
+
+/* polymorph MessageEntity offset false */
+
+/* polymorph MessageEntity type false */
+
+/* polymorph MessageEntity url false */
+
+/* polymorph MessageEntity user false */
 
 // Validate validates this message entity
 func (m *MessageEntity) Validate(formats strfmt.Registry) error {

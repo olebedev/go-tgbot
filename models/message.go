@@ -16,6 +16,7 @@ import (
 
 // Message message
 // swagger:model Message
+
 type Message struct {
 
 	// audio
@@ -132,6 +133,82 @@ type Message struct {
 	// voice
 	Voice *Voice `json:"voice,omitempty"`
 }
+
+/* polymorph Message audio false */
+
+/* polymorph Message author_signature false */
+
+/* polymorph Message caption false */
+
+/* polymorph Message channel_chat_created false */
+
+/* polymorph Message chat false */
+
+/* polymorph Message contact false */
+
+/* polymorph Message date false */
+
+/* polymorph Message delete_chat_photo false */
+
+/* polymorph Message document false */
+
+/* polymorph Message edit_date false */
+
+/* polymorph Message entities false */
+
+/* polymorph Message forward_date false */
+
+/* polymorph Message forward_from false */
+
+/* polymorph Message forward_from_chat false */
+
+/* polymorph Message forward_from_message_id false */
+
+/* polymorph Message forward_signature false */
+
+/* polymorph Message from false */
+
+/* polymorph Message game false */
+
+/* polymorph Message group_chat_created false */
+
+/* polymorph Message left_chat_member false */
+
+/* polymorph Message location false */
+
+/* polymorph Message message_id false */
+
+/* polymorph Message migrate_from_chat_id false */
+
+/* polymorph Message migrate_to_chat_id false */
+
+/* polymorph Message new_chat_members false */
+
+/* polymorph Message new_chat_photo false */
+
+/* polymorph Message new_chat_title false */
+
+/* polymorph Message photo false */
+
+/* polymorph Message pinned_message false */
+
+/* polymorph Message reply_to_message false */
+
+/* polymorph Message sticker false */
+
+/* polymorph Message successful_payment false */
+
+/* polymorph Message supergroup_chat_created false */
+
+/* polymorph Message text false */
+
+/* polymorph Message venue false */
+
+/* polymorph Message video false */
+
+/* polymorph Message video_note false */
+
+/* polymorph Message voice false */
 
 // Validate validates this message
 func (m *Message) Validate(formats strfmt.Registry) error {

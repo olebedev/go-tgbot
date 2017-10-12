@@ -15,6 +15,7 @@ import (
 
 // InlineQueryResultVideo inline query result video
 // swagger:model InlineQueryResultVideo
+
 type InlineQueryResultVideo struct {
 
 	// caption
@@ -62,6 +63,32 @@ type InlineQueryResultVideo struct {
 	// video width
 	VideoWidth int64 `json:"video_width,omitempty"`
 }
+
+/* polymorph InlineQueryResultVideo caption false */
+
+/* polymorph InlineQueryResultVideo description false */
+
+/* polymorph InlineQueryResultVideo id false */
+
+/* polymorph InlineQueryResultVideo input_message_content false */
+
+/* polymorph InlineQueryResultVideo mime_type false */
+
+/* polymorph InlineQueryResultVideo reply_markup false */
+
+/* polymorph InlineQueryResultVideo thumb_url false */
+
+/* polymorph InlineQueryResultVideo title false */
+
+/* polymorph InlineQueryResultVideo type false */
+
+/* polymorph InlineQueryResultVideo video_duration false */
+
+/* polymorph InlineQueryResultVideo video_height false */
+
+/* polymorph InlineQueryResultVideo video_url false */
+
+/* polymorph InlineQueryResultVideo video_width false */
 
 // Validate validates this inline query result video
 func (m *InlineQueryResultVideo) Validate(formats strfmt.Registry) error {

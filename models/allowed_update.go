@@ -16,6 +16,7 @@ import (
 
 // AllowedUpdate allowed update
 // swagger:model AllowedUpdate
+
 type AllowedUpdate string
 
 const (

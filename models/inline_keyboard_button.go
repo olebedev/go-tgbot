@@ -14,6 +14,7 @@ import (
 
 // InlineKeyboardButton inline keyboard button
 // swagger:model InlineKeyboardButton
+
 type InlineKeyboardButton struct {
 
 	// callback data
@@ -37,6 +38,20 @@ type InlineKeyboardButton struct {
 	// url
 	URL string `json:"url,omitempty"`
 }
+
+/* polymorph InlineKeyboardButton callback_data false */
+
+/* polymorph InlineKeyboardButton callback_game false */
+
+/* polymorph InlineKeyboardButton pay false */
+
+/* polymorph InlineKeyboardButton switch_inline_query false */
+
+/* polymorph InlineKeyboardButton switch_inline_query_current_chat false */
+
+/* polymorph InlineKeyboardButton text false */
+
+/* polymorph InlineKeyboardButton url false */
 
 // Validate validates this inline keyboard button
 func (m *InlineKeyboardButton) Validate(formats strfmt.Registry) error {

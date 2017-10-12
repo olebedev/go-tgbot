@@ -17,6 +17,7 @@ import (
 
 // AnswerShippingQueryBody answer shipping query body
 // swagger:model AnswerShippingQueryBody
+
 type AnswerShippingQueryBody struct {
 
 	// error message
@@ -33,6 +34,14 @@ type AnswerShippingQueryBody struct {
 	// Required: true
 	ShippingQueryID *string `json:"shipping_query_id"`
 }
+
+/* polymorph AnswerShippingQueryBody error_message false */
+
+/* polymorph AnswerShippingQueryBody ok false */
+
+/* polymorph AnswerShippingQueryBody shipping_options false */
+
+/* polymorph AnswerShippingQueryBody shipping_query_id false */
 
 // Validate validates this answer shipping query body
 func (m *AnswerShippingQueryBody) Validate(formats strfmt.Registry) error {

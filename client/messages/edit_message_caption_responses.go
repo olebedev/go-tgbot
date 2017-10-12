@@ -286,6 +286,7 @@ func (o *EditMessageCaptionInternalServerError) readResponse(response runtime.Cl
 /*EditMessageCaptionOKBody edit message caption o k body
 swagger:model EditMessageCaptionOKBody
 */
+
 type EditMessageCaptionOKBody struct {
 
 	// description
@@ -304,6 +305,14 @@ type EditMessageCaptionOKBody struct {
 	// Required: true
 	Result interface{} `json:"result"`
 }
+
+/* polymorph EditMessageCaptionOKBody description false */
+
+/* polymorph EditMessageCaptionOKBody error_code false */
+
+/* polymorph EditMessageCaptionOKBody ok false */
+
+/* polymorph EditMessageCaptionOKBody result false */
 
 // Validate validates this edit message caption o k body
 func (o *EditMessageCaptionOKBody) Validate(formats strfmt.Registry) error {

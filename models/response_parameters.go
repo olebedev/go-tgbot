@@ -14,6 +14,7 @@ import (
 
 // ResponseParameters response parameters
 // swagger:model ResponseParameters
+
 type ResponseParameters struct {
 
 	// migrate to chat id
@@ -22,6 +23,10 @@ type ResponseParameters struct {
 	// retry after
 	RetryAfter int64 `json:"retry_after,omitempty"`
 }
+
+/* polymorph ResponseParameters migrate_to_chat_id false */
+
+/* polymorph ResponseParameters retry_after false */
 
 // Validate validates this response parameters
 func (m *ResponseParameters) Validate(formats strfmt.Registry) error {

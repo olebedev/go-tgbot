@@ -15,6 +15,7 @@ import (
 
 // SendVideoNoteLinkBody send video note link body
 // swagger:model SendVideoNoteLinkBody
+
 type SendVideoNoteLinkBody struct {
 
 	// chat id
@@ -40,6 +41,20 @@ type SendVideoNoteLinkBody struct {
 	// Required: true
 	VideoNote *string `json:"video_note"`
 }
+
+/* polymorph SendVideoNoteLinkBody chat_id false */
+
+/* polymorph SendVideoNoteLinkBody disable_notification false */
+
+/* polymorph SendVideoNoteLinkBody duration false */
+
+/* polymorph SendVideoNoteLinkBody length false */
+
+/* polymorph SendVideoNoteLinkBody reply_markup false */
+
+/* polymorph SendVideoNoteLinkBody reply_to_message_id false */
+
+/* polymorph SendVideoNoteLinkBody video_note false */
 
 // Validate validates this send video note link body
 func (m *SendVideoNoteLinkBody) Validate(formats strfmt.Registry) error {

@@ -15,6 +15,7 @@ import (
 
 // SendVideoLinkBody send video link body
 // swagger:model SendVideoLinkBody
+
 type SendVideoLinkBody struct {
 
 	// caption
@@ -46,6 +47,24 @@ type SendVideoLinkBody struct {
 	// width
 	Width int64 `json:"width,omitempty"`
 }
+
+/* polymorph SendVideoLinkBody caption false */
+
+/* polymorph SendVideoLinkBody chat_id false */
+
+/* polymorph SendVideoLinkBody disable_notification false */
+
+/* polymorph SendVideoLinkBody duration false */
+
+/* polymorph SendVideoLinkBody height false */
+
+/* polymorph SendVideoLinkBody reply_markup false */
+
+/* polymorph SendVideoLinkBody reply_to_message_id false */
+
+/* polymorph SendVideoLinkBody video false */
+
+/* polymorph SendVideoLinkBody width false */
 
 // Validate validates this send video link body
 func (m *SendVideoLinkBody) Validate(formats strfmt.Registry) error {

@@ -15,6 +15,7 @@ import (
 
 // InlineQueryResultCachedVideo inline query result cached video
 // swagger:model InlineQueryResultCachedVideo
+
 type InlineQueryResultCachedVideo struct {
 
 	// caption
@@ -44,6 +45,22 @@ type InlineQueryResultCachedVideo struct {
 	// Required: true
 	VideoFileID *string `json:"video_file_id"`
 }
+
+/* polymorph InlineQueryResultCachedVideo caption false */
+
+/* polymorph InlineQueryResultCachedVideo description false */
+
+/* polymorph InlineQueryResultCachedVideo id false */
+
+/* polymorph InlineQueryResultCachedVideo input_message_content false */
+
+/* polymorph InlineQueryResultCachedVideo reply_markup false */
+
+/* polymorph InlineQueryResultCachedVideo title false */
+
+/* polymorph InlineQueryResultCachedVideo type false */
+
+/* polymorph InlineQueryResultCachedVideo video_file_id false */
 
 // Validate validates this inline query result cached video
 func (m *InlineQueryResultCachedVideo) Validate(formats strfmt.Registry) error {

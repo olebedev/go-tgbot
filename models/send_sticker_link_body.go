@@ -15,6 +15,7 @@ import (
 
 // SendStickerLinkBody send sticker link body
 // swagger:model SendStickerLinkBody
+
 type SendStickerLinkBody struct {
 
 	// chat id
@@ -34,6 +35,16 @@ type SendStickerLinkBody struct {
 	// Required: true
 	Sticker *string `json:"sticker"`
 }
+
+/* polymorph SendStickerLinkBody chat_id false */
+
+/* polymorph SendStickerLinkBody disable_notification false */
+
+/* polymorph SendStickerLinkBody reply_markup false */
+
+/* polymorph SendStickerLinkBody reply_to_message_id false */
+
+/* polymorph SendStickerLinkBody sticker false */
 
 // Validate validates this send sticker link body
 func (m *SendStickerLinkBody) Validate(formats strfmt.Registry) error {

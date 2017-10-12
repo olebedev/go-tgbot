@@ -14,6 +14,7 @@ import (
 
 // Location location
 // swagger:model Location
+
 type Location struct {
 
 	// latitude
@@ -22,6 +23,10 @@ type Location struct {
 	// longitude
 	Longitude float64 `json:"longitude,omitempty"`
 }
+
+/* polymorph Location latitude false */
+
+/* polymorph Location longitude false */
 
 // Validate validates this location
 func (m *Location) Validate(formats strfmt.Registry) error {

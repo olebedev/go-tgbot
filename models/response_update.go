@@ -16,6 +16,7 @@ import (
 
 // ResponseUpdate response update
 // swagger:model ResponseUpdate
+
 type ResponseUpdate struct {
 
 	// description
@@ -30,6 +31,14 @@ type ResponseUpdate struct {
 	// result
 	Result []*Update `json:"result"`
 }
+
+/* polymorph ResponseUpdate description false */
+
+/* polymorph ResponseUpdate error_code false */
+
+/* polymorph ResponseUpdate ok false */
+
+/* polymorph ResponseUpdate result false */
 
 // Validate validates this response update
 func (m *ResponseUpdate) Validate(formats strfmt.Registry) error {

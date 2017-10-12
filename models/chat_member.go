@@ -17,6 +17,7 @@ import (
 
 // ChatMember chat member
 // swagger:model ChatMember
+
 type ChatMember struct {
 
 	// can add web page previews
@@ -69,6 +70,38 @@ type ChatMember struct {
 	// Required: true
 	User *User `json:"user"`
 }
+
+/* polymorph ChatMember can_add_web_page_previews false */
+
+/* polymorph ChatMember can_be_edited false */
+
+/* polymorph ChatMember can_change_info false */
+
+/* polymorph ChatMember can_delete_messages false */
+
+/* polymorph ChatMember can_edit_messages false */
+
+/* polymorph ChatMember can_invite_users false */
+
+/* polymorph ChatMember can_pin_messages false */
+
+/* polymorph ChatMember can_post_messages false */
+
+/* polymorph ChatMember can_promote_members false */
+
+/* polymorph ChatMember can_restrict_members false */
+
+/* polymorph ChatMember can_send_media_messages false */
+
+/* polymorph ChatMember can_send_messages false */
+
+/* polymorph ChatMember can_send_other_messages false */
+
+/* polymorph ChatMember status false */
+
+/* polymorph ChatMember until_date false */
+
+/* polymorph ChatMember user false */
 
 // Validate validates this chat member
 func (m *ChatMember) Validate(formats strfmt.Registry) error {

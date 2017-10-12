@@ -15,6 +15,7 @@ import (
 
 // ChosenInlineResult chosen inline result
 // swagger:model ChosenInlineResult
+
 type ChosenInlineResult struct {
 
 	// from
@@ -35,6 +36,16 @@ type ChosenInlineResult struct {
 	// Required: true
 	ResultID *string `json:"result_id"`
 }
+
+/* polymorph ChosenInlineResult from false */
+
+/* polymorph ChosenInlineResult inline_message_id false */
+
+/* polymorph ChosenInlineResult location false */
+
+/* polymorph ChosenInlineResult query false */
+
+/* polymorph ChosenInlineResult result_id false */
 
 // Validate validates this chosen inline result
 func (m *ChosenInlineResult) Validate(formats strfmt.Registry) error {

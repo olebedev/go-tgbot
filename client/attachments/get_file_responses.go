@@ -286,6 +286,7 @@ func (o *GetFileInternalServerError) readResponse(response runtime.ClientRespons
 /*GetFileOKBody get file o k body
 swagger:model GetFileOKBody
 */
+
 type GetFileOKBody struct {
 
 	// description
@@ -304,6 +305,14 @@ type GetFileOKBody struct {
 	// Required: true
 	Result *models.File `json:"result"`
 }
+
+/* polymorph GetFileOKBody description false */
+
+/* polymorph GetFileOKBody error_code false */
+
+/* polymorph GetFileOKBody ok false */
+
+/* polymorph GetFileOKBody result false */
 
 // Validate validates this get file o k body
 func (o *GetFileOKBody) Validate(formats strfmt.Registry) error {

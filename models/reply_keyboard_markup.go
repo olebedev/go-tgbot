@@ -16,6 +16,7 @@ import (
 
 // ReplyKeyboardMarkup reply keyboard markup
 // swagger:model ReplyKeyboardMarkup
+
 type ReplyKeyboardMarkup struct {
 
 	// keyboard
@@ -30,6 +31,14 @@ type ReplyKeyboardMarkup struct {
 	// selective
 	Selective bool `json:"selective,omitempty"`
 }
+
+/* polymorph ReplyKeyboardMarkup keyboard false */
+
+/* polymorph ReplyKeyboardMarkup one_time_keyboard false */
+
+/* polymorph ReplyKeyboardMarkup resize_keyboard false */
+
+/* polymorph ReplyKeyboardMarkup selective false */
 
 // Validate validates this reply keyboard markup
 func (m *ReplyKeyboardMarkup) Validate(formats strfmt.Registry) error {

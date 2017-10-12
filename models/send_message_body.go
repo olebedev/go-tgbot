@@ -15,6 +15,7 @@ import (
 
 // SendMessageBody send message body
 // swagger:model SendMessageBody
+
 type SendMessageBody struct {
 
 	// chat id
@@ -40,6 +41,20 @@ type SendMessageBody struct {
 	// Required: true
 	Text *string `json:"text"`
 }
+
+/* polymorph SendMessageBody chat_id false */
+
+/* polymorph SendMessageBody disable_notification false */
+
+/* polymorph SendMessageBody disable_web_page_preview false */
+
+/* polymorph SendMessageBody parse_mode false */
+
+/* polymorph SendMessageBody reply_markup false */
+
+/* polymorph SendMessageBody reply_to_message_id false */
+
+/* polymorph SendMessageBody text false */
 
 // Validate validates this send message body
 func (m *SendMessageBody) Validate(formats strfmt.Registry) error {

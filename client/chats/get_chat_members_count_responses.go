@@ -286,6 +286,7 @@ func (o *GetChatMembersCountInternalServerError) readResponse(response runtime.C
 /*GetChatMembersCountOKBody get chat members count o k body
 swagger:model GetChatMembersCountOKBody
 */
+
 type GetChatMembersCountOKBody struct {
 
 	// description
@@ -304,6 +305,14 @@ type GetChatMembersCountOKBody struct {
 	// Required: true
 	Result *int64 `json:"result"`
 }
+
+/* polymorph GetChatMembersCountOKBody description false */
+
+/* polymorph GetChatMembersCountOKBody error_code false */
+
+/* polymorph GetChatMembersCountOKBody ok false */
+
+/* polymorph GetChatMembersCountOKBody result false */
 
 // Validate validates this get chat members count o k body
 func (o *GetChatMembersCountOKBody) Validate(formats strfmt.Registry) error {

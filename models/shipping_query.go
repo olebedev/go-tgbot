@@ -14,6 +14,7 @@ import (
 
 // ShippingQuery shipping query
 // swagger:model ShippingQuery
+
 type ShippingQuery struct {
 
 	// from
@@ -28,6 +29,14 @@ type ShippingQuery struct {
 	// shipping address
 	ShippingAddress *ShippingAddress `json:"shipping_address,omitempty"`
 }
+
+/* polymorph ShippingQuery from false */
+
+/* polymorph ShippingQuery id false */
+
+/* polymorph ShippingQuery invoice_payload false */
+
+/* polymorph ShippingQuery shipping_address false */
 
 // Validate validates this shipping query
 func (m *ShippingQuery) Validate(formats strfmt.Registry) error {

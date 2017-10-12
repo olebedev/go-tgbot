@@ -14,6 +14,7 @@ import (
 
 // Video video
 // swagger:model Video
+
 type Video struct {
 
 	// duration
@@ -37,6 +38,20 @@ type Video struct {
 	// width
 	Width int64 `json:"width,omitempty"`
 }
+
+/* polymorph Video duration false */
+
+/* polymorph Video file_id false */
+
+/* polymorph Video file_size false */
+
+/* polymorph Video height false */
+
+/* polymorph Video mime_type false */
+
+/* polymorph Video thumb false */
+
+/* polymorph Video width false */
 
 // Validate validates this video
 func (m *Video) Validate(formats strfmt.Registry) error {

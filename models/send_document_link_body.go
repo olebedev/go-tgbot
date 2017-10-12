@@ -15,6 +15,7 @@ import (
 
 // SendDocumentLinkBody send document link body
 // swagger:model SendDocumentLinkBody
+
 type SendDocumentLinkBody struct {
 
 	// caption
@@ -37,6 +38,18 @@ type SendDocumentLinkBody struct {
 	// reply to message id
 	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
 }
+
+/* polymorph SendDocumentLinkBody caption false */
+
+/* polymorph SendDocumentLinkBody chat_id false */
+
+/* polymorph SendDocumentLinkBody disable_notification false */
+
+/* polymorph SendDocumentLinkBody document false */
+
+/* polymorph SendDocumentLinkBody reply_markup false */
+
+/* polymorph SendDocumentLinkBody reply_to_message_id false */
 
 // Validate validates this send document link body
 func (m *SendDocumentLinkBody) Validate(formats strfmt.Registry) error {

@@ -286,6 +286,7 @@ func (o *GetStickerSetInternalServerError) readResponse(response runtime.ClientR
 /*GetStickerSetOKBody get sticker set o k body
 swagger:model GetStickerSetOKBody
 */
+
 type GetStickerSetOKBody struct {
 
 	// description
@@ -304,6 +305,14 @@ type GetStickerSetOKBody struct {
 	// Required: true
 	Result *models.StickerSet `json:"result"`
 }
+
+/* polymorph GetStickerSetOKBody description false */
+
+/* polymorph GetStickerSetOKBody error_code false */
+
+/* polymorph GetStickerSetOKBody ok false */
+
+/* polymorph GetStickerSetOKBody result false */
 
 // Validate validates this get sticker set o k body
 func (o *GetStickerSetOKBody) Validate(formats strfmt.Registry) error {

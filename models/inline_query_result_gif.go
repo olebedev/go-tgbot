@@ -15,6 +15,7 @@ import (
 
 // InlineQueryResultGif inline query result gif
 // swagger:model InlineQueryResultGif
+
 type InlineQueryResultGif struct {
 
 	// caption
@@ -54,6 +55,28 @@ type InlineQueryResultGif struct {
 	// Required: true
 	Type InlineType `json:"type"`
 }
+
+/* polymorph InlineQueryResultGif caption false */
+
+/* polymorph InlineQueryResultGif gif_duration false */
+
+/* polymorph InlineQueryResultGif gif_height false */
+
+/* polymorph InlineQueryResultGif gif_url false */
+
+/* polymorph InlineQueryResultGif gif_width false */
+
+/* polymorph InlineQueryResultGif id false */
+
+/* polymorph InlineQueryResultGif input_message_content false */
+
+/* polymorph InlineQueryResultGif reply_markup false */
+
+/* polymorph InlineQueryResultGif thumb_url false */
+
+/* polymorph InlineQueryResultGif title false */
+
+/* polymorph InlineQueryResultGif type false */
 
 // Validate validates this inline query result gif
 func (m *InlineQueryResultGif) Validate(formats strfmt.Registry) error {

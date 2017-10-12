@@ -14,6 +14,7 @@ import (
 
 // KeyboardButton keyboard button
 // swagger:model KeyboardButton
+
 type KeyboardButton struct {
 
 	// request contact
@@ -25,6 +26,12 @@ type KeyboardButton struct {
 	// text
 	Text string `json:"text,omitempty"`
 }
+
+/* polymorph KeyboardButton request_contact false */
+
+/* polymorph KeyboardButton request_location false */
+
+/* polymorph KeyboardButton text false */
 
 // Validate validates this keyboard button
 func (m *KeyboardButton) Validate(formats strfmt.Registry) error {

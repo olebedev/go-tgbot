@@ -17,6 +17,7 @@ import (
 
 // MaskPosition mask position
 // swagger:model MaskPosition
+
 type MaskPosition struct {
 
 	// point
@@ -31,6 +32,14 @@ type MaskPosition struct {
 	// zoom
 	Zoom float64 `json:"zoom,omitempty"`
 }
+
+/* polymorph MaskPosition point false */
+
+/* polymorph MaskPosition x_shift false */
+
+/* polymorph MaskPosition y_shift false */
+
+/* polymorph MaskPosition zoom false */
 
 // Validate validates this mask position
 func (m *MaskPosition) Validate(formats strfmt.Registry) error {

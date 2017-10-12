@@ -16,6 +16,7 @@ import (
 
 // StickerSet sticker set
 // swagger:model StickerSet
+
 type StickerSet struct {
 
 	// is masks
@@ -30,6 +31,14 @@ type StickerSet struct {
 	// title
 	Title string `json:"title,omitempty"`
 }
+
+/* polymorph StickerSet is_masks false */
+
+/* polymorph StickerSet name false */
+
+/* polymorph StickerSet stickers false */
+
+/* polymorph StickerSet title false */
 
 // Validate validates this sticker set
 func (m *StickerSet) Validate(formats strfmt.Registry) error {

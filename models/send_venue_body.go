@@ -15,6 +15,7 @@ import (
 
 // SendVenueBody send venue body
 // swagger:model SendVenueBody
+
 type SendVenueBody struct {
 
 	// address
@@ -49,6 +50,24 @@ type SendVenueBody struct {
 	// Required: true
 	Title *string `json:"title"`
 }
+
+/* polymorph SendVenueBody address false */
+
+/* polymorph SendVenueBody chat_id false */
+
+/* polymorph SendVenueBody disable_notification false */
+
+/* polymorph SendVenueBody foursquare_id false */
+
+/* polymorph SendVenueBody latitude false */
+
+/* polymorph SendVenueBody longitude false */
+
+/* polymorph SendVenueBody reply_markup false */
+
+/* polymorph SendVenueBody reply_to_message_id false */
+
+/* polymorph SendVenueBody title false */
 
 // Validate validates this send venue body
 func (m *SendVenueBody) Validate(formats strfmt.Registry) error {

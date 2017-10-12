@@ -15,6 +15,7 @@ import (
 
 // SendGameBody send game body
 // swagger:model SendGameBody
+
 type SendGameBody struct {
 
 	// chat id
@@ -34,6 +35,16 @@ type SendGameBody struct {
 	// reply to message id
 	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
 }
+
+/* polymorph SendGameBody chat_id false */
+
+/* polymorph SendGameBody disable_notification false */
+
+/* polymorph SendGameBody game_short_name false */
+
+/* polymorph SendGameBody reply_markup false */
+
+/* polymorph SendGameBody reply_to_message_id false */
 
 // Validate validates this send game body
 func (m *SendGameBody) Validate(formats strfmt.Registry) error {

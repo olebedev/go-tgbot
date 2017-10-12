@@ -15,6 +15,7 @@ import (
 
 // PromoteChatMemberBody promote chat member body
 // swagger:model PromoteChatMemberBody
+
 type PromoteChatMemberBody struct {
 
 	// can change info
@@ -49,6 +50,26 @@ type PromoteChatMemberBody struct {
 	// Required: true
 	UserID *int64 `json:"user_id"`
 }
+
+/* polymorph PromoteChatMemberBody can_change_info false */
+
+/* polymorph PromoteChatMemberBody can_delete_messages false */
+
+/* polymorph PromoteChatMemberBody can_edit_messages false */
+
+/* polymorph PromoteChatMemberBody can_invite_users false */
+
+/* polymorph PromoteChatMemberBody can_pin_messages false */
+
+/* polymorph PromoteChatMemberBody can_post_messages false */
+
+/* polymorph PromoteChatMemberBody can_promote_members false */
+
+/* polymorph PromoteChatMemberBody can_restrict_members false */
+
+/* polymorph PromoteChatMemberBody chat_id false */
+
+/* polymorph PromoteChatMemberBody user_id false */
 
 // Validate validates this promote chat member body
 func (m *PromoteChatMemberBody) Validate(formats strfmt.Registry) error {

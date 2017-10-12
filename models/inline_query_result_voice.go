@@ -15,6 +15,7 @@ import (
 
 // InlineQueryResultVoice inline query result voice
 // swagger:model InlineQueryResultVoice
+
 type InlineQueryResultVoice struct {
 
 	// caption
@@ -45,6 +46,22 @@ type InlineQueryResultVoice struct {
 	// Required: true
 	VoiceURL *string `json:"voice_url"`
 }
+
+/* polymorph InlineQueryResultVoice caption false */
+
+/* polymorph InlineQueryResultVoice id false */
+
+/* polymorph InlineQueryResultVoice input_message_content false */
+
+/* polymorph InlineQueryResultVoice reply_markup false */
+
+/* polymorph InlineQueryResultVoice title false */
+
+/* polymorph InlineQueryResultVoice type false */
+
+/* polymorph InlineQueryResultVoice voice_duration false */
+
+/* polymorph InlineQueryResultVoice voice_url false */
 
 // Validate validates this inline query result voice
 func (m *InlineQueryResultVoice) Validate(formats strfmt.Registry) error {

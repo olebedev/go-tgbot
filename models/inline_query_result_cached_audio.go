@@ -15,6 +15,7 @@ import (
 
 // InlineQueryResultCachedAudio inline query result cached audio
 // swagger:model InlineQueryResultCachedAudio
+
 type InlineQueryResultCachedAudio struct {
 
 	// audio file id
@@ -38,6 +39,18 @@ type InlineQueryResultCachedAudio struct {
 	// Required: true
 	Type InlineType `json:"type"`
 }
+
+/* polymorph InlineQueryResultCachedAudio audio_file_id false */
+
+/* polymorph InlineQueryResultCachedAudio caption false */
+
+/* polymorph InlineQueryResultCachedAudio id false */
+
+/* polymorph InlineQueryResultCachedAudio input_message_content false */
+
+/* polymorph InlineQueryResultCachedAudio reply_markup false */
+
+/* polymorph InlineQueryResultCachedAudio type false */
 
 // Validate validates this inline query result cached audio
 func (m *InlineQueryResultCachedAudio) Validate(formats strfmt.Registry) error {

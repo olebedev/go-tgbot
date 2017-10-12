@@ -17,6 +17,7 @@ import (
 
 // Game game
 // swagger:model Game
+
 type Game struct {
 
 	// animation
@@ -40,6 +41,18 @@ type Game struct {
 	// Required: true
 	Title *string `json:"title"`
 }
+
+/* polymorph Game animation false */
+
+/* polymorph Game description false */
+
+/* polymorph Game photo false */
+
+/* polymorph Game text false */
+
+/* polymorph Game text_entities false */
+
+/* polymorph Game title false */
 
 // Validate validates this game
 func (m *Game) Validate(formats strfmt.Registry) error {

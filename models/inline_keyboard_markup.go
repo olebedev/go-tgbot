@@ -14,11 +14,14 @@ import (
 
 // InlineKeyboardMarkup inline keyboard markup
 // swagger:model InlineKeyboardMarkup
+
 type InlineKeyboardMarkup struct {
 
 	// inline keyboard
 	InlineKeyboard [][]*InlineKeyboardButton `json:"inline_keyboard"`
 }
+
+/* polymorph InlineKeyboardMarkup inline_keyboard false */
 
 // Validate validates this inline keyboard markup
 func (m *InlineKeyboardMarkup) Validate(formats strfmt.Registry) error {

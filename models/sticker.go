@@ -14,6 +14,7 @@ import (
 
 // Sticker sticker
 // swagger:model Sticker
+
 type Sticker struct {
 
 	// emoji
@@ -40,6 +41,22 @@ type Sticker struct {
 	// width
 	Width int64 `json:"width,omitempty"`
 }
+
+/* polymorph Sticker emoji false */
+
+/* polymorph Sticker file_id false */
+
+/* polymorph Sticker file_size false */
+
+/* polymorph Sticker height false */
+
+/* polymorph Sticker mask_position false */
+
+/* polymorph Sticker set_name false */
+
+/* polymorph Sticker thumb false */
+
+/* polymorph Sticker width false */
 
 // Validate validates this sticker
 func (m *Sticker) Validate(formats strfmt.Registry) error {

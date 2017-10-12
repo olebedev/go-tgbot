@@ -286,6 +286,7 @@ func (o *SetGameScoreInternalServerError) readResponse(response runtime.ClientRe
 /*SetGameScoreOKBody set game score o k body
 swagger:model SetGameScoreOKBody
 */
+
 type SetGameScoreOKBody struct {
 
 	// description
@@ -304,6 +305,14 @@ type SetGameScoreOKBody struct {
 	// Required: true
 	Result interface{} `json:"result"`
 }
+
+/* polymorph SetGameScoreOKBody description false */
+
+/* polymorph SetGameScoreOKBody error_code false */
+
+/* polymorph SetGameScoreOKBody ok false */
+
+/* polymorph SetGameScoreOKBody result false */
 
 // Validate validates this set game score o k body
 func (o *SetGameScoreOKBody) Validate(formats strfmt.Registry) error {

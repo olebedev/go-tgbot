@@ -286,6 +286,7 @@ func (o *EditMessageReplyMarkupInternalServerError) readResponse(response runtim
 /*EditMessageReplyMarkupOKBody edit message reply markup o k body
 swagger:model EditMessageReplyMarkupOKBody
 */
+
 type EditMessageReplyMarkupOKBody struct {
 
 	// description
@@ -304,6 +305,14 @@ type EditMessageReplyMarkupOKBody struct {
 	// Required: true
 	Result interface{} `json:"result"`
 }
+
+/* polymorph EditMessageReplyMarkupOKBody description false */
+
+/* polymorph EditMessageReplyMarkupOKBody error_code false */
+
+/* polymorph EditMessageReplyMarkupOKBody ok false */
+
+/* polymorph EditMessageReplyMarkupOKBody result false */
 
 // Validate validates this edit message reply markup o k body
 func (o *EditMessageReplyMarkupOKBody) Validate(formats strfmt.Registry) error {

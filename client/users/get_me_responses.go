@@ -286,6 +286,7 @@ func (o *GetMeInternalServerError) readResponse(response runtime.ClientResponse,
 /*GetMeOKBody get me o k body
 swagger:model GetMeOKBody
 */
+
 type GetMeOKBody struct {
 
 	// description
@@ -304,6 +305,14 @@ type GetMeOKBody struct {
 	// Required: true
 	Result *models.User `json:"result"`
 }
+
+/* polymorph GetMeOKBody description false */
+
+/* polymorph GetMeOKBody error_code false */
+
+/* polymorph GetMeOKBody ok false */
+
+/* polymorph GetMeOKBody result false */
 
 // Validate validates this get me o k body
 func (o *GetMeOKBody) Validate(formats strfmt.Registry) error {

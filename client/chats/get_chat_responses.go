@@ -286,6 +286,7 @@ func (o *GetChatInternalServerError) readResponse(response runtime.ClientRespons
 /*GetChatOKBody get chat o k body
 swagger:model GetChatOKBody
 */
+
 type GetChatOKBody struct {
 
 	// description
@@ -304,6 +305,14 @@ type GetChatOKBody struct {
 	// Required: true
 	Result *models.Chat `json:"result"`
 }
+
+/* polymorph GetChatOKBody description false */
+
+/* polymorph GetChatOKBody error_code false */
+
+/* polymorph GetChatOKBody ok false */
+
+/* polymorph GetChatOKBody result false */
 
 // Validate validates this get chat o k body
 func (o *GetChatOKBody) Validate(formats strfmt.Registry) error {

@@ -16,6 +16,7 @@ import (
 
 // InlineType inline type
 // swagger:model InlineType
+
 type InlineType string
 
 const (

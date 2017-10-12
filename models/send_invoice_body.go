@@ -17,6 +17,7 @@ import (
 
 // SendInvoiceBody send invoice body
 // swagger:model SendInvoiceBody
+
 type SendInvoiceBody struct {
 
 	// chat id
@@ -87,6 +88,46 @@ type SendInvoiceBody struct {
 	// Required: true
 	Title *string `json:"title"`
 }
+
+/* polymorph SendInvoiceBody chat_id false */
+
+/* polymorph SendInvoiceBody currency false */
+
+/* polymorph SendInvoiceBody description false */
+
+/* polymorph SendInvoiceBody disable_notification false */
+
+/* polymorph SendInvoiceBody is_flexible false */
+
+/* polymorph SendInvoiceBody need_email false */
+
+/* polymorph SendInvoiceBody need_name false */
+
+/* polymorph SendInvoiceBody need_phone_number false */
+
+/* polymorph SendInvoiceBody need_shipping_address false */
+
+/* polymorph SendInvoiceBody payload false */
+
+/* polymorph SendInvoiceBody photo_height false */
+
+/* polymorph SendInvoiceBody photo_size false */
+
+/* polymorph SendInvoiceBody photo_url false */
+
+/* polymorph SendInvoiceBody photo_width false */
+
+/* polymorph SendInvoiceBody prices false */
+
+/* polymorph SendInvoiceBody provider_token false */
+
+/* polymorph SendInvoiceBody reply_markup false */
+
+/* polymorph SendInvoiceBody reply_to_message_id false */
+
+/* polymorph SendInvoiceBody start_parameter false */
+
+/* polymorph SendInvoiceBody title false */
 
 // Validate validates this send invoice body
 func (m *SendInvoiceBody) Validate(formats strfmt.Registry) error {

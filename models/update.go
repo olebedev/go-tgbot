@@ -14,6 +14,7 @@ import (
 
 // Update update
 // swagger:model Update
+
 type Update struct {
 
 	// callback query
@@ -46,6 +47,26 @@ type Update struct {
 	// update id
 	UpdateID int64 `json:"update_id,omitempty"`
 }
+
+/* polymorph Update callback_query false */
+
+/* polymorph Update channel_post false */
+
+/* polymorph Update chosen_inline_result false */
+
+/* polymorph Update edited_channel_post false */
+
+/* polymorph Update edited_message false */
+
+/* polymorph Update inline_query false */
+
+/* polymorph Update message false */
+
+/* polymorph Update pre_checkout_query false */
+
+/* polymorph Update shipping_query false */
+
+/* polymorph Update update_id false */
 
 // Validate validates this update
 func (m *Update) Validate(formats strfmt.Registry) error {
