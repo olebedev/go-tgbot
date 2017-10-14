@@ -28,6 +28,9 @@ type Message struct {
 	// caption
 	Caption string `json:"caption,omitempty"`
 
+	// caption entities
+	CaptionEntities []*MessageEntity `json:"caption_entities"`
+
 	// channel chat created
 	ChannelChatCreated bool `json:"channel_chat_created,omitempty"`
 
@@ -140,6 +143,8 @@ type Message struct {
 
 /* polymorph Message caption false */
 
+/* polymorph Message caption_entities false */
+
 /* polymorph Message channel_chat_created false */
 
 /* polymorph Message chat false */
@@ -215,6 +220,11 @@ func (m *Message) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAudio(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateCaptionEntities(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -344,6 +354,33 @@ func (m *Message) validateAudio(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+func (m *Message) validateCaptionEntities(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.CaptionEntities) { // not required
+		return nil
+	}
+
+	for i := 0; i < len(m.CaptionEntities); i++ {
+
+		if swag.IsZero(m.CaptionEntities[i]) { // not required
+			continue
+		}
+
+		if m.CaptionEntities[i] != nil {
+
+			if err := m.CaptionEntities[i].Validate(formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("caption_entities" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

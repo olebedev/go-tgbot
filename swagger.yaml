@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: |
     This is a swagger defenition for [Telegram bot API](https://core.telegram.org/bots/api).
-  version: "3.3"
+  version: "3.4"
   title: Telegram bot API
 externalDocs:
   description: Find out more about Telegram bot API
@@ -1280,6 +1280,92 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
+  /bot{token}/editMessageLiveLocation:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: editMessageLiveLocation
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        description: ""
+        schema:
+          $ref: "#/definitions/EditMessageLiveLocationBody"
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/stopMessageLiveLocation:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: stopMessageLiveLocation
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        name: body
+        required: false
+        description: ""
+        schema:
+          $ref: "#/definitions/StopMessageLiveLocationBody"
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
   /bot{token}/sendVenue:
     post:
       tags:
@@ -1536,6 +1622,7 @@ paths:
           description: Internal
           schema:
             $ref: "#/definitions/Error"
+
   /bot{token}/kickChatMember:
     get:
       tags:
@@ -2265,6 +2352,92 @@ paths:
         type: string
         required: true
         description: ""
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/ResponseBool"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/setChatStickerSet:
+    get:
+      tags:
+      - chats
+      description: ""
+      operationId: setChatStickerSet
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
+      - in: query
+        name: sticker_set_name
+        type: string
+        required: true
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/ResponseBool"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/deleteChatStickerSet:
+    get:
+      tags:
+      - chats
+      description: ""
+      operationId: deleteChatStickerSet
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: query
+        name: chat_id
+        type: string
+        required: true
       responses:
         200:
           description: ""
@@ -3438,6 +3611,10 @@ definitions:
         type: string
       pinned_message:
         $ref: '#/definitions/Message'
+      sticker_set_name:
+        type: string
+      can_set_sticker_set:
+        type: boolean
   Message:
     type: object
     properties:
@@ -3464,6 +3641,10 @@ definitions:
       text:
         type: string
       entities:
+        type: array
+        items:
+          $ref: '#/definitions/MessageEntity'
+      caption_entities:
         type: array
         items:
           $ref: '#/definitions/MessageEntity'
@@ -3860,6 +4041,10 @@ definitions:
         type: number
       longitude:
         type: number
+      live_period:
+        type: integer
+        minimum: 60
+        maximum: 86400
   InputVenueMessageContent:
     type: object
     required:
@@ -4154,6 +4339,10 @@ definitions:
         type: integer
       thumb_height:
         type: integer
+      live_period:
+        type: integer
+        minimum: 60
+        maximum: 86400
     required:
     - type
     - id
@@ -4720,6 +4909,39 @@ definitions:
         type: boolean
       reply_to_message_id:
         type: integer
+      reply_markup:
+        type: object
+      live_period:
+        type: integer
+        minimum: 60
+        maximum: 86400
+  EditMessageLiveLocationBody:
+    type: object
+    required:
+    - latitude
+    - longitude
+    properties:
+      chat_id:
+        type: object
+      message_id:
+        type: integer
+      inline_message_id:
+        type: string
+      latitude:
+        type: number
+      longitude:
+        type: number
+      reply_markup:
+        type: object
+  StopMessageLiveLocationBody:
+    type: object
+    properties:
+      chat_id:
+        type: object
+      message_id:
+        type: integer
+      inline_message_id:
+        type: string
       reply_markup:
         type: object
   SendVenueBody:

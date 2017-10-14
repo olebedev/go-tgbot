@@ -53,6 +53,34 @@ func (a *Client) DeleteChatPhoto(params *DeleteChatPhotoParams) (*DeleteChatPhot
 }
 
 /*
+DeleteChatStickerSet delete chat sticker set API
+*/
+func (a *Client) DeleteChatStickerSet(params *DeleteChatStickerSetParams) (*DeleteChatStickerSetOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewDeleteChatStickerSetParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "deleteChatStickerSet",
+		Method:             "GET",
+		PathPattern:        "/bot{token}/deleteChatStickerSet",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &DeleteChatStickerSetReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*DeleteChatStickerSetOK), nil
+
+}
+
+/*
 ExportChatInviteLink export chat invite link API
 */
 func (a *Client) ExportChatInviteLink(params *ExportChatInviteLinkParams) (*ExportChatInviteLinkOK, error) {
@@ -413,6 +441,34 @@ func (a *Client) SetChatPhoto(params *SetChatPhotoParams) (*SetChatPhotoOK, erro
 		return nil, err
 	}
 	return result.(*SetChatPhotoOK), nil
+
+}
+
+/*
+SetChatStickerSet set chat sticker set API
+*/
+func (a *Client) SetChatStickerSet(params *SetChatStickerSetParams) (*SetChatStickerSetOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSetChatStickerSetParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "setChatStickerSet",
+		Method:             "GET",
+		PathPattern:        "/bot{token}/setChatStickerSet",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SetChatStickerSetReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SetChatStickerSetOK), nil
 
 }
 

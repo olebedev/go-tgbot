@@ -25,6 +25,34 @@ type Client struct {
 }
 
 /*
+EditMessageLiveLocation edit message live location API
+*/
+func (a *Client) EditMessageLiveLocation(params *EditMessageLiveLocationParams) (*EditMessageLiveLocationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewEditMessageLiveLocationParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "editMessageLiveLocation",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/editMessageLiveLocation",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &EditMessageLiveLocationReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*EditMessageLiveLocationOK), nil
+
+}
+
+/*
 GetFile get file API
 */
 func (a *Client) GetFile(params *GetFileParams) (*GetFileOK, error) {
@@ -525,6 +553,34 @@ func (a *Client) SendVoiceLink(params *SendVoiceLinkParams) (*SendVoiceLinkOK, e
 		return nil, err
 	}
 	return result.(*SendVoiceLinkOK), nil
+
+}
+
+/*
+StopMessageLiveLocation stop message live location API
+*/
+func (a *Client) StopMessageLiveLocation(params *StopMessageLiveLocationParams) (*StopMessageLiveLocationOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewStopMessageLiveLocationParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "stopMessageLiveLocation",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/stopMessageLiveLocation",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &StopMessageLiveLocationReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*StopMessageLiveLocationOK), nil
 
 }
 

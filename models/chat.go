@@ -23,6 +23,9 @@ type Chat struct {
 	// all members are administrators
 	AllMembersAreAdministrators bool `json:"all_members_are_administrators,omitempty"`
 
+	// can set sticker set
+	CanSetStickerSet bool `json:"can_set_sticker_set,omitempty"`
+
 	// description
 	Description string `json:"description,omitempty"`
 
@@ -45,6 +48,9 @@ type Chat struct {
 	// pinned message
 	PinnedMessage *Message `json:"pinned_message,omitempty"`
 
+	// sticker set name
+	StickerSetName string `json:"sticker_set_name,omitempty"`
+
 	// title
 	Title string `json:"title,omitempty"`
 
@@ -57,6 +63,8 @@ type Chat struct {
 }
 
 /* polymorph Chat all_members_are_administrators false */
+
+/* polymorph Chat can_set_sticker_set false */
 
 /* polymorph Chat description false */
 
@@ -71,6 +79,8 @@ type Chat struct {
 /* polymorph Chat photo false */
 
 /* polymorph Chat pinned_message false */
+
+/* polymorph Chat sticker_set_name false */
 
 /* polymorph Chat title false */
 

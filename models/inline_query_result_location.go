@@ -29,6 +29,11 @@ type InlineQueryResultLocation struct {
 	// Required: true
 	Latitude *float64 `json:"latitude"`
 
+	// live period
+	// Maximum: 86400
+	// Minimum: 60
+	LivePeriod int64 `json:"live_period,omitempty"`
+
 	// longitude
 	// Required: true
 	Longitude *float64 `json:"longitude"`
@@ -60,6 +65,8 @@ type InlineQueryResultLocation struct {
 
 /* polymorph InlineQueryResultLocation latitude false */
 
+/* polymorph InlineQueryResultLocation live_period false */
+
 /* polymorph InlineQueryResultLocation longitude false */
 
 /* polymorph InlineQueryResultLocation reply_markup false */
@@ -84,6 +91,11 @@ func (m *InlineQueryResultLocation) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateLatitude(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateLivePeriod(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -126,6 +138,23 @@ func (m *InlineQueryResultLocation) validateID(formats strfmt.Registry) error {
 func (m *InlineQueryResultLocation) validateLatitude(formats strfmt.Registry) error {
 
 	if err := validate.Required("latitude", "body", m.Latitude); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *InlineQueryResultLocation) validateLivePeriod(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.LivePeriod) { // not required
+		return nil
+	}
+
+	if err := validate.MinimumInt("live_period", "body", int64(m.LivePeriod), 60, false); err != nil {
+		return err
+	}
+
+	if err := validate.MaximumInt("live_period", "body", int64(m.LivePeriod), 86400, false); err != nil {
 		return err
 	}
 
