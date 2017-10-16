@@ -3,7 +3,6 @@ package tgbot_test
 import (
 	"context"
 	"flag"
-	"fmt"
 	"log"
 
 	tgbot "github.com/olebedev/go-tgbot"
@@ -16,64 +15,43 @@ import (
 type Session struct {
 	User    *app.User
 	Billing *app.UserBillingInfo
-	// ... etc
-	Route string
-}
-
-func (s Session) String() string {
-	return s.Route
-}
-
-func GetSessionFunc(u *models.Update) (fmt.Stringer, error) {
-	sess, err := tgbot.GetSession(u)
-	if err != nil {
-		return nil, err
-	}
-
-	s := &Session{
-		Route: "~" + sess.String(),
-	}
-
-	s.User, err = app.GetUserByTgID(u.Message.From.ID)
-	if err != nil {
-		return err
-	}
-	s.Billing, err = app.GetBillingByID(s.User.ID)
-	if err != nil {
-		return err
-	}
-
-	if !s.Billing.Active {
-		s.Route = "/pay" + s.Route
-	}
-
-	return s, nil
 }
 
 func ExampleNew_session() {
 	token := flag.String("token", "", "telegram bot token")
 	flag.Parse()
 
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	r := tgbot.New(&tgbot.Options{
-		Context:    ctx,
-		Token:      *token,
-		GetSession: GetSessionFunc,
-	})
+	r := tgbot.New(context.Background(), *token)
 
 	// setup global middleware
 	r.Use(tgbot.Recover)
 
+	r.Use(func(c *tgbot.Context) error {
+		s, err := app.GetSession(u)
+		if err != nil {
+			return nil, err
+		}
+		c.Set("session", s)
+
+		if !s.Billing.Active {
+			c.Path = "/pay_first~" + c.Path
+		}
+
+		err = c.Next()
+		if err != nil {
+			return err
+		}
+		// finalize session if needed
+	})
+
 	// Bind handlers
-	r.Message("^/pay~.*", func(c *tgbot.Context) error {
-		s := c.Session.(*Session)
+	r.Bind(`^/pay_first~.*`, func(c *tgbot.Context) error {
+		s := c.MustGet("session").(*Session)
 		// TODO handle payment here before say hello
 		return r.Route(c.Update)
 	})
 
-	r.Message("^~/start\\sstart$", func(c *tgbot.Context) error {
+	r.Bind(`^/message/-/private/text/start\sstart$`, func(c *tgbot.Context) error {
 		log.Println(c.Update.Message.Text)
 		// send greeting message back
 		message := "hi there what's up"

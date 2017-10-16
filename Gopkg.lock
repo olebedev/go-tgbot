@@ -26,6 +26,12 @@
   version = "v7"
 
 [[projects]]
+  name = "github.com/fatih/color"
+  packages = ["."]
+  revision = "570b54cabe6b8eb0bc2dfce68d964677d63b5260"
+  version = "v1.5.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/go-openapi/analysis"
   packages = ["."]
@@ -59,7 +65,7 @@
   branch = "master"
   name = "github.com/go-openapi/runtime"
   packages = [".","client"]
-  revision = "bf2ff8f7150788b1c7256abb0805ba0410cbbabb"
+  revision = "e8231e16de5bcda9839e03ae07c5c96a1fd82041"
 
 [[projects]]
   branch = "master"
@@ -92,6 +98,18 @@
   revision = "2a92e673c9a6302dd05c3a691ae1f24aef46457d"
 
 [[projects]]
+  name = "github.com/mattn/go-colorable"
+  packages = ["."]
+  revision = "167de6bfdfba052fa6b2d3664c8f5272e23c9072"
+  version = "v0.0.9"
+
+[[projects]]
+  name = "github.com/mattn/go-isatty"
+  packages = ["."]
+  revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
+  version = "v0.0.3"
+
+[[projects]]
   branch = "master"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
@@ -111,9 +129,15 @@
 
 [[projects]]
   branch = "master"
+  name = "golang.org/x/sys"
+  packages = ["unix"]
+  revision = "686000749eaec0b8855b8eef5336cf63899fe51d"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/text"
   packages = ["collate","collate/build","internal/colltab","internal/gen","internal/tag","internal/triegen","internal/ucd","language","secure/bidirule","transform","unicode/bidi","unicode/cldr","unicode/norm","unicode/rangetable","width"]
-  revision = "825fc78a2fd6fa0a5447e300189e3219e05e1f25"
+  revision = "c01e4764d870b77f8abe5096ee19ad20d80e8075"
 
 [[projects]]
   branch = "v2"
@@ -130,6 +154,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d527d60b9c51cebbbafcc1e35253fc714349ec25a67c6e1c0fec6bf21d0f9a30"
+  inputs-digest = "2709f10f5a6d895ea6c5f2a5040d15803d10efadbfb6495b1c6669699f3495da"
   solver-name = "gps-cdcl"
   solver-version = 1

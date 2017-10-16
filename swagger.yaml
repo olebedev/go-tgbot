@@ -3700,6 +3700,8 @@ definitions:
         type: integer
       pinned_message:
         $ref: '#/definitions/Message'
+      invoice:
+        $ref: '#/definitions/Invoice'
       successful_payment:
         $ref: '#/definitions/SuccessfulPayment'
       forward_signature:

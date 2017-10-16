@@ -19,17 +19,22 @@ func ExampleNew() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	r := tgbot.New(&tgbot.Options{
-		Context: ctx,
-		Token:   *token,
-	})
+	r := tgbot.New(ctx, *token)
 
 	// setup global middleware
 	r.Use(tgbot.Recover)
 
-	// Bind handler
-	r.Message("^/start\\sstart$", func(c *tgbot.Context) error {
-		log.Println(c.Update.Message.Text)
+	// modify path to be able to match user's commands via router
+	r.Use(func(c *tgbot.Context) error {
+		c.Path = c.Path + c.Text
+		return nil
+	})
+
+	// bind handler
+	r.Bind(`^/message/(?:.*)/text/start(?:\s(.*))?$`, func(c *tgbot.Context) error {
+		log.Println(c.Capture)             // - ^ from path
+		log.Println(c.Update.Message.Text) // or c.Text
+
 		// send greeting message back
 		message := "hi there what's up"
 		resp, err := r.Messages.SendMessage(

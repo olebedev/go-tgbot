@@ -1,17 +1,15 @@
 package tgbot
 
-import (
-	"fmt"
-
-	"github.com/olebedev/go-tgbot/models"
-)
+import "github.com/olebedev/go-tgbot/models"
 
 type Context struct {
+	Path    string
 	Update  *models.Update
 	Keys    map[string]interface{}
-	Params  []string
-	Session fmt.Stringer
-	Kind    rkind
+	Capture []string
+
+	Text string
+	From *models.User // ?
 
 	handlers  []func(*Context) error
 	index     uint8
@@ -27,9 +25,8 @@ func (c *Context) FallThrough() error {
 // Next executes the pending handlers in the chain inside the calling handler.
 func (c *Context) Next() error {
 	c.index++
-	s := uint8(len(c.handlers))
 	var err error
-	for ; c.index <= s; c.index++ {
+	for ; c.index <= uint8(len(c.handlers)); c.index++ {
 		if c.isSkipped {
 			break
 		} else {
