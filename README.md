@@ -6,7 +6,7 @@
 
 1. **No need to learn any other library API.** You will use methods with payload exactly like it presented on telegram bot API description page. With only couple trade-offs, b/c of telegram bot API is generics a bit.
 2. **All models and methods are being supported.** The models and methods were generated from `swagger.yaml` description file. So, new entities/methods could be added by describing in the YAML swagger file. This approach allows validating the description, avoid typos and develop fast.
-3. `ffjson` is plugged. So, **it's pretty fast**.
+3. `easyjson` is plugged. So, **it's fast**.
 4. **`context.Context` based** HTTP client
 5. **Session-based routing**, not only message text based.
 

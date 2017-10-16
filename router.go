@@ -247,7 +247,7 @@ func (r *Router) routeMiddleware(c *Context) error {
 	}
 
 	return &Error{
-		message: fmt.Sprintf("missed handler for: '%s'", c.Path),
+		message: fmt.Sprintf("missed handler for '%s'", c.Path),
 		code:    404,
 	}
 }

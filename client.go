@@ -18,5 +18,17 @@ func NewClient(ctx context.Context, token string) *client.TelegramBot {
 	transport.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(r runtime.ClientRequest, _ strfmt.Registry) error {
 		return r.SetPathParam("token", token)
 	})
+
+	// transport.Consumers[runtime.JSONMime] = runtime.ConsumerFunc(func(reader io.Reader, data interface{}) error {
+	// 	dec := json.NewDecoder(reader)
+	// 	dec.UseNumber() // preserve number formats
+	// 	return dec.Decode(data)
+	// })
+	//
+	// transport.Producers[runtime.JSONMime] = runtime.ProducerFunc(func(writer io.Writer, data interface{}) error {
+	// 	enc := json.NewEncoder(writer)
+	// 	return enc.Encode(data)
+	// })
+
 	return client.New(transport, nil)
 }
