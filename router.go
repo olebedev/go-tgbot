@@ -93,6 +93,7 @@ func (r *Router) Route(u *models.Update) error {
 
 func (r *Router) buildContext(up *models.Update) *Context {
 	var from *models.User
+	var chat *models.Chat
 	var u, text string
 	switch true {
 	case up.Message != nil || up.EditedMessage != nil || up.ChannelPost != nil || up.EditedChannelPost != nil:
@@ -113,6 +114,7 @@ func (r *Router) buildContext(up *models.Update) *Context {
 		}
 		text = msg.Text
 		from = msg.From
+		chat = msg.Chat
 
 		// reply/forward/direct
 		switch true {
@@ -192,6 +194,9 @@ func (r *Router) buildContext(up *models.Update) *Context {
 		u += "/callback_query"
 		text = up.CallbackQuery.Data
 		from = up.CallbackQuery.From
+		if up.CallbackQuery.Message != nil {
+			chat = up.CallbackQuery.Message.Chat
+		}
 	case up.ChosenInlineResult != nil:
 		u += "/chosen_inline_result"
 		switch true {
@@ -218,6 +223,7 @@ func (r *Router) buildContext(up *models.Update) *Context {
 		Path:     u,
 		From:     from,
 		Text:     text,
+		Chat:     chat,
 		Update:   up,
 		handlers: r.handlers,
 	}

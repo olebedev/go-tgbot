@@ -9,6 +9,7 @@ type Context struct {
 	Capture []string
 
 	Text string
+	Chat *models.Chat
 	From *models.User // ?
 
 	handlers  []func(*Context) error
