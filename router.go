@@ -194,9 +194,14 @@ func (r *Router) buildContext(up *models.Update) *Context {
 		u += "/callback_query"
 		text = up.CallbackQuery.Data
 		from = up.CallbackQuery.From
+		suffix := "-"
 		if up.CallbackQuery.Message != nil {
 			chat = up.CallbackQuery.Message.Chat
+			if chat != nil && chat.Type != nil {
+				suffix = *chat.Type
+			}
 		}
+		u += "/" + suffix
 	case up.ChosenInlineResult != nil:
 		u += "/chosen_inline_result"
 		switch true {
