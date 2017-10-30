@@ -1,8 +1,11 @@
 SOURCE = ./swagger.yaml
 LIB    = ./.lib
+JSON := models/models_easyjson.go
 
-build: replace
-	go generate
+build: $(JSON)
+
+$(JSON): replace
+	easyjson --output_filename $@ -pkg -all models
 
 $(LIB): $(SOURCE)
 	swagger generate client --skip-validation -f $<

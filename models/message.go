@@ -79,6 +79,9 @@ type Message struct {
 	// group chat created
 	GroupChatCreated bool `json:"group_chat_created,omitempty"`
 
+	// invoice
+	Invoice *Invoice `json:"invoice,omitempty"`
+
 	// left chat member
 	LeftChatMember *User `json:"left_chat_member,omitempty"`
 
@@ -177,6 +180,8 @@ type Message struct {
 
 /* polymorph Message group_chat_created false */
 
+/* polymorph Message invoice false */
+
 /* polymorph Message left_chat_member false */
 
 /* polymorph Message location false */
@@ -265,6 +270,11 @@ func (m *Message) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateGame(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateInvoice(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -538,6 +548,25 @@ func (m *Message) validateGame(formats strfmt.Registry) error {
 		if err := m.Game.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("game")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Message) validateInvoice(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Invoice) { // not required
+		return nil
+	}
+
+	if m.Invoice != nil {
+
+		if err := m.Invoice.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("invoice")
 			}
 			return err
 		}

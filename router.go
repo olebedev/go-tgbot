@@ -14,142 +14,70 @@ import (
 	"github.com/pkg/errors"
 )
 
-//go:generate stringer -type=rkind
-type rkind int
-
-const (
-	// Kind is const to route different updates
-	KindMessage rkind = 1 << iota
-	KindEditedMessage
-	KindChannelPost
-	KindEditedChannelPost
-	KindInlineQuery
-	KindCallbackQuery
-	KindChosenInlineResult
-	KindShippingQuery
-	KindPreCheckoutQuery
-	KindAll rkind = (1 << iota) - 1
-
-	DefaultPollTimeout int64 = 29
-)
-
-// Options ... All field are optional.
-type Options struct {
-	Context    context.Context
-	Token      string
-	GetSession func(*models.Update) (fmt.Stringer, error)
-}
+const DefaultPollTimeout int64 = 29
 
 // Router ...
 type Router struct {
 	*client.TelegramBot
+	PollTimeout int64
 	middlewares []func(*Context) error
+	handlers    []func(*Context) error
 	routes      []struct {
-		kind  rkind
 		key   string
 		re    *regexp.Regexp
 		value []func(*Context) error
 	}
-	getSession func(*models.Update) (fmt.Stringer, error)
+}
+
+type Error struct {
+	message string
+	code    uint16
+}
+
+func (e Error) Error() string {
+	if e.code != 0 {
+		return fmt.Sprintf("%d: %s", e.code, e.message)
+	}
+	return e.message
 }
 
 // New returns a router.
-func New(o *Options) *Router {
-	if o == nil {
-		o = &Options{}
-	}
+func New(ctx context.Context, token string) *Router {
 	r := &Router{
-		TelegramBot: NewClient(o.Context, o.Token),
+		TelegramBot: NewClient(ctx, token),
 		middlewares: make([]func(*Context) error, 0),
 		routes: make([]struct {
-			kind  rkind
 			key   string
 			re    *regexp.Regexp
 			value []func(*Context) error
 		}, 0),
+		PollTimeout: DefaultPollTimeout,
 	}
 
-	if o.GetSession != nil {
-		r.getSession = o.GetSession
-	} else {
-		r.getSession = GetSession
-	}
 	return r
 }
 
 // Use appends given middlewares into call chain.
 func (r *Router) Use(middlewares ...func(*Context) error) {
 	r.middlewares = append(r.middlewares, middlewares...)
+	r.handlers = make([]func(*Context) error, len(r.middlewares)+1)
+	copy(r.handlers, r.middlewares)
+	r.handlers[len(r.middlewares)] = r.routeMiddleware
 }
 
-// All binds all kind of updates and the route through handler/handlers.
-func (r *Router) All(route string, handlers ...func(*Context) error) error {
-	return r.Handle(KindAll, route, handlers...)
-}
-
-// Message binds message updates and the route through handler/handlers.
-func (r *Router) Message(route string, handlers ...func(*Context) error) error {
-	return r.Handle(KindMessage, route, handlers...)
-}
-
-// EditedMessage binss message updates and the route through handler/handlers.
-func (r *Router) EditedMessage(route string, handlers ...func(*Context) error) error {
-	return r.Handle(KindEditedMessage, route, handlers...)
-}
-
-// ChannelPost binds message updates and the route through handler/handlers.
-func (r *Router) ChannelPost(route string, handlers ...func(*Context) error) error {
-	return r.Handle(KindChannelPost, route, handlers...)
-}
-
-// EditedChannelPost binds message updates and the route through handler/handlers.
-func (r *Router) EditedChannelPost(route string, handlers ...func(*Context) error) error {
-	return r.Handle(KindEditedChannelPost, route, handlers...)
-}
-
-// InlineQuery binds inline queries and the route through handler/handlers.
-func (r *Router) InlineQuery(route string, handlers ...func(*Context) error) error {
-	return r.Handle(KindInlineQuery, route, handlers...)
-}
-
-// CallbackQuery binds callback updates and the route through handler/handlers.
-func (r *Router) CallbackQuery(route string, handlers ...func(*Context) error) error {
-	return r.Handle(KindCallbackQuery, route, handlers...)
-}
-
-// ChosenInlineResult binds chosen inline result updates and the route through
-// handler/handlers.
-func (r *Router) ChosenInlineResult(route string, handlers ...func(*Context) error) error {
-	return r.Handle(KindChosenInlineResult, route, handlers...)
-}
-
-// ShippingQuery binds shipping result updates and the route through
-// handler/handlers.
-func (r *Router) ShippingQuery(route string, handlers ...func(*Context) error) error {
-	return r.Handle(KindShippingQuery, route, handlers...)
-}
-
-// PreCheckout binds pre-checkout result updates and the route through
-// handler/handlers.
-func (r *Router) PreCheckout(route string, handlers ...func(*Context) error) error {
-	return r.Handle(KindPreCheckoutQuery, route, handlers...)
-}
-
-// Handle binds specific kinds of an update to the handler/handlers.
-func (r *Router) Handle(kind rkind, routeRegExp string, handlers ...func(*Context) error) error {
-	re, err := regexp.Compile(routeRegExp)
+// Bind binds an update to the handler(s).
+func (r *Router) Bind(route string, handlers ...func(*Context) error) error {
+	re, err := regexp.Compile(route)
 	if err != nil {
 		return err
 	}
 
 	r.routes = append(r.routes, struct {
-		kind  rkind
 		key   string
 		re    *regexp.Regexp
 		value []func(*Context) error
 	}{
-		kind:  kind,
-		key:   routeRegExp,
+		key:   route,
 		re:    re,
 		value: handlers,
 	})
@@ -160,65 +88,179 @@ func (r *Router) Handle(kind rkind, routeRegExp string, handlers ...func(*Contex
 // Route routes given updates into the bound handlers
 // through defined middlewares.
 func (r *Router) Route(u *models.Update) error {
+	return errors.Wrap(r.buildContext(u).Next(), "call context chain")
+}
 
-	sess, err := r.getSession(u)
-	if err != nil {
-		return errors.Wrap(err, "getting session")
-	}
-
-	var kind rkind
+func (r *Router) buildContext(up *models.Update) *Context {
+	var from *models.User
+	var chat *models.Chat
+	var u, text string
 	switch true {
-	case u.Message != nil:
-		kind = KindMessage
-	case u.EditedMessage != nil:
-		kind = KindEditedMessage
-	case u.ChannelPost != nil:
-		kind = KindChannelPost
-	case u.EditedChannelPost != nil:
-		kind = KindEditedChannelPost
-	case u.InlineQuery != nil:
-		kind = KindInlineQuery
-	case u.CallbackQuery != nil:
-		kind = KindCallbackQuery
-	case u.ChosenInlineResult != nil:
-		kind = KindChosenInlineResult
-	case u.ShippingQuery != nil:
-		kind = KindShippingQuery
-	case u.PreCheckoutQuery != nil:
-		kind = KindPreCheckoutQuery
+	case up.Message != nil || up.EditedMessage != nil || up.ChannelPost != nil || up.EditedChannelPost != nil:
+		var msg *models.Message
+		switch true {
+		case up.Message != nil:
+			u += "/message"
+			msg = up.Message
+		case up.EditedMessage != nil:
+			u += "/edited_message"
+			msg = up.EditedMessage
+		case up.ChannelPost != nil:
+			u += "/channel_post"
+			msg = up.ChannelPost
+		case up.EditedChannelPost != nil:
+			u += "/edited_channel_post"
+			msg = up.EditedChannelPost
+		}
+		text = msg.Text
+		from = msg.From
+		chat = msg.Chat
+
+		// reply/forward/direct
+		switch true {
+		case msg.ReplyToMessage != nil:
+			u += "/reply"
+		case msg.ForwardFrom != nil:
+			u += "/forward"
+		default:
+			u += "/-"
+		}
+
+		// chat type
+		u += "/" + *msg.Chat.Type
+
+		// message type
+		switch true {
+		case msg.Text != "":
+			u += "/text"
+		case msg.Audio != nil:
+			u += "/audio"
+		case msg.Document != nil:
+			u += "/document"
+		case msg.Game != nil:
+			u += "/game"
+		case msg.Photo != nil:
+			u += "/photo"
+		case msg.Sticker != nil:
+			u += "/sticker"
+		case msg.Video != nil:
+			u += "/video"
+		case msg.Voice != nil:
+			u += "/voice"
+		case msg.VideoNote != nil:
+			u += "/video_note"
+		case msg.Contact != nil:
+			u += "/contact"
+		case msg.Location != nil:
+			u += "/location"
+		case msg.Venue != nil:
+			u += "/venue"
+		case msg.NewChatMembers != nil:
+			u += "/new_chat_members"
+		case msg.LeftChatMember != nil:
+			u += "/left_chat_member"
+		case msg.NewChatTitle != "":
+			u += "/new_chat_title"
+		case msg.NewChatPhoto != nil:
+			u += "/new_chat_photo"
+		case msg.DeleteChatPhoto:
+			u += "/delete_chat_photo"
+		case msg.GroupChatCreated:
+			u += "/group_chat_created"
+		case msg.SupergroupChatCreated:
+			u += "/supergroup_chat_created"
+		case msg.ChannelChatCreated:
+			u += "/channel_chat_created"
+		case msg.PinnedMessage != nil:
+			u += "/pinned_message"
+		case msg.Invoice != nil:
+			u += "/invoice"
+		case msg.SuccessfulPayment != nil:
+			u += "/successful_payment"
+		default:
+			u += "/text"
+		}
+	case up.InlineQuery != nil:
+		u += "/inline_query"
+		text = up.InlineQuery.Query
+		from = up.InlineQuery.From
+		switch true {
+		case up.InlineQuery.Location != nil:
+			u += "/location"
+		default:
+			u += "/-"
+		}
+	case up.CallbackQuery != nil:
+		u += "/callback_query"
+		text = up.CallbackQuery.Data
+		from = up.CallbackQuery.From
+		suffix := "-"
+		if up.CallbackQuery.Message != nil {
+			chat = up.CallbackQuery.Message.Chat
+			if chat != nil && chat.Type != nil {
+				suffix = *chat.Type
+			}
+		}
+		u += "/" + suffix
+	case up.ChosenInlineResult != nil:
+		u += "/chosen_inline_result"
+		switch true {
+		case up.ChosenInlineResult.Location != nil:
+			u += "/location"
+		default:
+			u += "/-"
+		}
+		text = *up.ChosenInlineResult.ResultID
+		from = up.ChosenInlineResult.From
+	case up.ShippingQuery != nil:
+		u += "/shipping_query"
+		text = up.ShippingQuery.InvoicePayload
+		from = up.ShippingQuery.From
+	case up.PreCheckoutQuery != nil:
+		u += "/pre_checkout_query"
+		text = up.PreCheckoutQuery.InvoicePayload
+		from = up.PreCheckoutQuery.From
 	default:
-		return errors.New("unknown update")
+		b, _ := json.MarshalIndent(u, "", "  ")
+		panic("unknown update type: " + string(b))
 	}
+	c := &Context{
+		Path:     u,
+		From:     from,
+		Text:     text,
+		Chat:     chat,
+		Update:   up,
+		handlers: r.handlers,
+	}
+	return c
+}
 
-	text := sess.String()
-
+// https://play.golang.org/p/L-x3h11Bak
+func (r *Router) routeMiddleware(c *Context) error {
+	var m []string
 	for _, ro := range r.routes {
-		if (ro.kind|kind) == ro.kind && ro.re.MatchString(text) {
-			ctx := &Context{
-				Session:  sess,
-				Update:   u,
-				Params:   ro.re.FindStringSubmatch(text)[1:],
-				Kind:     kind,
-				handlers: make([]func(*Context) error, len(r.middlewares)+len(ro.value)),
-			}
-
-			copy(ctx.handlers, r.middlewares)
-			copy(ctx.handlers[len(r.middlewares):], ro.value)
-
-			err := ctx.Next()
+		if m = ro.re.FindStringSubmatch(c.Path); len(m) != 0 {
+			c.Capture = m[1:]
+			c.handlers = ro.value
+			c.index = 0
+			err := c.Next()
 			if err != nil {
-				return errors.Wrap(err, "ctx.Next()")
+				return errors.Wrap(err, "c.Next()")
 			}
 
-			if ctx.isSkipped {
-				ctx.isSkipped = false
+			if c.isSkipped {
+				c.isSkipped = false
 				continue
 			} else {
-				break
+				return nil
 			}
 		}
 	}
-	return nil
+
+	return &Error{
+		message: fmt.Sprintf("missed handler for '%s'", c.Path),
+		code:    404,
+	}
 }
 
 // Poll does a polling of API endpoints and routes consumed updates. It returns an error
@@ -231,7 +273,7 @@ func (r *Router) Poll(ctx context.Context, allowed []models.AllowedUpdate) error
 
 	p := updates.NewGetUpdatesParams().
 		WithContext(ctx).
-		WithTimeout(pointer.ToInt64(DefaultPollTimeout))
+		WithTimeout(&r.PollTimeout)
 
 	if len(a) > 0 {
 		p.SetAllowedUpdates(a)
@@ -244,10 +286,7 @@ func (r *Router) Poll(ctx context.Context, allowed []models.AllowedUpdate) error
 		}
 		for _, update := range u.Payload.Result {
 			p.SetOffset(pointer.ToInt64(update.UpdateID + 1))
-			err = r.Route(update)
-			if err != nil {
-				return errors.Wrap(err, "route update")
-			}
+			go r.Route(update)
 		}
 	}
 
