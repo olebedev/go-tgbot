@@ -41,3 +41,6 @@
 
 [[constraint]]
   name = "golang.org/x/net"
+
+[[constraint]]
+  name = "golang.org/x/time"
