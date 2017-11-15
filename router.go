@@ -46,6 +46,7 @@ func New(ctx context.Context, token string) *Router {
 	r := &Router{
 		TelegramBot: NewClient(ctx, token),
 		middlewares: make([]func(*Context) error, 0),
+		handlers:    make([]func(*Context) error, 1),
 		routes: make([]struct {
 			key   string
 			re    *regexp.Regexp
@@ -53,7 +54,7 @@ func New(ctx context.Context, token string) *Router {
 		}, 0),
 		PollTimeout: DefaultPollTimeout,
 	}
-
+	r.handlers[0] = r.routeMiddleware
 	return r
 }
 
