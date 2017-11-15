@@ -12,7 +12,7 @@
 
 ### Client
 
-Client package could be used as regular `go-swagger` client library without using Router. There are the only two additional features over `go-swagger`, a possibility to setup token by default(It solved as a [custom HTTP transport](https://github.com/olebedev/go-tgbot/blob/master/client.go#L35-L42)) and [API throttling](https://github.com/olebedev/go-tgbot/blob/master/client.go#L22-L28) for [30 calls](https://github.com/olebedev/go-tgbot/blob/master/client.go#L45) per second([see more info](https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this)). 
+Client package could be used as regular `go-swagger` client library without using Router. There are the only two additional features over `go-swagger`, a possibility to setup token by default(It solved as a [custom HTTP transport](https://github.com/olebedev/go-tgbot/blob/master/client.go#L35-L42)) and [API throttling](https://github.com/olebedev/go-tgbot/blob/master/client.go#L22-L30) for [30 calls](https://github.com/olebedev/go-tgbot/blob/master/client.go#L46) per second([see more info](https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this)). 
 
 Example:
 
@@ -132,7 +132,7 @@ func main() {
 }
 ```
 
-Default string representation of any kind of an update could be found here - [`router.go`](https://github.com/olebedev/go-tgbot/blob/master/router.go#L94-L225).
+Default string representation of any kind of an update could be found here - [`router.go`](https://github.com/olebedev/go-tgbot/blob/master/router.go#L96-L226).
 
 Router implements `http.Handler` interface to be able to serve HTTP as well. But, it's not recommended because webhooks are much much slower than polling.
 

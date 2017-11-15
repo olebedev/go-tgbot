@@ -23,10 +23,11 @@ func (w *wrapper) Submit(op *runtime.ClientOperation) (interface{}, error) {
 		w.Wait(op.Context)
 	} else if w.Context != nil {
 		w.Wait(w.Context)
+	} else if w.Runtime.Context != nil {
+		w.Wait(w.Runtime.Context)
 	} else {
 		w.Wait(context.Background())
 	}
-
 	return w.Runtime.Submit(op)
 }
 
