@@ -62,7 +62,8 @@ func main() {
 }
 ```
 
-Since swagger covers many other platforms/technologies the same libraries could be generated for them too. See the source here - [`swagger.yaml`](https://github.com/olebedev/go-tgbot/blob/master/swagger.yaml).
+Since swagger covers many other platforms/technologies the same libraries could be generated for them too. See the source here - [`swagger.yaml`](https://github.com/olebedev/go-tgbot/blob/master/swagger.yaml).  
+Also, have a look at [Swagger UI for telegram API](http://petstore.swagger.io/?url=https://raw.githubusercontent.com/olebedev/go-tgbot/master/swagger.yaml#/)(`master` branch).
 
 ### Router
 
