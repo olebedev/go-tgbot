@@ -95,7 +95,7 @@ func main() {
 
 	// setup global middleware
 	r.Use(tgbot.Recover)
-  r.Use(tgbot.Logger(os.Stdout))
+	r.Use(tgbot.Logger(os.Stdout))
 
 	// modify path to be able to match user's commands via router
 	r.Use(func(c *tgbot.Context) error {
