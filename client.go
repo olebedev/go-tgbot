@@ -33,7 +33,7 @@ func (w *wrapper) Submit(op *runtime.ClientOperation) (interface{}, error) {
 
 // NewClient returns new plain API client
 func NewClient(ctx context.Context, token string) *client.TelegramBot {
-	transport := httptransport.New("api.telegram.org", "/", []string{"https"})
+	transport := httptransport.New(client.DefaultHost, client.DefaultBasePath, client.DefaultSchemes)
 	if ctx == nil {
 		ctx = context.Background()
 	}
