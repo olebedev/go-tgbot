@@ -12,7 +12,9 @@
 
 ### Client
 
-Client package could be used as regular `go-swagger` client library without using Router. There is the only single additional feature over `go-swagger` - a possibility to setup token by default. It solved as a [custom HTTP transport](https://github.com/olebedev/go-tgbot/blob/master/client.go#L13-L20). Example:
+Client package could be used as regular `go-swagger` client library without using Router. There are the only two additional features over `go-swagger`, a possibility to setup token by default(It solved as a [custom HTTP transport](https://github.com/olebedev/go-tgbot/blob/master/client.go#L35-L42)) and [API throttling](https://github.com/olebedev/go-tgbot/blob/master/client.go#L22-L28) for [30 calls](https://github.com/olebedev/go-tgbot/blob/master/client.go#L45) per second([see more info](https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this)). 
+
+Example:
 
 ```go
 package main
@@ -67,7 +69,7 @@ Since swagger covers many other platforms/technologies the same libraries could 
 The Router allows binding between kinds of updates and handlers, which are being checked via regexp. Router includes client API library as embedded struct. Example:
 
 ```go
-package tgbot_test
+package main
 
 import (
 	"context"
@@ -81,7 +83,7 @@ import (
 
 var token *string
 
-func ExampleNew() {
+func main() {
 	token = flag.String("token", "", "telegram bot token")
 	flag.Parse()
 

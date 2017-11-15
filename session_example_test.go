@@ -27,7 +27,7 @@ func ExampleNew_session() {
 	r.Use(tgbot.Recover)
 
 	r.Use(func(c *tgbot.Context) error {
-		s, err := app.GetSession(u)
+		s, err := app.GetSession(c.From)
 		if err != nil {
 			return nil, err
 		}
@@ -45,9 +45,11 @@ func ExampleNew_session() {
 	})
 
 	// Bind handlers
+
+	// middleware for users who have not paid
 	r.Bind(`^/pay_first~.*`, func(c *tgbot.Context) error {
 		s := c.MustGet("session").(*Session)
-		// TODO handle payment here before say hello
+		// business logic
 		return r.Route(c.Update)
 	})
 
