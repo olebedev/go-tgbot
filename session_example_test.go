@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"log"
+	"os"
 
 	tgbot "github.com/olebedev/go-tgbot"
 	"github.com/olebedev/go-tgbot/client/messages"
@@ -25,6 +26,7 @@ func ExampleNew_session() {
 
 	// setup global middleware
 	r.Use(tgbot.Recover)
+	r.Use(tgbot.Logger(os.Stdout))
 
 	r.Use(func(c *tgbot.Context) error {
 		s, err := app.GetSession(c.From)

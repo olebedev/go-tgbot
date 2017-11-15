@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"log"
+	"os"
 
 	tgbot "github.com/olebedev/go-tgbot"
 	"github.com/olebedev/go-tgbot/client/messages"
@@ -23,6 +24,7 @@ func ExampleNew() {
 
 	// setup global middleware
 	r.Use(tgbot.Recover)
+	r.Use(tgbot.Logger(os.Stdout))
 
 	// modify path to be able to match user's commands via router
 	r.Use(func(c *tgbot.Context) error {
