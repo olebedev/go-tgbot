@@ -61,6 +61,8 @@ paths:
           - inline_query
           - chosen_inline_result
           - callback_query
+          - shipping_query
+          - pre_checkout_query
       responses:
         200:
           description: An array of Updates
@@ -129,6 +131,8 @@ paths:
           - inline_query
           - chosen_inline_result
           - callback_query
+          - shipping_query
+          - pre_checkout_query
       responses:
         200:
           description: Is OK?
@@ -5085,6 +5089,8 @@ definitions:
     - inline_query
     - chosen_inline_result
     - callback_query
+    - shipping_query
+    - pre_checkout_query
   WebhookInfo:
     type: object
     required:

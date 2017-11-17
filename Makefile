@@ -1,6 +1,6 @@
 SOURCE = ./swagger.yaml
 LIB    = ./.lib
-JSON := models/models_easyjson.go
+JSON   = models/models_easyjson.go
 
 build: $(JSON)
 
@@ -13,10 +13,6 @@ $(LIB): $(SOURCE)
 
 clean::
 	rm -rf client models $(LIB)
-
-clean-ffjson::
-	@find $(@D) -type f -name "*_ffjson_expose.go" -exec rm {} +
-	@find $(@D) -type d -name "ffjson-*" -exec rm -r {} +
 
 replace: $(LIB)
 	sed -i '' 's/os.File/runtime.NamedReadCloser/g' ./client/attachments/send_document_parameters.go

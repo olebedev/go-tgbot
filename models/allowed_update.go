@@ -34,6 +34,10 @@ const (
 	AllowedUpdateChosenInlineResult AllowedUpdate = "chosen_inline_result"
 	// AllowedUpdateCallbackQuery captures enum value "callback_query"
 	AllowedUpdateCallbackQuery AllowedUpdate = "callback_query"
+	// AllowedUpdateShippingQuery captures enum value "shipping_query"
+	AllowedUpdateShippingQuery AllowedUpdate = "shipping_query"
+	// AllowedUpdatePreCheckoutQuery captures enum value "pre_checkout_query"
+	AllowedUpdatePreCheckoutQuery AllowedUpdate = "pre_checkout_query"
 )
 
 // for schema
@@ -41,7 +45,7 @@ var allowedUpdateEnum []interface{}
 
 func init() {
 	var res []AllowedUpdate
-	if err := json.Unmarshal([]byte(`["message","edited_message","channel_post","edited_channel_post","inline_query","chosen_inline_result","callback_query"]`), &res); err != nil {
+	if err := json.Unmarshal([]byte(`["message","edited_message","channel_post","edited_channel_post","inline_query","chosen_inline_result","callback_query","shipping_query","pre_checkout_query"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
