@@ -249,6 +249,34 @@ func (a *Client) SendLocation(params *SendLocationParams) (*SendLocationOK, erro
 }
 
 /*
+SendMediaGroupLink send media group link API
+*/
+func (a *Client) SendMediaGroupLink(params *SendMediaGroupLinkParams) (*SendMediaGroupLinkOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewSendMediaGroupLinkParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "sendMediaGroupLink",
+		Method:             "POST",
+		PathPattern:        "/bot{token}/sendMediaGroup#link",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"https"},
+		Params:             params,
+		Reader:             &SendMediaGroupLinkReader{formats: a.formats},
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*SendMediaGroupLinkOK), nil
+
+}
+
+/*
 SendPhoto send photo API
 */
 func (a *Client) SendPhoto(params *SendPhotoParams) (*SendPhotoOK, error) {

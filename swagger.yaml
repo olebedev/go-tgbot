@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: |
     This is a swagger defenition for [Telegram bot API](https://core.telegram.org/bots/api).
-  version: "3.4"
+  version: "3.5"
   title: Telegram bot API
 externalDocs:
   description: Find out more about Telegram bot API
@@ -1095,6 +1095,49 @@ paths:
         description: ""
         schema:
           $ref: "#/definitions/SendVideoNoteLinkBody"
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/ResponseMessage"
+        400:
+          description: Bad Request
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: Unauthorized
+          schema:
+            $ref: "#/definitions/Error"
+        403:
+          description: Forbidden
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: Not Found
+          schema:
+            $ref: "#/definitions/Error"
+        420:
+          description: Flood
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: Internal
+          schema:
+            $ref: "#/definitions/Error"
+  /bot{token}/sendMediaGroup#link:
+    post:
+      tags:
+      - attachments
+      description: ""
+      operationId: sendMediaGroupLink
+      parameters:
+      - $ref: '#/parameters/token'
+      - in: body
+        required: false
+        name: body
+        description: ""
+        schema:
+          $ref: "#/definitions/SendMediaGroupLinkBody"
       responses:
         200:
           description: ""
@@ -5259,6 +5302,8 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/LabeledPrice"
+      provider_data:
+        type: string
       photo_url:
         type: string
       photo_size:
@@ -5430,3 +5475,53 @@ definitions:
         type: string
       mask_position:
         $ref: "#/definitions/MaskPosition"
+  InputMediaPhoto:
+    type: object
+    required:
+      - type
+      - media
+    properties:
+      type:
+        type: string
+        x-nullable: false
+      media:
+        type: string
+        x-nullable: false
+      caption:
+        type: string
+  InputMediaVideo:
+    type: object
+    required:
+      - type
+      - media
+    properties:
+      type:
+        type: string
+        x-nullable: false
+      media:
+        type: string
+        x-nullable: false
+      caption:
+        type: string
+      width:
+        type: integer
+      height:
+        type: integer
+      duration:
+        type: integer
+  SendMediaGroupLinkBody:
+    type: object
+    required:
+      - chat_id
+      - media
+    properties:
+      chat_id:
+        type: object
+      media:
+        type: array
+        items:
+          type: object
+      disable_notification:
+        type: boolean
+      reply_to_message_id:
+        type: integer

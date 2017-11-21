@@ -70,6 +70,9 @@ type SendInvoiceBody struct {
 	// Required: true
 	Prices []*LabeledPrice `json:"prices"`
 
+	// provider data
+	ProviderData string `json:"provider_data,omitempty"`
+
 	// provider token
 	// Required: true
 	ProviderToken *string `json:"provider_token"`
@@ -118,6 +121,8 @@ type SendInvoiceBody struct {
 /* polymorph SendInvoiceBody photo_width false */
 
 /* polymorph SendInvoiceBody prices false */
+
+/* polymorph SendInvoiceBody provider_data false */
 
 /* polymorph SendInvoiceBody provider_token false */
 
