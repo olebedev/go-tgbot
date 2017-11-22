@@ -246,7 +246,7 @@ func (r *Router) routeMiddleware(c *Context) error {
 			c.index = 0
 			err := c.Next()
 			if err != nil {
-				return errors.Wrap(err, "c.Next()")
+				return err
 			}
 
 			if c.isSkipped {
