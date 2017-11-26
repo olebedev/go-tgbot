@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"regexp"
 
-	"github.com/AlekSi/pointer"
 	"github.com/olebedev/go-tgbot/client"
 	"github.com/olebedev/go-tgbot/client/updates"
 	"github.com/olebedev/go-tgbot/models"
@@ -273,12 +272,10 @@ func (r *Router) Poll(ctx context.Context, allowed []models.AllowedUpdate) error
 	}
 
 	p := updates.NewGetUpdatesParams().
-		WithContext(ctx).
-		WithTimeout(&r.PollTimeout)
-
-	if len(a) > 0 {
-		p.SetAllowedUpdates(a)
-	}
+		WithContext(ctx).WithBody(&models.GetUpdatesBody{
+		Timeout:        r.PollTimeout,
+		AllowedUpdates: allowed,
+	})
 
 	for {
 		u, err := r.Updates.GetUpdates(p)
@@ -286,7 +283,7 @@ func (r *Router) Poll(ctx context.Context, allowed []models.AllowedUpdate) error
 			return errors.Wrap(err, "polling updates")
 		}
 		for _, update := range u.Payload.Result {
-			p.SetOffset(pointer.ToInt64(update.UpdateID + 1))
+			p.Body.Offset = update.UpdateID + 1
 			go r.Route(update)
 		}
 	}

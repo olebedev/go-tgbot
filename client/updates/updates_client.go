@@ -63,7 +63,7 @@ func (a *Client) GetUpdates(params *GetUpdatesParams) (*GetUpdatesOK, error) {
 
 	result, err := a.transport.Submit(&runtime.ClientOperation{
 		ID:                 "getUpdates",
-		Method:             "GET",
+		Method:             "POST",
 		PathPattern:        "/bot{token}/getUpdates",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},

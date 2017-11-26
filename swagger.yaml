@@ -25,7 +25,7 @@ parameters:
     description: bot's token to authorize the request
 paths:
   /bot{token}/getUpdates:
-    get:
+    post:
       tags:
       - updates
       description: ""
@@ -36,33 +36,11 @@ paths:
         name: offset
         type: integer
         required: false
-      - in: query
-        name: limit
-        type: integer
+      - in: body
+        name: body
         required: false
-      - in: query
-        name: timeout
-        type: integer
-        required: false
-      - in: query
-        name: allowed_updates
-        required: false
-        type: array
-        collectionFormat: multi
-        items:
-          # go-swagger bug here
-          # cannot use $ref: "#/definitions/AllowedUpdate"
-          type: string
-          enum:
-          - message
-          - edited_message
-          - channel_post
-          - edited_channel_post
-          - inline_query
-          - chosen_inline_result
-          - callback_query
-          - shipping_query
-          - pre_checkout_query
+        schema:
+          $ref: "#/definitions/GetUpdatesBody"
       responses:
         200:
           description: An array of Updates
@@ -1821,7 +1799,7 @@ paths:
       - $ref: '#/parameters/token'
       - in: body
         name: body
-        schema: 
+        schema:
           $ref: "#/definitions/RestrictChatMemberBody"
         required: true
         description: ""
@@ -1864,7 +1842,7 @@ paths:
       - $ref: '#/parameters/token'
       - in: body
         name: body
-        schema: 
+        schema:
           $ref: "#/definitions/PromoteChatMemberBody"
         required: true
         description: ""
@@ -5525,3 +5503,17 @@ definitions:
         type: boolean
       reply_to_message_id:
         type: integer
+  GetUpdatesBody:
+    required:
+    type: object
+    properties:
+      offset:
+        type: integer
+      limit:
+        type: integer
+      timeout:
+        type: integer
+      allowed_updates:
+        type: array
+        items:
+          $ref: '#/definitions/AllowedUpdate'

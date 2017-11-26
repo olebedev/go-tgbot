@@ -93,7 +93,7 @@ type GetUpdatesOK struct {
 }
 
 func (o *GetUpdatesOK) Error() string {
-	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesOK  %+v", 200, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/getUpdates][%d] getUpdatesOK  %+v", 200, o.Payload)
 }
 
 func (o *GetUpdatesOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -122,7 +122,7 @@ type GetUpdatesBadRequest struct {
 }
 
 func (o *GetUpdatesBadRequest) Error() string {
-	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesBadRequest  %+v", 400, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/getUpdates][%d] getUpdatesBadRequest  %+v", 400, o.Payload)
 }
 
 func (o *GetUpdatesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -151,7 +151,7 @@ type GetUpdatesUnauthorized struct {
 }
 
 func (o *GetUpdatesUnauthorized) Error() string {
-	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesUnauthorized  %+v", 401, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/getUpdates][%d] getUpdatesUnauthorized  %+v", 401, o.Payload)
 }
 
 func (o *GetUpdatesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -180,7 +180,7 @@ type GetUpdatesForbidden struct {
 }
 
 func (o *GetUpdatesForbidden) Error() string {
-	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesForbidden  %+v", 403, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/getUpdates][%d] getUpdatesForbidden  %+v", 403, o.Payload)
 }
 
 func (o *GetUpdatesForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -209,7 +209,7 @@ type GetUpdatesNotFound struct {
 }
 
 func (o *GetUpdatesNotFound) Error() string {
-	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesNotFound  %+v", 404, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/getUpdates][%d] getUpdatesNotFound  %+v", 404, o.Payload)
 }
 
 func (o *GetUpdatesNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -238,7 +238,7 @@ type GetUpdatesEnhanceYourCalm struct {
 }
 
 func (o *GetUpdatesEnhanceYourCalm) Error() string {
-	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesEnhanceYourCalm  %+v", 420, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/getUpdates][%d] getUpdatesEnhanceYourCalm  %+v", 420, o.Payload)
 }
 
 func (o *GetUpdatesEnhanceYourCalm) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
@@ -267,7 +267,7 @@ type GetUpdatesInternalServerError struct {
 }
 
 func (o *GetUpdatesInternalServerError) Error() string {
-	return fmt.Sprintf("[GET /bot{token}/getUpdates][%d] getUpdatesInternalServerError  %+v", 500, o.Payload)
+	return fmt.Sprintf("[POST /bot{token}/getUpdates][%d] getUpdatesInternalServerError  %+v", 500, o.Payload)
 }
 
 func (o *GetUpdatesInternalServerError) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
