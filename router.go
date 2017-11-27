@@ -265,7 +265,7 @@ func (r *Router) routeMiddleware(c *Context) error {
 
 // Poll does a polling of API endpoints and routes consumed updates. It returns an error
 // if any of handlers return the error.
-func (r *Router) Poll(ctx context.Context, allowed []models.AllowedUpdate) error {
+func (r *Router) Poll(ctx context.Context, allowed ...models.AllowedUpdate) error {
 	var a []string
 	for _, item := range allowed {
 		a = append(a, string(item))

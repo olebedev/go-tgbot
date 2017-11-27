@@ -54,7 +54,7 @@ func ExampleNew() {
 		return nil
 	})
 
-	if err := r.Poll(ctx, []models.AllowedUpdate{models.AllowedUpdateMessage}); err != nil {
+	if err := r.Poll(ctx, models.AllowedUpdateMessage); err != nil {
 		log.Fatal(err)
 	}
 }
