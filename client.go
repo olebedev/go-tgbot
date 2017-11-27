@@ -12,6 +12,7 @@ import (
 
 // Add wrapper for API throttling
 type wrapper struct {
+	token string
 	*rate.Limiter
 	*httptransport.Runtime
 	context.Context
@@ -28,6 +29,11 @@ func (w *wrapper) Submit(op *runtime.ClientOperation) (interface{}, error) {
 	} else {
 		w.Wait(context.Background())
 	}
+	if op.AuthInfo == nil {
+		op.AuthInfo = runtime.ClientAuthInfoWriterFunc(func(r runtime.ClientRequest, _ strfmt.Registry) error {
+			return r.SetPathParam("token", w.token)
+		})
+	}
 	return w.Runtime.Submit(op)
 }
 
@@ -38,11 +44,9 @@ func NewClient(ctx context.Context, token string) *client.TelegramBot {
 		ctx = context.Background()
 	}
 	transport.Context = ctx
-	transport.DefaultAuthentication = runtime.ClientAuthInfoWriterFunc(func(r runtime.ClientRequest, _ strfmt.Registry) error {
-		return r.SetPathParam("token", token)
-	})
 
 	return client.New(&wrapper{
+		token:   token,
 		Limiter: rate.NewLimiter(30, 1),
 		Runtime: transport,
 		Context: ctx,
