@@ -5,7 +5,6 @@ import (
 
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/strfmt"
 	"github.com/olebedev/go-tgbot/client"
 	"golang.org/x/time/rate"
 )
@@ -16,6 +15,10 @@ type wrapper struct {
 	*rate.Limiter
 	*httptransport.Runtime
 	context.Context
+}
+
+type ist interface {
+	SetToken(*string)
 }
 
 // Submit wraps httpclient.Submit for throttling
@@ -29,11 +32,13 @@ func (w *wrapper) Submit(op *runtime.ClientOperation) (interface{}, error) {
 	} else {
 		w.Wait(context.Background())
 	}
-	if op.AuthInfo == nil {
-		op.AuthInfo = runtime.ClientAuthInfoWriterFunc(func(r runtime.ClientRequest, _ strfmt.Registry) error {
-			return r.SetPathParam("token", w.token)
-		})
+
+	if w.token != "" {
+		if st, ok := op.Params.(ist); ok {
+			st.SetToken(&w.token)
+		}
 	}
+
 	return w.Runtime.Submit(op)
 }
 

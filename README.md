@@ -12,7 +12,7 @@
 
 ### Client
 
-Client package could be used as regular `go-swagger` client library without using Router. There are the only two additional features over `go-swagger`, a possibility to setup token by default(It solved as a [custom HTTP transport](https://github.com/olebedev/go-tgbot/blob/master/client.go#L35-L42)) and [API throttling](https://github.com/olebedev/go-tgbot/blob/master/client.go#L22-L30) for [30 calls](https://github.com/olebedev/go-tgbot/blob/master/client.go#L46) per second([see more info](https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this)). 
+Client package could be used as regular `go-swagger` client library without using Router. There are the only two additional features over `go-swagger`, a possibility to setup token by default(It solved as a [check if params implement interface](https://github.com/olebedev/go-tgbot/blob/master/client.go#L36)) and [API throttling](https://github.com/olebedev/go-tgbot/blob/master/client.go#L26) for 30 calls per second([see more info](https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this)). 
 
 Example:
 
@@ -42,15 +42,14 @@ func main() {
 
 	log.Println(api.Users.GetMe(nil))
 
-	// Also, every calls could be done with given token and/or context
+	// Also, every calls could be done with given context
 	ctx, cancel = context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
 
 	t := "<overwrite default token>"
 	_, err := api.Users.GetMe(
 		users.NewGetMeParams().
-			WithContext(ctx).
-			WithToken(&t),
+			WithContext(ctx),
 	)
 
 	if err != nil {
