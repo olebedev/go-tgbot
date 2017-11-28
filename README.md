@@ -12,7 +12,7 @@
 
 ### Client
 
-Client package could be used as regular `go-swagger` client library without using Router. There are the only two additional features over `go-swagger`, a possibility to setup token by default(It solved as a [check if params implement interface](https://github.com/olebedev/go-tgbot/blob/master/client.go#L36)) and [API throttling](https://github.com/olebedev/go-tgbot/blob/master/client.go#L26) for 30 calls per second([see more info](https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this)). 
+Client package could be used as regular `go-swagger` client library without using Router. There are the only two additional features over `go-swagger`, a possibility to setup token by default(It solved as an [interface checking](https://github.com/olebedev/go-tgbot/blob/master/client.go#L36)) and [API throttling](https://github.com/olebedev/go-tgbot/blob/master/client.go#L26) for 30 calls per second([see more info](https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this)). 
 
 Example:
 
@@ -75,7 +75,7 @@ import (
 	"context"
 	"flag"
 	"log"
-  "os"
+	"os"
 
 	tgbot "github.com/olebedev/go-tgbot"
 	"github.com/olebedev/go-tgbot/client/messages"
