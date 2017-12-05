@@ -27,10 +27,10 @@ type InlineKeyboardButton struct {
 	Pay bool `json:"pay,omitempty"`
 
 	// switch inline query
-	SwitchInlineQuery string `json:"switch_inline_query,omitempty"`
+	SwitchInlineQuery *string `json:"switch_inline_query,omitempty"`
 
 	// switch inline query current chat
-	SwitchInlineQueryCurrentChat string `json:"switch_inline_query_current_chat,omitempty"`
+	SwitchInlineQueryCurrentChat *string `json:"switch_inline_query_current_chat,omitempty"`
 
 	// text
 	Text string `json:"text,omitempty"`

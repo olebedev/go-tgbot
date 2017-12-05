@@ -3931,8 +3931,10 @@ definitions:
         type: string
       switch_inline_query:
         type: string
+        x-nullable: true
       switch_inline_query_current_chat:
         type: string
+        x-nullable: true
       callback_game:
         $ref: '#/definitions/CallbackGame'
       pay:
