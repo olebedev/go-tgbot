@@ -14,7 +14,6 @@ import (
 
 // Voice voice
 // swagger:model Voice
-
 type Voice struct {
 
 	// duration
@@ -29,14 +28,6 @@ type Voice struct {
 	// mime type
 	MimeType string `json:"mime_type,omitempty"`
 }
-
-/* polymorph Voice duration false */
-
-/* polymorph Voice file_id false */
-
-/* polymorph Voice file_size false */
-
-/* polymorph Voice mime_type false */
 
 // Validate validates this voice
 func (m *Voice) Validate(formats strfmt.Registry) error {

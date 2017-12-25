@@ -15,7 +15,6 @@ import (
 
 // InputMediaPhoto input media photo
 // swagger:model InputMediaPhoto
-
 type InputMediaPhoto struct {
 
 	// caption
@@ -29,12 +28,6 @@ type InputMediaPhoto struct {
 	// Required: true
 	Type string `json:"type"`
 }
-
-/* polymorph InputMediaPhoto caption false */
-
-/* polymorph InputMediaPhoto media false */
-
-/* polymorph InputMediaPhoto type false */
 
 // Validate validates this input media photo
 func (m *InputMediaPhoto) Validate(formats strfmt.Registry) error {

@@ -14,41 +14,22 @@ import (
 
 // UserProfilePhotos user profile photos
 // swagger:model UserProfilePhotos
-
 type UserProfilePhotos struct {
 
 	// photos
-	Photos [][]*PhotoSize `json:"photos"`
+	Photos UserProfilePhotosPhotos `json:"photos"`
 
 	// total count
 	TotalCount int64 `json:"total_count,omitempty"`
 }
 
-/* polymorph UserProfilePhotos photos false */
-
-/* polymorph UserProfilePhotos total_count false */
-
 // Validate validates this user profile photos
 func (m *UserProfilePhotos) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validatePhotos(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *UserProfilePhotos) validatePhotos(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Photos) { // not required
-		return nil
-	}
-
 	return nil
 }
 

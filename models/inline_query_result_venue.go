@@ -15,7 +15,6 @@ import (
 
 // InlineQueryResultVenue inline query result venue
 // swagger:model InlineQueryResultVenue
-
 type InlineQueryResultVenue struct {
 
 	// address
@@ -60,30 +59,6 @@ type InlineQueryResultVenue struct {
 	// Required: true
 	Type InlineType `json:"type"`
 }
-
-/* polymorph InlineQueryResultVenue address false */
-
-/* polymorph InlineQueryResultVenue foursquare_id false */
-
-/* polymorph InlineQueryResultVenue id false */
-
-/* polymorph InlineQueryResultVenue input_message_content false */
-
-/* polymorph InlineQueryResultVenue latitude false */
-
-/* polymorph InlineQueryResultVenue longitude false */
-
-/* polymorph InlineQueryResultVenue reply_markup false */
-
-/* polymorph InlineQueryResultVenue thumb_height false */
-
-/* polymorph InlineQueryResultVenue thumb_url false */
-
-/* polymorph InlineQueryResultVenue thumb_width false */
-
-/* polymorph InlineQueryResultVenue title false */
-
-/* polymorph InlineQueryResultVenue type false */
 
 // Validate validates this inline query result venue
 func (m *InlineQueryResultVenue) Validate(formats strfmt.Registry) error {

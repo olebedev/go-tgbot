@@ -140,12 +140,10 @@ func (o *EditMessageTextParams) WriteToRequest(r runtime.ClientRequest, reg strf
 	}
 	var res []error
 
-	if o.Body == nil {
-		o.Body = new(models.EditMessageTextBody)
-	}
-
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if o.Token != nil {

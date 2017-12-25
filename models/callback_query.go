@@ -14,7 +14,6 @@ import (
 
 // CallbackQuery callback query
 // swagger:model CallbackQuery
-
 type CallbackQuery struct {
 
 	// chat instance
@@ -38,20 +37,6 @@ type CallbackQuery struct {
 	// message
 	Message *Message `json:"message,omitempty"`
 }
-
-/* polymorph CallbackQuery chat_instance false */
-
-/* polymorph CallbackQuery data false */
-
-/* polymorph CallbackQuery from false */
-
-/* polymorph CallbackQuery game_short_name false */
-
-/* polymorph CallbackQuery id false */
-
-/* polymorph CallbackQuery inline_message_id false */
-
-/* polymorph CallbackQuery message false */
 
 // Validate validates this callback query
 func (m *CallbackQuery) Validate(formats strfmt.Registry) error {

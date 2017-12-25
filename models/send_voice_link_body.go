@@ -15,7 +15,6 @@ import (
 
 // SendVoiceLinkBody send voice link body
 // swagger:model SendVoiceLinkBody
-
 type SendVoiceLinkBody struct {
 
 	// caption
@@ -41,20 +40,6 @@ type SendVoiceLinkBody struct {
 	// Required: true
 	Voice *string `json:"voice"`
 }
-
-/* polymorph SendVoiceLinkBody caption false */
-
-/* polymorph SendVoiceLinkBody chat_id false */
-
-/* polymorph SendVoiceLinkBody disable_notification false */
-
-/* polymorph SendVoiceLinkBody duration false */
-
-/* polymorph SendVoiceLinkBody reply_markup false */
-
-/* polymorph SendVoiceLinkBody reply_to_message_id false */
-
-/* polymorph SendVoiceLinkBody voice false */
 
 // Validate validates this send voice link body
 func (m *SendVoiceLinkBody) Validate(formats strfmt.Registry) error {

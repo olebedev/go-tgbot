@@ -15,7 +15,6 @@ import (
 
 // InlineQueryResultAudio inline query result audio
 // swagger:model InlineQueryResultAudio
-
 type InlineQueryResultAudio struct {
 
 	// audio duration
@@ -49,24 +48,6 @@ type InlineQueryResultAudio struct {
 	// Required: true
 	Type InlineType `json:"type"`
 }
-
-/* polymorph InlineQueryResultAudio audio_duration false */
-
-/* polymorph InlineQueryResultAudio audio_url false */
-
-/* polymorph InlineQueryResultAudio caption false */
-
-/* polymorph InlineQueryResultAudio id false */
-
-/* polymorph InlineQueryResultAudio input_message_content false */
-
-/* polymorph InlineQueryResultAudio performer false */
-
-/* polymorph InlineQueryResultAudio reply_markup false */
-
-/* polymorph InlineQueryResultAudio title false */
-
-/* polymorph InlineQueryResultAudio type false */
 
 // Validate validates this inline query result audio
 func (m *InlineQueryResultAudio) Validate(formats strfmt.Registry) error {

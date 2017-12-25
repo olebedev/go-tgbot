@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -16,7 +14,6 @@ import (
 
 // Message message
 // swagger:model Message
-
 type Message struct {
 
 	// audio
@@ -29,7 +26,7 @@ type Message struct {
 	Caption string `json:"caption,omitempty"`
 
 	// caption entities
-	CaptionEntities []*MessageEntity `json:"caption_entities"`
+	CaptionEntities MessageCaptionEntities `json:"caption_entities"`
 
 	// channel chat created
 	ChannelChatCreated bool `json:"channel_chat_created,omitempty"`
@@ -53,7 +50,7 @@ type Message struct {
 	EditDate int64 `json:"edit_date,omitempty"`
 
 	// entities
-	Entities []*MessageEntity `json:"entities"`
+	Entities MessageEntities `json:"entities"`
 
 	// forward date
 	ForwardDate int64 `json:"forward_date,omitempty"`
@@ -98,16 +95,16 @@ type Message struct {
 	MigrateToChatID int64 `json:"migrate_to_chat_id,omitempty"`
 
 	// new chat members
-	NewChatMembers []*User `json:"new_chat_members"`
+	NewChatMembers MessageNewChatMembers `json:"new_chat_members"`
 
 	// new chat photo
-	NewChatPhoto []*PhotoSize `json:"new_chat_photo"`
+	NewChatPhoto MessageNewChatPhoto `json:"new_chat_photo"`
 
 	// new chat title
 	NewChatTitle string `json:"new_chat_title,omitempty"`
 
 	// photo
-	Photo []*PhotoSize `json:"photo"`
+	Photo MessagePhoto `json:"photo"`
 
 	// pinned message
 	PinnedMessage *Message `json:"pinned_message,omitempty"`
@@ -140,96 +137,11 @@ type Message struct {
 	Voice *Voice `json:"voice,omitempty"`
 }
 
-/* polymorph Message audio false */
-
-/* polymorph Message author_signature false */
-
-/* polymorph Message caption false */
-
-/* polymorph Message caption_entities false */
-
-/* polymorph Message channel_chat_created false */
-
-/* polymorph Message chat false */
-
-/* polymorph Message contact false */
-
-/* polymorph Message date false */
-
-/* polymorph Message delete_chat_photo false */
-
-/* polymorph Message document false */
-
-/* polymorph Message edit_date false */
-
-/* polymorph Message entities false */
-
-/* polymorph Message forward_date false */
-
-/* polymorph Message forward_from false */
-
-/* polymorph Message forward_from_chat false */
-
-/* polymorph Message forward_from_message_id false */
-
-/* polymorph Message forward_signature false */
-
-/* polymorph Message from false */
-
-/* polymorph Message game false */
-
-/* polymorph Message group_chat_created false */
-
-/* polymorph Message invoice false */
-
-/* polymorph Message left_chat_member false */
-
-/* polymorph Message location false */
-
-/* polymorph Message message_id false */
-
-/* polymorph Message migrate_from_chat_id false */
-
-/* polymorph Message migrate_to_chat_id false */
-
-/* polymorph Message new_chat_members false */
-
-/* polymorph Message new_chat_photo false */
-
-/* polymorph Message new_chat_title false */
-
-/* polymorph Message photo false */
-
-/* polymorph Message pinned_message false */
-
-/* polymorph Message reply_to_message false */
-
-/* polymorph Message sticker false */
-
-/* polymorph Message successful_payment false */
-
-/* polymorph Message supergroup_chat_created false */
-
-/* polymorph Message text false */
-
-/* polymorph Message venue false */
-
-/* polymorph Message video false */
-
-/* polymorph Message video_note false */
-
-/* polymorph Message voice false */
-
 // Validate validates this message
 func (m *Message) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateAudio(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateCaptionEntities(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -245,11 +157,6 @@ func (m *Message) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateDocument(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateEntities(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -285,21 +192,6 @@ func (m *Message) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateLocation(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateNewChatMembers(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateNewChatPhoto(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validatePhoto(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -369,33 +261,6 @@ func (m *Message) validateAudio(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Message) validateCaptionEntities(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.CaptionEntities) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.CaptionEntities); i++ {
-
-		if swag.IsZero(m.CaptionEntities[i]) { // not required
-			continue
-		}
-
-		if m.CaptionEntities[i] != nil {
-
-			if err := m.CaptionEntities[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("caption_entities" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
 func (m *Message) validateChat(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Chat) { // not required
@@ -448,33 +313,6 @@ func (m *Message) validateDocument(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *Message) validateEntities(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Entities) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Entities); i++ {
-
-		if swag.IsZero(m.Entities[i]) { // not required
-			continue
-		}
-
-		if m.Entities[i] != nil {
-
-			if err := m.Entities[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("entities" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil
@@ -608,87 +446,6 @@ func (m *Message) validateLocation(formats strfmt.Registry) error {
 			}
 			return err
 		}
-	}
-
-	return nil
-}
-
-func (m *Message) validateNewChatMembers(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.NewChatMembers) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.NewChatMembers); i++ {
-
-		if swag.IsZero(m.NewChatMembers[i]) { // not required
-			continue
-		}
-
-		if m.NewChatMembers[i] != nil {
-
-			if err := m.NewChatMembers[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("new_chat_members" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *Message) validateNewChatPhoto(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.NewChatPhoto) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.NewChatPhoto); i++ {
-
-		if swag.IsZero(m.NewChatPhoto[i]) { // not required
-			continue
-		}
-
-		if m.NewChatPhoto[i] != nil {
-
-			if err := m.NewChatPhoto[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("new_chat_photo" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *Message) validatePhoto(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Photo) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Photo); i++ {
-
-		if swag.IsZero(m.Photo[i]) { // not required
-			continue
-		}
-
-		if m.Photo[i] != nil {
-
-			if err := m.Photo[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("photo" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil

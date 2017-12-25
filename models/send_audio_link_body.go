@@ -15,7 +15,6 @@ import (
 
 // SendAudioLinkBody send audio link body
 // swagger:model SendAudioLinkBody
-
 type SendAudioLinkBody struct {
 
 	// audio
@@ -47,24 +46,6 @@ type SendAudioLinkBody struct {
 	// title
 	Title string `json:"title,omitempty"`
 }
-
-/* polymorph SendAudioLinkBody audio false */
-
-/* polymorph SendAudioLinkBody caption false */
-
-/* polymorph SendAudioLinkBody chat_id false */
-
-/* polymorph SendAudioLinkBody disable_notification false */
-
-/* polymorph SendAudioLinkBody duration false */
-
-/* polymorph SendAudioLinkBody performer false */
-
-/* polymorph SendAudioLinkBody reply_markup false */
-
-/* polymorph SendAudioLinkBody reply_to_message_id false */
-
-/* polymorph SendAudioLinkBody title false */
 
 // Validate validates this send audio link body
 func (m *SendAudioLinkBody) Validate(formats strfmt.Registry) error {

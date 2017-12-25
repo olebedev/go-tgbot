@@ -14,7 +14,6 @@ import (
 
 // StopMessageLiveLocationBody stop message live location body
 // swagger:model StopMessageLiveLocationBody
-
 type StopMessageLiveLocationBody struct {
 
 	// chat id
@@ -29,14 +28,6 @@ type StopMessageLiveLocationBody struct {
 	// reply markup
 	ReplyMarkup interface{} `json:"reply_markup,omitempty"`
 }
-
-/* polymorph StopMessageLiveLocationBody chat_id false */
-
-/* polymorph StopMessageLiveLocationBody inline_message_id false */
-
-/* polymorph StopMessageLiveLocationBody message_id false */
-
-/* polymorph StopMessageLiveLocationBody reply_markup false */
 
 // Validate validates this stop message live location body
 func (m *StopMessageLiveLocationBody) Validate(formats strfmt.Registry) error {

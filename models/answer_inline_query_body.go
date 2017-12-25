@@ -15,7 +15,6 @@ import (
 
 // AnswerInlineQueryBody answer inline query body
 // swagger:model AnswerInlineQueryBody
-
 type AnswerInlineQueryBody struct {
 
 	// cache time
@@ -41,20 +40,6 @@ type AnswerInlineQueryBody struct {
 	// switch pm text
 	SwitchPmText string `json:"switch_pm_text,omitempty"`
 }
-
-/* polymorph AnswerInlineQueryBody cache_time false */
-
-/* polymorph AnswerInlineQueryBody inline_query_id false */
-
-/* polymorph AnswerInlineQueryBody is_personal false */
-
-/* polymorph AnswerInlineQueryBody next_offset false */
-
-/* polymorph AnswerInlineQueryBody results false */
-
-/* polymorph AnswerInlineQueryBody switch_pm_parameter false */
-
-/* polymorph AnswerInlineQueryBody switch_pm_text false */
 
 // Validate validates this answer inline query body
 func (m *AnswerInlineQueryBody) Validate(formats strfmt.Registry) error {

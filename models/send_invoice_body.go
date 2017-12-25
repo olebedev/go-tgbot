@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -17,7 +15,6 @@ import (
 
 // SendInvoiceBody send invoice body
 // swagger:model SendInvoiceBody
-
 type SendInvoiceBody struct {
 
 	// chat id
@@ -68,7 +65,7 @@ type SendInvoiceBody struct {
 
 	// prices
 	// Required: true
-	Prices []*LabeledPrice `json:"prices"`
+	Prices SendInvoiceBodyPrices `json:"prices"`
 
 	// provider data
 	ProviderData string `json:"provider_data,omitempty"`
@@ -91,48 +88,6 @@ type SendInvoiceBody struct {
 	// Required: true
 	Title *string `json:"title"`
 }
-
-/* polymorph SendInvoiceBody chat_id false */
-
-/* polymorph SendInvoiceBody currency false */
-
-/* polymorph SendInvoiceBody description false */
-
-/* polymorph SendInvoiceBody disable_notification false */
-
-/* polymorph SendInvoiceBody is_flexible false */
-
-/* polymorph SendInvoiceBody need_email false */
-
-/* polymorph SendInvoiceBody need_name false */
-
-/* polymorph SendInvoiceBody need_phone_number false */
-
-/* polymorph SendInvoiceBody need_shipping_address false */
-
-/* polymorph SendInvoiceBody payload false */
-
-/* polymorph SendInvoiceBody photo_height false */
-
-/* polymorph SendInvoiceBody photo_size false */
-
-/* polymorph SendInvoiceBody photo_url false */
-
-/* polymorph SendInvoiceBody photo_width false */
-
-/* polymorph SendInvoiceBody prices false */
-
-/* polymorph SendInvoiceBody provider_data false */
-
-/* polymorph SendInvoiceBody provider_token false */
-
-/* polymorph SendInvoiceBody reply_markup false */
-
-/* polymorph SendInvoiceBody reply_to_message_id false */
-
-/* polymorph SendInvoiceBody start_parameter false */
-
-/* polymorph SendInvoiceBody title false */
 
 // Validate validates this send invoice body
 func (m *SendInvoiceBody) Validate(formats strfmt.Registry) error {
@@ -226,22 +181,11 @@ func (m *SendInvoiceBody) validatePrices(formats strfmt.Registry) error {
 		return err
 	}
 
-	for i := 0; i < len(m.Prices); i++ {
-
-		if swag.IsZero(m.Prices[i]) { // not required
-			continue
+	if err := m.Prices.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("prices")
 		}
-
-		if m.Prices[i] != nil {
-
-			if err := m.Prices[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("prices" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
+		return err
 	}
 
 	return nil

@@ -14,7 +14,6 @@ import (
 
 // ResponseBool response bool
 // swagger:model ResponseBool
-
 type ResponseBool struct {
 
 	// description
@@ -29,14 +28,6 @@ type ResponseBool struct {
 	// result
 	Result bool `json:"result,omitempty"`
 }
-
-/* polymorph ResponseBool description false */
-
-/* polymorph ResponseBool error_code false */
-
-/* polymorph ResponseBool ok false */
-
-/* polymorph ResponseBool result false */
 
 // Validate validates this response bool
 func (m *ResponseBool) Validate(formats strfmt.Registry) error {

@@ -15,7 +15,6 @@ import (
 
 // CreateNewStickerSetLinkBody create new sticker set link body
 // swagger:model CreateNewStickerSetLinkBody
-
 type CreateNewStickerSetLinkBody struct {
 
 	// emojis
@@ -44,20 +43,6 @@ type CreateNewStickerSetLinkBody struct {
 	// Required: true
 	UserID *int64 `json:"user_id"`
 }
-
-/* polymorph CreateNewStickerSetLinkBody emojis false */
-
-/* polymorph CreateNewStickerSetLinkBody is_masks false */
-
-/* polymorph CreateNewStickerSetLinkBody mask_position false */
-
-/* polymorph CreateNewStickerSetLinkBody name false */
-
-/* polymorph CreateNewStickerSetLinkBody png_sticker false */
-
-/* polymorph CreateNewStickerSetLinkBody title false */
-
-/* polymorph CreateNewStickerSetLinkBody user_id false */
 
 // Validate validates this create new sticker set link body
 func (m *CreateNewStickerSetLinkBody) Validate(formats strfmt.Registry) error {

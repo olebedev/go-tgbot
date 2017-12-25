@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -16,11 +14,10 @@ import (
 
 // ReplyKeyboardMarkup reply keyboard markup
 // swagger:model ReplyKeyboardMarkup
-
 type ReplyKeyboardMarkup struct {
 
 	// keyboard
-	Keyboard []*KeyboardButton `json:"keyboard"`
+	Keyboard ReplyKeyboardMarkupKeyboard `json:"keyboard"`
 
 	// one time keyboard
 	OneTimeKeyboard bool `json:"one_time_keyboard,omitempty"`
@@ -32,53 +29,13 @@ type ReplyKeyboardMarkup struct {
 	Selective bool `json:"selective,omitempty"`
 }
 
-/* polymorph ReplyKeyboardMarkup keyboard false */
-
-/* polymorph ReplyKeyboardMarkup one_time_keyboard false */
-
-/* polymorph ReplyKeyboardMarkup resize_keyboard false */
-
-/* polymorph ReplyKeyboardMarkup selective false */
-
 // Validate validates this reply keyboard markup
 func (m *ReplyKeyboardMarkup) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateKeyboard(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *ReplyKeyboardMarkup) validateKeyboard(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Keyboard) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Keyboard); i++ {
-
-		if swag.IsZero(m.Keyboard[i]) { // not required
-			continue
-		}
-
-		if m.Keyboard[i] != nil {
-
-			if err := m.Keyboard[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("keyboard" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 

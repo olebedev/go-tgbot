@@ -140,12 +140,10 @@ func (o *AnswerShippingQueryParams) WriteToRequest(r runtime.ClientRequest, reg 
 	}
 	var res []error
 
-	if o.Body == nil {
-		o.Body = new(models.AnswerShippingQueryBody)
-	}
-
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if o.Token != nil {

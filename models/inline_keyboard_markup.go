@@ -14,36 +14,19 @@ import (
 
 // InlineKeyboardMarkup inline keyboard markup
 // swagger:model InlineKeyboardMarkup
-
 type InlineKeyboardMarkup struct {
 
 	// inline keyboard
-	InlineKeyboard [][]*InlineKeyboardButton `json:"inline_keyboard"`
+	InlineKeyboard InlineKeyboardMarkupInlineKeyboard `json:"inline_keyboard"`
 }
-
-/* polymorph InlineKeyboardMarkup inline_keyboard false */
 
 // Validate validates this inline keyboard markup
 func (m *InlineKeyboardMarkup) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateInlineKeyboard(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *InlineKeyboardMarkup) validateInlineKeyboard(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.InlineKeyboard) { // not required
-		return nil
-	}
-
 	return nil
 }
 

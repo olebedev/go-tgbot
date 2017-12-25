@@ -14,7 +14,6 @@ import (
 
 // VideoNote video note
 // swagger:model VideoNote
-
 type VideoNote struct {
 
 	// duration
@@ -32,16 +31,6 @@ type VideoNote struct {
 	// thumb
 	Thumb *PhotoSize `json:"thumb,omitempty"`
 }
-
-/* polymorph VideoNote duration false */
-
-/* polymorph VideoNote file_id false */
-
-/* polymorph VideoNote file_size false */
-
-/* polymorph VideoNote length false */
-
-/* polymorph VideoNote thumb false */
 
 // Validate validates this video note
 func (m *VideoNote) Validate(formats strfmt.Registry) error {

@@ -14,7 +14,6 @@ import (
 
 // OrderInfo order info
 // swagger:model OrderInfo
-
 type OrderInfo struct {
 
 	// email
@@ -29,14 +28,6 @@ type OrderInfo struct {
 	// shipping address
 	ShippingAddress *ShippingAddress `json:"shipping_address,omitempty"`
 }
-
-/* polymorph OrderInfo email false */
-
-/* polymorph OrderInfo name false */
-
-/* polymorph OrderInfo phone_number false */
-
-/* polymorph OrderInfo shipping_address false */
 
 // Validate validates this order info
 func (m *OrderInfo) Validate(formats strfmt.Registry) error {

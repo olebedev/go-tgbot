@@ -140,12 +140,10 @@ func (o *SendVenueParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 	}
 	var res []error
 
-	if o.Body == nil {
-		o.Body = new(models.SendVenueBody)
-	}
-
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if o.Token != nil {

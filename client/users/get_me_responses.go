@@ -9,10 +9,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -92,7 +89,7 @@ func NewGetMeOK() *GetMeOK {
 GetMeOK get me o k
 */
 type GetMeOK struct {
-	Payload GetMeOKBody
+	Payload *models.GetMeOKBody
 }
 
 func (o *GetMeOK) Error() string {
@@ -101,8 +98,10 @@ func (o *GetMeOK) Error() string {
 
 func (o *GetMeOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.GetMeOKBody)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -280,130 +279,5 @@ func (o *GetMeInternalServerError) readResponse(response runtime.ClientResponse,
 		return err
 	}
 
-	return nil
-}
-
-/*GetMeOKBody get me o k body
-swagger:model GetMeOKBody
-*/
-
-type GetMeOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *models.User `json:"result"`
-}
-
-/* polymorph GetMeOKBody description false */
-
-/* polymorph GetMeOKBody error_code false */
-
-/* polymorph GetMeOKBody ok false */
-
-/* polymorph GetMeOKBody result false */
-
-// Validate validates this get me o k body
-func (o *GetMeOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateDescription(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateErrorCode(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateOk(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateResult(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *GetMeOKBody) validateDescription(formats strfmt.Registry) error {
-
-	if err := validate.Required("getMeOK"+"."+"description", "body", o.Description); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetMeOKBody) validateErrorCode(formats strfmt.Registry) error {
-
-	if err := validate.Required("getMeOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetMeOKBody) validateOk(formats strfmt.Registry) error {
-
-	if err := validate.Required("getMeOK"+"."+"ok", "body", o.Ok); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetMeOKBody) validateResult(formats strfmt.Registry) error {
-
-	if err := validate.Required("getMeOK"+"."+"result", "body", o.Result); err != nil {
-		return err
-	}
-
-	if o.Result != nil {
-
-		if err := o.Result.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getMeOK" + "." + "result")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *GetMeOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *GetMeOKBody) UnmarshalBinary(b []byte) error {
-	var res GetMeOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

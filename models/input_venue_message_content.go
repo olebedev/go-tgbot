@@ -15,7 +15,6 @@ import (
 
 // InputVenueMessageContent input venue message content
 // swagger:model InputVenueMessageContent
-
 type InputVenueMessageContent struct {
 
 	// address
@@ -37,16 +36,6 @@ type InputVenueMessageContent struct {
 	// Required: true
 	Title *string `json:"title"`
 }
-
-/* polymorph InputVenueMessageContent address false */
-
-/* polymorph InputVenueMessageContent foursquare_id false */
-
-/* polymorph InputVenueMessageContent latitude false */
-
-/* polymorph InputVenueMessageContent longitude false */
-
-/* polymorph InputVenueMessageContent title false */
 
 // Validate validates this input venue message content
 func (m *InputVenueMessageContent) Validate(formats strfmt.Registry) error {

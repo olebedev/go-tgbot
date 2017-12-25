@@ -14,7 +14,6 @@ import (
 
 // ForceReply force reply
 // swagger:model ForceReply
-
 type ForceReply struct {
 
 	// force reply
@@ -23,10 +22,6 @@ type ForceReply struct {
 	// selective
 	Selective bool `json:"selective,omitempty"`
 }
-
-/* polymorph ForceReply force_reply false */
-
-/* polymorph ForceReply selective false */
 
 // Validate validates this force reply
 func (m *ForceReply) Validate(formats strfmt.Registry) error {

@@ -15,7 +15,6 @@ import (
 
 // Animation animation
 // swagger:model Animation
-
 type Animation struct {
 
 	// file id
@@ -34,16 +33,6 @@ type Animation struct {
 	// thumb
 	Thumb *PhotoSize `json:"thumb,omitempty"`
 }
-
-/* polymorph Animation file_id false */
-
-/* polymorph Animation file_name false */
-
-/* polymorph Animation file_size false */
-
-/* polymorph Animation mime_type false */
-
-/* polymorph Animation thumb false */
 
 // Validate validates this animation
 func (m *Animation) Validate(formats strfmt.Registry) error {

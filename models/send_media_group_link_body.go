@@ -15,7 +15,6 @@ import (
 
 // SendMediaGroupLinkBody send media group link body
 // swagger:model SendMediaGroupLinkBody
-
 type SendMediaGroupLinkBody struct {
 
 	// chat id
@@ -32,14 +31,6 @@ type SendMediaGroupLinkBody struct {
 	// reply to message id
 	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
 }
-
-/* polymorph SendMediaGroupLinkBody chat_id false */
-
-/* polymorph SendMediaGroupLinkBody disable_notification false */
-
-/* polymorph SendMediaGroupLinkBody media false */
-
-/* polymorph SendMediaGroupLinkBody reply_to_message_id false */
 
 // Validate validates this send media group link body
 func (m *SendMediaGroupLinkBody) Validate(formats strfmt.Registry) error {

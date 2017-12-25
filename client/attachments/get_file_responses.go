@@ -9,10 +9,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -92,7 +89,7 @@ func NewGetFileOK() *GetFileOK {
 GetFileOK get file o k
 */
 type GetFileOK struct {
-	Payload GetFileOKBody
+	Payload *models.GetFileOKBody
 }
 
 func (o *GetFileOK) Error() string {
@@ -101,8 +98,10 @@ func (o *GetFileOK) Error() string {
 
 func (o *GetFileOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.GetFileOKBody)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -280,130 +279,5 @@ func (o *GetFileInternalServerError) readResponse(response runtime.ClientRespons
 		return err
 	}
 
-	return nil
-}
-
-/*GetFileOKBody get file o k body
-swagger:model GetFileOKBody
-*/
-
-type GetFileOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *models.File `json:"result"`
-}
-
-/* polymorph GetFileOKBody description false */
-
-/* polymorph GetFileOKBody error_code false */
-
-/* polymorph GetFileOKBody ok false */
-
-/* polymorph GetFileOKBody result false */
-
-// Validate validates this get file o k body
-func (o *GetFileOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateDescription(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateErrorCode(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateOk(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateResult(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *GetFileOKBody) validateDescription(formats strfmt.Registry) error {
-
-	if err := validate.Required("getFileOK"+"."+"description", "body", o.Description); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetFileOKBody) validateErrorCode(formats strfmt.Registry) error {
-
-	if err := validate.Required("getFileOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetFileOKBody) validateOk(formats strfmt.Registry) error {
-
-	if err := validate.Required("getFileOK"+"."+"ok", "body", o.Ok); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetFileOKBody) validateResult(formats strfmt.Registry) error {
-
-	if err := validate.Required("getFileOK"+"."+"result", "body", o.Result); err != nil {
-		return err
-	}
-
-	if o.Result != nil {
-
-		if err := o.Result.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getFileOK" + "." + "result")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *GetFileOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *GetFileOKBody) UnmarshalBinary(b []byte) error {
-	var res GetFileOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

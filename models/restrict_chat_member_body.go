@@ -15,7 +15,6 @@ import (
 
 // RestrictChatMemberBody restrict chat member body
 // swagger:model RestrictChatMemberBody
-
 type RestrictChatMemberBody struct {
 
 	// can add web page previews
@@ -41,20 +40,6 @@ type RestrictChatMemberBody struct {
 	// Required: true
 	UserID *int64 `json:"user_id"`
 }
-
-/* polymorph RestrictChatMemberBody can_add_web_page_previews false */
-
-/* polymorph RestrictChatMemberBody can_send_media_messages false */
-
-/* polymorph RestrictChatMemberBody can_send_messages false */
-
-/* polymorph RestrictChatMemberBody can_send_other_messages false */
-
-/* polymorph RestrictChatMemberBody chat_id false */
-
-/* polymorph RestrictChatMemberBody until_date false */
-
-/* polymorph RestrictChatMemberBody user_id false */
 
 // Validate validates this restrict chat member body
 func (m *RestrictChatMemberBody) Validate(formats strfmt.Registry) error {

@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -17,7 +15,6 @@ import (
 
 // Game game
 // swagger:model Game
-
 type Game struct {
 
 	// animation
@@ -29,30 +26,18 @@ type Game struct {
 
 	// photo
 	// Required: true
-	Photo []*PhotoSize `json:"photo"`
+	Photo GamePhoto `json:"photo"`
 
 	// text
 	Text string `json:"text,omitempty"`
 
 	// text entities
-	TextEntities []*MessageEntity `json:"text_entities"`
+	TextEntities GameTextEntities `json:"text_entities"`
 
 	// title
 	// Required: true
 	Title *string `json:"title"`
 }
-
-/* polymorph Game animation false */
-
-/* polymorph Game description false */
-
-/* polymorph Game photo false */
-
-/* polymorph Game text false */
-
-/* polymorph Game text_entities false */
-
-/* polymorph Game title false */
 
 // Validate validates this game
 func (m *Game) Validate(formats strfmt.Registry) error {
@@ -69,11 +54,6 @@ func (m *Game) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validatePhoto(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateTextEntities(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -123,49 +103,11 @@ func (m *Game) validatePhoto(formats strfmt.Registry) error {
 		return err
 	}
 
-	for i := 0; i < len(m.Photo); i++ {
-
-		if swag.IsZero(m.Photo[i]) { // not required
-			continue
+	if err := m.Photo.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("photo")
 		}
-
-		if m.Photo[i] != nil {
-
-			if err := m.Photo[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("photo" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
-	return nil
-}
-
-func (m *Game) validateTextEntities(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.TextEntities) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.TextEntities); i++ {
-
-		if swag.IsZero(m.TextEntities[i]) { // not required
-			continue
-		}
-
-		if m.TextEntities[i] != nil {
-
-			if err := m.TextEntities[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("text_entities" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
+		return err
 	}
 
 	return nil

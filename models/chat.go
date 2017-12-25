@@ -17,7 +17,6 @@ import (
 
 // Chat chat
 // swagger:model Chat
-
 type Chat struct {
 
 	// all members are administrators
@@ -61,32 +60,6 @@ type Chat struct {
 	// username
 	Username string `json:"username,omitempty"`
 }
-
-/* polymorph Chat all_members_are_administrators false */
-
-/* polymorph Chat can_set_sticker_set false */
-
-/* polymorph Chat description false */
-
-/* polymorph Chat first_name false */
-
-/* polymorph Chat id false */
-
-/* polymorph Chat invite_link false */
-
-/* polymorph Chat last_name false */
-
-/* polymorph Chat photo false */
-
-/* polymorph Chat pinned_message false */
-
-/* polymorph Chat sticker_set_name false */
-
-/* polymorph Chat title false */
-
-/* polymorph Chat type false */
-
-/* polymorph Chat username false */
 
 // Validate validates this chat
 func (m *Chat) Validate(formats strfmt.Registry) error {

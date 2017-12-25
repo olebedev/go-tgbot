@@ -14,7 +14,6 @@ import (
 
 // PreCheckoutQuery pre checkout query
 // swagger:model PreCheckoutQuery
-
 type PreCheckoutQuery struct {
 
 	// currency
@@ -38,20 +37,6 @@ type PreCheckoutQuery struct {
 	// total amount
 	TotalAmount int64 `json:"total_amount,omitempty"`
 }
-
-/* polymorph PreCheckoutQuery currency false */
-
-/* polymorph PreCheckoutQuery from false */
-
-/* polymorph PreCheckoutQuery id false */
-
-/* polymorph PreCheckoutQuery invoice_payload false */
-
-/* polymorph PreCheckoutQuery order_info false */
-
-/* polymorph PreCheckoutQuery shipping_option_id false */
-
-/* polymorph PreCheckoutQuery total_amount false */
 
 // Validate validates this pre checkout query
 func (m *PreCheckoutQuery) Validate(formats strfmt.Registry) error {

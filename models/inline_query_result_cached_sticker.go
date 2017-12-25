@@ -15,7 +15,6 @@ import (
 
 // InlineQueryResultCachedSticker inline query result cached sticker
 // swagger:model InlineQueryResultCachedSticker
-
 type InlineQueryResultCachedSticker struct {
 
 	// id
@@ -36,16 +35,6 @@ type InlineQueryResultCachedSticker struct {
 	// Required: true
 	Type InlineType `json:"type"`
 }
-
-/* polymorph InlineQueryResultCachedSticker id false */
-
-/* polymorph InlineQueryResultCachedSticker input_message_content false */
-
-/* polymorph InlineQueryResultCachedSticker reply_markup false */
-
-/* polymorph InlineQueryResultCachedSticker sticker_file_id false */
-
-/* polymorph InlineQueryResultCachedSticker type false */
 
 // Validate validates this inline query result cached sticker
 func (m *InlineQueryResultCachedSticker) Validate(formats strfmt.Registry) error {

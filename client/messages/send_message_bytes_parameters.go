@@ -139,10 +139,6 @@ func (o *SendMessageBytesParams) WriteToRequest(r runtime.ClientRequest, reg str
 	}
 	var res []error
 
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
-	}
-
 	if o.Token != nil {
 
 		// path param token

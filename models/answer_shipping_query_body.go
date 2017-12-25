@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -17,7 +15,6 @@ import (
 
 // AnswerShippingQueryBody answer shipping query body
 // swagger:model AnswerShippingQueryBody
-
 type AnswerShippingQueryBody struct {
 
 	// error message
@@ -28,31 +25,18 @@ type AnswerShippingQueryBody struct {
 	Ok *bool `json:"ok"`
 
 	// shipping options
-	ShippingOptions []*ShippingOption `json:"shipping_options"`
+	ShippingOptions AnswerShippingQueryBodyShippingOptions `json:"shipping_options"`
 
 	// shipping query id
 	// Required: true
 	ShippingQueryID *string `json:"shipping_query_id"`
 }
 
-/* polymorph AnswerShippingQueryBody error_message false */
-
-/* polymorph AnswerShippingQueryBody ok false */
-
-/* polymorph AnswerShippingQueryBody shipping_options false */
-
-/* polymorph AnswerShippingQueryBody shipping_query_id false */
-
 // Validate validates this answer shipping query body
 func (m *AnswerShippingQueryBody) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateOk(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := m.validateShippingOptions(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -72,33 +56,6 @@ func (m *AnswerShippingQueryBody) validateOk(formats strfmt.Registry) error {
 
 	if err := validate.Required("ok", "body", m.Ok); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-func (m *AnswerShippingQueryBody) validateShippingOptions(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.ShippingOptions) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.ShippingOptions); i++ {
-
-		if swag.IsZero(m.ShippingOptions[i]) { // not required
-			continue
-		}
-
-		if m.ShippingOptions[i] != nil {
-
-			if err := m.ShippingOptions[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("shipping_options" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
 	}
 
 	return nil

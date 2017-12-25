@@ -14,7 +14,6 @@ import (
 
 // LabeledPrice labeled price
 // swagger:model LabeledPrice
-
 type LabeledPrice struct {
 
 	// amount
@@ -23,10 +22,6 @@ type LabeledPrice struct {
 	// label
 	Label string `json:"label,omitempty"`
 }
-
-/* polymorph LabeledPrice amount false */
-
-/* polymorph LabeledPrice label false */
 
 // Validate validates this labeled price
 func (m *LabeledPrice) Validate(formats strfmt.Registry) error {

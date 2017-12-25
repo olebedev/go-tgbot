@@ -15,7 +15,6 @@ import (
 
 // InputMediaVideo input media video
 // swagger:model InputMediaVideo
-
 type InputMediaVideo struct {
 
 	// caption
@@ -38,18 +37,6 @@ type InputMediaVideo struct {
 	// width
 	Width int64 `json:"width,omitempty"`
 }
-
-/* polymorph InputMediaVideo caption false */
-
-/* polymorph InputMediaVideo duration false */
-
-/* polymorph InputMediaVideo height false */
-
-/* polymorph InputMediaVideo media false */
-
-/* polymorph InputMediaVideo type false */
-
-/* polymorph InputMediaVideo width false */
 
 // Validate validates this input media video
 func (m *InputMediaVideo) Validate(formats strfmt.Registry) error {

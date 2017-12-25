@@ -154,12 +154,10 @@ func (o *GetUpdatesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Re
 	}
 	var res []error
 
-	if o.Body == nil {
-		o.Body = new(models.GetUpdatesBody)
-	}
-
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if o.Offset != nil {

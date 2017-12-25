@@ -14,7 +14,6 @@ import (
 
 // SuccessfulPayment successful payment
 // swagger:model SuccessfulPayment
-
 type SuccessfulPayment struct {
 
 	// currency
@@ -38,20 +37,6 @@ type SuccessfulPayment struct {
 	// total amount
 	TotalAmount int64 `json:"total_amount,omitempty"`
 }
-
-/* polymorph SuccessfulPayment currency false */
-
-/* polymorph SuccessfulPayment invoice_payload false */
-
-/* polymorph SuccessfulPayment order_info false */
-
-/* polymorph SuccessfulPayment provider_payment_charge_id false */
-
-/* polymorph SuccessfulPayment shipping_option_id false */
-
-/* polymorph SuccessfulPayment telegram_payment_charge_id false */
-
-/* polymorph SuccessfulPayment total_amount false */
 
 // Validate validates this successful payment
 func (m *SuccessfulPayment) Validate(formats strfmt.Registry) error {

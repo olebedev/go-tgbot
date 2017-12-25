@@ -15,7 +15,6 @@ import (
 
 // SendContactBody send contact body
 // swagger:model SendContactBody
-
 type SendContactBody struct {
 
 	// chat id
@@ -42,20 +41,6 @@ type SendContactBody struct {
 	// reply to message id
 	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
 }
-
-/* polymorph SendContactBody chat_id false */
-
-/* polymorph SendContactBody disable_notification false */
-
-/* polymorph SendContactBody first_name false */
-
-/* polymorph SendContactBody last_name false */
-
-/* polymorph SendContactBody phone_number false */
-
-/* polymorph SendContactBody reply_markup false */
-
-/* polymorph SendContactBody reply_to_message_id false */
 
 // Validate validates this send contact body
 func (m *SendContactBody) Validate(formats strfmt.Registry) error {

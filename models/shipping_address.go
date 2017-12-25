@@ -14,7 +14,6 @@ import (
 
 // ShippingAddress shipping address
 // swagger:model ShippingAddress
-
 type ShippingAddress struct {
 
 	// city
@@ -35,18 +34,6 @@ type ShippingAddress struct {
 	// street line2
 	StreetLine2 string `json:"street_line2,omitempty"`
 }
-
-/* polymorph ShippingAddress city false */
-
-/* polymorph ShippingAddress country_code false */
-
-/* polymorph ShippingAddress post_code false */
-
-/* polymorph ShippingAddress stat false */
-
-/* polymorph ShippingAddress street_line1 false */
-
-/* polymorph ShippingAddress street_line2 false */
 
 // Validate validates this shipping address
 func (m *ShippingAddress) Validate(formats strfmt.Registry) error {

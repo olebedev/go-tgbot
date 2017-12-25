@@ -14,7 +14,6 @@ import (
 
 // Document document
 // swagger:model Document
-
 type Document struct {
 
 	// file id
@@ -32,16 +31,6 @@ type Document struct {
 	// thumb
 	Thumb *PhotoSize `json:"thumb,omitempty"`
 }
-
-/* polymorph Document file_id false */
-
-/* polymorph Document file_name false */
-
-/* polymorph Document file_size false */
-
-/* polymorph Document mime_type false */
-
-/* polymorph Document thumb false */
 
 // Validate validates this document
 func (m *Document) Validate(formats strfmt.Registry) error {

@@ -15,7 +15,6 @@ import (
 
 // InlineQueryResultPhoto inline query result photo
 // swagger:model InlineQueryResultPhoto
-
 type InlineQueryResultPhoto struct {
 
 	// caption
@@ -52,26 +51,6 @@ type InlineQueryResultPhoto struct {
 	// Required: true
 	Type InlineType `json:"type"`
 }
-
-/* polymorph InlineQueryResultPhoto caption false */
-
-/* polymorph InlineQueryResultPhoto id false */
-
-/* polymorph InlineQueryResultPhoto input_message_content false */
-
-/* polymorph InlineQueryResultPhoto photo_height false */
-
-/* polymorph InlineQueryResultPhoto photo_url false */
-
-/* polymorph InlineQueryResultPhoto photo_width false */
-
-/* polymorph InlineQueryResultPhoto reply_markup false */
-
-/* polymorph InlineQueryResultPhoto thumb_url false */
-
-/* polymorph InlineQueryResultPhoto title false */
-
-/* polymorph InlineQueryResultPhoto type false */
 
 // Validate validates this inline query result photo
 func (m *InlineQueryResultPhoto) Validate(formats strfmt.Registry) error {

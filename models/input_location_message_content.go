@@ -15,7 +15,6 @@ import (
 
 // InputLocationMessageContent input location message content
 // swagger:model InputLocationMessageContent
-
 type InputLocationMessageContent struct {
 
 	// latitude
@@ -31,12 +30,6 @@ type InputLocationMessageContent struct {
 	// Required: true
 	Longitude *float64 `json:"longitude"`
 }
-
-/* polymorph InputLocationMessageContent latitude false */
-
-/* polymorph InputLocationMessageContent live_period false */
-
-/* polymorph InputLocationMessageContent longitude false */
 
 // Validate validates this input location message content
 func (m *InputLocationMessageContent) Validate(formats strfmt.Registry) error {

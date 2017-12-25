@@ -15,7 +15,6 @@ import (
 
 // InlineQueryResultArticle inline query result article
 // swagger:model InlineQueryResultArticle
-
 type InlineQueryResultArticle struct {
 
 	// description
@@ -55,28 +54,6 @@ type InlineQueryResultArticle struct {
 	// url
 	URL string `json:"url,omitempty"`
 }
-
-/* polymorph InlineQueryResultArticle description false */
-
-/* polymorph InlineQueryResultArticle hide_url false */
-
-/* polymorph InlineQueryResultArticle id false */
-
-/* polymorph InlineQueryResultArticle input_message_content false */
-
-/* polymorph InlineQueryResultArticle reply_markup false */
-
-/* polymorph InlineQueryResultArticle thumb_height false */
-
-/* polymorph InlineQueryResultArticle thumb_url false */
-
-/* polymorph InlineQueryResultArticle thumb_width false */
-
-/* polymorph InlineQueryResultArticle title false */
-
-/* polymorph InlineQueryResultArticle type false */
-
-/* polymorph InlineQueryResultArticle url false */
 
 // Validate validates this inline query result article
 func (m *InlineQueryResultArticle) Validate(formats strfmt.Registry) error {

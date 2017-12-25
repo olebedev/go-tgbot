@@ -140,12 +140,10 @@ func (o *SendGameParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 	}
 	var res []error
 
-	if o.Body == nil {
-		o.Body = new(models.SendGameBody)
-	}
-
-	if err := r.SetBodyParam(o.Body); err != nil {
-		return err
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
+			return err
+		}
 	}
 
 	if o.Token != nil {

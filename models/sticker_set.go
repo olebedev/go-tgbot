@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -16,7 +14,6 @@ import (
 
 // StickerSet sticker set
 // swagger:model StickerSet
-
 type StickerSet struct {
 
 	// is masks
@@ -26,59 +23,19 @@ type StickerSet struct {
 	Name string `json:"name,omitempty"`
 
 	// stickers
-	Stickers []*Sticker `json:"stickers"`
+	Stickers StickerSetStickers `json:"stickers"`
 
 	// title
 	Title string `json:"title,omitempty"`
 }
 
-/* polymorph StickerSet is_masks false */
-
-/* polymorph StickerSet name false */
-
-/* polymorph StickerSet stickers false */
-
-/* polymorph StickerSet title false */
-
 // Validate validates this sticker set
 func (m *StickerSet) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateStickers(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *StickerSet) validateStickers(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Stickers) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Stickers); i++ {
-
-		if swag.IsZero(m.Stickers[i]) { // not required
-			continue
-		}
-
-		if m.Stickers[i] != nil {
-
-			if err := m.Stickers[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("stickers" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 

@@ -9,10 +9,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -92,7 +89,7 @@ func NewEditMessageCaptionOK() *EditMessageCaptionOK {
 EditMessageCaptionOK edit message caption o k
 */
 type EditMessageCaptionOK struct {
-	Payload EditMessageCaptionOKBody
+	Payload *models.EditMessageCaptionOKBody
 }
 
 func (o *EditMessageCaptionOK) Error() string {
@@ -101,8 +98,10 @@ func (o *EditMessageCaptionOK) Error() string {
 
 func (o *EditMessageCaptionOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.EditMessageCaptionOKBody)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -280,116 +279,5 @@ func (o *EditMessageCaptionInternalServerError) readResponse(response runtime.Cl
 		return err
 	}
 
-	return nil
-}
-
-/*EditMessageCaptionOKBody edit message caption o k body
-swagger:model EditMessageCaptionOKBody
-*/
-
-type EditMessageCaptionOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result interface{} `json:"result"`
-}
-
-/* polymorph EditMessageCaptionOKBody description false */
-
-/* polymorph EditMessageCaptionOKBody error_code false */
-
-/* polymorph EditMessageCaptionOKBody ok false */
-
-/* polymorph EditMessageCaptionOKBody result false */
-
-// Validate validates this edit message caption o k body
-func (o *EditMessageCaptionOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateDescription(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateErrorCode(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateOk(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateResult(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *EditMessageCaptionOKBody) validateDescription(formats strfmt.Registry) error {
-
-	if err := validate.Required("editMessageCaptionOK"+"."+"description", "body", o.Description); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *EditMessageCaptionOKBody) validateErrorCode(formats strfmt.Registry) error {
-
-	if err := validate.Required("editMessageCaptionOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *EditMessageCaptionOKBody) validateOk(formats strfmt.Registry) error {
-
-	if err := validate.Required("editMessageCaptionOK"+"."+"ok", "body", o.Ok); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *EditMessageCaptionOKBody) validateResult(formats strfmt.Registry) error {
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *EditMessageCaptionOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *EditMessageCaptionOKBody) UnmarshalBinary(b []byte) error {
-	var res EditMessageCaptionOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

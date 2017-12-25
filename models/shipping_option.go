@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -16,64 +14,25 @@ import (
 
 // ShippingOption shipping option
 // swagger:model ShippingOption
-
 type ShippingOption struct {
 
 	// id
 	ID string `json:"id,omitempty"`
 
 	// prices
-	Prices []*LabeledPrice `json:"prices"`
+	Prices ShippingOptionPrices `json:"prices"`
 
 	// title
 	Title string `json:"title,omitempty"`
 }
 
-/* polymorph ShippingOption id false */
-
-/* polymorph ShippingOption prices false */
-
-/* polymorph ShippingOption title false */
-
 // Validate validates this shipping option
 func (m *ShippingOption) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validatePrices(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *ShippingOption) validatePrices(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Prices) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Prices); i++ {
-
-		if swag.IsZero(m.Prices[i]) { // not required
-			continue
-		}
-
-		if m.Prices[i] != nil {
-
-			if err := m.Prices[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("prices" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 

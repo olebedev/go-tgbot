@@ -14,7 +14,6 @@ import (
 
 // Invoice invoice
 // swagger:model Invoice
-
 type Invoice struct {
 
 	// currency
@@ -32,16 +31,6 @@ type Invoice struct {
 	// total amount
 	TotalAmount int64 `json:"total_amount,omitempty"`
 }
-
-/* polymorph Invoice currency false */
-
-/* polymorph Invoice description false */
-
-/* polymorph Invoice start_parameter false */
-
-/* polymorph Invoice title false */
-
-/* polymorph Invoice total_amount false */
 
 // Validate validates this invoice
 func (m *Invoice) Validate(formats strfmt.Registry) error {

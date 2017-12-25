@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -16,7 +14,6 @@ import (
 
 // ResponseUpdate response update
 // swagger:model ResponseUpdate
-
 type ResponseUpdate struct {
 
 	// description
@@ -29,56 +26,16 @@ type ResponseUpdate struct {
 	Ok bool `json:"ok,omitempty"`
 
 	// result
-	Result []*Update `json:"result"`
+	Result ResponseUpdateResult `json:"result"`
 }
-
-/* polymorph ResponseUpdate description false */
-
-/* polymorph ResponseUpdate error_code false */
-
-/* polymorph ResponseUpdate ok false */
-
-/* polymorph ResponseUpdate result false */
 
 // Validate validates this response update
 func (m *ResponseUpdate) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	if err := m.validateResult(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
-	return nil
-}
-
-func (m *ResponseUpdate) validateResult(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Result) { // not required
-		return nil
-	}
-
-	for i := 0; i < len(m.Result); i++ {
-
-		if swag.IsZero(m.Result[i]) { // not required
-			continue
-		}
-
-		if m.Result[i] != nil {
-
-			if err := m.Result[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("result" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
-	}
-
 	return nil
 }
 

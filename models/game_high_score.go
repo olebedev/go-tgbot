@@ -14,7 +14,6 @@ import (
 
 // GameHighScore game high score
 // swagger:model GameHighScore
-
 type GameHighScore struct {
 
 	// position
@@ -26,12 +25,6 @@ type GameHighScore struct {
 	// user
 	User *User `json:"user,omitempty"`
 }
-
-/* polymorph GameHighScore position false */
-
-/* polymorph GameHighScore score false */
-
-/* polymorph GameHighScore user false */
 
 // Validate validates this game high score
 func (m *GameHighScore) Validate(formats strfmt.Registry) error {

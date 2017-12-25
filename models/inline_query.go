@@ -14,7 +14,6 @@ import (
 
 // InlineQuery inline query
 // swagger:model InlineQuery
-
 type InlineQuery struct {
 
 	// from
@@ -32,16 +31,6 @@ type InlineQuery struct {
 	// query
 	Query string `json:"query,omitempty"`
 }
-
-/* polymorph InlineQuery from false */
-
-/* polymorph InlineQuery id false */
-
-/* polymorph InlineQuery location false */
-
-/* polymorph InlineQuery offset false */
-
-/* polymorph InlineQuery query false */
 
 // Validate validates this inline query
 func (m *InlineQuery) Validate(formats strfmt.Registry) error {

@@ -9,10 +9,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -92,7 +89,7 @@ func NewGetChatMembersCountOK() *GetChatMembersCountOK {
 GetChatMembersCountOK get chat members count o k
 */
 type GetChatMembersCountOK struct {
-	Payload GetChatMembersCountOKBody
+	Payload *models.GetChatMembersCountOKBody
 }
 
 func (o *GetChatMembersCountOK) Error() string {
@@ -101,8 +98,10 @@ func (o *GetChatMembersCountOK) Error() string {
 
 func (o *GetChatMembersCountOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.GetChatMembersCountOKBody)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -280,120 +279,5 @@ func (o *GetChatMembersCountInternalServerError) readResponse(response runtime.C
 		return err
 	}
 
-	return nil
-}
-
-/*GetChatMembersCountOKBody get chat members count o k body
-swagger:model GetChatMembersCountOKBody
-*/
-
-type GetChatMembersCountOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *int64 `json:"result"`
-}
-
-/* polymorph GetChatMembersCountOKBody description false */
-
-/* polymorph GetChatMembersCountOKBody error_code false */
-
-/* polymorph GetChatMembersCountOKBody ok false */
-
-/* polymorph GetChatMembersCountOKBody result false */
-
-// Validate validates this get chat members count o k body
-func (o *GetChatMembersCountOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateDescription(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateErrorCode(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateOk(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateResult(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *GetChatMembersCountOKBody) validateDescription(formats strfmt.Registry) error {
-
-	if err := validate.Required("getChatMembersCountOK"+"."+"description", "body", o.Description); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetChatMembersCountOKBody) validateErrorCode(formats strfmt.Registry) error {
-
-	if err := validate.Required("getChatMembersCountOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetChatMembersCountOKBody) validateOk(formats strfmt.Registry) error {
-
-	if err := validate.Required("getChatMembersCountOK"+"."+"ok", "body", o.Ok); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetChatMembersCountOKBody) validateResult(formats strfmt.Registry) error {
-
-	if err := validate.Required("getChatMembersCountOK"+"."+"result", "body", o.Result); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *GetChatMembersCountOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *GetChatMembersCountOKBody) UnmarshalBinary(b []byte) error {
-	var res GetChatMembersCountOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

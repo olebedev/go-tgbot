@@ -9,10 +9,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -92,7 +89,7 @@ func NewGetUserProfilePhotosOK() *GetUserProfilePhotosOK {
 GetUserProfilePhotosOK get user profile photos o k
 */
 type GetUserProfilePhotosOK struct {
-	Payload GetUserProfilePhotosOKBody
+	Payload *models.GetUserProfilePhotosOKBody
 }
 
 func (o *GetUserProfilePhotosOK) Error() string {
@@ -101,8 +98,10 @@ func (o *GetUserProfilePhotosOK) Error() string {
 
 func (o *GetUserProfilePhotosOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.GetUserProfilePhotosOKBody)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -280,130 +279,5 @@ func (o *GetUserProfilePhotosInternalServerError) readResponse(response runtime.
 		return err
 	}
 
-	return nil
-}
-
-/*GetUserProfilePhotosOKBody get user profile photos o k body
-swagger:model GetUserProfilePhotosOKBody
-*/
-
-type GetUserProfilePhotosOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result *models.UserProfilePhotos `json:"result"`
-}
-
-/* polymorph GetUserProfilePhotosOKBody description false */
-
-/* polymorph GetUserProfilePhotosOKBody error_code false */
-
-/* polymorph GetUserProfilePhotosOKBody ok false */
-
-/* polymorph GetUserProfilePhotosOKBody result false */
-
-// Validate validates this get user profile photos o k body
-func (o *GetUserProfilePhotosOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateDescription(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateErrorCode(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateOk(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateResult(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *GetUserProfilePhotosOKBody) validateDescription(formats strfmt.Registry) error {
-
-	if err := validate.Required("getUserProfilePhotosOK"+"."+"description", "body", o.Description); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetUserProfilePhotosOKBody) validateErrorCode(formats strfmt.Registry) error {
-
-	if err := validate.Required("getUserProfilePhotosOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetUserProfilePhotosOKBody) validateOk(formats strfmt.Registry) error {
-
-	if err := validate.Required("getUserProfilePhotosOK"+"."+"ok", "body", o.Ok); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *GetUserProfilePhotosOKBody) validateResult(formats strfmt.Registry) error {
-
-	if err := validate.Required("getUserProfilePhotosOK"+"."+"result", "body", o.Result); err != nil {
-		return err
-	}
-
-	if o.Result != nil {
-
-		if err := o.Result.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("getUserProfilePhotosOK" + "." + "result")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *GetUserProfilePhotosOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *GetUserProfilePhotosOKBody) UnmarshalBinary(b []byte) error {
-	var res GetUserProfilePhotosOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

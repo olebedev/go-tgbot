@@ -15,7 +15,6 @@ import (
 
 // InlineQueryResultGame inline query result game
 // swagger:model InlineQueryResultGame
-
 type InlineQueryResultGame struct {
 
 	// game short name
@@ -33,14 +32,6 @@ type InlineQueryResultGame struct {
 	// Required: true
 	Type InlineType `json:"type"`
 }
-
-/* polymorph InlineQueryResultGame game_short_name false */
-
-/* polymorph InlineQueryResultGame id false */
-
-/* polymorph InlineQueryResultGame reply_markup false */
-
-/* polymorph InlineQueryResultGame type false */
 
 // Validate validates this inline query result game
 func (m *InlineQueryResultGame) Validate(formats strfmt.Registry) error {

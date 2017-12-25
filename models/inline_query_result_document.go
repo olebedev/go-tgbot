@@ -15,7 +15,6 @@ import (
 
 // InlineQueryResultDocument inline query result document
 // swagger:model InlineQueryResultDocument
-
 type InlineQueryResultDocument struct {
 
 	// caption
@@ -59,30 +58,6 @@ type InlineQueryResultDocument struct {
 	// Required: true
 	Type InlineType `json:"type"`
 }
-
-/* polymorph InlineQueryResultDocument caption false */
-
-/* polymorph InlineQueryResultDocument description false */
-
-/* polymorph InlineQueryResultDocument document_url false */
-
-/* polymorph InlineQueryResultDocument id false */
-
-/* polymorph InlineQueryResultDocument input_message_content false */
-
-/* polymorph InlineQueryResultDocument mime_type false */
-
-/* polymorph InlineQueryResultDocument reply_markup false */
-
-/* polymorph InlineQueryResultDocument thumb_height false */
-
-/* polymorph InlineQueryResultDocument thumb_url false */
-
-/* polymorph InlineQueryResultDocument thumb_width false */
-
-/* polymorph InlineQueryResultDocument title false */
-
-/* polymorph InlineQueryResultDocument type false */
 
 // Validate validates this inline query result document
 func (m *InlineQueryResultDocument) Validate(formats strfmt.Registry) error {

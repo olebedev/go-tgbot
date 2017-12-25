@@ -14,7 +14,6 @@ import (
 
 // File file
 // swagger:model File
-
 type File struct {
 
 	// file id
@@ -26,12 +25,6 @@ type File struct {
 	// file size
 	FileSize int64 `json:"file_size,omitempty"`
 }
-
-/* polymorph File file_id false */
-
-/* polymorph File file_path false */
-
-/* polymorph File file_size false */
 
 // Validate validates this file
 func (m *File) Validate(formats strfmt.Registry) error {

@@ -15,7 +15,6 @@ import (
 
 // EditMessageLiveLocationBody edit message live location body
 // swagger:model EditMessageLiveLocationBody
-
 type EditMessageLiveLocationBody struct {
 
 	// chat id
@@ -38,18 +37,6 @@ type EditMessageLiveLocationBody struct {
 	// reply markup
 	ReplyMarkup interface{} `json:"reply_markup,omitempty"`
 }
-
-/* polymorph EditMessageLiveLocationBody chat_id false */
-
-/* polymorph EditMessageLiveLocationBody inline_message_id false */
-
-/* polymorph EditMessageLiveLocationBody latitude false */
-
-/* polymorph EditMessageLiveLocationBody longitude false */
-
-/* polymorph EditMessageLiveLocationBody message_id false */
-
-/* polymorph EditMessageLiveLocationBody reply_markup false */
 
 // Validate validates this edit message live location body
 func (m *EditMessageLiveLocationBody) Validate(formats strfmt.Registry) error {

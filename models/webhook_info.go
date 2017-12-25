@@ -17,7 +17,6 @@ import (
 
 // WebhookInfo webhook info
 // swagger:model WebhookInfo
-
 type WebhookInfo struct {
 
 	// allowed updates
@@ -44,20 +43,6 @@ type WebhookInfo struct {
 	// Required: true
 	URL *string `json:"url"`
 }
-
-/* polymorph WebhookInfo allowed_updates false */
-
-/* polymorph WebhookInfo has_custom_certificate false */
-
-/* polymorph WebhookInfo last_error_date false */
-
-/* polymorph WebhookInfo last_error_message false */
-
-/* polymorph WebhookInfo max_connections false */
-
-/* polymorph WebhookInfo pending_update_count false */
-
-/* polymorph WebhookInfo url false */
 
 // Validate validates this webhook info
 func (m *WebhookInfo) Validate(formats strfmt.Registry) error {

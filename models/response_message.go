@@ -14,7 +14,6 @@ import (
 
 // ResponseMessage response message
 // swagger:model ResponseMessage
-
 type ResponseMessage struct {
 
 	// description
@@ -29,14 +28,6 @@ type ResponseMessage struct {
 	// result
 	Result *Message `json:"result,omitempty"`
 }
-
-/* polymorph ResponseMessage description false */
-
-/* polymorph ResponseMessage error_code false */
-
-/* polymorph ResponseMessage ok false */
-
-/* polymorph ResponseMessage result false */
 
 // Validate validates this response message
 func (m *ResponseMessage) Validate(formats strfmt.Registry) error {

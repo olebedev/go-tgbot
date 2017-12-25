@@ -16,7 +16,6 @@ import (
 
 // GetUpdatesBody get updates body
 // swagger:model GetUpdatesBody
-
 type GetUpdatesBody struct {
 
 	// allowed updates
@@ -31,14 +30,6 @@ type GetUpdatesBody struct {
 	// timeout
 	Timeout int64 `json:"timeout,omitempty"`
 }
-
-/* polymorph GetUpdatesBody allowed_updates false */
-
-/* polymorph GetUpdatesBody limit false */
-
-/* polymorph GetUpdatesBody offset false */
-
-/* polymorph GetUpdatesBody timeout false */
 
 // Validate validates this get updates body
 func (m *GetUpdatesBody) Validate(formats strfmt.Registry) error {

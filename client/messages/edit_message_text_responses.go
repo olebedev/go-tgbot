@@ -9,10 +9,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
-	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 
 	strfmt "github.com/go-openapi/strfmt"
 
@@ -92,7 +89,7 @@ func NewEditMessageTextOK() *EditMessageTextOK {
 EditMessageTextOK edit message text o k
 */
 type EditMessageTextOK struct {
-	Payload EditMessageTextOKBody
+	Payload *models.EditMessageTextOKBody
 }
 
 func (o *EditMessageTextOK) Error() string {
@@ -101,8 +98,10 @@ func (o *EditMessageTextOK) Error() string {
 
 func (o *EditMessageTextOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.EditMessageTextOKBody)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && err != io.EOF {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && err != io.EOF {
 		return err
 	}
 
@@ -280,116 +279,5 @@ func (o *EditMessageTextInternalServerError) readResponse(response runtime.Clien
 		return err
 	}
 
-	return nil
-}
-
-/*EditMessageTextOKBody edit message text o k body
-swagger:model EditMessageTextOKBody
-*/
-
-type EditMessageTextOKBody struct {
-
-	// description
-	// Required: true
-	Description *string `json:"description"`
-
-	// error code
-	// Required: true
-	ErrorCode *int64 `json:"error_code"`
-
-	// ok
-	// Required: true
-	Ok *bool `json:"ok"`
-
-	// result
-	// Required: true
-	Result interface{} `json:"result"`
-}
-
-/* polymorph EditMessageTextOKBody description false */
-
-/* polymorph EditMessageTextOKBody error_code false */
-
-/* polymorph EditMessageTextOKBody ok false */
-
-/* polymorph EditMessageTextOKBody result false */
-
-// Validate validates this edit message text o k body
-func (o *EditMessageTextOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	if err := o.validateDescription(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateErrorCode(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateOk(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if err := o.validateResult(formats); err != nil {
-		// prop
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *EditMessageTextOKBody) validateDescription(formats strfmt.Registry) error {
-
-	if err := validate.Required("editMessageTextOK"+"."+"description", "body", o.Description); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *EditMessageTextOKBody) validateErrorCode(formats strfmt.Registry) error {
-
-	if err := validate.Required("editMessageTextOK"+"."+"error_code", "body", o.ErrorCode); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *EditMessageTextOKBody) validateOk(formats strfmt.Registry) error {
-
-	if err := validate.Required("editMessageTextOK"+"."+"ok", "body", o.Ok); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (o *EditMessageTextOKBody) validateResult(formats strfmt.Registry) error {
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *EditMessageTextOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *EditMessageTextOKBody) UnmarshalBinary(b []byte) error {
-	var res EditMessageTextOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

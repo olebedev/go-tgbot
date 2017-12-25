@@ -15,7 +15,6 @@ import (
 
 // SendPhotoLinkBody send photo link body
 // swagger:model SendPhotoLinkBody
-
 type SendPhotoLinkBody struct {
 
 	// caption
@@ -38,18 +37,6 @@ type SendPhotoLinkBody struct {
 	// reply to message id
 	ReplyToMessageID int64 `json:"reply_to_message_id,omitempty"`
 }
-
-/* polymorph SendPhotoLinkBody caption false */
-
-/* polymorph SendPhotoLinkBody chat_id false */
-
-/* polymorph SendPhotoLinkBody disable_notification false */
-
-/* polymorph SendPhotoLinkBody photo false */
-
-/* polymorph SendPhotoLinkBody reply_markup false */
-
-/* polymorph SendPhotoLinkBody reply_to_message_id false */
 
 // Validate validates this send photo link body
 func (m *SendPhotoLinkBody) Validate(formats strfmt.Registry) error {
