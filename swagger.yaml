@@ -3888,7 +3888,9 @@ definitions:
       keyboard:
         type: array
         items:
-          $ref: '#/definitions/KeyboardButton'
+          type: array
+          items:
+            $ref: '#/definitions/KeyboardButton'
       resize_keyboard:
         type: boolean
       one_time_keyboard:

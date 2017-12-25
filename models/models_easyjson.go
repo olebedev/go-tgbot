@@ -5936,7 +5936,7 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels36(in *jlexer.Lexer, ou
 				in.Delim('[')
 				if out.Keyboard == nil {
 					if !in.IsDelim(']') {
-						out.Keyboard = make(ReplyKeyboardMarkupKeyboard, 0, 8)
+						out.Keyboard = make(ReplyKeyboardMarkupKeyboard, 0, 2)
 					} else {
 						out.Keyboard = ReplyKeyboardMarkupKeyboard{}
 					}
@@ -5944,15 +5944,36 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels36(in *jlexer.Lexer, ou
 					out.Keyboard = (out.Keyboard)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v25 *KeyboardButton
+					var v25 ReplyKeyboardMarkupKeyboardItems
 					if in.IsNull() {
 						in.Skip()
 						v25 = nil
 					} else {
+						in.Delim('[')
 						if v25 == nil {
-							v25 = new(KeyboardButton)
+							if !in.IsDelim(']') {
+								v25 = make(ReplyKeyboardMarkupKeyboardItems, 0, 8)
+							} else {
+								v25 = ReplyKeyboardMarkupKeyboardItems{}
+							}
+						} else {
+							v25 = (v25)[:0]
 						}
-						(*v25).UnmarshalEasyJSON(in)
+						for !in.IsDelim(']') {
+							var v26 *KeyboardButton
+							if in.IsNull() {
+								in.Skip()
+								v26 = nil
+							} else {
+								if v26 == nil {
+									v26 = new(KeyboardButton)
+								}
+								(*v26).UnmarshalEasyJSON(in)
+							}
+							v25 = append(v25, v26)
+							in.WantComma()
+						}
+						in.Delim(']')
 					}
 					out.Keyboard = append(out.Keyboard, v25)
 					in.WantComma()
@@ -5991,14 +6012,25 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels36(out *jwriter.Writer,
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v26, v27 := range in.Keyboard {
-				if v26 > 0 {
+			for v27, v28 := range in.Keyboard {
+				if v27 > 0 {
 					out.RawByte(',')
 				}
-				if v27 == nil {
+				if v28 == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
 					out.RawString("null")
 				} else {
-					(*v27).MarshalEasyJSON(out)
+					out.RawByte('[')
+					for v29, v30 := range v28 {
+						if v29 > 0 {
+							out.RawByte(',')
+						}
+						if v30 == nil {
+							out.RawString("null")
+						} else {
+							(*v30).MarshalEasyJSON(out)
+						}
+					}
+					out.RawByte(']')
 				}
 			}
 			out.RawByte(']')
@@ -6884,17 +6916,17 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels42(in *jlexer.Lexer, ou
 					out.CaptionEntities = (out.CaptionEntities)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v28 *MessageEntity
+					var v31 *MessageEntity
 					if in.IsNull() {
 						in.Skip()
-						v28 = nil
+						v31 = nil
 					} else {
-						if v28 == nil {
-							v28 = new(MessageEntity)
+						if v31 == nil {
+							v31 = new(MessageEntity)
 						}
-						(*v28).UnmarshalEasyJSON(in)
+						(*v31).UnmarshalEasyJSON(in)
 					}
-					out.CaptionEntities = append(out.CaptionEntities, v28)
+					out.CaptionEntities = append(out.CaptionEntities, v31)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -6953,17 +6985,17 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels42(in *jlexer.Lexer, ou
 					out.Entities = (out.Entities)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v29 *MessageEntity
+					var v32 *MessageEntity
 					if in.IsNull() {
 						in.Skip()
-						v29 = nil
+						v32 = nil
 					} else {
-						if v29 == nil {
-							v29 = new(MessageEntity)
+						if v32 == nil {
+							v32 = new(MessageEntity)
 						}
-						(*v29).UnmarshalEasyJSON(in)
+						(*v32).UnmarshalEasyJSON(in)
 					}
-					out.Entities = append(out.Entities, v29)
+					out.Entities = append(out.Entities, v32)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -7068,17 +7100,17 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels42(in *jlexer.Lexer, ou
 					out.NewChatMembers = (out.NewChatMembers)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v30 *User
+					var v33 *User
 					if in.IsNull() {
 						in.Skip()
-						v30 = nil
+						v33 = nil
 					} else {
-						if v30 == nil {
-							v30 = new(User)
+						if v33 == nil {
+							v33 = new(User)
 						}
-						(*v30).UnmarshalEasyJSON(in)
+						(*v33).UnmarshalEasyJSON(in)
 					}
-					out.NewChatMembers = append(out.NewChatMembers, v30)
+					out.NewChatMembers = append(out.NewChatMembers, v33)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -7099,17 +7131,17 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels42(in *jlexer.Lexer, ou
 					out.NewChatPhoto = (out.NewChatPhoto)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v31 *PhotoSize
+					var v34 *PhotoSize
 					if in.IsNull() {
 						in.Skip()
-						v31 = nil
+						v34 = nil
 					} else {
-						if v31 == nil {
-							v31 = new(PhotoSize)
+						if v34 == nil {
+							v34 = new(PhotoSize)
 						}
-						(*v31).UnmarshalEasyJSON(in)
+						(*v34).UnmarshalEasyJSON(in)
 					}
-					out.NewChatPhoto = append(out.NewChatPhoto, v31)
+					out.NewChatPhoto = append(out.NewChatPhoto, v34)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -7132,17 +7164,17 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels42(in *jlexer.Lexer, ou
 					out.Photo = (out.Photo)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v32 *PhotoSize
+					var v35 *PhotoSize
 					if in.IsNull() {
 						in.Skip()
-						v32 = nil
+						v35 = nil
 					} else {
-						if v32 == nil {
-							v32 = new(PhotoSize)
+						if v35 == nil {
+							v35 = new(PhotoSize)
 						}
-						(*v32).UnmarshalEasyJSON(in)
+						(*v35).UnmarshalEasyJSON(in)
 					}
-					out.Photo = append(out.Photo, v32)
+					out.Photo = append(out.Photo, v35)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -7287,14 +7319,14 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels42(out *jwriter.Writer,
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v33, v34 := range in.CaptionEntities {
-				if v33 > 0 {
+			for v36, v37 := range in.CaptionEntities {
+				if v36 > 0 {
 					out.RawByte(',')
 				}
-				if v34 == nil {
+				if v37 == nil {
 					out.RawString("null")
 				} else {
-					(*v34).MarshalEasyJSON(out)
+					(*v37).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -7382,14 +7414,14 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels42(out *jwriter.Writer,
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v35, v36 := range in.Entities {
-				if v35 > 0 {
+			for v38, v39 := range in.Entities {
+				if v38 > 0 {
 					out.RawByte(',')
 				}
-				if v36 == nil {
+				if v39 == nil {
 					out.RawString("null")
 				} else {
-					(*v36).MarshalEasyJSON(out)
+					(*v39).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -7547,14 +7579,14 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels42(out *jwriter.Writer,
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v37, v38 := range in.NewChatMembers {
-				if v37 > 0 {
+			for v40, v41 := range in.NewChatMembers {
+				if v40 > 0 {
 					out.RawByte(',')
 				}
-				if v38 == nil {
+				if v41 == nil {
 					out.RawString("null")
 				} else {
-					(*v38).MarshalEasyJSON(out)
+					(*v41).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -7572,14 +7604,14 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels42(out *jwriter.Writer,
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v39, v40 := range in.NewChatPhoto {
-				if v39 > 0 {
+			for v42, v43 := range in.NewChatPhoto {
+				if v42 > 0 {
 					out.RawByte(',')
 				}
-				if v40 == nil {
+				if v43 == nil {
 					out.RawString("null")
 				} else {
-					(*v40).MarshalEasyJSON(out)
+					(*v43).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -7607,14 +7639,14 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels42(out *jwriter.Writer,
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v41, v42 := range in.Photo {
-				if v41 > 0 {
+			for v44, v45 := range in.Photo {
+				if v44 > 0 {
 					out.RawByte(',')
 				}
-				if v42 == nil {
+				if v45 == nil {
 					out.RawString("null")
 				} else {
-					(*v42).MarshalEasyJSON(out)
+					(*v45).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -13505,38 +13537,38 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels75(in *jlexer.Lexer, ou
 					out.InlineKeyboard = (out.InlineKeyboard)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v43 InlineKeyboardMarkupInlineKeyboardItems
+					var v46 InlineKeyboardMarkupInlineKeyboardItems
 					if in.IsNull() {
 						in.Skip()
-						v43 = nil
+						v46 = nil
 					} else {
 						in.Delim('[')
-						if v43 == nil {
+						if v46 == nil {
 							if !in.IsDelim(']') {
-								v43 = make(InlineKeyboardMarkupInlineKeyboardItems, 0, 8)
+								v46 = make(InlineKeyboardMarkupInlineKeyboardItems, 0, 8)
 							} else {
-								v43 = InlineKeyboardMarkupInlineKeyboardItems{}
+								v46 = InlineKeyboardMarkupInlineKeyboardItems{}
 							}
 						} else {
-							v43 = (v43)[:0]
+							v46 = (v46)[:0]
 						}
 						for !in.IsDelim(']') {
-							var v44 *InlineKeyboardButton
+							var v47 *InlineKeyboardButton
 							if in.IsNull() {
 								in.Skip()
-								v44 = nil
+								v47 = nil
 							} else {
-								if v44 == nil {
-									v44 = new(InlineKeyboardButton)
+								if v47 == nil {
+									v47 = new(InlineKeyboardButton)
 								}
-								(*v44).UnmarshalEasyJSON(in)
+								(*v47).UnmarshalEasyJSON(in)
 							}
-							v43 = append(v43, v44)
+							v46 = append(v46, v47)
 							in.WantComma()
 						}
 						in.Delim(']')
 					}
-					out.InlineKeyboard = append(out.InlineKeyboard, v43)
+					out.InlineKeyboard = append(out.InlineKeyboard, v46)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -13567,22 +13599,22 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels75(out *jwriter.Writer,
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v45, v46 := range in.InlineKeyboard {
-				if v45 > 0 {
+			for v48, v49 := range in.InlineKeyboard {
+				if v48 > 0 {
 					out.RawByte(',')
 				}
-				if v46 == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
+				if v49 == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
 					out.RawString("null")
 				} else {
 					out.RawByte('[')
-					for v47, v48 := range v46 {
-						if v47 > 0 {
+					for v50, v51 := range v49 {
+						if v50 > 0 {
 							out.RawByte(',')
 						}
-						if v48 == nil {
+						if v51 == nil {
 							out.RawString("null")
 						} else {
-							(*v48).MarshalEasyJSON(out)
+							(*v51).MarshalEasyJSON(out)
 						}
 					}
 					out.RawByte(']')
@@ -13938,9 +13970,9 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels78(in *jlexer.Lexer, ou
 					out.AllowedUpdates = (out.AllowedUpdates)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v49 AllowedUpdate
-					v49 = AllowedUpdate(in.String())
-					out.AllowedUpdates = append(out.AllowedUpdates, v49)
+					var v52 AllowedUpdate
+					v52 = AllowedUpdate(in.String())
+					out.AllowedUpdates = append(out.AllowedUpdates, v52)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -13977,11 +14009,11 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels78(out *jwriter.Writer,
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v50, v51 := range in.AllowedUpdates {
-				if v50 > 0 {
+			for v53, v54 := range in.AllowedUpdates {
+				if v53 > 0 {
 					out.RawByte(',')
 				}
-				out.String(string(v51))
+				out.String(string(v54))
 			}
 			out.RawByte(']')
 		}
@@ -14880,17 +14912,17 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels86(in *jlexer.Lexer, ou
 					out.Result = (out.Result)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v52 *ChatMember
+					var v55 *ChatMember
 					if in.IsNull() {
 						in.Skip()
-						v52 = nil
+						v55 = nil
 					} else {
-						if v52 == nil {
-							v52 = new(ChatMember)
+						if v55 == nil {
+							v55 = new(ChatMember)
 						}
-						(*v52).UnmarshalEasyJSON(in)
+						(*v55).UnmarshalEasyJSON(in)
 					}
-					out.Result = append(out.Result, v52)
+					out.Result = append(out.Result, v55)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -14951,14 +14983,14 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels86(out *jwriter.Writer,
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v53, v54 := range in.Result {
-				if v53 > 0 {
+			for v56, v57 := range in.Result {
+				if v56 > 0 {
 					out.RawByte(',')
 				}
-				if v54 == nil {
+				if v57 == nil {
 					out.RawString("null")
 				} else {
-					(*v54).MarshalEasyJSON(out)
+					(*v57).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -15148,17 +15180,17 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels88(in *jlexer.Lexer, ou
 					out.Photo = (out.Photo)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v55 *PhotoSize
+					var v58 *PhotoSize
 					if in.IsNull() {
 						in.Skip()
-						v55 = nil
+						v58 = nil
 					} else {
-						if v55 == nil {
-							v55 = new(PhotoSize)
+						if v58 == nil {
+							v58 = new(PhotoSize)
 						}
-						(*v55).UnmarshalEasyJSON(in)
+						(*v58).UnmarshalEasyJSON(in)
 					}
-					out.Photo = append(out.Photo, v55)
+					out.Photo = append(out.Photo, v58)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -15181,17 +15213,17 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels88(in *jlexer.Lexer, ou
 					out.TextEntities = (out.TextEntities)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v56 *MessageEntity
+					var v59 *MessageEntity
 					if in.IsNull() {
 						in.Skip()
-						v56 = nil
+						v59 = nil
 					} else {
-						if v56 == nil {
-							v56 = new(MessageEntity)
+						if v59 == nil {
+							v59 = new(MessageEntity)
 						}
-						(*v56).UnmarshalEasyJSON(in)
+						(*v59).UnmarshalEasyJSON(in)
 					}
-					out.TextEntities = append(out.TextEntities, v56)
+					out.TextEntities = append(out.TextEntities, v59)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -15256,14 +15288,14 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels88(out *jwriter.Writer,
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v57, v58 := range in.Photo {
-				if v57 > 0 {
+			for v60, v61 := range in.Photo {
+				if v60 > 0 {
 					out.RawByte(',')
 				}
-				if v58 == nil {
+				if v61 == nil {
 					out.RawString("null")
 				} else {
-					(*v58).MarshalEasyJSON(out)
+					(*v61).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -15291,14 +15323,14 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels88(out *jwriter.Writer,
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v59, v60 := range in.TextEntities {
-				if v59 > 0 {
+			for v62, v63 := range in.TextEntities {
+				if v62 > 0 {
 					out.RawByte(',')
 				}
-				if v60 == nil {
+				if v63 == nil {
 					out.RawString("null")
 				} else {
-					(*v60).MarshalEasyJSON(out)
+					(*v63).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -18140,17 +18172,17 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels108(in *jlexer.Lexer, o
 					out.ShippingOptions = (out.ShippingOptions)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v61 *ShippingOption
+					var v64 *ShippingOption
 					if in.IsNull() {
 						in.Skip()
-						v61 = nil
+						v64 = nil
 					} else {
-						if v61 == nil {
-							v61 = new(ShippingOption)
+						if v64 == nil {
+							v64 = new(ShippingOption)
 						}
-						(*v61).UnmarshalEasyJSON(in)
+						(*v64).UnmarshalEasyJSON(in)
 					}
-					out.ShippingOptions = append(out.ShippingOptions, v61)
+					out.ShippingOptions = append(out.ShippingOptions, v64)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -18215,14 +18247,14 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels108(out *jwriter.Writer
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v62, v63 := range in.ShippingOptions {
-				if v62 > 0 {
+			for v65, v66 := range in.ShippingOptions {
+				if v65 > 0 {
 					out.RawByte(',')
 				}
-				if v63 == nil {
+				if v66 == nil {
 					out.RawString("null")
 				} else {
-					(*v63).MarshalEasyJSON(out)
+					(*v66).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -18319,15 +18351,15 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels109(in *jlexer.Lexer, o
 					out.Results = (out.Results)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v64 interface{}
-					if m, ok := v64.(easyjson.Unmarshaler); ok {
+					var v67 interface{}
+					if m, ok := v67.(easyjson.Unmarshaler); ok {
 						m.UnmarshalEasyJSON(in)
-					} else if m, ok := v64.(json.Unmarshaler); ok {
+					} else if m, ok := v67.(json.Unmarshaler); ok {
 						_ = m.UnmarshalJSON(in.Raw())
 					} else {
-						v64 = in.Interface()
+						v67 = in.Interface()
 					}
-					out.Results = append(out.Results, v64)
+					out.Results = append(out.Results, v67)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -18406,16 +18438,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels109(out *jwriter.Writer
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v65, v66 := range in.Results {
-				if v65 > 0 {
+			for v68, v69 := range in.Results {
+				if v68 > 0 {
 					out.RawByte(',')
 				}
-				if m, ok := v66.(easyjson.Marshaler); ok {
+				if m, ok := v69.(easyjson.Marshaler); ok {
 					m.MarshalEasyJSON(out)
-				} else if m, ok := v66.(json.Marshaler); ok {
+				} else if m, ok := v69.(json.Marshaler); ok {
 					out.Raw(m.MarshalJSON())
 				} else {
-					out.Raw(json.Marshal(v66))
+					out.Raw(json.Marshal(v69))
 				}
 			}
 			out.RawByte(']')
