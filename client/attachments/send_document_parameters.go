@@ -71,6 +71,8 @@ type SendDocumentParams struct {
 	DisableNotification *bool
 	/*Document*/
 	Document runtime.NamedReadCloser
+	/*ParseMode*/
+	ParseMode *string
 	/*ReplyMarkup
 	  json string of reply_markup object
 
@@ -166,6 +168,17 @@ func (o *SendDocumentParams) SetDocument(document runtime.NamedReadCloser) {
 	o.Document = document
 }
 
+// WithParseMode adds the parseMode to the send document params
+func (o *SendDocumentParams) WithParseMode(parseMode *string) *SendDocumentParams {
+	o.SetParseMode(parseMode)
+	return o
+}
+
+// SetParseMode adds the parseMode to the send document params
+func (o *SendDocumentParams) SetParseMode(parseMode *string) {
+	o.ParseMode = parseMode
+}
+
 // WithReplyMarkup adds the replyMarkup to the send document params
 func (o *SendDocumentParams) WithReplyMarkup(replyMarkup *string) *SendDocumentParams {
 	o.SetReplyMarkup(replyMarkup)
@@ -251,6 +264,22 @@ func (o *SendDocumentParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 	// form file param document
 	if err := r.SetFileParam("document", o.Document); err != nil {
 		return err
+	}
+
+	if o.ParseMode != nil {
+
+		// form param parse_mode
+		var frParseMode string
+		if o.ParseMode != nil {
+			frParseMode = *o.ParseMode
+		}
+		fParseMode := frParseMode
+		if fParseMode != "" {
+			if err := r.SetFormParam("parse_mode", fParseMode); err != nil {
+				return err
+			}
+		}
+
 	}
 
 	if o.ReplyMarkup != nil {

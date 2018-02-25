@@ -69,6 +69,8 @@ type SendPhotoParams struct {
 	ChatID string
 	/*DisableNotification*/
 	DisableNotification *bool
+	/*ParseMode*/
+	ParseMode *string
 	/*Photo*/
 	Photo runtime.NamedReadCloser
 	/*ReplyMarkup
@@ -153,6 +155,17 @@ func (o *SendPhotoParams) WithDisableNotification(disableNotification *bool) *Se
 // SetDisableNotification adds the disableNotification to the send photo params
 func (o *SendPhotoParams) SetDisableNotification(disableNotification *bool) {
 	o.DisableNotification = disableNotification
+}
+
+// WithParseMode adds the parseMode to the send photo params
+func (o *SendPhotoParams) WithParseMode(parseMode *string) *SendPhotoParams {
+	o.SetParseMode(parseMode)
+	return o
+}
+
+// SetParseMode adds the parseMode to the send photo params
+func (o *SendPhotoParams) SetParseMode(parseMode *string) {
+	o.ParseMode = parseMode
 }
 
 // WithPhoto adds the photo to the send photo params
@@ -242,6 +255,22 @@ func (o *SendPhotoParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		fDisableNotification := swag.FormatBool(frDisableNotification)
 		if fDisableNotification != "" {
 			if err := r.SetFormParam("disable_notification", fDisableNotification); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.ParseMode != nil {
+
+		// form param parse_mode
+		var frParseMode string
+		if o.ParseMode != nil {
+			frParseMode = *o.ParseMode
+		}
+		fParseMode := frParseMode
+		if fParseMode != "" {
+			if err := r.SetFormParam("parse_mode", fParseMode); err != nil {
 				return err
 			}
 		}

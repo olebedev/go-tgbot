@@ -3,7 +3,7 @@ swagger: "2.0"
 info:
   description: |
     This is a swagger defenition for [Telegram bot API](https://core.telegram.org/bots/api).
-  version: "3.5"
+  version: "3.6"
   title: Telegram bot API
 externalDocs:
   description: Find out more about Telegram bot API
@@ -426,6 +426,11 @@ paths:
         required: false
         description: ""
       - in: formData
+        name: parse_mode
+        type: string
+        required: false
+        description: ""
+      - in: formData
         name: disable_notification
         type: boolean
         required: false
@@ -534,6 +539,11 @@ paths:
         description: ""
       - in: formData
         name: caption
+        type: string
+        required: false
+        description: ""
+      - in: formData
+        name: parse_mode
         type: string
         required: false
         description: ""
@@ -661,6 +671,11 @@ paths:
         description: ""
       - in: formData
         name: caption
+        type: string
+        required: false
+        description: ""
+      - in: formData
+        name: parse_mode
         type: string
         required: false
         description: ""
@@ -895,6 +910,11 @@ paths:
         description: ""
       - in: formData
         name: caption
+        type: string
+        required: false
+        description: ""
+      - in: formData
+        name: parse_mode
         type: string
         required: false
         description: ""
@@ -1167,6 +1187,11 @@ paths:
         description: ""
       - in: formData
         name: caption
+        type: string
+        required: false
+        description: ""
+      - in: formData
+        name: parse_mode
         type: string
         required: false
         description: ""
@@ -3712,6 +3737,8 @@ definitions:
         type: string
       author_signature:
         type: string
+      connected_website:
+        type: string
   MessageEntity:
     type: object
     properties:
@@ -4207,6 +4234,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       performer:
         type: string
       audio_duration:
@@ -4274,6 +4303,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       document_url:
         type: string
       mime_type:
@@ -4317,6 +4348,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       reply_markup:
         $ref: '#/definitions/InlineKeyboardMarkup'
       input_message_content:
@@ -4380,6 +4413,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       reply_markup:
         $ref: '#/definitions/InlineKeyboardMarkup'
       input_message_content:
@@ -4408,6 +4443,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       reply_markup:
         $ref: '#/definitions/InlineKeyboardMarkup'
       input_message_content:
@@ -4468,6 +4505,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       video_width:
         type: integer
       video_height:
@@ -4500,6 +4539,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       voice_duration:
         type: integer
       input_message_content:
@@ -4522,6 +4563,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       input_message_content:
         type: object
       reply_markup:
@@ -4543,6 +4586,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       input_message_content:
         type: object
       reply_markup:
@@ -4564,6 +4609,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       input_message_content:
         type: object
       reply_markup:
@@ -4585,6 +4632,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       input_message_content:
         type: object
       reply_markup:
@@ -4608,6 +4657,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       input_message_content:
         type: object
       reply_markup:
@@ -4648,6 +4699,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       input_message_content:
         type: object
       reply_markup:
@@ -4669,6 +4722,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: '#/definitions/ParseMode'
       input_message_content:
         type: object
       reply_markup:
@@ -5032,6 +5087,8 @@ definitions:
         type: string
       caption:
         type: string
+      parse_mode:
+        $ref: "#/definitions/ParseMode"
       reply_markup:
         $ref: '#/definitions/InlineKeyboardMarkup'
   EditMessageReplyMarkupBody:
@@ -5450,6 +5507,8 @@ definitions:
         x-nullable: false
       caption:
         type: string
+      parse_mode:
+        $ref: "#/definitions/ParseMode"
   InputMediaVideo:
     type: object
     required:
@@ -5470,6 +5529,10 @@ definitions:
         type: integer
       duration:
         type: integer
+      parse_mode:
+        $ref: "#/definitions/ParseMode"
+      supports_streaming:
+        type: boolean
   SendMediaGroupLinkBody:
     type: object
     required:

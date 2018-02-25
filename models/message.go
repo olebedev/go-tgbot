@@ -34,6 +34,9 @@ type Message struct {
 	// chat
 	Chat *Chat `json:"chat,omitempty"`
 
+	// connected website
+	ConnectedWebsite string `json:"connected_website,omitempty"`
+
 	// contact
 	Contact *Contact `json:"contact,omitempty"`
 

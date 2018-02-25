@@ -73,6 +73,8 @@ type SendVideoParams struct {
 	Duration *int64
 	/*Height*/
 	Height *int64
+	/*ParseMode*/
+	ParseMode *string
 	/*ReplyMarkup
 	  json string of reply_markup object
 
@@ -181,6 +183,17 @@ func (o *SendVideoParams) WithHeight(height *int64) *SendVideoParams {
 // SetHeight adds the height to the send video params
 func (o *SendVideoParams) SetHeight(height *int64) {
 	o.Height = height
+}
+
+// WithParseMode adds the parseMode to the send video params
+func (o *SendVideoParams) WithParseMode(parseMode *string) *SendVideoParams {
+	o.SetParseMode(parseMode)
+	return o
+}
+
+// SetParseMode adds the parseMode to the send video params
+func (o *SendVideoParams) SetParseMode(parseMode *string) {
+	o.ParseMode = parseMode
 }
 
 // WithReplyMarkup adds the replyMarkup to the send video params
@@ -313,6 +326,22 @@ func (o *SendVideoParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		fHeight := swag.FormatInt64(frHeight)
 		if fHeight != "" {
 			if err := r.SetFormParam("height", fHeight); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.ParseMode != nil {
+
+		// form param parse_mode
+		var frParseMode string
+		if o.ParseMode != nil {
+			frParseMode = *o.ParseMode
+		}
+		fParseMode := frParseMode
+		if fParseMode != "" {
+			if err := r.SetFormParam("parse_mode", fParseMode); err != nil {
 				return err
 			}
 		}

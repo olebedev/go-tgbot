@@ -6943,6 +6943,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels42(in *jlexer.Lexer, ou
 				}
 				(*out.Chat).UnmarshalEasyJSON(in)
 			}
+		case "connected_website":
+			out.ConnectedWebsite = string(in.String())
 		case "contact":
 			if in.IsNull() {
 				in.Skip()
@@ -7351,6 +7353,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels42(out *jwriter.Writer,
 			out.RawString(prefix)
 		}
 		(*in.Chat).MarshalEasyJSON(out)
+	}
+	if in.ConnectedWebsite != "" {
+		const prefix string = ",\"connected_website\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ConnectedWebsite))
 	}
 	if in.Contact != nil {
 		const prefix string = ",\"contact\":"
@@ -8566,6 +8578,10 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels50(in *jlexer.Lexer, ou
 			out.Height = int64(in.Int64())
 		case "media":
 			out.Media = string(in.String())
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
+		case "supports_streaming":
+			out.SupportsStreaming = bool(in.Bool())
 		case "type":
 			out.Type = string(in.String())
 		case "width":
@@ -8623,6 +8639,26 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels50(out *jwriter.Writer,
 			out.RawString(prefix)
 		}
 		out.String(string(in.Media))
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
+	}
+	if in.SupportsStreaming {
+		const prefix string = ",\"supports_streaming\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.Bool(bool(in.SupportsStreaming))
 	}
 	{
 		const prefix string = ",\"type\":"
@@ -8693,6 +8729,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels51(in *jlexer.Lexer, ou
 			out.Caption = string(in.String())
 		case "media":
 			out.Media = string(in.String())
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "type":
 			out.Type = string(in.String())
 		default:
@@ -8728,6 +8766,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels51(out *jwriter.Writer,
 			out.RawString(prefix)
 		}
 		out.String(string(in.Media))
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	{
 		const prefix string = ",\"type\":"
@@ -9042,6 +9090,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels54(in *jlexer.Lexer, ou
 			} else {
 				out.InputMessageContent = in.Interface()
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -9129,6 +9179,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels54(out *jwriter.Writer,
 		} else {
 			out.Raw(json.Marshal(in.InputMessageContent))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"
@@ -9265,6 +9325,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels55(in *jlexer.Lexer, ou
 				}
 				*out.MimeType = string(in.String())
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -9390,6 +9452,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels55(out *jwriter.Writer,
 		} else {
 			out.String(string(*in.MimeType))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"
@@ -9831,6 +9903,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels57(in *jlexer.Lexer, ou
 			} else {
 				out.InputMessageContent = in.Interface()
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "photo_height":
 			out.PhotoHeight = int64(in.Int64())
 		case "photo_url":
@@ -9922,6 +9996,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels57(out *jwriter.Writer,
 		} else {
 			out.Raw(json.Marshal(in.InputMessageContent))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.PhotoHeight != 0 {
 		const prefix string = ",\"photo_height\":"
@@ -10082,6 +10166,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels58(in *jlexer.Lexer, ou
 			}
 		case "mpeg4_width":
 			out.Mpeg4Width = int64(in.Int64())
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -10203,6 +10289,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels58(out *jwriter.Writer,
 			out.RawString(prefix)
 		}
 		out.Int64(int64(in.Mpeg4Width))
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"
@@ -10588,6 +10684,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels60(in *jlexer.Lexer, ou
 			} else {
 				out.InputMessageContent = in.Interface()
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -10709,6 +10807,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels60(out *jwriter.Writer,
 		} else {
 			out.Raw(json.Marshal(in.InputMessageContent))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"
@@ -10980,6 +11088,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels62(in *jlexer.Lexer, ou
 				}
 				*out.MimeType = string(in.String())
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -11099,6 +11209,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels62(out *jwriter.Writer,
 		} else {
 			out.String(string(*in.MimeType))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"
@@ -11464,6 +11584,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels64(in *jlexer.Lexer, ou
 			} else {
 				out.InputMessageContent = in.Interface()
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -11541,6 +11663,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels64(out *jwriter.Writer,
 		} else {
 			out.Raw(json.Marshal(in.InputMessageContent))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"
@@ -11653,6 +11785,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels65(in *jlexer.Lexer, ou
 			} else {
 				out.InputMessageContent = in.Interface()
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -11740,6 +11874,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels65(out *jwriter.Writer,
 		} else {
 			out.Raw(json.Marshal(in.InputMessageContent))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"
@@ -12015,6 +12159,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels67(in *jlexer.Lexer, ou
 			} else {
 				out.InputMessageContent = in.Interface()
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "photo_file_id":
 			if in.IsNull() {
 				in.Skip()
@@ -12102,6 +12248,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels67(out *jwriter.Writer,
 		} else {
 			out.Raw(json.Marshal(in.InputMessageContent))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	{
 		const prefix string = ",\"photo_file_id\":"
@@ -12222,6 +12378,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels68(in *jlexer.Lexer, ou
 				}
 				*out.Mpeg4FileID = string(in.String())
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -12303,6 +12461,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels68(out *jwriter.Writer,
 		} else {
 			out.String(string(*in.Mpeg4FileID))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"
@@ -12409,6 +12577,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels69(in *jlexer.Lexer, ou
 			} else {
 				out.InputMessageContent = in.Interface()
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -12490,6 +12660,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels69(out *jwriter.Writer,
 		} else {
 			out.Raw(json.Marshal(in.InputMessageContent))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"
@@ -12598,6 +12778,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels70(in *jlexer.Lexer, ou
 			} else {
 				out.InputMessageContent = in.Interface()
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -12687,6 +12869,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels70(out *jwriter.Writer,
 		} else {
 			out.Raw(json.Marshal(in.InputMessageContent))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"
@@ -12783,6 +12975,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels71(in *jlexer.Lexer, ou
 			} else {
 				out.InputMessageContent = in.Interface()
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -12862,6 +13056,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels71(out *jwriter.Writer,
 		} else {
 			out.Raw(json.Marshal(in.InputMessageContent))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"
@@ -12960,6 +13164,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels72(in *jlexer.Lexer, ou
 			} else {
 				out.InputMessageContent = in.Interface()
 			}
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "performer":
 			out.Performer = string(in.String())
 		case "reply_markup":
@@ -13061,6 +13267,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels72(out *jwriter.Writer,
 		} else {
 			out.Raw(json.Marshal(in.InputMessageContent))
 		}
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.Performer != "" {
 		const prefix string = ",\"performer\":"
@@ -16520,6 +16736,8 @@ func easyjsonD2b7633eDecodeGithubComOlebedevGoTgbotModels98(in *jlexer.Lexer, ou
 			out.InlineMessageID = string(in.String())
 		case "message_id":
 			out.MessageID = int64(in.Int64())
+		case "parse_mode":
+			out.ParseMode = ParseMode(in.String())
 		case "reply_markup":
 			if in.IsNull() {
 				in.Skip()
@@ -16589,6 +16807,16 @@ func easyjsonD2b7633eEncodeGithubComOlebedevGoTgbotModels98(out *jwriter.Writer,
 			out.RawString(prefix)
 		}
 		out.Int64(int64(in.MessageID))
+	}
+	if in.ParseMode != "" {
+		const prefix string = ",\"parse_mode\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ParseMode))
 	}
 	if in.ReplyMarkup != nil {
 		const prefix string = ",\"reply_markup\":"

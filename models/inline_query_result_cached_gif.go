@@ -31,6 +31,9 @@ type InlineQueryResultCachedGif struct {
 	// input message content
 	InputMessageContent interface{} `json:"input_message_content,omitempty"`
 
+	// parse mode
+	ParseMode ParseMode `json:"parse_mode,omitempty"`
+
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
 
@@ -52,6 +55,11 @@ func (m *InlineQueryResultCachedGif) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateID(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateParseMode(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -84,6 +92,22 @@ func (m *InlineQueryResultCachedGif) validateGifFileID(formats strfmt.Registry) 
 func (m *InlineQueryResultCachedGif) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *InlineQueryResultCachedGif) validateParseMode(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ParseMode) { // not required
+		return nil
+	}
+
+	if err := m.ParseMode.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("parse_mode")
+		}
 		return err
 	}
 

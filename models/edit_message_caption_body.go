@@ -28,6 +28,9 @@ type EditMessageCaptionBody struct {
 	// message id
 	MessageID int64 `json:"message_id,omitempty"`
 
+	// parse mode
+	ParseMode ParseMode `json:"parse_mode,omitempty"`
+
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
 }
@@ -35,6 +38,11 @@ type EditMessageCaptionBody struct {
 // Validate validates this edit message caption body
 func (m *EditMessageCaptionBody) Validate(formats strfmt.Registry) error {
 	var res []error
+
+	if err := m.validateParseMode(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
 
 	if err := m.validateReplyMarkup(formats); err != nil {
 		// prop
@@ -44,6 +52,22 @@ func (m *EditMessageCaptionBody) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *EditMessageCaptionBody) validateParseMode(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ParseMode) { // not required
+		return nil
+	}
+
+	if err := m.ParseMode.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("parse_mode")
+		}
+		return err
+	}
+
 	return nil
 }
 

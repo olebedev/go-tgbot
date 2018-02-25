@@ -24,6 +24,9 @@ type InputMediaPhoto struct {
 	// Required: true
 	Media string `json:"media"`
 
+	// parse mode
+	ParseMode ParseMode `json:"parse_mode,omitempty"`
+
 	// type
 	// Required: true
 	Type string `json:"type"`
@@ -34,6 +37,11 @@ func (m *InputMediaPhoto) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateMedia(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateParseMode(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -52,6 +60,22 @@ func (m *InputMediaPhoto) Validate(formats strfmt.Registry) error {
 func (m *InputMediaPhoto) validateMedia(formats strfmt.Registry) error {
 
 	if err := validate.RequiredString("media", "body", string(m.Media)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *InputMediaPhoto) validateParseMode(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ParseMode) { // not required
+		return nil
+	}
+
+	if err := m.ParseMode.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("parse_mode")
+		}
 		return err
 	}
 

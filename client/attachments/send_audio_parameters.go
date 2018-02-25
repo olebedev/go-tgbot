@@ -73,6 +73,8 @@ type SendAudioParams struct {
 	DisableNotification *bool
 	/*Duration*/
 	Duration *int64
+	/*ParseMode*/
+	ParseMode *string
 	/*Performer*/
 	Performer *string
 	/*ReplyMarkup
@@ -181,6 +183,17 @@ func (o *SendAudioParams) WithDuration(duration *int64) *SendAudioParams {
 // SetDuration adds the duration to the send audio params
 func (o *SendAudioParams) SetDuration(duration *int64) {
 	o.Duration = duration
+}
+
+// WithParseMode adds the parseMode to the send audio params
+func (o *SendAudioParams) WithParseMode(parseMode *string) *SendAudioParams {
+	o.SetParseMode(parseMode)
+	return o
+}
+
+// SetParseMode adds the parseMode to the send audio params
+func (o *SendAudioParams) SetParseMode(parseMode *string) {
+	o.ParseMode = parseMode
 }
 
 // WithPerformer adds the performer to the send audio params
@@ -302,6 +315,22 @@ func (o *SendAudioParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		fDuration := swag.FormatInt64(frDuration)
 		if fDuration != "" {
 			if err := r.SetFormParam("duration", fDuration); err != nil {
+				return err
+			}
+		}
+
+	}
+
+	if o.ParseMode != nil {
+
+		// form param parse_mode
+		var frParseMode string
+		if o.ParseMode != nil {
+			frParseMode = *o.ParseMode
+		}
+		fParseMode := frParseMode
+		if fParseMode != "" {
+			if err := r.SetFormParam("parse_mode", fParseMode); err != nil {
 				return err
 			}
 		}

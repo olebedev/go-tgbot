@@ -34,6 +34,9 @@ type InlineQueryResultVideo struct {
 	// Required: true
 	MimeType *string `json:"mime_type"`
 
+	// parse mode
+	ParseMode ParseMode `json:"parse_mode,omitempty"`
+
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
 
@@ -73,6 +76,11 @@ func (m *InlineQueryResultVideo) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMimeType(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateParseMode(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -120,6 +128,22 @@ func (m *InlineQueryResultVideo) validateID(formats strfmt.Registry) error {
 func (m *InlineQueryResultVideo) validateMimeType(formats strfmt.Registry) error {
 
 	if err := validate.Required("mime_type", "body", m.MimeType); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *InlineQueryResultVideo) validateParseMode(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ParseMode) { // not required
+		return nil
+	}
+
+	if err := m.ParseMode.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("parse_mode")
+		}
 		return err
 	}
 

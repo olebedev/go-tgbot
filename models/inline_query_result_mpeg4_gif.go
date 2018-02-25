@@ -40,6 +40,9 @@ type InlineQueryResultMpeg4Gif struct {
 	// mpeg4 width
 	Mpeg4Width int64 `json:"mpeg4_width,omitempty"`
 
+	// parse mode
+	ParseMode ParseMode `json:"parse_mode,omitempty"`
+
 	// reply markup
 	ReplyMarkup *InlineKeyboardMarkup `json:"reply_markup,omitempty"`
 
@@ -65,6 +68,11 @@ func (m *InlineQueryResultMpeg4Gif) Validate(formats strfmt.Registry) error {
 	}
 
 	if err := m.validateMpeg4URL(formats); err != nil {
+		// prop
+		res = append(res, err)
+	}
+
+	if err := m.validateParseMode(formats); err != nil {
 		// prop
 		res = append(res, err)
 	}
@@ -102,6 +110,22 @@ func (m *InlineQueryResultMpeg4Gif) validateID(formats strfmt.Registry) error {
 func (m *InlineQueryResultMpeg4Gif) validateMpeg4URL(formats strfmt.Registry) error {
 
 	if err := validate.Required("mpeg4_url", "body", m.Mpeg4URL); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *InlineQueryResultMpeg4Gif) validateParseMode(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ParseMode) { // not required
+		return nil
+	}
+
+	if err := m.ParseMode.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("parse_mode")
+		}
 		return err
 	}
 
