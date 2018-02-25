@@ -14,9 +14,10 @@ import (
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	cr "github.com/go-openapi/runtime/client"
-	"github.com/go-openapi/swag"
 
 	strfmt "github.com/go-openapi/strfmt"
+
+	"github.com/olebedev/go-tgbot/models"
 )
 
 // NewAnswerCallbackQueryParams creates a new AnswerCallbackQueryParams object
@@ -63,21 +64,13 @@ for the answer callback query operation typically these are written to a http.Re
 */
 type AnswerCallbackQueryParams struct {
 
-	/*CacheTime*/
-	CacheTime int64
-	/*CallbackQueryID*/
-	CallbackQueryID string
-	/*ShowAlert*/
-	ShowAlert bool
-	/*Text*/
-	Text string
+	/*Body*/
+	Body *models.AnswerCallbackQueryBody
 	/*Token
 	  bot's token to authorize the request
 
 	*/
 	Token *string
-	/*URL*/
-	URL string
 
 	timeout    time.Duration
 	Context    context.Context
@@ -117,48 +110,15 @@ func (o *AnswerCallbackQueryParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
-// WithCacheTime adds the cacheTime to the answer callback query params
-func (o *AnswerCallbackQueryParams) WithCacheTime(cacheTime int64) *AnswerCallbackQueryParams {
-	o.SetCacheTime(cacheTime)
+// WithBody adds the body to the answer callback query params
+func (o *AnswerCallbackQueryParams) WithBody(body *models.AnswerCallbackQueryBody) *AnswerCallbackQueryParams {
+	o.SetBody(body)
 	return o
 }
 
-// SetCacheTime adds the cacheTime to the answer callback query params
-func (o *AnswerCallbackQueryParams) SetCacheTime(cacheTime int64) {
-	o.CacheTime = cacheTime
-}
-
-// WithCallbackQueryID adds the callbackQueryID to the answer callback query params
-func (o *AnswerCallbackQueryParams) WithCallbackQueryID(callbackQueryID string) *AnswerCallbackQueryParams {
-	o.SetCallbackQueryID(callbackQueryID)
-	return o
-}
-
-// SetCallbackQueryID adds the callbackQueryId to the answer callback query params
-func (o *AnswerCallbackQueryParams) SetCallbackQueryID(callbackQueryID string) {
-	o.CallbackQueryID = callbackQueryID
-}
-
-// WithShowAlert adds the showAlert to the answer callback query params
-func (o *AnswerCallbackQueryParams) WithShowAlert(showAlert bool) *AnswerCallbackQueryParams {
-	o.SetShowAlert(showAlert)
-	return o
-}
-
-// SetShowAlert adds the showAlert to the answer callback query params
-func (o *AnswerCallbackQueryParams) SetShowAlert(showAlert bool) {
-	o.ShowAlert = showAlert
-}
-
-// WithText adds the text to the answer callback query params
-func (o *AnswerCallbackQueryParams) WithText(text string) *AnswerCallbackQueryParams {
-	o.SetText(text)
-	return o
-}
-
-// SetText adds the text to the answer callback query params
-func (o *AnswerCallbackQueryParams) SetText(text string) {
-	o.Text = text
+// SetBody adds the body to the answer callback query params
+func (o *AnswerCallbackQueryParams) SetBody(body *models.AnswerCallbackQueryBody) {
+	o.Body = body
 }
 
 // WithToken adds the token to the answer callback query params
@@ -172,17 +132,6 @@ func (o *AnswerCallbackQueryParams) SetToken(token *string) {
 	o.Token = token
 }
 
-// WithURL adds the url to the answer callback query params
-func (o *AnswerCallbackQueryParams) WithURL(url string) *AnswerCallbackQueryParams {
-	o.SetURL(url)
-	return o
-}
-
-// SetURL adds the url to the answer callback query params
-func (o *AnswerCallbackQueryParams) SetURL(url string) {
-	o.URL = url
-}
-
 // WriteToRequest writes these params to a swagger request
 func (o *AnswerCallbackQueryParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -191,38 +140,8 @@ func (o *AnswerCallbackQueryParams) WriteToRequest(r runtime.ClientRequest, reg 
 	}
 	var res []error
 
-	// form param cache_time
-	frCacheTime := o.CacheTime
-	fCacheTime := swag.FormatInt64(frCacheTime)
-	if fCacheTime != "" {
-		if err := r.SetFormParam("cache_time", fCacheTime); err != nil {
-			return err
-		}
-	}
-
-	// form param callback_query_id
-	frCallbackQueryID := o.CallbackQueryID
-	fCallbackQueryID := frCallbackQueryID
-	if fCallbackQueryID != "" {
-		if err := r.SetFormParam("callback_query_id", fCallbackQueryID); err != nil {
-			return err
-		}
-	}
-
-	// form param show_alert
-	frShowAlert := o.ShowAlert
-	fShowAlert := swag.FormatBool(frShowAlert)
-	if fShowAlert != "" {
-		if err := r.SetFormParam("show_alert", fShowAlert); err != nil {
-			return err
-		}
-	}
-
-	// form param text
-	frText := o.Text
-	fText := frText
-	if fText != "" {
-		if err := r.SetFormParam("text", fText); err != nil {
+	if o.Body != nil {
+		if err := r.SetBodyParam(o.Body); err != nil {
 			return err
 		}
 	}
@@ -234,15 +153,6 @@ func (o *AnswerCallbackQueryParams) WriteToRequest(r runtime.ClientRequest, reg 
 			return err
 		}
 
-	}
-
-	// form param url
-	frURL := o.URL
-	fURL := frURL
-	if fURL != "" {
-		if err := r.SetFormParam("url", fURL); err != nil {
-			return err
-		}
 	}
 
 	if len(res) > 0 {

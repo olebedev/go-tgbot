@@ -2496,35 +2496,14 @@ paths:
     post:
       tags:
       - callbacks
-      consumes:
-      - application/x-www-form-urlencoded
       description: ""
       operationId: answerCallbackQuery
       parameters:
       - $ref: '#/parameters/token'
-      - in: formData
-        name: callback_query_id
-        type: string
-        required: true
-        description: ""
-      - in: formData
-        name: text
-        type: string
-        required: true
-        description: ""
-      - in: formData
-        name: show_alert
-        type: boolean
-        required: true
-        description: ""
-      - in: formData
-        name: url
-        type: string
-        required: true
-        description: ""
-      - in: formData
-        name: cache_time
-        type: integer
+      - in: body
+        name: body
+        schema:
+          $ref: "#/definitions/AnswerCallbackQueryBody"
         required: true
         description: ""
       responses:
@@ -5521,3 +5500,16 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/AllowedUpdate'
+  AnswerCallbackQueryBody:
+    type: object
+    properties:
+      callback_query_id:
+        type: string
+      text:
+        type: string
+      show_alert:
+        type: boolean
+      url:
+        type: string
+      cache_time:
+        type: integer
