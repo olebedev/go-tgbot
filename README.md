@@ -46,7 +46,6 @@ func main() {
 	ctx, cancel = context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
 
-	t := "<overwrite default token>"
 	_, err := api.Users.GetMe(
 		users.NewGetMeParams().
 			WithContext(ctx),
