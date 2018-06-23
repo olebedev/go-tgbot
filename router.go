@@ -29,15 +29,15 @@ type Router struct {
 }
 
 type Error struct {
-	message string
-	code    uint16
+	Message string
+	Code    uint16
 }
 
 func (e Error) Error() string {
-	if e.code != 0 {
-		return fmt.Sprintf("%d: %s", e.code, e.message)
+	if e.Code != 0 {
+		return fmt.Sprintf("%d: %s", e.Code, e.Message)
 	}
-	return e.message
+	return e.Message
 }
 
 // New returns a router.
@@ -258,8 +258,8 @@ func (r *Router) routeMiddleware(c *Context) error {
 	}
 
 	return &Error{
-		message: fmt.Sprintf("missed handler for '%s'", c.Path),
-		code:    404,
+		Message: fmt.Sprintf("missed handler for '%s'", c.Path),
+		Code:    404,
 	}
 }
 
