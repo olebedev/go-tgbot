@@ -50,7 +50,7 @@ func Logger(out io.Writer) func(*Context) error {
 
 		white.Fprintf(out, "\n%"+indent+"v └── ", "")
 		if err != nil {
-			if e, ok := err.(*Error); ok && e.code == 404 {
+			if e, ok := err.(*Error); ok && e.Code == 404 {
 				yellow.Fprint(out, err)
 			} else {
 				red.Fprint(out, err)
